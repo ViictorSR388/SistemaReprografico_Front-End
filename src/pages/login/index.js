@@ -1,9 +1,15 @@
 import React from 'react';
 import '../../styles/login.scss';
 
+import Header from "../../components/header";
+import SideBar from "../../components/sidebar";
+
 const login = () => {
     return(
-      <form action="/" method="POST">
+      <div>
+      <Header />
+      <SideBar />
+      {/* <form action="/" method="POST">
       <div className="container">
         <h2 id="h2" className="input-field first">Login</h2>
         <input className="text input-field second" name="emailUser" type="email" placeholder="Email" required />
@@ -12,7 +18,8 @@ const login = () => {
         <a href="http://127.0.0.1:5500/registro.html" className="input-field fourth" id="register">Registrar</a>
         <button className="new-senha" onclick="newSenha()"><a className="input-field fourth" href="#">Esqueceu a senha?</a></button>
       </div>
-    </form>
+    </form> */}
+      </div>
     );
 }
 
