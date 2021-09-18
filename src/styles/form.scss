@@ -1,0 +1,295 @@
+@import '_global';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 15%;
+  left: 34%;
+  background-color: $white;
+  font-size: 1.8rem;
+
+  h1 {
+    background-color: $grey-button;
+    color: $white;
+    font-size: 2.5rem;
+    height: 3rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .date {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: $grey;
+
+    label {
+      margin-right: 1rem;
+      background-color: $grey-button;
+      padding: 0.5rem;
+      border-radius: 8px;
+      color: $white;
+      cursor: pointer;
+    }
+
+    input {
+      margin-right: 1rem;
+    }
+
+    .date-request {
+      margin-left: 1rem;
+    }
+  }
+
+  .course {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+    margin-top: -1rem;
+    background-color: $grey;
+
+    span {
+      margin-left: 1rem;
+      background-color: $grey-button;
+      color: $white;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .course-label {
+      margin: 0 3rem;
+    }
+
+    #cai {
+      margin-left: -2rem;
+    }
+
+    #ct {
+      margin-left: -2rem;
+    }
+
+    #fc {
+      margin-left: -2rem;
+    }
+
+    #cst {
+      margin-left: -2rem;
+      margin-right: 9.5rem;
+    }
+
+    .pos {
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+
+    #pos {
+      &.input-pos {
+        width: 20rem;
+        height: 2rem;
+      }
+    }
+  }
+
+  main {
+    width: 100%;
+    text-align: center;
+    background-color: $grey;
+    word-break: break-all;
+    height: 55rem;
+
+    h3 {
+      margin: 1.5rem 0;
+      font-size: 2.2rem;
+    }
+
+    .title-repro {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.8rem;
+
+      #title-repo {
+        width: 70rem;
+        height: 2rem;
+      }
+
+      label {
+        background-color: $grey-button;
+        padding: 0.5rem;
+        border-radius: 8px;
+        color: white;
+        margin-right: 1rem;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+
+    .item-page {
+      margin-left: -8.5rem;
+      margin-top: 1rem;
+
+      label {
+        background-color: $grey-button;
+        color: $white;
+        padding: 0.5rem;
+        border-radius: 8px;
+        margin-right: 1rem;
+        cursor: pointer;
+      }
+
+      input {
+        margin-right: 1rem;
+      }
+    }
+
+    .paper-150 {
+      margin-top: 1.5rem;
+    }
+
+    #attachment {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #attachment-late {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #spiral-binding {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #front-cover {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #paper {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #staple {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #black-white {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #front-back {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #only-front {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #cut-half {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+  
+    #a3 {
+      margin-right: 2rem;
+  
+    }
+  
+    #a4 {
+      margin-right: 2rem;
+    }
+  
+    .a3 {
+      margin-right: 0.5rem;
+    }
+  
+    .a4 {
+      margin-right: 0.5rem;
+    }
+  
+    .a5 {
+      margin-right: 0.5rem;
+    }
+  
+    .support {
+      margin-right: 0.5rem;
+    } 
+  
+    #zipdrive {
+      margin-right: 2rem;
+    }
+  
+    #spt-paper {
+      margin-right: 2rem;
+    }
+  
+    #cd {
+      margin-right: 2rem;
+    }
+  
+    #e-mail {
+      margin-right: 2rem;
+    }
+  
+    .support-others {
+      margin-right: 0.5rem;
+    }
+  
+    .btn-attached {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+  
+    .btn {
+      padding: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      background-color: $grey-button;
+      color: $white;
+      font-size: 1.6rem;
+      transition: .5s;
+
+      &.btn:hover {
+        background-color: $white;
+        color: $grey-button;
+      }
+    }
+  }
+
+  .btns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+
+    .btn {
+      padding: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      background-color: $grey-button;
+      color: $white;
+      font-size: 1.6rem;
+      transition: .5s;
+
+      &.btn:hover {
+        background-color: $grey;
+        color: black;
+      }
+    }
+  }
+}
+

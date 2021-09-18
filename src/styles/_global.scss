@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Roboto:wght@400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
+  border: none;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+$white: #ffffff;
+$grey: #C4C4C4;
+$red: #fb0404;
+$blue: #4895EF;
+$grey-button:#212529;
+
+h1,h2,h3 {
+  font-family: "Open-Sans", sans-serif;
+}
