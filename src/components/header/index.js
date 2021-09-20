@@ -10,9 +10,9 @@ const Header = () => {
         <header>
             <img className="logo" src="assets/img/logo.jpg"></img>
             <div className="icons">
-                <FaHome className="icon"/>
+                 <FaHome className="icon"/>
                 <FaUserAlt className="icon"/>
-                <FaSignOutAlt className="icon"/>
+                <FaSignOutAlt className="icon"/> 
             </div>
         </header>
     );
