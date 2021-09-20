@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/review.scss';
 
 import Header from "../../components/header";
-import SideBar from "../../components/sidebar";
+import SideBarColaborador from "../../components/sidebarColaborador";
 
 const review = () => {
     return(
@@ -15,7 +15,7 @@ const review = () => {
        <div id="main-container">
           
 
-          <SideBar/>
+          <SideBarColaborador/>
 
           <div id="review-container">
             <div id="review-title">
