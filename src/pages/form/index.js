@@ -5,13 +5,13 @@ import { FaFileImport } from 'react-icons/fa';
 import { FaPrint } from 'react-icons/fa';
 
 import Header from '../../components/header';
-import Sidebar from '../../components/sidebar';
+import SidebarColaborador from '../../components/sidebarColaborador';
 
 const Form = () => {
   return (
     <div>
       <Header />
-      <Sidebar />
+      <SidebarColaborador />
       <div className="container">
         <h1>Solicitação de reprografia</h1>
         <div className="date">
