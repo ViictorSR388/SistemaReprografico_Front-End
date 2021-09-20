@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.scss";
 
 
-const SideBar = () => {
+const SideBarColaborador = () => {
     return(
         <div className="sidebar">
             <div className="circle">
@@ -17,4 +17,4 @@ const SideBar = () => {
     );
 }
 
-export default SideBar;
+export default SideBarColaborador;
