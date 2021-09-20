@@ -1,17 +1,16 @@
 import React from 'react';
-import '../../styles/requestFormC.scss';
 
 import { FaFileImport } from 'react-icons/fa';
 import { FaPrint } from 'react-icons/fa';
 
 import Header from '../../components/header';
-import SidebarColaborador from '../../components/sidebarColaborador';
+import SidebarGerencia from '../../components/sidebarGerencia';
 
-const FormColaborador = () => {
+const FormGerencia = () => {
   return (
     <div>
       <Header />
-      <SidebarColaborador />
+      <SidebarGerencia />
       <div className="container">
         <h1>Solicitação de reprografia</h1>
         <div className="date">
@@ -155,4 +154,4 @@ const FormColaborador = () => {
   );
 };
 
-export default FormColaborador;
+export default FormGerencia;
