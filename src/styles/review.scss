@@ -53,28 +53,35 @@ align-items: center;
 }
 
 
-#feedback-checkbox{
+#feedback-radio{
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 80rem;
     height: 4rem;
     background-color:  #00000075;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 200;
 }
 
-.checkbox{
+.radio{
     
     width: 17rem;
     display: flex;
+    color: aliceblue;
     justify-content: space-evenly;
     align-items: center;
 }
 
+div#container-label{
+    
+    width: 12rem;
+    text-align: center;
+}
+
 .checkbox-avaliacao{
-    width: 1.9rem;
-    height: 10rem;
+    width: 1.5rem;
+    height: 5rem;
 }
 
 #feedback-text{

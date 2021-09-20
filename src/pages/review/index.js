@@ -23,21 +23,26 @@ const review = () => {
             </div>
 
             <div id="review-content">
-              <div id="feedback-checkbox">
+             
+              <div id="feedback-radio">
                 
-                <div className="checkbox">
+                <div className="radio">
                   <label for="nao-atendeu">Não Atendeu</label>
-                  <input type="checkbox" name="nao-atendeu" id="nao-atendeu" className="checkbox-avaliacao"/>
+                  <input type="radio" name="radio-option" id="nao-atendeu" className="checkbox-avaliacao" value="Não Atendeu"/>
                 </div>
 
-                <div className="checkbox">
-                  <label for="atendeu">Atendeu</label>
-                  <input type="checkbox" name="atendeu" id="atendeu" className="checkbox-avaliacao"/>
+                <div className="radio">
+                  
+                  <div id="container-label" >
+
+                    <label for="atendeu">Atendeu Parcialmente</label>
+                  </div>
+                  <input type="radio" name="radio-option" id="atendeu" className="checkbox-avaliacao" value= "Atendeu"/>
                 </div>
 
-                <div className="checkbox">
-                  <label for="superou">Superou</label>
-                  <input type="checkbox" name="superou" id="superou" className="checkbox-avaliacao"/>
+                <div className="radio">
+                  <label for="superou">Atendeu</label>
+                  <input type="radio" name="radio-option" id="superou" className="checkbox-avaliacao" value="Superou"/>
                 </div>
 
               </div>
