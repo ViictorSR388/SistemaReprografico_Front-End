@@ -1,8 +1,8 @@
 @import "../../styles/global";
 
 .sidebar {
-    width: 28rem;
-    height: 93vh;
+    width: 15vw;
+    height: 100vh;
     background-color: $red;
     display: flex;
     align-items: center;
@@ -12,7 +12,7 @@
 .circle {
     width: 25rem;
     height: 25rem;
-    margin-top: -0.0rem;
+    margin-top: 5.5rem;
     position: relative;
     left: 13rem;
     background-color: $white;
