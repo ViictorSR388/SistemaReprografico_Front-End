@@ -1,18 +1,20 @@
 import React from 'react';
 import '../../styles/requestFormC.scss';
+import Navbar from '../../components/sidebar';
+
+import Header from '../../components/header';
+import SideBarColaborador from '../../components/sidebarColaborador';
 
 import { FaFileImport } from 'react-icons/fa';
 import { FaPrint } from 'react-icons/fa';
 
-import Header from '../../components/header';
-import SidebarColaborador from '../../components/sidebarColaborador';
-
-const FormColaborador = () => {
+function FormColaborador() {
   return (
-    <div>
+    <>
+      <Navbar />
+      <SideBarColaborador />
       <Header />
-      <SidebarColaborador />
-      <div className="container">
+      {/* <div className="container-requestC">
         <h1>Solicitação de reprografia</h1>
         <div className="date">
           <label className="date-request" htmlFor="date-request">
@@ -150,8 +152,8 @@ const FormColaborador = () => {
             Solicitar <FaPrint />
           </button>
         </div>
-      </div>
-    </div>
+      </div> */}
+    </>
   );
 };
 

@@ -1,11 +1,10 @@
-@import "./global";
+@import './global';
 
-.container {
+.container-requestC {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: absolute;
   width: 120rem;
   top: 13%;
   left: 25%;
@@ -104,6 +103,15 @@
         height: 2rem;
       }
     }
+
+    input[type='checkbox'] {
+      /* Double-sized Checkboxes */
+      -ms-transform: scale(1.4); /* IE */
+      -moz-transform: scale(1.4); /* FF */
+      -webkit-transform: scale(1.4); /* Safari and Chrome */
+      -o-transform: scale(1.4); /* Opera */
+      transform: scale(1.4);
+    }
   }
 
   main {
@@ -162,103 +170,102 @@
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #attachment-late {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #spiral-binding {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #front-cover {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #paper {
       margin: 0 0.5rem;
       margin-right: 1rem;
     }
-  
+
     #staple {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #black-white {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #front-back {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #only-front {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #cut-half {
       margin: 0 0.5rem;
       margin-right: 1rem;
     }
-  
+
     #a3 {
       margin-right: 2rem;
-  
     }
-  
+
     #a4 {
       margin-right: 2rem;
     }
-  
+
     .a3 {
       margin-right: 0.5rem;
     }
-  
+
     .a4 {
       margin-right: 0.5rem;
     }
-  
+
     .a5 {
       margin-right: 0.5rem;
     }
-  
+
     .support {
       margin-right: 0.5rem;
-    } 
-  
+    }
+
     #zipdrive {
       margin-right: 2rem;
     }
-  
+
     #spt-paper {
       margin-right: 2rem;
     }
-  
+
     #cd {
       margin-right: 2rem;
     }
-  
+
     #e-mail {
       margin-right: 2rem;
     }
-  
+
     .support-others {
       margin-right: 0.5rem;
     }
-  
+
     .btn-attached {
       display: flex;
       justify-content: center;
       margin-top: 5rem;
     }
-  
+
     .btn {
       padding: 1rem;
       cursor: pointer;
@@ -266,12 +273,21 @@
       background-color: $grey-button;
       color: $white;
       font-size: 2rem;
-      transition: .5s;
+      transition: 0.5s;
 
       &.btn:hover {
         background-color: $white;
         color: $grey-button;
       }
+    }
+
+    input[type='checkbox'] {
+      /* Double-sized Checkboxes */
+      -ms-transform: scale(1.4); /* IE */
+      -moz-transform: scale(1.4); /* FF */
+      -webkit-transform: scale(1.4); /* Safari and Chrome */
+      -o-transform: scale(1.4); /* Opera */
+      transform: scale(1.4);
     }
   }
 
@@ -288,12 +304,23 @@
       background-color: $grey-button;
       color: $white;
       font-size: 2rem;
-      transition: .5s;
+      transition: 0.5s;
 
       &.btn:hover {
         background-color: $grey;
         color: black;
       }
     }
+  }
+}
+
+@media (max-width: 1000px) {
+  .container-requestC {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    background-color: aqua;
   }
 }

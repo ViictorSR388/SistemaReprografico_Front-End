@@ -1,17 +1,15 @@
 import React from 'react';
+import '../../styles/requestFormG.scss';
+import Navbar from '../../components/sidebar';
 
 import { FaFileImport } from 'react-icons/fa';
 import { FaPrint } from 'react-icons/fa';
 
-import Header from '../../components/header';
-import SidebarGerencia from '../../components/sidebarGerencia';
-
 const FormGerencia = () => {
   return (
-    <div>
-      <Header />
-      <SidebarGerencia />
-      <div className="container">
+    <>
+      <Navbar />
+      <div className="container-requestG">
         <h1>Solicitação de reprografia</h1>
         <div className="date">
           <label className="date-request" htmlFor="date-request">
@@ -150,7 +148,7 @@ const FormGerencia = () => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
-@import "./global";
+@import './global';
 
-.container {
+.container-requestG {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -162,103 +162,102 @@
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #attachment-late {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #spiral-binding {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #front-cover {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #paper {
       margin: 0 0.5rem;
       margin-right: 1rem;
     }
-  
+
     #staple {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #black-white {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #front-back {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #only-front {
       margin: 0 0.5rem;
       margin-right: 2rem;
     }
-  
+
     #cut-half {
       margin: 0 0.5rem;
       margin-right: 1rem;
     }
-  
+
     #a3 {
       margin-right: 2rem;
-  
     }
-  
+
     #a4 {
       margin-right: 2rem;
     }
-  
+
     .a3 {
       margin-right: 0.5rem;
     }
-  
+
     .a4 {
       margin-right: 0.5rem;
     }
-  
+
     .a5 {
       margin-right: 0.5rem;
     }
-  
+
     .support {
       margin-right: 0.5rem;
-    } 
-  
+    }
+
     #zipdrive {
       margin-right: 2rem;
     }
-  
+
     #spt-paper {
       margin-right: 2rem;
     }
-  
+
     #cd {
       margin-right: 2rem;
     }
-  
+
     #e-mail {
       margin-right: 2rem;
     }
-  
+
     .support-others {
       margin-right: 0.5rem;
     }
-  
+
     .btn-attached {
       display: flex;
       justify-content: center;
       margin-top: 5rem;
     }
-  
+
     .btn {
       padding: 1rem;
       cursor: pointer;
@@ -266,7 +265,7 @@
       background-color: $grey-button;
       color: $white;
       font-size: 2rem;
-      transition: .5s;
+      transition: 0.5s;
 
       &.btn:hover {
         background-color: $white;
@@ -288,7 +287,7 @@
       background-color: $grey-button;
       color: $white;
       font-size: 2rem;
-      transition: .5s;
+      transition: 0.5s;
 
       &.btn:hover {
         background-color: $grey;
@@ -297,3 +296,10 @@
     }
   }
 }
+
+// @media (max-width: 800px) {
+//   .container-requestG {
+//     width: 100%;
+//     display: none;
+//   }
+// }
