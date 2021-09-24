@@ -3,7 +3,7 @@ import '../../styles/management.scss';
 
 import { FaSearch } from 'react-icons/fa';
 
-const Management = () => {
+function Management () {
   return (
     <>
       <div className="container-management">

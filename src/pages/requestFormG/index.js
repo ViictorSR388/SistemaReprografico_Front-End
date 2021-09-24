@@ -5,10 +5,10 @@ import Navbar from '../../components/sidebar';
 import { FaFileImport } from 'react-icons/fa';
 import { FaPrint } from 'react-icons/fa';
 
-const FormGerencia = () => {
+function FormGerencia () {
   return (
     <>
-      <Navbar />
+      <Menu />
       <div className="container-requestG">
         <h1>Solicitação de reprografia</h1>
         <div className="date">
