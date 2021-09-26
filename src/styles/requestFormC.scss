@@ -1,0 +1,326 @@
+@import './global';
+
+.container-requestC {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 120rem;
+  top: 13%;
+  left: 25%;
+  background-color: $white;
+  font-size: 2rem;
+  font-weight: 500;
+
+  h1 {
+    background-color: $grey-button;
+    color: $white;
+    font-size: 3rem;
+    height: 4rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: $grey;
+
+    label {
+      margin-right: 1rem;
+      background-color: $grey-button;
+      padding: 0.5rem;
+      border-radius: 8px;
+      color: $white;
+      cursor: pointer;
+    }
+
+    input {
+      margin-right: 1rem;
+    }
+
+    .date-request {
+      margin-left: 1rem;
+    }
+
+    select {
+      height: 2.6rem;
+      border-radius: 8px;
+    }
+  }
+
+  .course {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+    margin-top: -1rem;
+    background-color: $grey;
+
+    span {
+      margin-left: 1rem;
+      background-color: $grey-button;
+      color: $white;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .course-label {
+      margin: 0 3rem;
+    }
+
+    #cai {
+      margin-left: -2rem;
+    }
+
+    #ct {
+      margin-left: -2rem;
+    }
+
+    #fc {
+      margin-left: -2rem;
+    }
+
+    #cst {
+      margin-left: -2rem;
+      margin-right: 27rem;
+    }
+
+    .pos {
+      cursor: pointer;
+      margin-right: 0.5rem;
+    }
+
+    #pos {
+      &.input-pos {
+        width: 20rem;
+        height: 2rem;
+      }
+    }
+
+    input[type='checkbox'] {
+      /* Double-sized Checkboxes */
+      -ms-transform: scale(1.4); /* IE */
+      -moz-transform: scale(1.4); /* FF */
+      -webkit-transform: scale(1.4); /* Safari and Chrome */
+      -o-transform: scale(1.4); /* Opera */
+      transform: scale(1.4);
+    }
+  }
+
+  main {
+    width: 100%;
+    text-align: center;
+    background-color: $grey;
+    word-break: break-all;
+    height: 60rem;
+
+    h3 {
+      margin: 1.5rem 0;
+      font-size: 2.8rem;
+    }
+
+    .title-repro {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.8rem;
+
+      #title-repo {
+        width: 93rem;
+        height: 2rem;
+      }
+
+      label {
+        background-color: $grey-button;
+        padding: 0.5rem;
+        border-radius: 8px;
+        color: white;
+        margin-right: 1rem;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+
+    .item-page {
+      margin-left: -8.5rem;
+      margin-top: 1rem;
+
+      label {
+        background-color: $grey-button;
+        color: $white;
+        padding: 0.5rem;
+        border-radius: 8px;
+        margin-right: 1rem;
+        cursor: pointer;
+      }
+
+      input {
+        margin-right: 8.2rem;
+      }
+    }
+
+    #attachment {
+      margin: 0 0.5rem;
+      margin-right: 2rem;
+    }
+
+    #attachment-late {
+      margin: 0 0.5rem;
+      margin-right: 2rem;
+    }
+
+    #spiral-binding {
+      margin: 0 0.5rem;
+      margin-right: 2rem;
+    }
+
+    #front-cover {
+      margin: 0 0.5rem;
+      margin-right: 2rem;
+    }
+
+    #paper {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+
+    #staple {
+      margin: 0 0.5rem;
+      margin-right: 2rem;
+    }
+
+    #black-white {
+      margin: 0 0.5rem;
+      margin-right: 2rem;
+    }
+
+    #front-back {
+      margin: 0 0.5rem;
+      margin-right: 2rem;
+    }
+
+    #only-front {
+      margin: 0 0.5rem;
+      margin-right: 2rem;
+    }
+
+    #cut-half {
+      margin: 0 0.5rem;
+      margin-right: 1rem;
+    }
+
+    #a3 {
+      margin-right: 2rem;
+    }
+
+    #a4 {
+      margin-right: 2rem;
+    }
+
+    .a3 {
+      margin-right: 0.5rem;
+    }
+
+    .a4 {
+      margin-right: 0.5rem;
+    }
+
+    .a5 {
+      margin-right: 0.5rem;
+    }
+
+    .support {
+      margin-right: 0.5rem;
+    }
+
+    #zipdrive {
+      margin-right: 2rem;
+    }
+
+    #spt-paper {
+      margin-right: 2rem;
+    }
+
+    #cd {
+      margin-right: 2rem;
+    }
+
+    #e-mail {
+      margin-right: 2rem;
+    }
+
+    .support-others {
+      margin-right: 0.5rem;
+    }
+
+    .btn-attached {
+      display: flex;
+      justify-content: center;
+      margin-top: 5rem;
+    }
+
+    .btn {
+      padding: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      background-color: $grey-button;
+      color: $white;
+      font-size: 2rem;
+      transition: 0.5s;
+
+      &.btn:hover {
+        background-color: $white;
+        color: $grey-button;
+      }
+    }
+
+    input[type='checkbox'] {
+      /* Double-sized Checkboxes */
+      -ms-transform: scale(1.4); /* IE */
+      -moz-transform: scale(1.4); /* FF */
+      -webkit-transform: scale(1.4); /* Safari and Chrome */
+      -o-transform: scale(1.4); /* Opera */
+      transform: scale(1.4);
+    }
+  }
+
+  .btns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1rem;
+
+    .btn {
+      padding: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      background-color: $grey-button;
+      color: $white;
+      font-size: 2rem;
+      transition: 0.5s;
+
+      &.btn:hover {
+        background-color: $grey;
+        color: black;
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .container-requestC {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    background-color: aqua;
+  }
+}

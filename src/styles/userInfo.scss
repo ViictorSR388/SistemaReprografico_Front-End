@@ -1,0 +1,67 @@
+@import 'global';
+
+.content{
+    display: flex;
+    height: 100vh;
+}
+
+.container{
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box {
+    border: 1px solid #363232;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-bottom: 1.8rem;
+    height: 3.5rem;
+    width: 38rem;
+    padding-left: 0.5rem;
+}
+
+.ui-subTitle {
+    margin-bottom: 4.5rem;
+    font-size: 3rem;
+}
+
+.btns {
+    height: 9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 4.5rem;
+}
+
+.ui-button {
+    color: $white;
+    background-color: $red;
+    height: 3rem;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.ui-button:nth-child(1) {
+    background-color: $blue;
+
+    &:hover {
+        background-color: #04345c;
+    }
+}
+
+.ui-button:nth-child(2) {
+    
+    &:hover {
+        background-color: #BA181B;
+    }
+}
