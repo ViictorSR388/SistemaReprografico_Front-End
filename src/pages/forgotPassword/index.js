@@ -6,16 +6,25 @@ import axios from "axios";
 
 export default function ForgotPassword() {
 
+  //Input de email, também usamos esse valor para definir a mensagem personalizada.
   const [email, setEmail] = useState("");
+  
+  //UseState() => Mensagem que será definida quando a requisição for enviada (começa com o valor abaixo...)
   const [mensagem, setMensagem] = useState("Um link será enviado ao seu e-mail para a recuperação de senha")
+
+  //UseState() => Usado para setar o status de envio e realizar alguma alteração em função disso 
   const [enviado, setEnviado] = useState();
 
+  //Instanciando o useHistory para utilização na navegação do site
   const history = useHistory();
 
   const ForgotPasswordPost = () => {
+    //Se o input do email estiver vázio ele seta um valor para a mensagem.
     if (email === '') {
       setMensagem("Insira um email!")
     }
+    //Se não, ele faz a requisição POST na rota (/forgot-password) setando o status de envio como true e a mensagem com
+    // o valor abaixo.
     else {
       const data = { mail: email };
       axios.post("http://localhost:3002/forgot-password/", data).then((response) => {
@@ -25,12 +34,11 @@ export default function ForgotPassword() {
     }
   }
 
+  //Função que executa os padrões de required do FORM do html e depois executa a nossa requisição (newPasswordPost)
   const onSubmit = e => {
     e.preventDefault();
     ForgotPasswordPost();
   }
-
-
 
   return (
     <div className="content">

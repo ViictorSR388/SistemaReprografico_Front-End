@@ -1,46 +1,91 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/newPassword.scss';
+import { useLocation, useHistory } from 'react-router-dom'
 import axios from "axios";
+import queryString from 'query-string'
 
 import LoginContainer from '../../components/loginContainer';
 
 export default function NewPassword() {
-  const [newSenha, setNewSenha] = useState("");
 
+  //Acessando os valores da URL ?token=...&email=...
+  const pathName = useLocation().search;
+
+  //Inputs de senha 
+  //  ==> ****Realizar verificação no front se ambas as senhas digitadas são iguais antes de enviar.
+  const [senhaInput, setSenhaInput] = useState("");
+  const [senhaInput2, setSenhaInput2] = useState("");
+
+  //Objetos que vão receber os valores fornecidos pela URL
+  const [values, setValues] = useState({
+    token: "",
+    email: ""
+  })
+
+  //UseState() => Usado para setar o status de envio e realizar alguma alteração em função disso 
+  // (mudei o botão de enviar para a mensagem abaixo!)
+  const [enviado, setEnviado] = useState();
+
+  //UseState() => Mensagem que será definida quando a requisição for enviada
+  const [mensagem, setMensagem] = useState("")
+  
+  //Instanciando o useHistory para utilização na navegação do site
+  const history = useHistory();
+
+
+  //Função que realiza uma requisição na rota "/reset-password" enviando os valores de senha1 e 2, token e email fornecidos pela URL (enviado pelo email)
   function NewPasswordPost() {
-    const data = { password1: newSenha, password2: newSenha};
+    const data = { password1: senhaInput, password2: senhaInput2, token: values.token, email: values.email };
     axios.post("http://localhost:3002/reset-password", data)
+    setEnviado(true)
+    setMensagem(`Senha do email ${values.email} resetada com sucesso!`)
   }
 
+  //Função que executa os padrões de required do FORM do html e depois executa a nossa requisição (newPasswordPost)
   const onSubmit = (e) => {
     e.preventDefault();
     NewPasswordPost();
   }
+
+  //Aquilo que é carregado/executado sempre que a página é recarregada
+  useEffect(() => {
+    //Formatando valores passados pela URL em Objetos ( ?token= ... ?email= ...)
+    const values = queryString.parse(pathName)
+
+    //Acessando esses objetos e Setando esses valores para conseguir usar eles na requisição (axios)
+    setValues({
+      token: values.token,
+      email: values.email
+    })
+  },
+    // Importante para não virar um Loop
+    []);
+
   return (
     <div className="content">
       <LoginContainer />
       <div className="container">
         <h2 id="h2" className="np-subTitle">Digite a sua nova senha</h2>
 
-        <form action="http://localhost:3002/reset-password" method="Post">
+        <form onSubmit={onSubmit}>
           <input
             id="new-senha"
             className="input-box"
             type="password"
             name="password1"
             onChange={(e) => {
-              setNewSenha(e.target.value);
+              setSenhaInput(e.target.value);
             }}
             placeholder="Senha"
             required
           />
           <input
-            id="new-senha"
+            id="new-senha2"
             className="input-box"
             type="password"
             name="password2"
             onChange={(e) => {
-              setNewSenha(e.target.value);
+              setSenhaInput2(e.target.value);
             }}
             placeholder="Senha"
             required
@@ -48,14 +93,24 @@ export default function NewPassword() {
 
           <div className="link-box">
           </div>
+          {enviado ? 
+          <>
+          <h4>{mensagem}</h4>
+           <button id="forgot-password-button" className="fp-button" onClick={() => history.push(`/`)}>Voltar</button>
+           </>
+           : 
+           <>
           <input
             id="new-password-button"
             className="np-button"
             name="new-password-button"
-            type= "submit"
-            // onClick={NewPasswordPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
+            type="submit"
             value="Enviar" />
+            </>
+            }
+
         </form>
+
       </div>
     </div>
   );
