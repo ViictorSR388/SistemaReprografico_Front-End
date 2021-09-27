@@ -3,11 +3,12 @@ import './styles.scss';
 import { FaHome } from 'react-icons/fa';
 import { FaUserAlt } from 'react-icons/fa';
 import { FaSignOutAlt } from 'react-icons/fa';
+import Logo from '../img/logo';
 
 const Header = () => {
   return (
     <header>
-      <img className="logo" src="assets/img/logo.jpg" />
+      <Logo/>
       <div className="icons">
         <FaHome className="icon" />
         <FaUserAlt className="icon" />

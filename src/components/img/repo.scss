@@ -1,0 +1,16 @@
+@import '../../styles/global';
+
+.circle {
+  width: 16rem;
+  height: 16rem;
+  margin-top: 15rem;
+  position: relative;
+  background-color: $white;
+  border-radius: 50%;
+}
+
+.repo {
+  position: absolute;
+  width: 15rem;
+  top: 2rem;
+}
