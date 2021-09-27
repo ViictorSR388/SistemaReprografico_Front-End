@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router";
 import LoginContainer from '../../components/loginContainer';
 import '../../styles/forgotPassword.scss';
 import axios from "axios";
@@ -6,16 +7,20 @@ import axios from "axios";
 export default function ForgotPassword() {
 
   const [email, setEmail] = useState("");
+  const [mensagem, setMensagem] = useState("Um link será enviado ao seu e-mail para a recuperação de senha")
   const [enviado, setEnviado] = useState();
+
+  const history = useHistory();
 
   const ForgotPasswordPost = () => {
     if (email === '') {
-      console.log("Insira um email!!!!")
+      setMensagem("Insira um email!")
     }
     else {
       const data = { mail: email };
       axios.post("http://localhost:3002/forgot-password/", data).then((response) => {
         setEnviado(true)
+        setMensagem(`Se esse email pertencer a alguma conta, será enviado um email de recuperação para: ${email}`)
       });
     }
   }
@@ -45,20 +50,20 @@ export default function ForgotPassword() {
             placeholder="E-mail"
             required
           />
-          {enviado ? <p>Email enviado com sucesso para {email}</p>
-              : <input
-                type="submit"
-                id="forgot-password-button"
-                className="fp-button"
-                name="forgot-password-button"
-                onClick={ForgotPasswordPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
-                value="Enviar"
-              />
+          {enviado ? <button id="forgot-password-button" className="fp-button" onClick={() => history.push(`/`)}>Voltar</button>
+            : <> <input
+              type="submit"
+              id="forgot-password-button"
+              className="fp-button"
+              name="forgot-password-button"
+              onClick={ForgotPasswordPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
+              value="Enviar"
+            />
+              <button onClick={() => history.push(`/`)}>Voltar</button>
+            </>
           }
-
         </form>
-
-        <h4>Um link será enviado ao seu e-mail para a recuperação de senha</h4>
+        <h4>{mensagem}</h4>
       </div>
     </div>
   );

@@ -32,6 +32,11 @@ export default function Login() {
     });
   };
 
+  const onSubmit = e => {
+    e.preventDefault();
+    LoginPost();
+  }
+
   
   return (
     <>
@@ -40,7 +45,7 @@ export default function Login() {
       <div className="container">
         <h2 id="h2" className="login-subTitle">Login</h2>
 
-        <form>
+        <form onSubmit={onSubmit}>
           <input
               id="email" 
               className="login-input-box"
@@ -65,14 +70,15 @@ export default function Login() {
           />
 
           <div className="link-box">
-            <a className="newPassword" href="http://localhost:3000/forgotPassword">Esqueci a senha</a>
+            <a className="newPassword" onClick={() => history.push(`/forgotPassword`)}>Esqueci a senha</a>
           </div>
 
           <input 
               id="login-button" 
               className="login-button" 
               name="login-button"
-              onClick={LoginPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
+              type="submit"
+              // onClick={LoginPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
               value="Entrar" />
         </form>
       </div>
