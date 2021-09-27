@@ -28,17 +28,23 @@ export default function NewPassword() {
 
   //UseState() => Mensagem que será definida quando a requisição for enviada
   const [mensagem, setMensagem] = useState("")
-  
+
   //Instanciando o useHistory para utilização na navegação do site
   const history = useHistory();
 
 
   //Função que realiza uma requisição na rota "/reset-password" enviando os valores de senha1 e 2, token e email fornecidos pela URL (enviado pelo email)
   function NewPasswordPost() {
-    const data = { password1: senhaInput, password2: senhaInput2, token: values.token, email: values.email };
-    axios.post("http://localhost:3002/reset-password", data)
-    setEnviado(true)
-    setMensagem(`Senha do email ${values.email} resetada com sucesso!`)
+    //Só envia a requisição se as senhas inseridas estiverem iguais.
+    if (senhaInput !== senhaInput2) {
+      setMensagem(`As senhas inseridas não coincidem!`)
+    }
+    else {
+      const data = { password1: senhaInput, password2: senhaInput2, token: values.token, email: values.email };
+      axios.post("http://localhost:3002/reset-password", data)
+      setEnviado(true)
+      setMensagem(`Senha do email ${values.email} resetada com sucesso!`)
+    }
   }
 
   //Função que executa os padrões de required do FORM do html e depois executa a nossa requisição (newPasswordPost)
@@ -93,21 +99,22 @@ export default function NewPassword() {
 
           <div className="link-box">
           </div>
-          {enviado ? 
-          <>
-          <h4>{mensagem}</h4>
-           <button id="forgot-password-button" className="fp-button" onClick={() => history.push(`/`)}>Voltar</button>
-           </>
-           : 
-           <>
-          <input
-            id="new-password-button"
-            className="np-button"
-            name="new-password-button"
-            type="submit"
-            value="Enviar" />
+          {enviado ?
+            <>
+              <h4>{mensagem}</h4>
+              <button id="forgot-password-button" className="fp-button" onClick={() => history.push(`/`)}>Voltar</button>
             </>
-            }
+            :
+            <>
+            <h4>{mensagem}</h4>
+              <input
+                id="new-password-button"
+                className="np-button"
+                name="new-password-button"
+                type="submit"
+                value="Enviar" />
+            </>
+          }
 
         </form>
 
