@@ -8,22 +8,26 @@ export default function NewPassword() {
   const [newSenha, setNewSenha] = useState("");
 
   function NewPasswordPost() {
-    const data = { newSenha: newSenha };
-    axios.post("http://localhost:3000/newPassword/", data)
+    const data = { password1: newSenha, password2: newSenha};
+    axios.post("http://localhost:3002/reset-password", data)
   }
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    NewPasswordPost();
+  }
   return (
     <div className="content">
       <LoginContainer />
       <div className="container">
         <h2 id="h2" className="np-subTitle">Digite a sua nova senha</h2>
 
-        <form action="/" method="POST">
+        <form action="http://localhost:3002/reset-password" method="Post">
           <input
             id="new-senha"
             className="input-box"
             type="password"
-            name="newSenha"
+            name="password1"
             onChange={(e) => {
               setNewSenha(e.target.value);
             }}
@@ -34,7 +38,7 @@ export default function NewPassword() {
             id="new-senha"
             className="input-box"
             type="password"
-            name="newSenha"
+            name="password2"
             onChange={(e) => {
               setNewSenha(e.target.value);
             }}
@@ -47,9 +51,9 @@ export default function NewPassword() {
           <input
             id="new-password-button"
             className="np-button"
-            type="submit"
             name="new-password-button"
-            onClick={NewPasswordPost()} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
+            type= "submit"
+            // onClick={NewPasswordPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
             value="Enviar" />
         </form>
       </div>
