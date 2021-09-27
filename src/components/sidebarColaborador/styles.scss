@@ -1,55 +1,61 @@
-@import '../../styles/global';
+@import "../../styles/global";
 
 .sidebar {
-  width: 25rem;
-  height: 100vh;
-  background-color: $red;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  position: fixed;
-  z-index: 10;
+    width: 20rem;
+    
+    height: 100vh;
+    background-color: $red;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10;
+   
 }
 
 .circle {
-  width: 16rem;
-  height: 16rem;
-  margin-top: 15rem;
-  position: relative;
-  background-color: $white;
-  border-radius: 50%;
+    width: 16rem;
+
+    height: 16rem;
+    margin-top: 10rem;
+    position: relative;
+    background-color: $white;
+    border-radius: 50%;
 }
 
-.repo {
-  position: absolute;
-  width: 15rem;
-  top: 2rem;
+.repo{
+    position: absolute;
+    width: 15rem;
+    top: 2rem;
+
 }
 
 .buttons {
-  margin-top: 7rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+    margin-top: 7rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 
-  .button {
-    width: 18rem;
-    height: 5rem;
-    margin-top: 3rem;
-    background-color: $white;
-    font-size: 1.8rem;
-    border-radius: 10rem;
-    cursor: pointer;
-    transition: .5s;
+    .button {
+        width: 18rem;
+        height: 5rem;
+        margin-top: 3rem;
+        background-color: $white;
+        font-size: 1.8rem;
+        border-radius: 100px;
+        cursor: pointer;
+        transition: .5s;
 
-    &:hover {
-      background-color: #04345c;
-      color: $white;
+        &:hover {
+            background-color: #04345c;
+            color: $white;
+        }
+
     }
-  }
+
 }
-@media (max-width: 1000px) {
-  .sidebar {
-    display: none;
-  }
+@media (max-width:1000px) {
+    .sidebar{
+        display:none;
+    }
 }

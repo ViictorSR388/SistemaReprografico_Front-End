@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../styles/requestFormG.scss';
-import Navbar from '../../components/sidebar';
+import Menu from '../../components/hamburgerButton';
 
 import Header from '../../components/header';
 import SideBarColaborador from '../../components/sidebarColaborador';
@@ -11,7 +11,7 @@ import { FaPrint } from 'react-icons/fa';
 function FormGerencia () {
   return (
     <>
-      <Navbar />
+      <Menu />
       <SideBarColaborador />
       <Header />
       <div className="container-requestG">

@@ -2,20 +2,28 @@ import React from 'react';
 import '../../styles/review.scss';
 
 import Header from "../../components/header";
-import SideBarColaborador from "../../components/sidebarColaborador";
+import Menu from "../../components/hamburgerButton"
+import SideBarColaborador from '../../components/sidebarColaborador';
 
 const review = () => {
     return(
 
      <div id="global-container">
       
-         <Header/>
-       
+     
+       <SideBarColaborador />
+       <Header/> 
+       <Menu/>
 
+      
+      
+      
+      
+       
+       
        <div id="main-container">
           
 
-          <SideBarColaborador/>
 
           <div id="review-container">
             <div id="review-title">
@@ -31,7 +39,7 @@ const review = () => {
                   <input type="radio" name="radio-option" id="nao-atendeu" className="checkbox-avaliacao" value="Não Atendeu"/>
                 </div>
 
-                <div className="radio">
+                <div className="radio" id="teste">
                   
                   <div id="container-label" >
 
@@ -53,11 +61,12 @@ const review = () => {
                 
             </div>
             <div id="button-review">
-
+              
               <button id="review-button"> Enviar Avaliação</button>
             </div>
           </div>
        </div>
+      
      </div>
  
     );
