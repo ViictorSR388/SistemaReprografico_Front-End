@@ -40,10 +40,12 @@ export default function NewPassword() {
       setMensagem(`As senhas inseridas não coincidem!`)
     }
     else {
-      const data = { password1: senhaInput, password2: senhaInput2, token: values.token, email: values.email };
-      axios.post("http://localhost:3002/reset-password", data)
-      setEnviado(true)
-      setMensagem(`Senha do email ${values.email} resetada com sucesso!`)
+      const data = { senha: senhaInput, senha2: senhaInput2, token: values.token, email: values.email };
+      axios.post("http://localhost:3002/reset-password", data).then((result) => {
+        setEnviado(true)
+        setMensagem(result.data.message)
+        console.log(result)
+      })
     }
   }
 
@@ -99,14 +101,21 @@ export default function NewPassword() {
 
           <div className="link-box">
           </div>
+          {/* Mensagem que será personalizada dependendo do que houver, se for feita ou não uma requisição ou houver algum
+        tipo de erro */}
+          <h4>{mensagem}</h4>
+
+
+          {/* Se o valor de enviado for true, ele muda o botão de enviar para o botão de voltar.
+              * importante: para usar o op. ternario, você deverá ter as mesmas tags no começo e final do operador,
+              por isso foi usado o <> </>. *
+          */}
           {enviado ?
             <>
-              <h4>{mensagem}</h4>
               <button id="forgot-password-button" className="fp-button" onClick={() => history.push(`/`)}>Voltar</button>
             </>
             :
             <>
-            <h4>{mensagem}</h4>
               <input
                 id="new-password-button"
                 className="np-button"

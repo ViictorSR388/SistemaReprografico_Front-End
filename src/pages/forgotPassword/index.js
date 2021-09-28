@@ -23,12 +23,18 @@ export default function ForgotPassword() {
     if (email === '') {
       setMensagem("Insira um email!")
     }
+
     //Se não, ele faz a requisição POST na rota (/forgot-password) setando o status de envio como true e a mensagem com
     // o valor abaixo.
     else {
       const data = { mail: email };
       axios.post("http://localhost:3002/forgot-password/", data).then((response) => {
+
+        //Retorna o valor de "enviado" como TRUE => Serve para usarmos na parte do operador ternário (trocar o botão por mensagem
+        // se for true, por exemplo...)
         setEnviado(true)
+
+        //Valor setado para "mensagem"
         setMensagem(`Se esse email pertencer a alguma conta, será enviado um email de recuperação para: ${email}`)
       });
     }
@@ -71,6 +77,8 @@ export default function ForgotPassword() {
             </>
           }
         </form>
+        {/* Mensagem que será personalizada dependendo do que houver, se for feita ou não uma requisição ou houver algum
+        tipo de erro */}
         <h4>{mensagem}</h4>
       </div>
     </div>
