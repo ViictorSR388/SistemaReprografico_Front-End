@@ -6,17 +6,17 @@ import './styles.scss';
 function Form() {
   return (
     <>
-      <div className="container-f">
-        <div className="dat">
+      <div className="containerForm">
+        <div className="dateCourse">
           <div className="title-repro">
             <h1>Solicitação de reprografia</h1>
           </div>
 
           <div className="date">
-            <label htmlFor="date-request">Data de solicitação:</label>
-            <input type="date" name="date-request" id="entrance" />
-            <label htmlFor="date-delivery">Data de entrega:</label>
-            <input type="date" name="date-delivery" id="exit" />
+            <label htmlFor="date-entrance">Data de solicitação:</label>
+            <input type="date" name="date-entrance" id="date-entrance" />
+            <label htmlFor="date-exit">Data de entrega:</label>
+            <input type="date" name="date-exit" id="date-exit" />
             <label htmlFor="cost">Centro de custos:</label>
             <select>
               <option>Aprendizagem Industrial Presencial</option>
@@ -32,23 +32,23 @@ function Form() {
 
           <div className="course">
             <span>Curso:</span>
-            <div className="lbi">
-              <label className="check-container" htmlFor="cai">
+            <div className="radioName">
+              <label htmlFor="cai" className="radio-label">
                 CAI
               </label>
-              <input type="checkbox" name="cai" id="" />
+              <input className="classRadio" type="radio" name="type-course" id="cai" />
             </div>
-            <div className="lbi">
+            <div className="radioName">
               <label htmlFor="ct">CT</label>
-              <input type="checkbox" name="ct" id="" />
+              <input className="classRadio" type="radio" name="type-course" id="ct" />
             </div>
-            <div className="lbi">
+            <div className="radioName">
               <label htmlFor="fc">FC</label>
-              <input type="checkbox" name="fc" id="" />
+              <input className="classRadio" type="radio" name="type-course" id="fc" />
             </div>
-            <div className="lbi">
+            <div className="radioName">
               <label htmlFor="cst">CST</label>
-              <input className="cst-curso" type="checkbox" name="cst" id="" />
+              <input className="cst-curso classRadio" type="radio" name="type-course" id="cst" />
             </div>
             <label className="input-pos" htmlFor="pos">
               Pós Graduação
@@ -57,7 +57,7 @@ function Form() {
           </div>
         </div>
 
-        <div className="containerForm">
+        <div className="containerWrapper">
           <section className="card-wrapper">
             <div className="card">
               <h3 className="cardTitle">Item</h3>
@@ -78,187 +78,187 @@ function Form() {
 
             <div className="card">
               <h3 className="cardTitle">Encadernação</h3>
-              <div className="lbi">
-                <label className="grampo" htmlFor="attachment">
+              <div className="radioName">
+                <label className="labelName" htmlFor="attachment">
                   Grampo a cavalo(Capa 150g)
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
+                  className="check classRadio"
+                  type="radio"
                   name="attachment"
-                  id="cavalo"
+                  id="attachment"
                 />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="attachment-late">
+              <div className="radioName">
+                <label className="labelName" htmlFor="attachment">
                   Grampo lateral(Capa 150g)
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
-                  name="attachment-late"
-                  id="lateral"
+                  className="check classRadio"
+                  type="radio"
+                  name="attachment"
+                  id="attachment"
                 />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="spiral-binding">
+              <div className="radioName">
+                <label className="labelName" htmlFor="spiral-binding">
                   Espiral de plástico(Capa 150g)
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
-                  name="spiral-binding"
-                  id="espiralC"
+                  className="check classRadio"
+                  type="radio"
+                  name="attachment"
+                  id="attachment"
                 />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="front-cover">
+              <div className="radioName">
+                <label className="labelName" htmlFor="front-cover">
                   Espiral de plástico(Capa PVC)
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
-                  name="front-cover"
-                  id="espiralP"
+                  className="check classRadio"
+                  type="radio"
+                  name="attachment"
+                  id="attachment"
                 />
               </div>
             </div>
 
             <div className="card">
               <h3 className="cardTitle">Outros detalhes</h3>
-              <div className="lbi">
-                <label className="grampo" htmlFor="staple">
+              <div className="radioName">
+                <label className="labelName" htmlFor="staple">
                   Grampear
                 </label>
-                <input className="check" type="checkbox" name="staple" id="" />
+                <input className="check classRadio" type="radio" name="staple" id="staple" />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="front-back">
+              <div className="radioName">
+                <label className="labelName" htmlFor="staple">
                   Frente e verso
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
-                  name="front-back"
-                  id=""
+                  className="check classRadio"
+                  type="radio"
+                  name="staple"
+                  id="staple"
                 />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="only-front">
+              <div className="radioName">
+                <label className="labelName" htmlFor="staple">
                   Só frente
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
-                  name="only-front"
-                  id=""
+                  className="check classRadio"
+                  type="radio"
+                  name="staple"
+                  id="staple"
                 />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="cut-half">
+              <div className="radioName">
+                <label className="labelName" htmlFor="staple">
                   Cortar ao meio
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
-                  name="cut-half"
-                  id=""
+                  className="check classRadio"
+                  type="radio"
+                  name="staple"
+                  id="staple"
                 />
               </div>
             </div>
           </section>
 
           <div className="wrapper">
-            <div className="card">
+            <div className="card medium">
               <h3 className="cardTitle">Formato e Cor</h3>
-              <div className="lbi">
-                <label className="grampo" htmlFor="a3">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-paper">
                   A3 Preto e Branco
                 </label>
-                <input className="check" type="checkbox" name="a3" id="a3" />
+                <input className="check classRadio" type="radio" name="type-paper" id="type-paper" />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="a4">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-paper">
                   A4 Preto e Branco
                 </label>
-                <input className="check" type="checkbox" name="a4" id="a4" />
+                <input className="check classRadio" type="radio" name="type-paper" id="type-paper" />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="a4">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-paper">
                   A4 Colorida
                 </label>
-                <input className="check" type="checkbox" name="a4" id="a4" />
+                <input className="check classRadio" type="radio" name="type-paper" id="type-paper" />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="a5">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-paper">
                   A5 Preto e Branco
                 </label>
-                <input className="check" type="checkbox" name="a5" id="a5" />
+                <input className="check classRadio" type="radio" name="type-paper" id="type-paper" />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="a5">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-paper">
                   Reduzida Preto e Branco
                 </label>
-                <input className="check" type="checkbox" name="a5" id="a5" />
+                <input className="check classRadio" type="radio" name="type-paper" id="type-paper" />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="a5">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-paper">
                   Ampliada Preto e Branco
                 </label>
-                <input className="check" type="checkbox" name="a5" id="a5" />
+                <input className="check classRadio" type="radio" name="type-paper" id="type-paper" />
               </div>
             </div>
 
             <div className="card">
               <h3 className="cardTitle">Suporte</h3>
-              <div className="lbi">
-                <label className="grampo" htmlFor="zipdrive">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-support">
                   Zipdrive
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
-                  name="zipdrive"
-                  id=""
+                  className="check classRadio"
+                  type="radio"
+                  name="type-support"
+                  id="type-support"
                 />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="spt-paper">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-support">
                   Papel
                 </label>
                 <input
-                  className="check"
-                  type="checkbox"
-                  name="spt-paper"
-                  id=""
+                  className="check classRadio"
+                  type="radio"
+                  name="type-support"
+                  id="type-support"
                 />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="cd">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-support">
                   CD
                 </label>
-                <input className="check" type="checkbox" name="cd" id="" />
+                <input className="check classRadio" type="radio" name="type-support" id="type-support" />
               </div>
-              <div className="lbi">
-                <label className="grampo" htmlFor="e-mail">
+              <div className="radioName">
+                <label className="labelName" htmlFor="type-support">
                   Email
                 </label>
-                <input className="check" type="checkbox" name="e-mail" id="" />
+                <input className="check classRadio" type="radio" name="type-support" id="type-support" />
               </div>
-              <label className="grampo" htmlFor="others">
+              <label className="labelName" htmlFor="others">
                 Outro
               </label>
-              <input className="titulo" type="text" name="others" id="" />
+              <input className="text-other" type="text" name="others" id="others" />
             </div>
           </div>
 
-          <div className="botoes">
-            <button className="botao">Adicionar Item</button>
-            <button className="botao">
+          <div className="contentButton">
+            <button className="functionButton">Adicionar Item</button>
+            <button className="functionButton">
               Anexar
               <FaFileImport />
             </button>
-            <button className="botao">
+            <button className="functionButton">
               Solicitar <FaPrint />
             </button>
           </div>

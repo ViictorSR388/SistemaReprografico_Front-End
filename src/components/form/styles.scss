@@ -1,6 +1,6 @@
 @import '../../styles/global';
 
-.container-f {
+.containerForm {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,6 +35,7 @@
       color: $white;
       padding: 0.5rem;
       border-radius: 8px;
+      cursor: pointer;
     }
 
     input[type='date'] {
@@ -71,22 +72,11 @@
 
     input {
       margin-right: 2rem;
-      accent-color: $red;
     }
 
     .cst-curso {
       margin-right: 35rem;
     }
-  }
-
-  input[type='checkbox'] {
-    /* Double-sized Checkboxes */
-    -ms-transform: scale(1.4); /* IE */
-    -moz-transform: scale(1.4); /* FF */
-    -webkit-transform: scale(1.4); /* Safari and Chrome */
-    -o-transform: scale(1.4); /* Opera */
-    transform: scale(1.4);
-    margin-bottom: 0.8rem;
   }
 
   #pos {
@@ -95,7 +85,15 @@
     font-size: 1.4rem;
   }
 
-  .containerForm {
+  /* Create a custom radio button */
+  .classRadio{
+    height: 1.5rem;
+    width: 1.5rem;
+    accent-color: $red;
+    border-radius: 50%;
+  }
+
+  .containerWrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -150,7 +148,7 @@
       margin: 0 1rem;
       border-radius: 5px;
 
-      .lbi {
+      .radioName {
         margin: 0.8rem 0;
       }
     }
@@ -167,11 +165,11 @@
         font-size: 2.5rem;
       }
 
-      .grampo {
+      .labelName {
         margin-top: 1rem;
       }
 
-      .titulo {
+      .text-other {
         width: 30rem;
         height: 2.5rem;
         font-size: 1.4;
@@ -182,26 +180,15 @@
 
     .check {
       margin-left: 1rem;
-      accent-color: $red;
     }
 
-    input[type='checkbox'] {
-      /* Double-sized Checkboxes */
-      -ms-transform: scale(1.4); /* IE */
-      -moz-transform: scale(1.4); /* FF */
-      -webkit-transform: scale(1.4); /* Safari and Chrome */
-      -o-transform: scale(1.4); /* Opera */
-      transform: scale(1.4);
-      margin-bottom: 0.8rem;
-    }
-
-    .botoes {
+    .contentButton {
       display: flex;
       justify-content: space-between;
       width: 60%;
       margin-top: 2rem;
 
-      .botao {
+      .functionButton {
         padding: 1rem;
         cursor: pointer;
         border-radius: 8px;
@@ -209,7 +196,7 @@
         color: $white;
         background-color: $grey-button;
 
-        &.botao:hover {
+        &.functionButton:hover {
           background-color: $grey;
           color: $grey-button;
         }
@@ -218,15 +205,15 @@
   }
 }
 
-@media (min-width: 951px) and (max-width: 1400px){
-  .container-f {
+@media (min-width: 951px) and (max-width: 1400px) {
+  .containerForm {
     margin: auto;
     left: 0;
   }
 }
 
 @media (max-width: 950px) {
-  .container-f {
+  .containerForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -234,7 +221,7 @@
     position: inherit;
     width: 100%;
 
-    .dat {
+    .dateCourse {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -302,20 +289,9 @@
 
         input {
           margin-right: 0rem;
-          accent-color: $red;
         }
 
-        input[type='checkbox'] {
-          /* Double-sized Checkboxes */
-          -ms-transform: scale(1.4); /* IE */
-          -moz-transform: scale(1.4); /* FF */
-          -webkit-transform: scale(1.4); /* Safari and Chrome */
-          -o-transform: scale(1.4); /* Opera */
-          transform: scale(1.4);
-          margin-bottom: 0.8rem;
-        }
-
-        .lbi {
+        .radioName {
           display: flex;
           align-items: center;
           margin: 0.5rem 0;
@@ -327,7 +303,7 @@
       }
     }
 
-    .containerForm {
+    .containerWrapper {
       height: 190rem;
       display: flex;
       flex-direction: column;
@@ -353,7 +329,7 @@
         flex-wrap: wrap;
         font-size: 2rem;
 
-        .lbi {
+        .radioName {
           display: flex;
           align-items: center;
           margin: 0.5rem 0;
@@ -375,6 +351,10 @@
         .cardTitle {
           margin-top: 1rem;
         }
+
+        .medium {
+          height: 38rem;
+        }
       }
 
       .cardTitle {
@@ -382,7 +362,7 @@
         margin-bottom: 2rem;
       }
 
-      .titulo {
+      .text-other {
         width: 35rem;
         height: 2.5rem;
         font-size: 1.5rem;
@@ -407,31 +387,21 @@
         -moz-appearance: textfield;
       }
 
-      .grampo {
+      .labelName {
         margin-bottom: 1rem;
       }
 
       input {
         margin: 0.5rem 0;
-        accent-color: $red;
       }
 
-      input[type='checkbox'] {
-        /* Double-sized Checkboxes */
-        -ms-transform: scale(1.4); /* IE */
-        -moz-transform: scale(1.4); /* FF */
-        -webkit-transform: scale(1.4); /* Safari and Chrome */
-        -o-transform: scale(1.4); /* Opera */
-        transform: scale(1.4);
-        margin-bottom: 0.8rem;
-      }
-      .botoes {
+      .contentButton {
         display: flex;
         justify-content: space-between;
         height: 5.5rem;
         width: 80%;
 
-        .botao {
+        .functionButton {
           cursor: pointer;
           border-radius: 8px;
           background-color: $grey-button;
@@ -440,7 +410,7 @@
           font-size: 2rem;
           width: 14rem;
 
-          &.botao:hover {
+          &.functionButton:hover {
             background-color: $grey;
             color: $grey-button;
           }
