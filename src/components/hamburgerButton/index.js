@@ -19,7 +19,6 @@ function Menu() {
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
         </div>
-      <img className="logo-senai" src="assets/img/logo.jpg" />
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
@@ -27,6 +26,7 @@ function Menu() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
+            <img className="logo" src="assets/img/logo.jpg" alt="logo"/>
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>

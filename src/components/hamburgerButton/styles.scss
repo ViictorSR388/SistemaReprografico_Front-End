@@ -8,11 +8,7 @@
   display: none;
 }
 
-.logo-senai {
-  display: none;
-}
-
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
 
   .navbar {
     background-color: $red;
@@ -86,13 +82,5 @@
 
   span {
     margin-left: 1.6rem;
-  }
-
-  .logo-senai {
-    height: 5rem;
-    display: flex;
-    position: absolute;
-    margin-left: 7rem;
-    margin-top: -6.6rem;
   }
 }

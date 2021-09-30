@@ -1,6 +1,4 @@
-@import "../../styles/global";
-
-
+@import '../../styles/global';
 
 header {
   background-color: $red;
@@ -11,12 +9,6 @@ header {
   justify-content: space-between;
   position: fixed;
   z-index: 10;
-}
-
-.logo {
-  height: 5rem;
-  display: flex;
-  margin-left: 18%;
 }
 
 .icons {
@@ -36,7 +28,13 @@ header {
   }
 }
 
-@media (max-width: 1000px) {
+@media (min-width: 951px) and (max-width: 1400px) {
+  header {
+    width: 100vw;
+  }
+}
+
+@media (max-width: 950px) {
   header {
     display: none;
   }
