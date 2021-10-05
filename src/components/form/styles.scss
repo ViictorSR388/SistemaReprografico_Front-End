@@ -66,6 +66,10 @@
       margin-right: 3rem;
     }
 
+    .select {
+      margin-right: 2rem;
+    }
+
     label {
       margin-right: 0.5rem;
     }
@@ -75,7 +79,7 @@
     }
 
     .cst-curso {
-      margin-right: 35rem;
+      margin-right: 34rem;
     }
   }
 
@@ -86,7 +90,7 @@
   }
 
   /* Create a custom radio button */
-  .classRadio{
+  .classRadio {
     height: 1.5rem;
     width: 1.5rem;
     accent-color: $red;
@@ -176,6 +180,13 @@
         margin: auto;
         font-size: 1.4rem;
       }
+
+      .observation{
+        width: 80%;
+        margin-top: 2rem;
+        word-wrap: break-word;
+        font-size: 1.4rem;
+      }
     }
 
     .check {
@@ -205,10 +216,19 @@
   }
 }
 
-@media (min-width: 951px) and (max-width: 1400px) {
+@media (max-width: 1919px) {
+  .containerForm {
+    top: 11rem;
+    left: 32rem;
+  }
+}
+
+@media (min-width: 951px) and (max-width: 1400px){
   .containerForm {
     margin: auto;
     left: 0;
+    right: 0;
+    z-index: -1;
   }
 }
 
@@ -246,6 +266,7 @@
         margin-bottom: 1rem;
         font-size: 2rem;
         border-radius: 5px;
+        z-index: -1;
 
         label {
           margin: 1rem 0;
@@ -264,6 +285,7 @@
         font-size: 2rem;
         border-radius: 5px;
         margin-top: 0.7rem;
+        margin-bottom: 3.5rem;
 
         span {
           margin-right: 0rem;
@@ -353,7 +375,11 @@
         }
 
         .medium {
-          height: 38rem;
+          height: 40rem;
+
+          input[type="text"]{
+            width: 30rem;
+          }
         }
       }
 
