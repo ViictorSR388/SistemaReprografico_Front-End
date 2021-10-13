@@ -6,24 +6,27 @@ import axios from 'axios';
 
 function Form() {
   //cursos
-  const [course, setCourse] = useState(0);
-  const [posGraduacao, setPosGraduacao] = useState('');
+  const [ctds, setCtds] = useState(0);
+  const [ctmp, setCtmp] = useState(0);
+  const [cstmp, setCstmp] = useState(0);
+  const [graduacao, setGraduacao] = useState(0);
+  const [posObservacao, setPosObservacao] = useState('');
 
   var curso;
-  var detalheGraduacao;
+  var posGraduacao;
 
-  if (course == "1") {
+  if (ctds === 1) {
     curso = 1;
-    detalheGraduacao = '';
-  } else if (course == "1") {
+    posGraduacao = '';
+  } else if (ctmp === 1) {
     curso = 2;
-    detalheGraduacao = '';
-  } else if (course == "1") {
+    posGraduacao = '';
+  } else if (cstmp === 1) {
     curso = 3;
-    detalheGraduacao = '';
-  } else if (course == "1") {
+    posGraduacao = '';
+  } else if (graduacao === 1) {
     curso = 4;
-    detalheGraduacao = posGraduacao;
+    posGraduacao = posObservacao;
   }
 
   // centro de custos
@@ -54,13 +57,14 @@ function Form() {
   //     document.getElementById('posObservacao').disabled = false;
   //   }
   // }
-
+  
   // function disableText() {
   //   document.getElementById('graduacao').value = 'off';
-  //   let value = document.getElementById('graduacao').value = 'off';
+  //   let value = document.getElementById('graduacao').value;
   //   if (value === 'off') {
   //     document.getElementById('posObservacao').disabled = true;
   //   }
+  //   document.getElementById('posObservacao').value = '';
   // }
 
   //card item
@@ -69,21 +73,24 @@ function Form() {
   const [copy, setCopy] = useState('');
 
   //card encardenação
-  const [attachment, setAttachment] = useState(0);
+  const [gcCapaPapel, setGcCapaPapel] = useState(0);
+  const [glCapaPapel, setGlCapaPapel] = useState(0);
+  const [epCapa150g, setEpCapa150g] = useState(0);
+  const [epCapaPVC, setEpCapaPVC] = useState(0);
 
   var acabamento;
   var capa;
 
-  if (attachment === 1) {
+  if (gcCapaPapel === 1) {
     acabamento = 1;
     capa = 1;
-  } else if (attachment === 2) {
+  } else if (glCapaPapel === 1) {
     acabamento = 2;
     capa = 1;
-  } else if (attachment === 3) {
+  } else if (epCapa150g === 1) {
     acabamento = 3;
     capa = 1;
-  } else if (attachment === 4) {
+  } else if (epCapaPVC === 1) {
     acabamento = 3;
     capa = 2;
   }
@@ -107,27 +114,32 @@ function Form() {
   // }
 
   //card formato e cor
-  const [typePaper, setTypePaper] = useState(0);
+  const [a3pb, setA3pb] = useState(0);
+  const [a4pb, setA4pb] = useState(0);
+  const [a4c, setA4c] = useState(0);
+  const [a5pb, setA5pb] = useState(0);
+  const [redpb, setRedpb] = useState(0);
+  const [amppb, setAmppb] = useState(0);
 
   var formato;
   var cor;
 
-  if (typePaper === 1) {
+  if (a3pb === 1) {
     formato = 1;
     cor = 1;
-  } else if (typePaper === 2) {
+  } else if (a4pb === 1) {
     formato = 2;
     cor = 1;
-  } else if (typePaper === 3) {
+  } else if (a4c === 1) {
     formato = 2;
     cor = 2;
-  } else if (typePaper === 4) {
+  } else if (a5pb === 1) {
     formato = 3;
     cor = 1;
-  } else if (typePaper === 5) {
+  } else if (redpb === 1) {
     formato = 4;
     cor = 1;
-  } else if (typePaper === 6) {
+  } else if (amppb === 1) {
     formato = 5;
     cor = 1;
   }
@@ -155,16 +167,17 @@ function Form() {
   // }
 
   // modo de envio
-  const [typeSend, setTypeSend] = useState(0);
+  const [digital, setDigital] = useState(0);
+  const [presencial, setPresencial] = useState(0);
   const [observacao, setObservacao] = useState('');
 
   var modo_envio;
   var observacao_envio;
 
-  if (typeSend === 1) {
+  if (digital === 1) {
     modo_envio = 1;
     observacao_envio = '';
-  } else if (typeSend === 2) {
+  } else if (presencial === 1) {
     modo_envio = 2;
     observacao_envio = observacao;
   }
@@ -174,7 +187,7 @@ function Form() {
   const FormPost = () => {
     const data = {
       curso: curso,
-      //  detalheGraduacao,
+      //  posGraduacao,
 
       centro_custos: centro_custos,
 
@@ -195,12 +208,8 @@ function Form() {
       modo_envio: modo_envio,
       observacoes: observacao_envio,
     };
-    axios.post('http://localhost:3002/pedido', data, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken")
-      }
-    })
-  }
+    axios.post('http://localhost:3002/pedido', data);
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -224,13 +233,13 @@ function Form() {
                 <input
                   className="classRadio"
                   type="radio"
-                  name="course"
-                  id="curso"
-                  // value="1"
+                  name="type-course"
+                  id="ctds"
+                  value="1"
                   // checked={ctds === 1}
                   // onClick={disableText()}
                   onChange={(e) => {
-                    setCourse(e.target.value);
+                    setCtds(e.target.value);
                   }}
                 />
               </div>
@@ -239,13 +248,13 @@ function Form() {
                 <input
                   className="classRadio"
                   type="radio"
-                  name="course"
-                  id="curso"
-                  // value="2"
+                  name="type-course"
+                  id="ctmp"
+                  value="1"
                   // checked={ctmp === 1}
                   // onClick={disableText()}
                   onChange={(e) => {
-                    setCourse(e.target.value);
+                    setCtmp(e.target.value);
                   }}
                 />
               </div>
@@ -254,13 +263,13 @@ function Form() {
                 <input
                   className="classRadio"
                   type="radio"
-                  name="course"
-                  id="curso"
-                  // value="3"
+                  name="type-course"
+                  id="cstmp"
+                  value="1"
                   // checked={cstmp === 1}
                   // onClick={disableText()}
                   onChange={(e) => {
-                    setCourse(e.target.value);
+                    setCstmp(e.target.value);
                   }}
                 />
               </div>
@@ -270,22 +279,22 @@ function Form() {
               <input
                 className="classRadio"
                 type="radio"
-                name="course"
+                name="type-course"
                 id="graduacao"
-                // value="4"
+                value="1"
                 // checked={graduacao === 1}
                 // onClick={enableText()}
                 onChange={(e) => {
-                  setCourse(e.target.value);
+                  setGraduacao(e.target.value);
                 }}
               />
               <input
                 type="text"
-                disabled="true"
-                name="posGraduacao"
-                id="posGraduacao"
+                disabled
+                name="graduacao"
+                id="posObservacao"
                 onChange={(e) => {
-                  setPosGraduacao(e.target.value);
+                  setPosObservacao(e.target.value);
                 }}
               />
 
@@ -377,7 +386,7 @@ function Form() {
                     value="1"
                     // checked={gcCapaPapel === 1}
                     onChange={(e) => {
-                      setAttachment(e.target.value);
+                      setGcCapaPapel(e.target.value);
                     }}
                   />
                 </div>
@@ -393,7 +402,7 @@ function Form() {
                     value="1"
                     // checked={glCapaPapel === 1}
                     onChange={(e) => {
-                      setAttachment(e.target.value);
+                      setGlCapaPapel(e.target.value);
                     }}
                   />
                 </div>
@@ -409,7 +418,7 @@ function Form() {
                     value="1"
                     // checked={epCapa150g === 1}
                     onChange={(e) => {
-                      setAttachment(e.target.value);
+                      setEpCapa150g(e.target.value);
                     }}
                   />
                 </div>
@@ -425,7 +434,7 @@ function Form() {
                     value="1"
                     // checked={epCapaPVC === 1}
                     onChange={(e) => {
-                      setAttachment(e.target.value);
+                      setEpCapaPVC(e.target.value);
                     }}
                   />
                 </div>
@@ -509,12 +518,12 @@ function Form() {
                   <input
                     className="check classRadio"
                     type="radio"
-                    name="typePaper"
+                    name="type-paper"
                     id="a3pb"
                     value="1"
                     // checked={a3pb === 1}
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      setA3pb(e.target.value);
                     }}
                   />
                 </div>
@@ -525,12 +534,12 @@ function Form() {
                   <input
                     className="check classRadio"
                     type="radio"
-                    name="typePaper"
+                    name="type-paper"
                     id="a4pb"
-                    value="1"
+                    vvalue="1"
                     // checked={a4pb === 1}
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      setA4pb(e.target.value);
                     }}
                   />
                 </div>
@@ -541,12 +550,12 @@ function Form() {
                   <input
                     className="check classRadio"
                     type="radio"
-                    name="typePaper"
+                    name="type-paper"
                     id="a4c"
                     value="1"
                     // checked={a4c === 1}
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      setA4c(e.target.value);
                     }}
                   />
                 </div>
@@ -557,12 +566,12 @@ function Form() {
                   <input
                     className="check classRadio"
                     type="radio"
-                    name="typePaper"
+                    name="type-paper"
                     id="a5pb"
                     value="1"
                     // checked={a5pb === 1}
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      setA5pb(e.target.value);
                     }}
                   />
                 </div>
@@ -573,12 +582,12 @@ function Form() {
                   <input
                     className="check classRadio"
                     type="radio"
-                    name="typePaper"
+                    name="type-paper"
                     id="redpb"
                     value="1"
                     // checked={redpb === 1}
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      setRedpb(e.target.value);
                     }}
                   />
                 </div>
@@ -589,12 +598,12 @@ function Form() {
                   <input
                     className="check classRadio"
                     type="radio"
-                    name="typePaper"
+                    name="type-paper"
                     id="amppb"
                     value="1"
                     // checked={amppb === 1}
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      setAmppb(e.target.value);
                     }}
                   />
                 </div>
@@ -698,12 +707,12 @@ function Form() {
                   <input
                     className="check classRadio"
                     type="radio"
-                    name="typeSend"
+                    name="type-send"
                     id="digital"
                     value="1"
                     // checked={digital === 1}
                     onChange={(e) => {
-                      setTypeSend(e.target.value);
+                      setDigital(e.target.value);
                     }}
                   />
                 </div>
@@ -714,17 +723,16 @@ function Form() {
                   <input
                     className="check classRadio"
                     type="radio"
-                    name="typeSend"
+                    name="type-send"
                     id="presencial"
-                    value="2"
+                    value="1"
                     // checked={presencial === 1}
                     onChange={(e) => {
-                      setTypeSend(e.target.value);
+                      setPresencial(e.target.value);
                     }}
                   />
                   <textarea
                     className="observation"
-                    disabled="true"
                     id="observacoes"
                     name="observacoes"
                     onChange={(e) => {
