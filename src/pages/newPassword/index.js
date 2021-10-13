@@ -78,7 +78,7 @@ export default function NewPassword() {
         <form onSubmit={onSubmit}>
           <input
             id="new-senha"
-            className="input-box"
+            className="password-input-box"
             type="password"
             name="password1"
             onChange={(e) => {
@@ -89,7 +89,7 @@ export default function NewPassword() {
           />
           <input
             id="new-senha2"
-            className="input-box"
+            className="password-input-box"
             type="password"
             name="password2"
             onChange={(e) => {
@@ -101,9 +101,6 @@ export default function NewPassword() {
 
           <div className="link-box">
           </div>
-          {/* Mensagem que será personalizada dependendo do que houver, se for feita ou não uma requisição ou houver algum
-        tipo de erro */}
-          <h4>{mensagem}</h4>
 
 
           {/* Se o valor de enviado for true, ele muda o botão de enviar para o botão de voltar.
@@ -124,6 +121,9 @@ export default function NewPassword() {
                 value="Enviar" />
             </>
           }
+          {/* Mensagem que será personalizada dependendo do que houver, se for feita ou não uma requisição ou houver algum
+          tipo de erro */}
+          <h4>{mensagem}</h4>
 
         </form>
 

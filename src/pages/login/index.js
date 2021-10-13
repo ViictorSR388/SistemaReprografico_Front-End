@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
 import LoginContainer from '../../components/loginContainer'
 
 export default function Login() {
- 
+
   //Inputs
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -38,7 +38,7 @@ export default function Login() {
         //para vcs verificarem se o usuário está logado ou não, e também para manter a sessão dele mesmo que ele
         //saia da página.
         else {
-          localStorage.setItem("accessToken", result.data.token);
+          localStorage.setItem("accessToken", result.data.accessToken);
          
          // ===> Deem uma pesquisada sobre isso, ai vcs podem pegar os dados que são ppassados pelo login para 
          //Mostrar o usuário logado na aplicação e também fazer funcionar o botão de LogOut!!
@@ -52,7 +52,7 @@ export default function Login() {
           //Quando vcs inserirem um usuário, precisam no front passar de alguma forma uma array de dados para o tipo_usuario.
           if(result.data.roles.length >= 2){history.push('/requestFormG')}
           else{
-            history.push('/userManagement')
+            history.push('/management')
           }
   
         }

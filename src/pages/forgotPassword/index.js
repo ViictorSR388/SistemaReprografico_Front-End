@@ -56,7 +56,7 @@ export default function ForgotPassword() {
           <input
             id="email"
             type="email"
-            className="input-box"
+            className="email-input-box"
             name="email"
             onChange={(e) => {
               setEmail(e.target.value);
@@ -73,7 +73,7 @@ export default function ForgotPassword() {
               onClick={ForgotPasswordPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
               value="Enviar"
             />
-              <button onClick={() => history.push(`/`)}>Voltar</button>
+              <button className="fp-button" onClick={() => history.push(`/`)}>Voltar</button>
             </>
           }
         </form>
