@@ -1,0 +1,19 @@
+@import '../../styles/global';
+
+
+div.img-container{
+
+width: 6.5rem;
+margin-right: 1rem;
+height: 5rem;
+ display: flex;
+align-items: center; 
+
+
+}
+
+img.user-img{
+    margin: 0 auto;
+    width: 85%;
+    border-radius: 25px;
+}

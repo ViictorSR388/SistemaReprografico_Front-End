@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
 import LoginContainer from '../../components/loginContainer'
 
 export default function Login() {
- 
+
   //Inputs
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -50,10 +50,17 @@ export default function Login() {
           
           //Exemplo de como pode ser a regra para redirecionar...  Mas podem fazer outra lógica sobre isso, só fiz para testar
           //Quando vcs inserirem um usuário, precisam no front passar de alguma forma uma array de dados para o tipo_usuario.
+<<<<<<< HEAD
           // if(result.data.roles.length >= 3){history.push('/requestFormG')}
           // else{
           //   history.push('/userManagement')
           // }
+=======
+          if(result.data.roles.length >= 2){history.push('/requestFormG')}
+          else{
+            history.push('/management')
+          }
+>>>>>>> 307a70ac276957cfa4e653261b27cf2cb1f91a92
   
         }
       });
