@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/login.scss';
 import axios from "axios";
 import { useHistory } from "react-router";
@@ -38,7 +38,7 @@ export default function Login() {
         //para vcs verificarem se o usuário está logado ou não, e também para manter a sessão dele mesmo que ele
         //saia da página.
         else {
-          localStorage.setItem("accessToken", result.data.token);
+          localStorage.setItem("accessToken", result.data.accessToken);
          
          // ===> Deem uma pesquisada sobre isso, ai vcs podem pegar os dados que são ppassados pelo login para 
          //Mostrar o usuário logado na aplicação e também fazer funcionar o botão de LogOut!!
@@ -50,10 +50,10 @@ export default function Login() {
           
           //Exemplo de como pode ser a regra para redirecionar...  Mas podem fazer outra lógica sobre isso, só fiz para testar
           //Quando vcs inserirem um usuário, precisam no front passar de alguma forma uma array de dados para o tipo_usuario.
-          if(result.data.roles.length >= 2){history.push('/requestFormG')}
-          else{
-            history.push('/userManagement')
-          }
+          // if(result.data.roles.length >= 3){history.push('/requestFormG')}
+          // else{
+          //   history.push('/userManagement')
+          // }
   
         }
       });
@@ -65,6 +65,13 @@ export default function Login() {
     LoginPost();
   }
 
+  // useEffect(() => {
+  //   axios.get("http://localhost:3002/auth").then((result) =>{
+  //     console.log(result)
+  //   })
+  // },
+  //   // Importante para não virar um Loop
+  //   []);
   
   return (
     <>

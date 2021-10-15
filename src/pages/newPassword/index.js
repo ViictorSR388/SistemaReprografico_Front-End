@@ -10,7 +10,7 @@ export default function NewPassword() {
 
   //Acessando os valores da URL ?token=...&email=...
   const pathName = useLocation().search;
-
+  
   //Inputs de senha 
   //  ==> ****Realizar verificação no front se ambas as senhas digitadas são iguais antes de enviar.
   const [senhaInput, setSenhaInput] = useState("");
