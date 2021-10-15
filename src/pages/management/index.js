@@ -1,11 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../styles/management.scss';
+import Menu from '../../components/hamburgerButton';
+import Header from '../../components/header';
+import SideBarColaborador from '../../components/sidebarColaborador';
 
 import { FaSearch } from 'react-icons/fa';
 
-function Management () {
+function Management() {
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3002/auth/signin", {
+  //       headers: {
+  //         accessToken: localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (response.data.error) {
+  //         setAuthState(false);
+  //       } else {
+  //         setAuthState(true);
+  //       }
+  //     });
+  // }, []);
+
   return (
     <>
+      <Menu />
+      <Header />
+      <SideBarColaborador />
+
       <div className="container-management">
         <div className="management">
           <h1 className="management-title">Gerência de Usuários</h1>
@@ -20,6 +43,8 @@ function Management () {
           <FaSearch className="icon-management" />
         </div>
         <div className="section">
+          
+
           <input className="input-management" type="text" placeholder="Nome" />
           <input
             className="input-management"
@@ -46,12 +71,14 @@ function Management () {
             type="text"
             placeholder="TEL"
           />
+
           <div className="btn-management">
             <button className="btn-management-E">Editar</button>
             <button className="btn-management-D">Apagar</button>
           </div>
         </div>
         <div className="section">
+          
           <input className="input-management" type="text" placeholder="Nome" />
           <input
             className="input-management"
@@ -121,6 +148,6 @@ function Management () {
       </div>
     </>
   );
-};
+}
 
 export default Management;

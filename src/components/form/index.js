@@ -174,7 +174,7 @@ function Form() {
   const FormPost = () => {
     const data = {
       curso: curso,
-      //  detalheGraduacao,
+      // detalheGraduacao,
 
       centro_custos: centro_custos,
 

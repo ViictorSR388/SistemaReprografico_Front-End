@@ -67,8 +67,20 @@ form {
 }
 
 .nu-button:nth-child(2) {
-    
+
     &:hover {
         background-color: #BA181B;
     }
+}
+
+.departamento {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $grey-button;
+    color: $white;
+    height: 2.5rem;
+    width: 38rem;
+    margin-bottom: 2.0rem;
+    font-size: 1.8rem;
 }

@@ -5,12 +5,12 @@ import Header from "../../components/header";
 import SideBarColaborador from "../../components/sidebarColaborador";
 import Menu from "../../components/hamburgerButton";
 
-const HistoryDefault = () => {
+function HistoryDefault () {
   return (
-    <div>
-       <SideBarColaborador />
-       <Header/> 
+    <>
        <Menu/>
+       <Header/> 
+       <SideBarColaborador />
 
       <div className="container-history-default">
         
@@ -104,7 +104,7 @@ const HistoryDefault = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

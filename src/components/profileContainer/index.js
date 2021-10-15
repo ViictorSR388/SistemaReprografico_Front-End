@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.scss';
 import Profile from '../img/profile.js';
 
-const profileContainer = () => {
+function profileContainer () {
     return(
         <div className="left-container" >
             <div className="icon-container" >
