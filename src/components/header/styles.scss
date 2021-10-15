@@ -28,13 +28,13 @@ header {
   }
 }
 
-@media (min-width: 951px) and (max-width: 1400px) {
+@media (min-width: 1381px) and (max-width: 1400px) {
   header {
     width: 100vw;
   }
 }
 
-@media (max-width: 950px) {
+@media (max-width: 1380px) {
   header {
     display: none;
   }

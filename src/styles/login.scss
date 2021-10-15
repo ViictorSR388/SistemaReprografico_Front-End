@@ -19,6 +19,18 @@ form {
     flex-direction: column;
 }
 
+.login-subTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $grey-button;
+    color: $white;
+    height: 4rem;
+    width: 38rem;
+    margin-bottom: 4.5rem;
+    font-size: 1.8rem;
+}
+
 .login-input-box {
     border: 1px solid #363232;
     box-sizing: border-box;
@@ -58,9 +70,12 @@ form {
 
 .login-button:hover {
     cursor: pointer;
-    background-color: red;
+    background-color: #BA181B;
 }
 
+h4 {
+    margin-top: 2rem;
+}
 // .icon-position {
 //     font-size: 1.5rem;
 //     text-align: end;

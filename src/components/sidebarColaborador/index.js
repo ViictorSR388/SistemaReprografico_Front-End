@@ -3,14 +3,14 @@ import './styles.scss';
 
 import Repo from '../img/repo'
 
-const SideBarColaborador = () => {
+function SideBarColaborador () {
   return (
     <div className="sidebarC">
       <Repo />
 
       <div className="buttonsC">
-        <button className="button">Solicitar Impressão</button>
-        <button className="button">Histórico</button>
+        <button className="buttonC">Solicitar Impressão</button>
+        <button className="buttonC">Histórico</button>
       </div>
     </div>
   );

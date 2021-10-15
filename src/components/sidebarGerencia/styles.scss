@@ -1,54 +1,39 @@
-@import "../../styles/global";
+@import '../../styles/global';
 
-.sidebar {
-    width: 15vw;
-    height: 100vh;
-    background-color: $red;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
+.sidebarG {
+  width: 25rem;
+  height: 100vh;
+  background-color: $red;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
-.circle {
-    width: 25rem;
-    height: 25rem;
-    margin-top: 5.5rem;
-    position: relative;
-    left: 13rem;
-    background-color: $white;
-    border-radius: 50%;
-}
-
-.repo {
-    width: 17rem;
-    height: 13rem;
-    position: absolute;
-    bottom: 6.7rem;
-    right: 8.5rem;
-}
-
-.buttons {
+  .buttonsG {
     margin-top: 7rem;
     display: flex;
     align-items: center;
     flex-direction: column;
-    
-    .button {
-        width: 20rem;
-        height: 5rem;
-        margin-top: 3rem;
-        background-color: $white;
-        font-size: 1.8rem;
-        border-radius: 100px;
-        cursor: pointer;
-        transition: .5s;
-        
-        &:hover {
-            background-color: #04345c;
-            color: $white;
-        }
-        
-    }
 
+    .buttonG {
+      width: 18rem;
+      height: 5rem;
+      margin-top: 3rem;
+      background-color: $white;
+      font-size: 1.8rem;
+      border-radius: 10rem;
+      cursor: pointer;
+      transition: 0.5s;
+
+      &:hover {
+        background-color: #04345c;
+        color: $white;
+      }
+    }
+  }
 }
 
+@media (max-width: 1380px) {
+  .sidebarG {
+    display: none;
+  }
+}
