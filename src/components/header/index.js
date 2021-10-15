@@ -20,7 +20,7 @@ function Header () {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3002/auth/auth", {
+    axios.get("http://localhost:3002/auth/", {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -47,6 +47,7 @@ function Header () {
   return (
     <header>
       <Logo />
+      {/* <img src={`http://localhost:3002` + imagem}  /> */}
       <div className="icons">
         <FaHome className="icon" />
         <FaUserAlt className="icon" />

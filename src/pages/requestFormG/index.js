@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MenuG from '../../components/hamburgerButtonG';
+import MenuG from '../../components/hamburgerButton';
 
 import Header from '../../components/header';
 import SideBarGerencia from '../../components/sidebarGerencia';

@@ -1,11 +1,51 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import '../../styles/management.scss';
-
+import { Router, Redirect} from 'react-router-dom'
+import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
+import { AuthContext } from './../../helpers/AuthContext';
 
 function Management () {
+  const [redirect, setRedirect] = useState(false);
+  const { setAuthState } = useContext(AuthContext);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/auth", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+        validateStatus: () => true
+      })
+      .then((response) => {
+        if (response.status == 500 || response.data.error) {
+          setAuthState({ status: false });
+          setRedirect(true)
+        }
+        else {
+          setAuthState({
+            nif: response.data.nif,
+            email: response.data.email,
+            nome: response.data.nome,
+            imagem: "http://localhost:3002/" + response.data.imagem,
+            roles: response.data.roles,
+            status: true
+          });
+
+          var resposta = response.data.roles.includes("3_ROLE_ADMIN");
+
+          if (resposta == false) {
+            setRedirect(true)
+        }
+      }
+    })
+  }, []);
+
+
   return (
     <>
+    <Router>
+      {redirect ? (<Redirect push to="/404" />) : null}
       <div className="container-management">
         <div className="management">
           <h1 className="management-title">Gerência de Usuários</h1>
@@ -119,6 +159,7 @@ function Management () {
           <button>Criar novo usuário</button>
         </div>
       </div>
+      </Router>
     </>
   );
 };

@@ -9,10 +9,8 @@ import LoginContainer from '../../components/loginContainer'
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  // const {setAuthState} = useContext(AuthContext)
-  const [authState, setAuthState] = useState(false);
+  const { setAuthState } = useContext(AuthContext);
   
-
   const [mensagem, setMensagem] = useState("")
 
   let history = useHistory();
@@ -25,8 +23,13 @@ export default function Login() {
         setMensagem(result.data.error)
     }
     else {
+      setAuthState({  
+        nif: result.data.nif,
+        nome: result.data.nome,
+        roles: result.data.roles,
+        status: true
+      });
       localStorage.setItem("accessToken", result.data.accessToken);
-      setAuthState(true)
       
       var resposta = result.data.roles.includes("3_ROLE_ADMIN");
 
@@ -49,7 +52,6 @@ export default function Login() {
     <>
     <div className="content">
       <LoginContainer />
-      <AuthContext.Provider value={{ authState, setAuthState }}>
       <div className="container">
         <h2 id="h2" className="login-subTitle">Login</h2>
 
@@ -90,7 +92,6 @@ export default function Login() {
         </form>
         <h4>{mensagem}</h4>
       </div>
-      </AuthContext.Provider>
     </div>
     </>
   );

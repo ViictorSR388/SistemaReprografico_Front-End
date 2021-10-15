@@ -281,7 +281,7 @@ function Form() {
               />
               <input
                 type="text"
-                disabled="true"
+                disabled={true}
                 name="posGraduacao"
                 id="posGraduacao"
                 onChange={(e) => {
@@ -724,7 +724,7 @@ function Form() {
                   />
                   <textarea
                     className="observation"
-                    disabled="true"
+                    disabled={true}
                     id="observacoes"
                     name="observacoes"
                     onChange={(e) => {

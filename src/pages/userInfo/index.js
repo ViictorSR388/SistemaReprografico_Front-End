@@ -73,16 +73,14 @@ function UserInfo () {
      }
    }
  
-   const file = (e) => {
-     uploadImage();
-   }
+  //  const file = (e) => {
+  //    uploadImage();
+  //  }
    
    const onSubmit = (e) => {
      e.preventDefault();
      UpdateUserPost();
    }
-
-   const
 
   return (
     <div className="content">
