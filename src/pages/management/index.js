@@ -1,10 +1,20 @@
+<<<<<<< HEAD
 import React, {useEffect, useState, useContext} from 'react';
 import '../../styles/management.scss';
 import { Router, Redirect } from 'react-router-dom'
 import axios from 'axios';
+=======
+import React, { useEffect } from 'react';
+import '../../styles/management.scss';
+import Menu from '../../components/hamburgerButton';
+import Header from '../../components/header';
+import SideBarColaborador from '../../components/sidebarColaborador';
+
+>>>>>>> 616657c417821a4e02c3793b762e245a69acb74d
 import { FaSearch } from 'react-icons/fa';
 import { AuthContext } from './../../helpers/AuthContext';
 
+<<<<<<< HEAD
 function Management () {
   const [redirect, setRedirect] = useState(false);
   const { setAuthState } = useContext(AuthContext);
@@ -41,9 +51,31 @@ function Management () {
     })
   }, []);
 
+=======
+function Management() {
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3002/auth/signin", {
+  //       headers: {
+  //         accessToken: localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (response.data.error) {
+  //         setAuthState(false);
+  //       } else {
+  //         setAuthState(true);
+  //       }
+  //     });
+  // }, []);
+>>>>>>> 616657c417821a4e02c3793b762e245a69acb74d
 
   return (
     <>
+      <Menu />
+      <Header />
+      <SideBarColaborador />
+
       <div className="container-management">
     {/* <Router>
       {redirect ? (<Redirect push to="/404" />) : null}     
@@ -61,6 +93,8 @@ function Management () {
           <FaSearch className="icon-management" />
         </div>
         <div className="section">
+          
+
           <input className="input-management" type="text" placeholder="Nome" />
           <input
             className="input-management"
@@ -87,12 +121,14 @@ function Management () {
             type="text"
             placeholder="TEL"
           />
+
           <div className="btn-management">
             <button className="btn-management-E">Editar</button>
             <button className="btn-management-D">Apagar</button>
           </div>
         </div>
         <div className="section">
+          
           <input className="input-management" type="text" placeholder="Nome" />
           <input
             className="input-management"
@@ -162,6 +198,6 @@ function Management () {
       </div>
     </>
   );
-};
+}
 
 export default Management;

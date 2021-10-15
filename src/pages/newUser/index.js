@@ -5,7 +5,6 @@ import axios from "axios";
 import NewUserContainer from '../../components/newUserContainer';
 
 function NewUser () {
-
   //nome
   const [nameUser, setNameUser] = useState('');
   //email
@@ -53,9 +52,9 @@ function NewUser () {
 
       telefone: telefoneUser,
 
-      depto:  deptoUser,
+      depto:  departamento,
     }
-    axios.post('http://localhost:3002/auth/signup', data, {
+    axios.post('http://localhost:3002/registrar', data, {
       headers: {
         accessToken: localStorage.getItem("accessToken")
       }

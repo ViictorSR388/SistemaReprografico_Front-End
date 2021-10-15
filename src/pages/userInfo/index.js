@@ -18,7 +18,7 @@ function UserInfo () {
    //telefone
    const [telefoneUser, setTelefoneUser] = useState('');  
    //imagem
-   const [imageSelected, setImageSelected] = useState('');
+  //  const [imageSelected, setImageSelected] = useState('');
    //departamento
    const [deptoUser, setDeptoUser] = useState('');
    
@@ -69,7 +69,7 @@ function UserInfo () {
  
        depto: departamento,
 
-       image: imageSelected,
+      //  image: imageSelected,
      }
    }
  
@@ -185,9 +185,9 @@ function UserInfo () {
             className="changeButton" 
             id="btn" 
             value="Alterar imagem"
-            onChange={(e) => {
-              setImageSelected(e.target.files[0]);
-            }}             
+            // onChange={(e) => {
+            //   setImageSelected(e.target.files[0]);
+            // }}             
           />
           <div className="btns">
             <input
