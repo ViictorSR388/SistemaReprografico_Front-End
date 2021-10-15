@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import '../../styles/management.scss';
-import { Router, Redirect} from 'react-router-dom'
+import { Router, Redirect } from 'react-router-dom'
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 import { AuthContext } from './../../helpers/AuthContext';
@@ -44,9 +44,10 @@ function Management () {
 
   return (
     <>
-    <Router>
-      {redirect ? (<Redirect push to="/404" />) : null}
       <div className="container-management">
+    {/* <Router>
+      {redirect ? (<Redirect push to="/404" />) : null}     
+       </Router> */}
         <div className="management">
           <h1 className="management-title">Gerência de Usuários</h1>
           <label htmlFor="search">
@@ -159,7 +160,6 @@ function Management () {
           <button>Criar novo usuário</button>
         </div>
       </div>
-      </Router>
     </>
   );
 };
