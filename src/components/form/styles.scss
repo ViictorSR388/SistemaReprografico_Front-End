@@ -1,0 +1,447 @@
+@import '../../styles/global';
+
+.containerForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+  top: 11rem;
+  left: 53rem;
+
+  .title-repro {
+    text-align: center;
+    background-color: $grey-button;
+    width: 100%;
+    color: $white;
+    height: 4rem;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 4rem;
+    font-size: 1.8rem;
+    background-color: $grey;
+    color: $white;
+
+    label {
+      margin: 0 2rem;
+      background-color: $grey-button;
+      color: $white;
+      padding: 0.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    input[type='date'] {
+      transform: scale(1.2);
+    }
+
+    select {
+      height: 2.5rem;
+      border-radius: 8px;
+    }
+  }
+
+  .course {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 4rem;
+    font-size: 1.8rem;
+    background-color: $grey;
+
+    span {
+      color: $white;
+      background-color: $grey-button;
+      margin-left: 1rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      margin-right: 3rem;
+    }
+
+    .select {
+      margin-right: 2rem;
+    }
+
+    label {
+      margin-right: 0.5rem;
+    }
+
+    input {
+      margin-right: 2rem;
+    }
+
+    .cst-curso {
+      margin-right: 34rem;
+    }
+  }
+
+  #pos {
+    height: 1.8rem;
+    width: 25.4rem;
+    font-size: 1.4rem;
+  }
+
+  /* Create a custom radio button */
+  .classRadio {
+    height: 1.5rem;
+    width: 1.5rem;
+    accent-color: $red;
+    border-radius: 50%;
+  }
+
+  .containerWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    height: 70rem;
+    margin-top: 2rem;
+
+    .card-wrapper {
+      display: flex;
+
+      .cardTitle {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .input-minor {
+        margin: auto;
+        width: 30rem;
+        height: 2.5rem;
+        font-size: 1.4rem;
+      }
+
+      .short {
+        font-size: 1.8rem;
+        text-align: center;
+        width: 10rem;
+        height: 2.5rem;
+        margin: auto;
+      }
+
+      /* Chrome, Safari, Edge, Opera */
+      .short::-webkit-outer-spin-button,
+      .short::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      .short {
+        -moz-appearance: textfield;
+      }
+    }
+
+    .card {
+      display: flex;
+      background-color: $grey;
+      flex-direction: column;
+      text-align: center;
+      height: 30rem;
+      width: 35.7rem;
+      margin: 0 1rem;
+      border-radius: 5px;
+
+      .radioName {
+        margin: 0.8rem 0;
+      }
+    }
+
+    .wrapper {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+
+      .cardTitle {
+        margin-bottom: 1rem;
+        font-size: 2.5rem;
+      }
+
+      .labelName {
+        margin-top: 1rem;
+      }
+
+      .text-other {
+        width: 30rem;
+        height: 2.5rem;
+        font-size: 1.4;
+        margin: auto;
+        font-size: 1.4rem;
+      }
+
+      .observation{
+        width: 80%;
+        margin-top: 2rem;
+        word-wrap: break-word;
+        font-size: 1.4rem;
+      }
+    }
+
+    .check {
+      margin-left: 1rem;
+    }
+
+    .contentButton {
+      display: flex;
+      justify-content: space-between;
+      width: 60%;
+      margin-top: 2rem;
+
+      .functionButton {
+        padding: 1rem;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 2rem;
+        color: $white;
+        background-color: $grey-button;
+
+        &.functionButton:hover {
+          background-color: $grey;
+          color: $grey-button;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1919px) {
+  .containerForm {
+    top: 11rem;
+    left: 32rem;
+  }
+}
+
+@media (min-width: 951px) and (max-width: 1400px){
+  .containerForm {
+    margin: auto;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+}
+
+@media (max-width: 950px) {
+  .containerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: inherit;
+    width: 100%;
+
+    .dateCourse {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      margin: auto;
+      margin-bottom: 1rem;
+
+      .title-repro {
+        height: 100%;
+        width: 100%;
+        word-wrap: break-word;
+        margin-top: 1rem;
+        font-size: 1.6rem;
+      }
+
+      .date {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 30rem;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        border-radius: 5px;
+        z-index: -1;
+
+        label {
+          margin: 1rem 0;
+        }
+
+        input[type='date'] {
+          transform: scale(1.4);
+        }
+      }
+
+      .course {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 30rem;
+        font-size: 2rem;
+        border-radius: 5px;
+        margin-top: 0.7rem;
+        margin-bottom: 3.5rem;
+
+        span {
+          margin-right: 0rem;
+        }
+
+        .cst-curso {
+          margin-right: 0rem;
+        }
+
+        .input-pos {
+          margin-top: 1rem;
+        }
+
+        #pos {
+          margin-top: 1rem;
+          height: 2.5rem;
+          width: 25rem;
+        }
+
+        label {
+          margin-right: 0rem;
+        }
+
+        input {
+          margin-right: 0rem;
+        }
+
+        .radioName {
+          display: flex;
+          align-items: center;
+          margin: 0.5rem 0;
+
+          input {
+            margin-left: 1rem;
+          }
+        }
+      }
+    }
+
+    .containerWrapper {
+      height: 190rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+
+      .card-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35rem;
+        width: 80%;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+        font-size: 2rem;
+
+        .radioName {
+          display: flex;
+          align-items: center;
+          margin: 0.5rem 0;
+
+          input {
+            margin-left: 1rem;
+          }
+        }
+      }
+
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: -0.7rem;
+
+        .cardTitle {
+          margin-top: 1rem;
+        }
+
+        .medium {
+          height: 40rem;
+
+          input[type="text"]{
+            width: 30rem;
+          }
+        }
+      }
+
+      .cardTitle {
+        font-size: 4rem;
+        margin-bottom: 2rem;
+      }
+
+      .text-other {
+        width: 35rem;
+        height: 2.5rem;
+        font-size: 1.5rem;
+      }
+
+      .short {
+        font-size: 1.8rem;
+        text-align: center;
+        width: 10rem;
+        height: 2.5rem;
+      }
+
+      /* Chrome, Safari, Edge, Opera */
+      .short::-webkit-outer-spin-button,
+      .short::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      .short {
+        -moz-appearance: textfield;
+      }
+
+      .labelName {
+        margin-bottom: 1rem;
+      }
+
+      input {
+        margin: 0.5rem 0;
+      }
+
+      .contentButton {
+        display: flex;
+        justify-content: space-between;
+        height: 5.5rem;
+        width: 80%;
+
+        .functionButton {
+          cursor: pointer;
+          border-radius: 8px;
+          background-color: $grey-button;
+          color: $white;
+          transition: 0.5s;
+          font-size: 2rem;
+          width: 14rem;
+
+          &.functionButton:hover {
+            background-color: $grey;
+            color: $grey-button;
+          }
+        }
+      }
+    }
+  }
+}

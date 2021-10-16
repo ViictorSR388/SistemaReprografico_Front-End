@@ -1,0 +1,32 @@
+@import "global";
+
+#not{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30rem;
+    
+    .notFound{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 5rem;
+        color: $red;
+    }
+}
+
+#backLogin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 28rem;
+    padding: 1rem;
+    margin-top: 3rem;
+    border-radius: 8px;
+    font-size: 2rem;
+    color: $white;
+    background-color: black;
+}
