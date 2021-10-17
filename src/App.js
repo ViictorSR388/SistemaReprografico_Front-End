@@ -5,7 +5,7 @@ import notAuthorized from "./NotAuthorized";
 import newUser from './pages/newUser';
 import newPassword from './pages/newPassword';
 import forgotPassword from './pages/forgotPassword';
-import userInfo from './pages/userInfo';
+import userInfo from './pages/userInfo-copy';
 import requestFormC from './pages/requestFormC';
 import requestFormG from './pages/requestFormG';
 import management from './pages/management';

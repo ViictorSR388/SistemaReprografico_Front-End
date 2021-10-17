@@ -38,11 +38,16 @@ function Header () {
       });
   }, []);
 
+  const routeUi = () => {
+    history.push('/userInfo')
+  }
+
   const logout = () => {
     localStorage.removeItem("accessToken");
     setAuthState(false);
     history.push('/')
   }; 
+  
   
   return (
     <header>
@@ -50,7 +55,7 @@ function Header () {
       {/* <img src={`http://localhost:3002` + imagem}  /> */}
       <div className="icons">
         <FaHome className="icon" />
-        <FaUserAlt className="icon" />
+        <FaUserAlt className="icon" onClick={routeUi} />
         <FaSignOutAlt className="icon" onClick={logout} />
       </div>
     </header>

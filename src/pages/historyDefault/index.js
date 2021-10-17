@@ -5,17 +5,8 @@ import Header from "../../components/header";
 import SideBarColaborador from "../../components/sidebarColaborador";
 import Menu from "../../components/hamburgerButton";
 
+
 function HistoryDefault() {
-  
-  const history = useHistory();
-
-  const routeReview = () => {
-    history.push("/review");
-  }
-
-  const routeFormDetails = () => {
-    history.push("/formDetails");
-  }
 
   return (
     <>
@@ -32,85 +23,85 @@ function HistoryDefault() {
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
           <div className="history-default-item">
             ID= 1   |  Funcionário  |  Titulo da Reprografia  |  Total: R$50
             <div className="btns-default">
-              <button className="btn-review-default" onClick={routeReview}>Avaliar</button>
-              <button className="btn-details-default" onClick={routeFormDetails}>Detalhes</button>
+              <button className="btn-review-default">Avaliar</button>
+              <button className="btn-details-default">Detalhes</button>
             </div>
           </div>
         </div>

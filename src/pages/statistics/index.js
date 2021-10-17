@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import Header from "../../components/header";
 import SideBarGerencia from "../../components/sidebarGerencia";
-import Menu from "../../components/hamburgerButton";
+import MenuG from "../../components/hamburgerButtonG";
 
 const Statistics = () => {
   const { setAuthState } = useContext(AuthContext);
@@ -45,7 +45,7 @@ const Statistics = () => {
 
   return (
     <>
-      <Menu />
+      <MenuG />
       <Header />
       <SideBarGerencia />
       
