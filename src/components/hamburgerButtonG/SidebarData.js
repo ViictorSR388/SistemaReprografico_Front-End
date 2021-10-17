@@ -10,43 +10,43 @@ import { FaChartLine } from 'react-icons/fa';
 export const SidebarData = [
   {
     title: 'Home',
-    path: '/',
+    path: '/management',
     icon: <FaHome/>,
     cName: 'nav-text'
   },
   {
     title: 'Usuário',
-    path: '/user',
+    path: '/userInfo',
     icon: <FaUserAlt />,
     cName: 'nav-text'
   },
   {
     title: 'Solicitar impressão',
-    path: '/request',
+    path: '/requestFormG',
     icon: <FaTelegram />,
     cName: 'nav-text'
   },
   {
     title: 'Gerência de usuários',
-    path: '/managementUser',
+    path: '/management',
     icon: <FaWrench />,
     cName: 'nav-text'
   },
   {
     title: 'Histórico',
-    path: '/history',
+    path: '/historyAdmin',
     icon: <FaBookReader />,
     cName: 'nav-text'
   },
   {
     title: 'Estatística',
-    path: '/statisticsG',
+    path: '/statistics',
     icon: <FaChartLine />,
     cName: 'nav-text'
   },
   {
     title: 'Sair',
-    path: '/exit',
+    path: '/',
     icon: <FaSignOutAlt />,
     cName: 'nav-text'
   }

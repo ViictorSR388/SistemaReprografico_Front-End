@@ -8,25 +8,25 @@ import { FaBookReader } from 'react-icons/fa';
 export const SidebarData = [
   {
     title: 'Home',
-    path: '/',
-    icon: <FaHome/>,
+    path: '/requestFormC',
+    icon: <FaHome />,
     cName: 'nav-text'
   },
   {
     title: 'Usuário',
-    path: '/user',
+    path: '/userInfo',
     icon: <FaUserAlt />,
     cName: 'nav-text'
   },
   {
     title: 'Solicitar impressão',
-    path: '/request',
+    path: '/requestFormC',
     icon: <FaTelegram />,
     cName: 'nav-text'
   },
   {
     title: 'Histórico',
-    path: '/history',
+    path: '/historyDefault',
     icon: <FaBookReader />,
     cName: 'nav-text'
   },
