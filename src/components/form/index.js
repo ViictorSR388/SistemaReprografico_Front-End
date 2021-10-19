@@ -7,23 +7,23 @@ import axios from 'axios';
 function Form() {
   //cursos
   const [course, setCourse] = useState(0);
-  const [posGraduacao, setPosGraduacao] = useState('');
+  // const [posGraduacao, setPosGraduacao] = useState('');
 
   var curso;
-  var detalheGraduacao;
+  // var detalheGraduacao;
 
   if (course == "1") {
     curso = 1;
-    detalheGraduacao = '';
-  } else if (course == "1") {
+    // detalheGraduacao = '';
+  } else if (course == "2") {
     curso = 2;
-    detalheGraduacao = '';
-  } else if (course == "1") {
+    // detalheGraduacao = '';
+  } else if (course == "3") {
     curso = 3;
-    detalheGraduacao = '';
-  } else if (course == "1") {
+    // detalheGraduacao = '';
+  } else if (course == "4") {
     curso = 4;
-    detalheGraduacao = posGraduacao;
+    // detalheGraduacao = posGraduacao;
   }
 
   // centro de custos
@@ -31,19 +31,19 @@ function Form() {
 
   var centro_custos;
 
-  if (cc === 'AIP') {
+  if (cc === "1") {
     centro_custos = 1;
-  } else if (cc === 'GTP') {
+  } else if (cc === "2") {
     centro_custos = 2;
-  } else if (cc === 'PGP') {
+  } else if (cc === "3") {
     centro_custos = 3;
-  } else if (cc === 'EP') {
+  } else if (cc === "4") {
     centro_custos = 4;
-  } else if (cc === 'IPP') {
+  } else if (cc === "5") {
     centro_custos = 5;
-  } else if (cc === 'QPP') {
+  } else if (cc === "6") {
     centro_custos = 6;
-  } else if (cc === 'AEPP') {
+  } else if (cc === "7") {
     centro_custos = 7;
   }
 
@@ -74,16 +74,16 @@ function Form() {
   var acabamento;
   var capa;
 
-  if (attachment === 1) {
+  if (attachment === "1") {
     acabamento = 1;
     capa = 1;
-  } else if (attachment === 2) {
+  } else if (attachment === "2") {
     acabamento = 2;
     capa = 1;
-  } else if (attachment === 3) {
+  } else if (attachment === "3") {
     acabamento = 3;
     capa = 1;
-  } else if (attachment === 4) {
+  } else if (attachment === "4") {
     acabamento = 3;
     capa = 2;
   }
@@ -112,22 +112,22 @@ function Form() {
   var formato;
   var cor;
 
-  if (typePaper === 1) {
+  if (typePaper === "1") {
     formato = 1;
     cor = 1;
-  } else if (typePaper === 2) {
+  } else if (typePaper === "2") {
     formato = 2;
     cor = 1;
-  } else if (typePaper === 3) {
+  } else if (typePaper === "3") {
     formato = 2;
     cor = 2;
-  } else if (typePaper === 4) {
+  } else if (typePaper === "4") {
     formato = 3;
     cor = 1;
-  } else if (typePaper === 5) {
+  } else if (typePaper === "5") {
     formato = 4;
     cor = 1;
-  } else if (typePaper === 6) {
+  } else if (typePaper === "6") {
     formato = 5;
     cor = 1;
   }
@@ -161,10 +161,10 @@ function Form() {
   var modo_envio;
   var observacao_envio;
 
-  if (typeSend === 1) {
+  if (typeSend === "1") {
     modo_envio = 1;
     observacao_envio = '';
-  } else if (typeSend === 2) {
+  } else if (typeSend === "2") {
     modo_envio = 2;
     observacao_envio = observacao;
   }
@@ -226,11 +226,10 @@ function Form() {
                   type="radio"
                   name="course"
                   id="curso"
-                  // value="1"
-                  // checked={ctds === 1}
-                  // onClick={disableText()}
+                  value="1"
                   onChange={(e) => {
-                    setCourse(e.target.value);
+                    const newValue = e.target.value;
+                    setCourse(newValue);
                   }}
                 />
               </div>
@@ -241,11 +240,10 @@ function Form() {
                   type="radio"
                   name="course"
                   id="curso"
-                  // value="2"
-                  // checked={ctmp === 1}
-                  // onClick={disableText()}
+                  value="2"
                   onChange={(e) => {
-                    setCourse(e.target.value);
+                    const newValue = e.target.value;
+                    setCourse(newValue);
                   }}
                 />
               </div>
@@ -256,11 +254,10 @@ function Form() {
                   type="radio"
                   name="course"
                   id="curso"
-                  // value="3"
-                  // checked={cstmp === 1}
-                  // onClick={disableText()}
+                  value="3"
                   onChange={(e) => {
-                    setCourse(e.target.value);
+                    const newValue = e.target.value;
+                    setCourse(newValue);
                   }}
                 />
               </div>
@@ -272,21 +269,20 @@ function Form() {
                 type="radio"
                 name="course"
                 id="graduacao"
-                // value="4"
-                // checked={graduacao === 1}
-                // onClick={enableText()}
+                value="4"
                 onChange={(e) => {
-                  setCourse(e.target.value);
+                  const newValue = e.target.value;
+                  setCourse(newValue);
                 }}
               />
               <input
                 type="text"
-                disabled={true}
+                // disabled={true}
                 name="posGraduacao"
                 id="posGraduacao"
-                onChange={(e) => {
-                  setPosGraduacao(e.target.value);
-                }}
+                // onChange={(e) => {
+                //   setPosGraduacao(e.target.value);
+                // }}
               />
 
               <label htmlFor="cost">Centro de custos:</label>
@@ -298,25 +294,25 @@ function Form() {
                   setCc(e.target.value);
                 }}
               >
-                <option value="AIP" name="AIP" id="AIP">
+                <option value="1" name="AIP" id="AIP">
                   Aprendizagem Industrial Presencial
                 </option>
-                <option value="GTP" name="GTP" id="GTP">
+                <option value="2" name="GTP" id="GTP">
                   Graduação Tecnológica Presencial
                 </option>
-                <option value="PGP" name="PGP" id="PGP">
+                <option value="3" name="PGP" id="PGP">
                   Pós-Graduação Presencial
                 </option>
-                <option value="EP" name="EP" id="EP">
+                <option value="4" name="EP" id="EP">
                   Extensão Presencial
                 </option>
-                <option value="IPP" name="IPP" id="IPP">
+                <option value="5" name="IPP" id="IPP">
                   Iniciação Profissional Presencial
                 </option>
-                <option value="QPP" name="QPP" id="QPP">
+                <option value="6" name="QPP" id="QPP">
                   Qualificação Profissional Presencial
                 </option>
-                <option value="AEPP" name="AEPP" id="AEPP">
+                <option value="7" name="AEPP" id="AEPP">
                   Aperfeiç./Especializ. Profis. Presencial
                 </option>
               </select>
@@ -342,7 +338,7 @@ function Form() {
                   className="short"
                   type="number"
                   name="pages"
-                  id=""
+                  id="pages"
                   onChange={(e) => {
                     setPages(e.target.value);
                   }}
@@ -352,7 +348,7 @@ function Form() {
                   className="short"
                   type="number"
                   name="copy"
-                  id=""
+                  id="copy"
                   onChange={(e) => {
                     setCopy(e.target.value);
                   }}
@@ -375,9 +371,9 @@ function Form() {
                     name="attachment"
                     id="gcCapaPapel"
                     value="1"
-                    // checked={gcCapaPapel === 1}
                     onChange={(e) => {
-                      setAttachment(e.target.value);
+                      const newValue = e.target.value;
+                      setAttachment(newValue);
                     }}
                   />
                 </div>
@@ -390,10 +386,10 @@ function Form() {
                     type="radio"
                     name="attachment"
                     id="glCapaPapel"
-                    value="1"
-                    // checked={glCapaPapel === 1}
+                    value="2"
                     onChange={(e) => {
-                      setAttachment(e.target.value);
+                      const newValue = e.target.value;
+                      setAttachment(newValue);
                     }}
                   />
                 </div>
@@ -406,10 +402,10 @@ function Form() {
                     type="radio"
                     name="attachment"
                     id="epCapa150g"
-                    value="1"
-                    // checked={epCapa150g === 1}
+                    value="3"
                     onChange={(e) => {
-                      setAttachment(e.target.value);
+                      const newValue = e.target.value;
+                      setAttachment(newValue);
                     }}
                   />
                 </div>
@@ -422,10 +418,10 @@ function Form() {
                     type="radio"
                     name="attachment"
                     id="epCapaPVC"
-                    value="1"
-                    // checked={epCapaPVC === 1}
+                    value="4"
                     onChange={(e) => {
-                      setAttachment(e.target.value);
+                      const newValue = e.target.value;
+                      setAttachment(newValue);
                     }}
                   />
                 </div>
@@ -512,9 +508,9 @@ function Form() {
                     name="typePaper"
                     id="a3pb"
                     value="1"
-                    // checked={a3pb === 1}
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      const newValue = e.target.value;
+                      setTypePaper(newValue);
                     }}
                   />
                 </div>
@@ -527,10 +523,10 @@ function Form() {
                     type="radio"
                     name="typePaper"
                     id="a4pb"
-                    value="1"
-                    // checked={a4pb === 1}
+                    value="2"
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      const newValue = e.target.value;
+                      setTypePaper(newValue);
                     }}
                   />
                 </div>
@@ -543,10 +539,10 @@ function Form() {
                     type="radio"
                     name="typePaper"
                     id="a4c"
-                    value="1"
-                    // checked={a4c === 1}
+                    value="3"
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      const newValue = e.target.value;
+                      setTypePaper(newValue);
                     }}
                   />
                 </div>
@@ -559,10 +555,10 @@ function Form() {
                     type="radio"
                     name="typePaper"
                     id="a5pb"
-                    value="1"
-                    // checked={a5pb === 1}
+                    value="4"
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      const newValue = e.target.value;
+                      setTypePaper(newValue);
                     }}
                   />
                 </div>
@@ -575,10 +571,10 @@ function Form() {
                     type="radio"
                     name="typePaper"
                     id="redpb"
-                    value="1"
-                    // checked={redpb === 1}
+                    value="5"
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      const newValue = e.target.value;
+                      setTypePaper(newValue);
                     }}
                   />
                 </div>
@@ -591,10 +587,10 @@ function Form() {
                     type="radio"
                     name="typePaper"
                     id="amppb"
-                    value="1"
-                    // checked={amppb === 1}
+                    value="6"
                     onChange={(e) => {
-                      setTypePaper(e.target.value);
+                      const newValue = e.target.value;
+                      setTypePaper(newValue);
                     }}
                   />
                 </div>
@@ -701,9 +697,9 @@ function Form() {
                     name="typeSend"
                     id="digital"
                     value="1"
-                    // checked={digital === 1}
                     onChange={(e) => {
-                      setTypeSend(e.target.value);
+                      const newValue = e.target.value;
+                      setTypeSend(newValue);
                     }}
                   />
                 </div>
@@ -717,14 +713,14 @@ function Form() {
                     name="typeSend"
                     id="presencial"
                     value="2"
-                    // checked={presencial === 1}
                     onChange={(e) => {
-                      setTypeSend(e.target.value);
+                      const newValue = e.target.value;
+                      setTypeSend(newValue);
                     }}
                   />
                   <textarea
                     className="observation"
-                    disabled={true}
+                    // disabled={true}
                     id="observacoes"
                     name="observacoes"
                     onChange={(e) => {
