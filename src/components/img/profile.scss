@@ -1,17 +1,17 @@
-@import '../../styles/global';
+@import "../../styles/global";
 
 .circle {
-    width: 16rem;
-    height: 16rem;
-    margin-top: 15rem;
-    position: relative;
-    background-color: $white;
-    border-radius: 50%;
+  width: 16rem;
+  height: 16rem;
+  margin-top: 15rem;
+  position: relative;
+  background-color: $white;
+  border-radius: 50%;
 }
 
 .profile-image {
-    position: relative;
-    width: 16rem;
-    height: 16rem;
+  position: relative;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 12rem;
 }
-  

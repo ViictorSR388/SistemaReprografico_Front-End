@@ -1,4 +1,4 @@
-import React, {useEffect, useContext, useState} from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { AuthContext } from './../../helpers/AuthContext';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
@@ -6,7 +6,7 @@ import '../../styles/newUser.scss';
 
 import NewUserContainer from '../../components/newUserContainer';
 
-function NewUser () {
+function NewUser() {
   const { setAuthState } = useContext(AuthContext);
   var history = useHistory();
 
@@ -35,9 +35,9 @@ function NewUser () {
           if (resposta === false) {
             setAuthState({ status: false });
             history.push('./notAuthorized')
+          }
         }
-      }
-    })
+      })
   }, []);
 
   //nome
@@ -51,54 +51,88 @@ function NewUser () {
   //cfp
   const [cfpUser, setCfpUser] = useState('');
   //telefone
-  const [telefoneUser, setTelefoneUser] = useState('');  
+  const [telefoneUser, setTelefoneUser] = useState('');
   //departamento
   const [deptoUser, setDeptoUser] = useState('');
-  
+
   var departamento;
 
-  if (deptoUser === 'AIP') {
+  if (deptoUser === "1") {
     departamento = 1;
-  } else if (deptoUser === 'GTP') {
+  } else if (deptoUser === "2") {
     departamento = 2;
-  } else if (deptoUser === 'PGP') {
+  } else if (deptoUser === "3") {
     departamento = 3;
-  } else if (deptoUser === 'EP') {
+  } else if (deptoUser === "4") {
     departamento = 4;
-  } else if (deptoUser === 'IPP') {
+  } else if (deptoUser === "5") {
     departamento = 5;
-  } else if (deptoUser === 'QPP') {
+  } else if (deptoUser === "6") {
     departamento = 6;
-  } else if (deptoUser === 'AEPP') {
+  } else if (deptoUser === "7") {
     departamento = 7;
   }
 
-  const CreateUserPost = () => {
-    const data = {
-      nome: nameUser,
+  //imagem
+  const [image, setImage] = useState();
 
-      email: emailUser,
-
-      senha: senhaUser,
-
-      nif: nifUser,
-
-      cfp: cfpUser,
-
-      telefone: telefoneUser,
-
-      depto:  departamento,
+  const handleChange = e => {
+    if (e.target.files.length) {
+      setImage(
+        e.target.files[0]
+      );
     }
-    axios.post('http://localhost:3002/registrar', data, {
+  }
+
+  const handleUpload = () => {
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("nome", nameUser);
+    formData.append("email", emailUser);
+    formData.append("senha", senhaUser);
+    formData.append("nif", nifUser);
+    formData.append("cfp", cfpUser);
+    formData.append("telefone", telefoneUser);
+    formData.append("depto", departamento);
+
+    axios.post('http://localhost:3002/registrar', formData, {
       headers: {
         accessToken: localStorage.getItem("accessToken")
       }
+    }).then((result) => {
+      console.log(result)
     })
-  }
+  };
+
+  // const CreateUserPost = () => {
+  //   const data = {
+  //     nome: nameUser,
+
+  //     email: emailUser,
+
+  //     senha: senhaUser,
+
+  //     nif: nifUser,
+
+  //     cfp: cfpUser,
+
+  //     telefone: telefoneUser,
+
+  //     depto:  departamento,
+  //   }
+  //   axios.post('http://localhost:3002/registrar', data, {
+  //     headers: {
+  //       accessToken: localStorage.getItem("accessToken"),        
+  //     }
+  //   }).then((result) => {
+  //     console.log(result);
+  //   })
+  // }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    CreateUserPost();
+    handleUpload();
+    // CreateUserPost();
   }
 
   return (
@@ -169,6 +203,12 @@ function NewUser () {
               setTelefoneUser(e.target.value);
             }}
           />
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+            accept="image/*"
+          />
           <h3 className="departamento">DEPARTAMENTO</h3>
           <select
             className="select"
@@ -179,25 +219,28 @@ function NewUser () {
               setDeptoUser(e.target.value);
             }}
           >
-            <option value="AIP" name="AIP" id="AIP">
+            <option value="0" name="nothing" id="nothing">
+              Nenhuma Selecionada
+            </option>
+            <option value="1" name="AIP" id="AIP">
               Aprendizagem Industrial Presencial
             </option>
-            <option value="GTP" name="GTP" id="GTP">
+            <option value="2" name="GTP" id="GTP">
               Graduação Tecnológica Presencial
             </option>
-            <option value="PGP" name="PGP" id="PGP">
+            <option value="3" name="PGP" id="PGP">
               Pós-Graduação Presencial
             </option>
-            <option value="EP" name="EP" id="EP">
+            <option value="4" name="EP" id="EP">
               Extensão Presencial
             </option>
-            <option value="IPP" name="IPP" id="IPP">
+            <option value="5" name="IPP" id="IPP">
               Iniciação Profissional Presencial
             </option>
-            <option value="QPP" name="QPP" id="QPP">
+            <option value="6" name="QPP" id="QPP">
               Qualificação Profissional Presencial
             </option>
-            <option value="AEPP" name="AEPP" id="AEPP">
+            <option value="7" name="AEPP" id="AEPP">
               Aperfeiç./Especializ. Profis. Presencial
             </option>
           </select>

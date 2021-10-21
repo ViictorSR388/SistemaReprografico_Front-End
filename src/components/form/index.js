@@ -12,16 +12,16 @@ export default function Form() {
   var curso;
   // var detalheGraduacao;
 
-  if (course == "1") {
+  if (course === "1") {
     curso = 1;
     // detalheGraduacao = '';
-  } else if (course == "2") {
+  } else if (course === "2") {
     curso = 2;
     // detalheGraduacao = '';
-  } else if (course == "3") {
+  } else if (course === "3") {
     curso = 3;
     // detalheGraduacao = '';
-  } else if (course == "4") {
+  } else if (course === "4") {
     curso = 4;
     // detalheGraduacao = posGraduacao;
   }
@@ -166,45 +166,88 @@ export default function Form() {
     observacao_envio = observacao;
   }
 
-  var total = pages * copy;
+  const [file, setFile] = useState();
 
-  const FormPost = () => {
-    const data = {
-      curso: curso,
-      // detalheGraduacao,
+  const handleChange = e => {
+    if (e.target.files.length) {
+      setFile(
+        e.target.files[0]
+      );
+    }
+  }
 
-      centro_custos: centro_custos,
+  const handleUpload = () => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("curso", curso);
+    formData.append("centro_custos", centro_custos);
 
-      titulo_pedido: title,
-      num_paginas: pages,
-      num_copias: copy,
+    formData.append("titulo", title);
+    formData.append("num_paginas", pages);
+    formData.append("num_copias", copy);
+    
+    formData.append("acabamento", acabamento);
+    formData.append("tipos_capa", capa);
+    
+    formData.append("tamanho_pagina", formato);
+    formData.append("tipos_copia", cor);
+    
+    formData.append("modo_envio", modo_envio);
+    formData.append("observacoes", observacao_envio);
 
-      acabamento: acabamento,
-      tipos_capa: capa,
-
-      // outros detalhes
-
-      tamanho_pagina: formato,
-      tipos_copia: cor,
-
-      // suporte
-
-      modo_envio: modo_envio,
-      observacoes: observacao_envio,
-    };
-    axios.post('http://localhost:3002/pedido', data, {
+    axios.post('http://localhost:3002/pedido', formData, {
       headers: {
-        accessToken: localStorage.getItem("accessToken"),        
+        accessToken: localStorage.getItem("accessToken"),
       }
     }).then((result) => {
       console.log(result);
     })
-  }
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    FormPost();
+    handleUpload();
   };
+
+  var total = pages * copy;
+
+  // const FormPost = () => {
+  //   const data = {
+  //     curso: curso,
+  //     // detalheGraduacao,
+
+  //     centro_custos: centro_custos,
+
+  //     titulo_pedido: title,
+  //     num_paginas: pages,
+  //     num_copias: copy,
+
+  //     acabamento: acabamento,
+  //     tipos_capa: capa,
+
+  //     // outros detalhes
+
+  //     tamanho_pagina: formato,
+  //     tipos_copia: cor,
+
+  //     // suporte
+
+  //     modo_envio: modo_envio,
+  //     observacoes: observacao_envio,
+  //   };
+  //   axios.post('http://localhost:3002/pedido', data, {
+  //     headers: {
+  //       accessToken: localStorage.getItem("accessToken"),
+  //     }
+  //   }).then((result) => {
+  //     console.log(result);
+  //   })
+  // }
+
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   handleUpload();
+  // };
 
   return (
     <>
@@ -293,6 +336,9 @@ export default function Form() {
                   setCc(e.target.value);
                 }}
               >
+                <option value="0" name="nothing" id="nothing">
+                  Nenhuma Selecionada
+                </option>
                 <option value="1" name="AIP" id="AIP">
                   Aprendizagem Industrial Presencial
                 </option>
@@ -716,10 +762,11 @@ export default function Form() {
 
             <div className="contentButton">
               <button className="functionButton">Adicionar Item</button>
-              <button className="functionButton">
+              <label htmlFor="file" className="functionButton">
                 Anexar
                 <FaFileImport />
-              </button>
+              </label>
+              <input type="file" name="file" onChange={handleChange} accept="application/pdf"/>
               <button className="functionButton" type="submit">
                 Solicitar <FaPrint />
               </button>

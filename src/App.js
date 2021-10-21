@@ -41,25 +41,22 @@ function App() {
       })
       .then((response) => {
         if (response.status === 500 || response.data.error) {
-          setAuthState({ ...authState, status: false });
+          setAuthState({ status: false });
           setRedirect(true)
-          console.log(authState)
-          console.log("teste")
         }
-        else{
+        else {
           setAuthState({
+            status: true,
             nif: response.data.nif,
             email: response.data.email,
             nome: response.data.nome,
             imagem: "http://localhost:3002/" + response.data.imagem,
             roles: response.data.roles,
-            status: true,
           });
         setRedirect(false)
-        console.log(authState)
-        console.log(authState.email)
         }
       })
+      console.log(authState)
   }, []);
 
   // const PrivateRoute = ({ component: Component, ...rest }) => (

@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import '../../styles/userInfo.scss';
+import React, { useState, useEffect } from "react";
+import "../../styles/userInfo.scss";
 import axios from "axios";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { useHistory } from 'react-router';
 
-import ProfileContainer from '../../components/profileContainer'
+import ProfileContainer from "../../components/profileContainer";
 
 function UserInfo() {
-  
-  const [image, setImage] = useState();
+  const [image, setImage] = useState({ raw: "", preview: "" });
 
   const [nameUser, setNameUser] = useState("");
 
@@ -18,125 +19,248 @@ function UserInfo() {
 
   const [deptoUser, setDeptoUser] = useState("");
 
-  const handleChange = e => {
+  const [edit, setEdit] = useState(false);
+
+  var id_depto = deptoUser;
+
+  //estrutura de decisão para exibir corretamente o departamento
+  if (deptoUser === "1") {
+    id_depto = "Aprendizagem Industrial Presencial"
+  } 
+  else if (deptoUser === "2") {
+    id_depto = "Graduação Tecnológica Presencial"
+  } 
+  else if (deptoUser === "3") {
+    id_depto = "Pós-Graduação Presencial"
+  }
+  else if (deptoUser === "4") {
+    id_depto = "Extensão Presencial"
+  }
+  else if (deptoUser === "5") {
+    id_depto = "Iniciação Profissional Presencial"
+  }
+  else if (deptoUser === "6") {
+    id_depto = "Qualificação Profissional Presencial"
+  }
+  else if (deptoUser === "7") {
+    id_depto = "Aperfeiç./Especializ. Profis. Presencial"
+  }
+
+  const handleChange = (e) => {
     if (e.target.files.length) {
-      setImage(
-        e.target.files[0]
-      );
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0],
+      });
     }
+  };
+
+  const history = useHistory();
+
+  const routeUserInfo = () => {
+    history.goBack();
   }
 
-    const handleUpload = async e => { 
-      e.preventDefault();
-      const formData = new FormData();
-      formData.append("image", image);
-      if (nameUser !== "") { formData.append("nome", nameUser) }
-      if (emailUser !== "") { formData.append("email", emailUser); }
-      if (cfpUser !== "") { formData.append("cfp", cfpUser); }
-      if (telefoneUser !== "") { formData.append("telefone", telefoneUser); }
-      if (deptoUser !== "") { formData.append("depto", deptoUser); }
+  const editButton = () => {
+    setEdit(true);
+  };
 
-      axios.put("http://localhost:3002/meuUsuario", formData, {
+  const handleUpload = () => {
+    var departamento;
+
+    //estrutura de decisão para enviar o valor para o back como numero inteiro
+    if (deptoUser === "1") {
+      departamento = 1;
+    } else if (deptoUser === "2") {
+      departamento = 2;
+    } else if (deptoUser === "3") {
+      departamento = 3;
+    } else if (deptoUser === "4") {
+      departamento = 4;
+    } else if (deptoUser === "5") {
+      departamento = 5;
+    } else if (deptoUser === "6") {
+      departamento = 6;
+    } else if (deptoUser === "7") {
+      departamento = 7;
+    }
+
+    const formData = new FormData();
+    formData.append("image", image.raw);
+    if (nameUser !== "") {
+      formData.append("nome", nameUser);
+    }
+    if (emailUser !== "") {
+      formData.append("email", emailUser);
+    }
+    if (cfpUser !== "") {
+      formData.append("cfp", cfpUser);
+    }
+    if (telefoneUser !== "") {
+      formData.append("telefone", telefoneUser);
+    }
+    if (deptoUser !== "") {
+      formData.append("depto", departamento);
+    }
+
+    axios
+      .put("http://localhost:3002/meuUsuario", formData, {
         headers: {
-          accessToken: localStorage.getItem("accessToken")
-        }
-      }).then((result) => {
-        console.log(result)
+          accessToken: localStorage.getItem("accessToken"),
+        },
       })
-    };
+      .then((result) => {
+        console.log(result);
+      });
+  };
 
-    return (
-      <div className="content">
-        <ProfileContainer />
-        <div className="container">
-          <h2 id="h2" className="ui-subTitle">Informações pessoais</h2>
-          <form onSubmit={handleUpload}>
-            <input
-              className="input-box"
-              name="nameUser"
-              type="text"
-              placeholder="Nome"
-              onChange={(e) => {
-                setNameUser(e.target.value);
-              }}
-            />
-            <input
-              className="input-box"
-              name="emailUser"
-              type="email"
-              placeholder="Email"
-              onChange={(e) => {
-                setEmailUser(e.target.value);
-              }}
-            />
-            <input
-              className="input-box"
-              name="cfpUser"
-              type="text"
-              placeholder="CFP"
-              onChange={(e) => {
-                setCfpUser(e.target.value);
-              }}
-            />
-            <input
-              className="input-box"
-              name="telefoneUser"
-              type="text"
-              placeholder="Telefone"
-              onChange={(e) => {
-                setTelefoneUser(e.target.value);
-              }}
-            />
-            <input type="file" name="image" onChange={handleChange} accept="image/*" />
-            <h3 className="departamento">DEPARTAMENTO</h3>
-            <select
-              className="select"
-              id="deptoUser"
-              name="deptoUser"
-              onChange={(e) => {
-                setDeptoUser(e.target.value);
-              }}
-            >
-              <option value="AIP" name="AIP" id="AIP">
-                Aprendizagem Industrial Presencial
-              </option>
-              <option value="GTP" name="GTP" id="GTP">
-                Graduação Tecnológica Presencial
-              </option>
-              <option value="PGP" name="PGP" id="PGP">
-                Pós-Graduação Presencial
-              </option>
-              <option value="EP" name="EP" id="EP">
-                Extensão Presencial
-              </option>
-              <option value="IPP" name="IPP" id="IPP">
-                Iniciação Profissional Presencial
-              </option>
-              <option value="QPP" name="QPP" id="QPP">
-                Qualificação Profissional Presencial
-              </option>
-              <option value="AEPP" name="AEPP" id="AEPP">
-                Aperfeiç./Especializ. Profis. Presencial
-              </option>
-            </select>
+  const onSubmit = (e) => {
+    e.preventDefault();
+    handleUpload();
+    // CreateUserPost();
+  };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/meuUsuario", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        setNameUser(result.data.nome);
+        setEmailUser(result.data.email);
+        setCfpUser(result.data.cfp);
+        setTelefoneUser(result.data.telefone);
+        setDeptoUser(result.data.id_depto);
+        setImage({ preview: "http://localhost:3002/" + result.data.imagem });
+      });
+  }, []);
+
+  return (
+    <div className="content">
+      <ProfileContainer source={image.preview} />
+      <div className="container">
+        <h2 id="h2" className="ui-subTitle">
+          Informações pessoais
+        </h2>
+        {edit ? (
+          <>
+            {" "}
+            <form onSubmit={onSubmit}>
+            <h3 className="input-title">NOME</h3>
+              <input
+                className="input-box"
+                name="nameUser"
+                type="text"
+                placeholder={nameUser}
+                onChange={(e) => {
+                  setNameUser(e.target.value);
+                }}
+              />
+            <h3 className="input-title">EMAIL</h3>
+              <input
+                className="input-box"
+                name="emailUser"
+                type="email"
+                placeholder={emailUser}
+                onChange={(e) => {
+                  setEmailUser(e.target.value);
+                }}
+              />
+            <h3 className="input-title">CFP</h3>
+              <input
+                className="input-box"
+                name="cfpUser"
+                type="text"
+                placeholder={cfpUser}
+                onChange={(e) => {
+                  setCfpUser(e.target.value);
+                }}
+              />
+            <h3 className="input-title">TELEFONE</h3>
+              <input
+                className="input-box"
+                name="telefoneUser"
+                type="text"
+                placeholder={telefoneUser}
+                onChange={(e) => {
+                  setTelefoneUser(e.target.value);
+                }}
+              />
+            <h3 className="input-title">IMAGEM</h3>
+              <label className="customize">
+                <input
+                  type="file"
+                  name="image"
+                  onChange={handleChange}
+                  accept="image/*"
+                />
+                <FaCloudUploadAlt />
+                Uploud
+                </label>  
+              <h3 className="input-title">DEPARTAMENTO</h3>
+              <select
+                className="select"
+                id="deptoUser"
+                name="deptoUser"
+                onChange={(e) => {
+                  setDeptoUser(e.target.value);
+                }}
+              >
+                <option value="0" name="nothing" id="nothing">
+                  Nenhuma Selecionada
+                </option>
+                <option value="1" name="AIP" id="AIP">
+                  Aprendizagem Industrial Presencial
+                </option>
+                <option value="2" name="GTP" id="GTP">
+                  Graduação Tecnológica Presencial
+                </option>
+                <option value="3" name="PGP" id="PGP">
+                  Pós-Graduação Presencial
+                </option>
+                <option value="4" name="EP" id="EP">
+                  Extensão Presencial
+                </option>
+                <option value="5" name="IPP" id="IPP">
+                  Iniciação Profissional Presencial
+                </option>
+                <option value="6" name="QPP" id="QPP">
+                  Qualificação Profissional Presencial
+                </option>
+                <option value="7" name="AEPP" id="AEPP">
+                  Aperfeiç./Especializ. Profis. Presencial
+                </option>
+              </select>
+              <div className="btns">
+                <input type="submit" className="nu-button" id="btn" value="Enviar"
+                />
+              <button className="nu-button" id="btn" onClick={routeUserInfo}> Voltar</button>
+              </div>
+            </form>
+          </>
+        ) : (
+          <>
+          <h3 className="input-title">NOME</h3>
+            <h2 className="userInformation">{nameUser}</h2>
+          <h3 className="input-title">EMAIL</h3>
+            <h2 className="userInformation">{emailUser}</h2>
+          <h3 className="input-title">CFP</h3>
+            <h2 className="userInformation">{cfpUser}</h2>
+          <h3 className="input-title">TELEFONE</h3>
+            <h2 className="userInformation">{telefoneUser}</h2>
+          <h3 className="input-title">DEPARTAMENTO</h3>
+            <h2 className="userInformation">{id_depto}</h2>
             <div className="btns">
-              <input
-                type="submit"
-                className="nu-button"
-                id="btn"
-                value="Enviar"
-              />
-              <input
-                type="submit"
-                className="nu-button"
-                id="btn"
-                value="Voltar"
-              />
+            <button className="btn-edit-user" id="btn" onClick={editButton}> Editar </button>
+            <button className="btn-back-user" id="btn" onClick={routeUserInfo}> Voltar</button>
             </div>
-          </form>
-        </div>
+          </>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-  export default UserInfo;
+export default UserInfo;
