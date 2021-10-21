@@ -4,7 +4,7 @@ import { FaPrint } from 'react-icons/fa';
 import './styles.scss';
 import axios from 'axios';
 
-function Form() {
+export default function Form() {
   //cursos
   const [course, setCourse] = useState(0);
   // const [posGraduacao, setPosGraduacao] = useState('');
@@ -119,15 +119,12 @@ function Form() {
     formato = 2;
     cor = 1;
   } else if (typePaper === "3") {
-    formato = 2;
-    cor = 2;
-  } else if (typePaper === "4") {
     formato = 3;
     cor = 1;
-  } else if (typePaper === "5") {
+  } else if (typePaper === "4") {
     formato = 4;
     cor = 1;
-  } else if (typePaper === "6") {
+  } else if (typePaper === "5") {
     formato = 5;
     cor = 1;
   }
@@ -197,8 +194,10 @@ function Form() {
     };
     axios.post('http://localhost:3002/pedido', data, {
       headers: {
-        accessToken: localStorage.getItem("accessToken")
+        accessToken: localStorage.getItem("accessToken"),        
       }
+    }).then((result) => {
+      console.log(result);
     })
   }
 
@@ -280,9 +279,9 @@ function Form() {
                 // disabled={true}
                 name="posGraduacao"
                 id="posGraduacao"
-                // onChange={(e) => {
-                //   setPosGraduacao(e.target.value);
-                // }}
+              // onChange={(e) => {
+              //   setPosGraduacao(e.target.value);
+              // }}
               />
 
               <label htmlFor="cost">Centro de custos:</label>
@@ -532,22 +531,6 @@ function Form() {
                 </div>
                 <div className="radioName">
                   <label className="labelName" htmlFor="type-paper">
-                    A4 Colorida
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="typePaper"
-                    id="a4c"
-                    value="3"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setTypePaper(newValue);
-                    }}
-                  />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="type-paper">
                     A5 Preto e Branco
                   </label>
                   <input
@@ -555,7 +538,7 @@ function Form() {
                     type="radio"
                     name="typePaper"
                     id="a5pb"
-                    value="4"
+                    value="3"
                     onChange={(e) => {
                       const newValue = e.target.value;
                       setTypePaper(newValue);
@@ -571,7 +554,7 @@ function Form() {
                     type="radio"
                     name="typePaper"
                     id="redpb"
-                    value="5"
+                    value="4"
                     onChange={(e) => {
                       const newValue = e.target.value;
                       setTypePaper(newValue);
@@ -587,7 +570,7 @@ function Form() {
                     type="radio"
                     name="typePaper"
                     id="amppb"
-                    value="6"
+                    value="5"
                     onChange={(e) => {
                       const newValue = e.target.value;
                       setTypePaper(newValue);
@@ -747,5 +730,3 @@ function Form() {
     </>
   );
 }
-
-export default Form;

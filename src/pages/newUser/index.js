@@ -18,7 +18,7 @@ function NewUser () {
         },
       })
       .then((response) => {
-        if (response.status == 500 || response.data.error) {
+        if (response.status === 500 || response.data.error) {
           setAuthState({ status: false });
           history.push('./')
         }
@@ -32,7 +32,7 @@ function NewUser () {
             status: true
           });
           var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-          if (resposta == false) {
+          if (resposta === false) {
             setAuthState({ status: false });
             history.push('./notAuthorized')
         }

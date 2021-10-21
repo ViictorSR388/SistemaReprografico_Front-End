@@ -23,14 +23,15 @@ export default function Login() {
         setMensagem(result.data.error)
       }
       else {
+        localStorage.setItem("accessToken", result.data.accessToken);
         setAuthState({
           nif: result.data.nif,
           nome: result.data.nome,
+          email: result.data.email,
           roles: result.data.roles,
           status: true
         });
-        localStorage.setItem("accessToken", result.data.accessToken);
-
+      
         var resposta = result.data.roles.includes("3_ROLE_ADMIN");
 
         if (resposta == true) {

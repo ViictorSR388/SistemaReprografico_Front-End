@@ -50,7 +50,7 @@ function Management () {
       <MenuG />
       <Header />
       <SideBarGerencia />
-
+{/* {isLoading ? <><h1>Carregando</h1></>: <></>} */}
       <div className="container-management">
         <div className="management">
           <h1 className="management-title">Gerência de Usuários</h1>

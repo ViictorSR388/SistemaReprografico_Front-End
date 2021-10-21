@@ -5,7 +5,7 @@ import notAuthorized from "./NotAuthorized";
 import newUser from './pages/newUser';
 import newPassword from './pages/newPassword';
 import forgotPassword from './pages/forgotPassword';
-import userInfo from './pages/userInfo-copy';
+import userInfo from './pages/userInfo';
 import requestFormC from './pages/requestFormC';
 import requestFormG from './pages/requestFormG';
 import management from './pages/management';
@@ -41,22 +41,25 @@ function App() {
       })
       .then((response) => {
         if (response.status === 500 || response.data.error) {
-          setAuthState({ status: false });
+          setAuthState({ ...authState, status: false });
           setRedirect(true)
+          console.log(authState)
+          console.log("teste")
         }
-        else {
+        else{
           setAuthState({
-            status: true,
             nif: response.data.nif,
             email: response.data.email,
             nome: response.data.nome,
             imagem: "http://localhost:3002/" + response.data.imagem,
             roles: response.data.roles,
+            status: true,
           });
         setRedirect(false)
+        console.log(authState)
+        console.log(authState.email)
         }
       })
-      console.log(authState)
   }, []);
 
   // const PrivateRoute = ({ component: Component, ...rest }) => (
