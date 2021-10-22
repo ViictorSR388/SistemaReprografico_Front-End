@@ -28,7 +28,7 @@ export default function ForgotPassword() {
     // o valor abaixo.
     else {
       const data = { mail: email };
-      axios.post("http://localhost:3002/forgot-password/", data).then((response) => {
+      axios.post("http://localhost:3002/esqueceuSenha", data).then((response) => {
 
         //Retorna o valor de "enviado" como TRUE => Serve para usarmos na parte do operador ternário (trocar o botão por mensagem
         // se for true, por exemplo...)

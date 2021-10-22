@@ -13,13 +13,15 @@ import review from './pages/review';
 import historyDefault from './pages/historyDefault';
 import historyAdmin from './pages/historyAdmin';
 import statistics from './pages/statistics';
+import myRequests from './pages/myRequests';
+import detPedido from './pages/detPedido'
 import { isAuthenticated } from './auth';
 import axios from "axios";
 import { AuthContext } from "./helpers/AuthContext";
 
 
 function App() {
-  var history = useHistory();
+
   const [authState, setAuthState] = useState({
     nif: 0,
     email: "",
@@ -56,7 +58,6 @@ function App() {
         setRedirect(false)
         }
       })
-      console.log(authState)
   }, []);
 
   // const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -80,6 +81,8 @@ function App() {
 
           <Switch>
             <Route path='/' exact component={login} />
+            <Route path='/forgotPassword' exact component={forgotPassword} />
+            <Route path='/newPassword' exact component={newPassword} />
             {redirect ? (
               <>
                   <Route path='*' exact component={notAuthorized} />
@@ -87,17 +90,17 @@ function App() {
             ) :
               <>
                 <Route path='/newUser' exact component={newUser} />
-                <Route path='/newPassword' exact component={newPassword} />
-                <Route path='/forgotPassword' exact component={forgotPassword} />
                 <Route path='/userInfo' exact component={userInfo} />
                 <Route path='/requestFormC' exact component={requestFormC} />
                 <Route path='/requestFormG' exact component={requestFormG} />
                 <Route path='/management' exact component={management} />
-                <Route path='/review' exact component={review} />
+                <Route path='/review/:id' exact component={review} />
                 <Route path='/historyDefault' exact component={historyDefault} />
                 <Route path='/historyAdmin' exact component={historyAdmin} />
                 <Route path='/statistics' exact component={statistics} />
                 <Route path='/notAuthorized' exact component={notAuthorized} />
+                <Route path='/myRequests' exact component={myRequests} />
+                <Route path='/detPedido/:id' exact component={detPedido} />
               </>
             }
           </Switch>

@@ -7,7 +7,7 @@ import { AuthContext } from './../../helpers/AuthContext';
 import LoginContainer from '../../components/loginContainer'
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [emailOrNif, setEmailOrNif] = useState("");
   const [senha, setSenha] = useState("");
   const { setAuthState } = useContext(AuthContext);
 
@@ -16,7 +16,7 @@ export default function Login() {
   let history = useHistory();
 
   const LoginPost = () => {
-    const data = { email: email, senha: senha };
+    const data = { emailOrNif: emailOrNif, senha: senha };
     axios.post("http://localhost:3002/logar", data).then((result) => {
       console.log(result)
       if (result.data.error) {
@@ -33,7 +33,7 @@ export default function Login() {
 
         var resposta = result.data.roles.includes("3_ROLE_ADMIN");
 
-        if (resposta == true) {
+        if (resposta === true) {
           history.push('management')
         } else {
           history.push('requestFormC')
@@ -54,7 +54,7 @@ export default function Login() {
         if (response.data.roles) {
           var resposta = response.data.roles.includes("3_ROLE_ADMIN");
 
-          if (resposta == true) {
+          if (resposta === true) {
             history.push('management')
           } else {
             history.push('requestFormC')
@@ -84,9 +84,9 @@ export default function Login() {
               type="text"
               name="email"
               onChange={(e) => {
-                setEmail(e.target.value);
+                setEmailOrNif(e.target.value);
               }}
-              placeholder="E-mail"
+              placeholder="E-mail ou NIF"
               required
             />
             <input
@@ -102,7 +102,7 @@ export default function Login() {
             />
 
             <div className="link-box">
-              <a className="newPassword" onClick={() => history.push(`/forgotPassword`)}>Esqueci a senha</a>
+              <p className="newPassword" onClick={() => history.push(`/forgotPassword`)}>Esqueci a senha</p>
             </div>
 
             <input
