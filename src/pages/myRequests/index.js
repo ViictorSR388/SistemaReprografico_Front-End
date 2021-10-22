@@ -28,7 +28,7 @@ const MyRequests = () => {
                 if (result.data.length > 0) {
                     result.data.map((data) => {
                         if (data.avaliacao_pedido === "Ainda não avaliado.") {
-                            data.avaliacao_pedido = "Ainda Não avaliado! | Criado em:" + data.atualizado
+                            data.avaliacao_pedido = "Ainda Não avaliado! | Criado em:" + data.criado
                         }
                         else {
                             data.avaliacao_pedido += " | Atualizado em:" + data.atualizado

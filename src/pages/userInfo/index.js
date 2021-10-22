@@ -3,7 +3,7 @@ import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
-import { PassContext } from "../../helpers/changePassContext";
+// import { PassContext } from "../../helpers/changePassContext";
 
 import ProfileContainer from "../../components/profileContainer";
 
@@ -160,7 +160,7 @@ function UserInfo() {
 
   return (
     <div className="content">
-      <PassContext.Provider value={{ changePass, setChangePass }}>
+      {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
       <ProfileContainer source={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} />
       <div className="container">
 
@@ -180,7 +180,7 @@ function UserInfo() {
             </div>
             <div>
               <h2 id="h2" className="ui-subTitle">
-                Nova senha
+                Nova senha  
               </h2>
               <input required type="password" className="input-box" placeholder="Insira a nova senha"
                 onChange={(e) => {
@@ -312,7 +312,7 @@ function UserInfo() {
           )}</>}
 
       </div>
-      </PassContext.Provider>
+      {/* </PassContext.Provider> */}
     </div>
   );
 }
