@@ -3,8 +3,6 @@ import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
-// import { PassContext } from "../../helpers/changePassContext";
-
 import ProfileContainer from "../../components/profileContainer";
 
 function UserInfo() {
@@ -160,8 +158,7 @@ function UserInfo() {
 
   return (
     <div className="content">
-      {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
-      <ProfileContainer source={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} />
+      <ProfileContainer title = "Alterar Senha" source={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} />
       <div className="container">
 
         {changePass ? <>         <h2 id="h2" className="ui-subTitle">
@@ -306,13 +303,12 @@ function UserInfo() {
               <h2 className="userInformation">{id_depto}</h2>
               <div className="btns">
                 <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button>
-                <button className="btn-back-user" id="btn" onClick={routeUserInfo}> Voltar</button>
+                <button className="btn-back-user" id="btn" onClick={() => {history.push("/requestFormC")}}> Voltar</button>
               </div>
             </>
           )}</>}
 
       </div>
-      {/* </PassContext.Provider> */}
     </div>
   );
 }

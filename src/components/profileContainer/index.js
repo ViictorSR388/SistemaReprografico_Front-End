@@ -17,15 +17,23 @@ function ProfileContainer(props) {
                 </div>
 
             </div>
-            <h2 className="subTitle">{props.name}</h2>
+            
+            
+            <h2 className="subTitle" onClick={() => { history.push("/userInfo")}} style={{cursor: "pointer"}}>{props.name}</h2>
+            {props.requestsNoInfo ? <></> :
+             <>             
             <div>
                 <button onClick={() => { history.push("/myRequests") }}>
-                    <h2>Meus Pedidos</h2>
+                    <h2 style={{cursor: "pointer"}}>Meus Pedidos</h2>
                 </button>
             </div>
-                <button>
-                    <h2 onClick={props.changePassword}>Alterar Senha</h2>
+            <div>
+            <button>
+                <h2 onClick={props.changePassword} style={{cursor: "pointer"}}>{props.title}</h2>
                 </button>
+            </div> 
+            </>}
+
         </div>
 
     );
