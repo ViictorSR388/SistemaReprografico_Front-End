@@ -31,6 +31,10 @@ function UserInfo() {
 
   const [message, setMessage] = useState();
 
+  const [loading, setLoading] = useState();
+
+  const [title, setTitle] = useState("Alterar Senha");
+
   var id_depto = deptoUser;
 
   //estrutura de decisão para exibir corretamente o departamento
@@ -67,30 +71,37 @@ function UserInfo() {
 
   const history = useHistory();
 
-  const routeUserInfo = () => {
-    history.goBack();
-  }
+  // const routeUserInfo = () => {
+  //   history.goBack();
+  // }
 
   const handleUpload = (e) => {
     e.preventDefault();
-    var departamento;
 
+    //Retirei o departamento e CFP, refleti e acho que não seria bacana o usuário estar modificando
+    //coisas como essas, isso deveria ficar a cargo da gerente trocar caso for necessário, o funcionário
+    //não pode definir o setor que o usuário dele trabalha... Sobre o CFP, acho que será algo tão único 
+    //quanto o NIF, sendo também meio irrelevante pro usuário ficar aparecendo toda hora na parte de edit,
+    //coisa que ele não ia atualizar acho que nunca, e se precisar ser modificado, tem o administrador do sistema
+    //que pode alterar qualquer informação de qualquer usuário.
+
+    // var departamento;
     //estrutura de decisão para enviar o valor para o back como numero inteiro
-    if (deptoUser === "1") {
-      departamento = 1;
-    } else if (deptoUser === "2") {
-      departamento = 2;
-    } else if (deptoUser === "3") {
-      departamento = 3;
-    } else if (deptoUser === "4") {
-      departamento = 4;
-    } else if (deptoUser === "5") {
-      departamento = 5;
-    } else if (deptoUser === "6") {
-      departamento = 6;
-    } else if (deptoUser === "7") {
-      departamento = 7;
-    }
+    // if (deptoUser === "1") {
+    //   departamento = 1;
+    // } else if (deptoUser === "2") {
+    //   departamento = 2;
+    // } else if (deptoUser === "3") {
+    //   departamento = 3;
+    // } else if (deptoUser === "4") {
+    //   departamento = 4;
+    // } else if (deptoUser === "5") {
+    //   departamento = 5;
+    // } else if (deptoUser === "6") {
+    //   departamento = 6;
+    // } else if (deptoUser === "7") {
+    //   departamento = 7;
+    // }
 
     const formData = new FormData();
     formData.append("image", image.raw);
@@ -100,15 +111,15 @@ function UserInfo() {
     if (emailUser !== "") {
       formData.append("email", emailUser);
     }
-    if (cfpUser !== "") {
-      formData.append("cfp", cfpUser);
-    }
+    // if (cfpUser !== "") {
+    //   formData.append("cfp", cfpUser);
+    // }
     if (telefoneUser !== "") {
       formData.append("telefone", telefoneUser);
     }
-    if (deptoUser !== "") {
-      formData.append("depto", departamento);
-    }
+    // if (deptoUser !== "") {
+    //   formData.append("depto", departamento);
+    // }
 
     axios
       .put("http://localhost:3002/meuUsuario", formData, {
@@ -129,16 +140,19 @@ function UserInfo() {
         accessToken: localStorage.getItem("accessToken"),
       },
     }).then((result) => {
-      if(result.data.error){
+      if (result.data.error) {
         setMessage(result.data.error)
       }
-      else{
+      else {
         setMessage(result.data.message)
+        history.go()
       }
     })
   }
 
   useEffect(() => {
+    //Setando Loading como true antes do fetch ter passado as informações pros nossos hooks.
+    setLoading(true)
     axios
       .get("http://localhost:3002/meuUsuario", {
         headers: {
@@ -153,71 +167,82 @@ function UserInfo() {
         setTelefoneUser(result.data.telefone);
         setDeptoUser(result.data.id_depto);
         setImage({ preview: "http://localhost:3002/" + result.data.imagem });
+
+        //Setando Loading como falso depois do fetch já ter passado as informações pros nossos hooks. (Exibirá as informações da página => Operador ternário no return)
+        setLoading(false)
       });
   }, []);
 
   return (
     <div className="content">
-      <ProfileContainer title = "Alterar Senha" source={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} />
-      <div className="container">
+      {loading ? <> Loading... {/* Pode ser substituido por um componente mais tarde
+          Sugiro fazer isso em todas as páginas que precisam do useEffect para exibir as 
+          informações. Ai caso demore para exibir, para que a experiência do usuário não fique
+          ruim, é bacana a gente exibir um loading para ele e só mostrar as informações depois
+          que o FETCH GET tive sido completado.
+          */}</> :
 
-        {changePass ? <>         <h2 id="h2" className="ui-subTitle">
-          Alterar senha
-        </h2>
-          <form onSubmit={passwordPost}>
-            <div>
+        <> <ProfileContainer title={title} source={image.preview} name={nameUser} changePassword={() => { setChangePass(true); setTitle("") }} />
+          <div className="container">
+
+            {changePass ? <>
               <h2 id="h2" className="ui-subTitle">
-                Senha antiga
+                Alterar senha
               </h2>
-              <input required type="password" className="input-box" placeholder="Insira sua senha antiga"
-                onChange={(e) => {
-                  setPastPassword(e.target.value);
-                }}
-              ></input>
-            </div>
-            <div>
+              <form onSubmit={passwordPost}>
+                <div>
+                  <h2 id="h2" className="ui-subTitle">
+                    Senha antiga
+                  </h2>
+                  <input required type="password" className="input-box" placeholder="Insira sua senha antiga"
+                    onChange={(e) => {
+                      setPastPassword(e.target.value);
+                    }}
+                  ></input>
+                </div>
+                <div>
+                  <h2 id="h2" className="ui-subTitle">
+                    Nova senha
+                  </h2>
+                  <input required type="password" className="input-box" placeholder="Insira a nova senha"
+                    onChange={(e) => {
+                      setNewPassowrd(e.target.value);
+                    }}
+                  ></input>
+                </div>
+                <button type="submit">Enviar</button>
+              </form>
+              <button onClick={() => { setChangePass(false); setTitle("Alterar Senha") }}>Voltar</button>
+              <h4>{message}</h4>
+            </> : <>
               <h2 id="h2" className="ui-subTitle">
-                Nova senha  
+                Informações pessoais
               </h2>
-              <input required type="password" className="input-box" placeholder="Insira a nova senha"
-                onChange={(e) => {
-                  setNewPassowrd(e.target.value);
-                }}
-              ></input>
-            </div>
-            <button type="submit">Enviar</button>
-          </form>
-          <button onClick={() => { setChangePass(false) }}>Voltar</button>
-          <h4>{message}</h4>
-        </> : <>
-          <h2 id="h2" className="ui-subTitle">
-            Informações pessoais
-          </h2>
-          {edit ? (
-            <>
-              {" "}
-              <form onSubmit={handleUpload}>
-                <h3 className="input-title">NOME</h3>
-                <input
-                  className="input-box"
-                  name="nameUser"
-                  type="text"
-                  placeholder={nameUser}
-                  onChange={(e) => {
-                    setNameUser(e.target.value);
-                  }}
-                />
-                <h3 className="input-title">EMAIL</h3>
-                <input
-                  className="input-box"
-                  name="emailUser"
-                  type="email"
-                  placeholder={emailUser}
-                  onChange={(e) => {
-                    setEmailUser(e.target.value);
-                  }}
-                />
-                <h3 className="input-title">CFP</h3>
+              {edit ? (
+                <>
+                  {" "}
+                  <form onSubmit={handleUpload}>
+                    <h3 className="input-title">NOME</h3>
+                    <input
+                      className="input-box"
+                      name="nameUser"
+                      type="text"
+                      placeholder={nameUser}
+                      onChange={(e) => {
+                        setNameUser(e.target.value);
+                      }}
+                    />
+                    <h3 className="input-title">EMAIL</h3>
+                    <input
+                      className="input-box"
+                      name="emailUser"
+                      type="email"
+                      placeholder={emailUser}
+                      onChange={(e) => {
+                        setEmailUser(e.target.value);
+                      }}
+                    />
+                    {/* <h3 className="input-title">CFP</h3>
                 <input
                   className="input-box"
                   name="cfpUser"
@@ -226,30 +251,30 @@ function UserInfo() {
                   onChange={(e) => {
                     setCfpUser(e.target.value);
                   }}
-                />
-                <h3 className="input-title">TELEFONE</h3>
-                <input
-                  className="input-box"
-                  name="telefoneUser"
-                  type="text"
-                  placeholder={telefoneUser}
-                  onChange={(e) => {
-                    setTelefoneUser(e.target.value);
-                  }}
-                />
-                <h3 className="input-title">IMAGEM</h3>
-                <label className="customize">
-                  <input
-                    type="file"
-                    name="image"
-                    onChange={handleChange}
-                    accept="image/*"
-                  />
-                  <FaCloudUploadAlt />
-                  Uploud
-                </label>
-                <h3 className="input-title">DEPARTAMENTO</h3>
-                <select
+                /> */}
+                    <h3 className="input-title">TELEFONE</h3>
+                    <input
+                      className="input-box"
+                      name="telefoneUser"
+                      type="text"
+                      placeholder={telefoneUser}
+                      onChange={(e) => {
+                        setTelefoneUser(e.target.value);
+                      }}
+                    />
+                    <h3 className="input-title">IMAGEM</h3>
+                    <label className="customize">
+                      <input
+                        type="file"
+                        name="image"
+                        onChange={handleChange}
+                        accept="image/*"
+                      />
+                      <FaCloudUploadAlt />
+                      Uploud
+                    </label>
+                    {/* <h3 className="input-title">DEPARTAMENTO</h3> */}
+                    {/* <select
                   className="select"
                   id="deptoUser"
                   name="deptoUser"
@@ -281,34 +306,36 @@ function UserInfo() {
                   <option value="7" name="AEPP" id="AEPP">
                     Aperfeiç./Especializ. Profis. Presencial
                   </option>
-                </select>
-                <div className="btns">
-                  <input type="submit" className="nu-button" id="btn" value="Enviar"
-                  />
-                  <button className="nu-button" id="btn" onClick={() => { setEdit(false) }}> Voltar</button>
-                </div>
-              </form>
-            </>
-          ) : (
-            <>
-              <h3 className="input-title">NIF</h3>
-              <h2 className="userInformation">{nif}</h2>
-              <h3 className="input-title">EMAIL</h3>
-              <h2 className="userInformation">{emailUser}</h2>
-              <h3 className="input-title">CFP</h3>
-              <h2 className="userInformation">{cfpUser}</h2>
-              <h3 className="input-title">TELEFONE</h3>
-              <h2 className="userInformation">{telefoneUser}</h2>
-              <h3 className="input-title">DEPARTAMENTO</h3>
-              <h2 className="userInformation">{id_depto}</h2>
-              <div className="btns">
-                <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button>
-                <button className="btn-back-user" id="btn" onClick={() => {history.push("/requestFormC")}}> Voltar</button>
-              </div>
-            </>
-          )}</>}
+                </select> */}
+                    <div className="btns">
+                      <input type="submit" className="nu-button" id="btn" value="Enviar"
+                      />
+                      <button className="nu-button" id="btn" onClick={() => { setEdit(false); setTitle("Alterar Senha") }}> Voltar</button>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <h3 className="input-title">NIF</h3>
+                  <h2 className="userInformation">{nif}</h2>
+                  <h3 className="input-title">EMAIL</h3>
+                  <h2 className="userInformation">{emailUser}</h2>
+                  <h3 className="input-title">CFP</h3>
+                  <h2 className="userInformation">{cfpUser}</h2>
+                  <h3 className="input-title">TELEFONE</h3>
+                  <h2 className="userInformation">{telefoneUser}</h2>
+                  <h3 className="input-title">DEPARTAMENTO</h3>
+                  <h2 className="userInformation">{id_depto}</h2>
+                  <div className="btns">
+                    <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true); setTitle("") }}> Editar </button>
+                    <button className="btn-back-user" id="btn" onClick={() => { history.push("/requestFormC") }}> Voltar</button>
+                  </div>
+                </>
+              )}</>}
 
-      </div>
+          </div>
+        </>}
+
     </div>
   );
 }

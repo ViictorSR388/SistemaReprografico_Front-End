@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import '../../styles/review.scss';
 import Header from '../../components/header';
 import Menu from '../../components/hamburgerButton';
@@ -8,27 +8,34 @@ import axios from 'axios';
 
 function Review() {
 
+  var history = useHistory();
+
   var { id } = useParams();
 
   var [feedBack, setFeedBack] = useState();
 
   var [atendInput, setAtendInput] = useState();
-  
+
   var [mensagem, setMensagem] = useState();
 
   const avaliaPost = (e) => {
     e.preventDefault();
 
-    axios.put("http://localhost:3002/avaliacao/" + id, {avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput}, {
+    axios.put("http://localhost:3002/avaliacao/" + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
     }).then((result) => {
-      if(result.data.error){
+      if (result.data.error) {
         setMensagem(result.data.error)
       }
-      else{
+      else {
         setMensagem(result.data.message)
+
+        //Redireciona para página de meusPedidos em 1,5seg
+        setTimeout(() => {
+          history.push("/myRequests")
+        }, 1500);
       }
     })
   }
@@ -38,14 +45,14 @@ function Review() {
       <Menu />
       <Header />
       <SideBarColaborador />
-     
+
       <div id="main-container">
-        
+
         <form id="review-container" onSubmit={avaliaPost}>
           <div id="review-title">
             <h3>Avaliação de Reprografia</h3>
           </div>
- 
+
           <div id="review-content">
             <div id="feedback-radio">
               <div className="radio">
@@ -62,7 +69,7 @@ function Review() {
                 />
               </div>
 
-    
+
 
               <div className="radio">
                 <label htmlFor="superou">Não Atendeu</label>
@@ -75,15 +82,15 @@ function Review() {
                   onChange={() => {
                     setAtendInput(2)
                   }}
-    
+
                 />
               </div>
             </div>
 
             <div id="feedback-text">
               <textarea placeholder=" digite seu feedback" onChange={(e) => {
-                  setFeedBack(e.target.value);
-                }}></textarea>
+                setFeedBack(e.target.value);
+              }}></textarea>
             </div>
           </div>
           <div id="button-review">

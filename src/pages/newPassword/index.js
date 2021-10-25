@@ -44,7 +44,6 @@ export default function NewPassword() {
       axios.post("http://localhost:3002/reset-password", data).then((result) => {
         setEnviado(true)
         setMensagem(result.data.message)
-        console.log(result)
       })
     }
   }

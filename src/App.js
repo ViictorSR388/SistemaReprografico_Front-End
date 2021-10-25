@@ -33,6 +33,10 @@ function App() {
 
   const [redirect, setRedirect] = useState(false)
  
+  //Não precisava copiar e colar isso aqui no código todo, esse useEffect vai ser executado
+  // em todas as páginas, pq tudo está sendo renderizado a partir dele (no index.js ele é o unico
+  // a ser renderizado...)
+  
   useEffect(() => {
     axios
       .get("http://localhost:3002/auth", {
