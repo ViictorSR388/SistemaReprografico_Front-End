@@ -1,9 +1,11 @@
 import React from 'react';
 import './styles.scss';
-// import Profile from '../img/profile.js';
+import Profile from '../img/profile.js';
 import { useHistory } from 'react-router';
+import { Button } from 'react-bootstrap';
 
 function ProfileContainer(props) {
+
 
     var history = useHistory();
 
@@ -16,22 +18,17 @@ function ProfileContainer(props) {
                 </div>
 
             </div>
-
-            <h2 className="subTitle" onClick={() => { history.push("/userInfo") }} style={{ cursor: "pointer" }}>{props.name}</h2>
-            {props.requestsNoInfo ? <></> :
-                <>
-                    <div>
-                        <button onClick={() => { history.push("/myRequests") }}>
-                            <h2 style={{ cursor: "pointer" }}>Meus Pedidos</h2>
-                        </button>
-                    </div>
-                    <div>
-                        <button>
-                            <h2 onClick={props.changePassword} style={{ cursor: "pointer" }}>{props.title}</h2>
-                        </button>
-                    </div>
-                </>}
+            <h2 className="subTitle">{props.name}</h2>
+            <div className="profile-btns" >
+                <Button className="profile-btn" variant="secondary" size="lg" onClick={() => { history.push("/myRequests") }}>
+                    Meus Pedidos
+                </Button>
+                <Button className="profile-btn" variant="secondary" size="lg" onClick={props.changePassword}>
+                    Alterar Senha
+                </Button>
+            </div>
         </div>
+
     );
 }
 
