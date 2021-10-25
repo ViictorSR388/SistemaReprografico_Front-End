@@ -1,45 +1,44 @@
-import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import {useState} from 'react';
 import '../../styles/review.scss';
+import axios from 'axios';
+
+
 import Header from '../../components/header';
 import Menu from '../../components/hamburgerButton';
 import SideBarColaborador from '../../components/sidebarColaborador';
-import axios from 'axios';
 
 function Review() {
 
-  var history = useHistory();
+  const [review, setReview] = useState(0);
+  const [observacoes, setObservacoes] = useState("");
 
-  var { id } = useParams();
+  var avaliacao;
 
-  var [feedBack, setFeedBack] = useState();
+  if (review === "1") {
+    avaliacao = 1
+  } else if (review === "2") {
+    avaliacao = 2
+  }
 
-  var [atendInput, setAtendInput] = useState();
-
-  var [mensagem, setMensagem] = useState();
-
-  const avaliaPost = (e) => {
-    e.preventDefault();
-
-    axios.put("http://localhost:3002/avaliacao/" + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
+  const ReviewPost = () => {
+    const data = {
+      avaliacao: avaliacao, //consultar o como o back está recebendo a avaliação
+      observacoes: observacoes //consultar o como o back está recebendo a observação
+    }
+    axios.put('http://localhost:3002/avaliacao/id', data, { //consultar caminho da requisição
       headers: {
         accessToken: localStorage.getItem("accessToken"),
-      },
+      }
     }).then((result) => {
-      if (result.data.error) {
-        setMensagem(result.data.error)
-      }
-      else {
-        setMensagem(result.data.message)
-
-        //Redireciona para página de meusPedidos em 1,5seg
-        setTimeout(() => {
-          history.push("/myRequests")
-        }, 1500);
-      }
+      console.log(result);
     })
   }
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    ReviewPost();
+  };
+  
   return (
     <>
       <Menu />
@@ -47,57 +46,58 @@ function Review() {
       <SideBarColaborador />
 
       <div id="main-container">
-
-        <form id="review-container" onSubmit={avaliaPost}>
+        <div id="review-container">
           <div id="review-title">
             <h3>Avaliação de Reprografia</h3>
           </div>
-
+          
+          <form onSubmit={onSubmit}>
           <div id="review-content">
             <div id="feedback-radio">
               <div className="radio">
-                <label htmlFor="nao-atendeu">Atendeu</label>
+                <label for="nao-atendeu">Não Atendeu</label>
                 <input
                   type="radio"
-                  name="radio-option"
+                  name="review"
                   id="nao-atendeu"
                   className="checkbox-avaliacao"
-                  checked={atendInput === 1}
-                  onChange={() => {
-                    setAtendInput(1)
+                  value="1"
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setReview(newValue);
                   }}
                 />
               </div>
-
-
-
               <div className="radio">
-                <label htmlFor="superou">Não Atendeu</label>
+                <label for="superou">Atendeu</label>
                 <input
                   type="radio"
-                  name="radio-option"
+                  name="review"
                   id="superou"
                   className="checkbox-avaliacao"
-                  checked={atendInput === 2}
-                  onChange={() => {
-                    setAtendInput(2)
+                  value="2"
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setReview(newValue);
                   }}
-
                 />
               </div>
             </div>
 
             <div id="feedback-text">
-              <textarea placeholder=" digite seu feedback" onChange={(e) => {
-                setFeedBack(e.target.value);
-              }}></textarea>
+              <textarea 
+                placeholder=" digite seu feedback" 
+                onChange={(e) => {
+                    setObservacoes(e.target.value);
+                }}
+              ></textarea>
             </div>
           </div>
           <div id="button-review">
             <button id="review-button" type="submit"> Enviar Avaliação</button>
           </div>
-          <h4>{mensagem}</h4>
-        </form>
+          </form>
+        </div>
       </div>
     </>
   );

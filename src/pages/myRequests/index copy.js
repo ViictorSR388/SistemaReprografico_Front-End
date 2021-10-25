@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom"
 import ProfileContainer from "../../components/profileContainer";
 import axios from 'axios'
 import { PassContext } from "../../helpers/changePassContext";
-import { Button, Card, Table } from 'react-bootstrap';
 
 const MyRequests = () => {
 
@@ -61,43 +60,30 @@ const MyRequests = () => {
                 <div className="container">
                     {pedidos.status ?
                         <>
-                            <Table striped bordered hover size="sm">
-                                <thead>
-                                    <tr>
-                                        <th>Pedido</th>
-                                        <th>Centro de custos</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                {pedidos.list.map((data) => (
-                                    <React.Fragment key={data.id_pedido}> {/* é a mesma coisa que <> ... <> é a abreviação de <React.Fragment>
+                            {pedidos.list.map((data) => (
+                                <React.Fragment key={data.id_pedido}> {/* é a mesma coisa que <> ... <> é a abreviação de <React.Fragment>
                             A key é para referenciar uma key única para o map não se perder... e também parar de dar erro no console */}
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <Card.Text>{data.titulo_pedido}</Card.Text>
-                                                </td>
-                                                <td>
-                                                    <Card.Text>{data.centro_custos}</Card.Text>
-                                                </td>
-                                                <td>
-                                                    <Card.Text>{data.avaliacao_pedido}</Card.Text>
-                                                </td>
-                                                <td >
-                                                    <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/detPedido/" + data.id_pedido) }}>detalhes</Button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </React.Fragment>
-                                ))}
-                            </Table>
+                                    <div>
+                                        <h2>Pedido{/*<N.ºspan>{data.id_pedido}</span>*/}:<span>{data.titulo_pedido}</span></h2>
+                                        {/* <h2>Realizado pelo usuário com Nif: <span>{data.nif}</span> </h2> */}
+                                        <h2>Centro de custos: <span>{data.centro_custos}</span></h2>
+
+                                        <h2>status: <span>{data.avaliacao_pedido}</span></h2>
+                                    </div>
+                                    <button onClick={() => { history.push("/detPedido/" + data.id_pedido) }}>detalhes</button>
+                                    <h3>----------------------------</h3>  {/* Só coloquei para separar, para nao
+                ter que mexer no css de voces e bagunçar algo lá... */}
+
+
+                                </React.Fragment>
+                            ))}
 
                         </> :
                         <>
                             <h1>{pedidos.message}</h1>
                         </>
                     }
-                    <Button className="btn-back-user" onClick={() => { history.push("/userInfo") }}> Voltar </Button>
+                    <button onClick={() => { history.push("/userInfo") }}> Voltar </button>
                 </div>
             </div>
         </>

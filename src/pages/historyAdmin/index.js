@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, {useEffect, useContext} from 'react';
 import { AuthContext } from './../../helpers/AuthContext';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
@@ -9,7 +9,7 @@ import SideBarGerencia from '../../components/sidebarGerencia';
 
 import MenuG from '../../components/hamburgerButtonG';
 
-function HistoryAdmin() {
+function HistoryAdmin () {
   const { setAuthState } = useContext(AuthContext);
   var history = useHistory();
 
@@ -21,7 +21,7 @@ function HistoryAdmin() {
         },
       })
       .then((response) => {
-        if (response.status === 500 || response.data.error) {
+        if (response.status == 500 || response.data.error) {
           setAuthState({ status: false });
           history.push('./')
         }
@@ -35,14 +35,14 @@ function HistoryAdmin() {
             status: true
           });
           var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-          if (resposta === false) {
+          if (resposta == false) {
             setAuthState({ status: false });
             history.push('./notAuthorized')
-          }
         }
-      })
+      }
+    })
   }, []);
-
+  
   return (
     <>
       <MenuG />

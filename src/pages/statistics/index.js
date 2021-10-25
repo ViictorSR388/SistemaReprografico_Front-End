@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, {useEffect, useContext} from 'react';
 import '../../styles/statistics.scss';
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
 import { AuthContext } from './../../helpers/AuthContext';
@@ -12,7 +12,7 @@ import MenuG from "../../components/hamburgerButtonG";
 const Statistics = () => {
   const { setAuthState } = useContext(AuthContext);
   var history = useHistory()
-
+  
   useEffect(() => {
     axios
       .get("http://localhost:3002/auth", {
@@ -21,7 +21,7 @@ const Statistics = () => {
         },
       })
       .then((response) => {
-        if (response.status === 500 || response.data.error) {
+        if (response.status == 500 || response.data.error) {
           setAuthState({ status: false });
           history.push('./')
         }
@@ -35,12 +35,12 @@ const Statistics = () => {
             status: true
           });
           var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-          if (resposta === false) {
+          if (resposta == false) {
             setAuthState({ status: false });
             history.push('./notAuthorized')
-          }
         }
-      })
+      }
+    })
   }, []);
 
   return (
@@ -48,7 +48,7 @@ const Statistics = () => {
       <MenuG />
       <Header />
       <SideBarGerencia />
-
+      
       <div className="statistics-container">
         <div className="statistics-title">
           <h1>Estatísticas Gerais</h1>
@@ -72,7 +72,7 @@ const Statistics = () => {
 
           <section className="line2">
             <div className="cards2">
-              <h4 className="statics-subtitle" >Cópias e encadernações</h4>
+            <h4 className="statics-subtitle" >Cópias e encadernações</h4>
               <PieChart2 />
             </div>
             <div className="cards2">

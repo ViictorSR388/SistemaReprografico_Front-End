@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Roboto:wght@400;500&display=swap%27');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&family=Roboto:wght@400;500&display=swap');
 
 * {
   margin: 0;
@@ -12,7 +12,7 @@
 body {
   width: 100%;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 html {
@@ -21,14 +21,12 @@ html {
 }
 
 $white: #ffffff;
-$grey: #c4c4c4;
+$grey: #C4C4C4;
 $red: #fb0404;
-$blue: #4895ef;
-$grey-button: #212529;
+$blue: #4895EF;
+$grey-button:#212529;
 $blue-hover: #04345c;
 
-h1,
-h2,
-h3 {
-  font-family: 'Open-Sans', sans-serif;
+h1,h2,h3 {
+  font-family: "Open-Sans", sans-serif;
 }

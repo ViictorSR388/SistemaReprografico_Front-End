@@ -15,18 +15,18 @@ export default function DetPedido() {
                 },
             }).then((result) => {
                 console.log(result)
-                if (result.data.error) {
+                if(result.data.error){
                     setMessage(result.data.error)
                 }
                 else { setMessage(result.data.message) }
             })
-    }, [])
+        }, [])
 
 
-    return (
-        <>
+        return (
+            <>
             <h1>{message}</h1>
-        </>
-    )
+            </>
+        )
 }
 

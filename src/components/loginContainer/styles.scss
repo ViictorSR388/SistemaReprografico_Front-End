@@ -19,6 +19,11 @@
     display: flex;
     width: 17rem;
     height: 17rem;
+    
+    img{
+        width: 14rem;
+        height: 13rem; 
+    }
 }
 
 .iconImg {
@@ -30,6 +35,11 @@
     font-size: 2.5rem;
     color: $white;
     margin-top: 7rem;
+}
+
+.profile-btns {
+    display: flex;
+    flex-direction: column;
 }
 
 .senaiLogo {
