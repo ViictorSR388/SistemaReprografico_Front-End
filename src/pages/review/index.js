@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import '../../styles/review.scss';
 import Header from '../../components/header';
 import Menu from '../../components/hamburgerButton';
-import SideBarColaborador from '../../components/sidebarColaborador';
+import SideBar from '../../components/formSideBar';
 import axios from 'axios';
 
 function Review() {
@@ -44,7 +44,7 @@ function Review() {
     <>
       <Menu />
       <Header />
-      <SideBarColaborador />
+      <SideBar />
 
       <div id="main-container">
 

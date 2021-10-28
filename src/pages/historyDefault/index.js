@@ -2,7 +2,7 @@ import React from 'react';
 import '../../styles/historyDefault.scss';
 
 import Header from "../../components/header";
-import SideBarColaborador from "../../components/sidebarColaborador";
+import SideBar from "../../components/formSideBar";
 import Menu from "../../components/hamburgerButton";
 
 
@@ -12,7 +12,7 @@ function HistoryDefault() {
     <>
       <Menu />
       <Header />
-      <SideBarColaborador />
+      <SideBar />
 
       <div className="container-history-default">
 

@@ -7,7 +7,7 @@ import { AuthContext } from './../../helpers/AuthContext';
 
 import MenuG from './../../components/hamburgerButtonG';
 import Header from './../../components/header';
-import SideBarGerencia from './../../components/sidebarGerencia';
+import SideBarGerencia from '../../components/formSideBar';
 import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
@@ -150,7 +150,7 @@ function Management() {
                   <React.Fragment key={data.nif}>
                     <tbody>
                       <tr>
-                        <img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" />
+                        <td><img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" /></td>
                         <td>{data.nome}</td>
                         <td>{data.email}</td>
                         <td>{data.cfp}</td>

@@ -306,7 +306,7 @@ function UserInfo() {
               <h2 className="userInformation">{id_depto}</h2>
               <div className="btns">
                 <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button>
-                <button className="btn-back-user" id="btn" onClick={routeUserInfo}> Voltar</button>
+                <button className="btn-back-user" id="btn" onClick={() => { history.push("/requestForm")}}> Voltar</button>
               </div>
             </>
           )}</>}

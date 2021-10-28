@@ -6,8 +6,7 @@ import newUser from './pages/newUser';
 import newPassword from './pages/newPassword';
 import forgotPassword from './pages/forgotPassword';
 import userInfo from './pages/userInfo';
-import requestFormC from './pages/requestFormC';
-import requestFormG from './pages/requestFormG';
+import requestForm from './pages/requestForm';
 import management from './pages/management';
 import requestManager from './pages/requestManager';
 import review from './pages/review';
@@ -94,8 +93,7 @@ function App() {
               <>
                 <Route path='/newUser' exact component={newUser} />
                 <Route path='/userInfo' exact component={userInfo} />
-                <Route path='/requestFormC' exact component={requestFormC} />
-                <Route path='/requestFormG' exact component={requestFormG} />
+                <Route path='/requestForm' exact component={requestForm} />
                 <Route path='/management' exact component={management} />
                 <Route path='/requestManager' exact component={requestManager} />
                 <Route path='/review/:id' exact component={review} />

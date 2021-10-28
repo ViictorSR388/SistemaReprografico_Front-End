@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 
 import Header from "../../components/header";
-import SideBarGerencia from "../../components/sidebarGerencia";
+import SideBarGerencia from "../../components/formSideBar";
 import MenuG from "../../components/hamburgerButtonG";
 
 const Statistics = () => {

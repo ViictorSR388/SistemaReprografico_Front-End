@@ -4,7 +4,6 @@ import { useHistory } from 'react-router';
 
 function ProfileContainer(props) {
 
-
     var history = useHistory();
 
     return (
@@ -15,11 +14,15 @@ function ProfileContainer(props) {
                 </div>
 
             </div>
-            <h2 className="subTitle">{props.name}</h2>
+            <h2 className="subTitle" onClick={() => {history.push("/userInfo")}}>{props.name}</h2>
             <div className="profile-links" >
+                {props.requestsNoInfo ? <></>: 
+                <> 
                 <button className="button-edit" onClick={() => { history.push("/myRequests") }}>
                     Meus Pedidos
                 </button>
+                </>
+                }
                 <button className="button-edit" onClick={props.changePassword}>
                     Alterar Senha
                 </button>

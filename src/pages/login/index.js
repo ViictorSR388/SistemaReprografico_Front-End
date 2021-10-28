@@ -32,11 +32,10 @@ export default function Login() {
         localStorage.setItem("accessToken", result.data.accessToken);
 
         var resposta = result.data.roles.includes("3_ROLE_ADMIN");
-
         if (resposta === true) {
           history.push('management')
         } else {
-          history.push('requestFormC')
+          history.push('requestForm')
         }
       }
     });
@@ -57,7 +56,7 @@ export default function Login() {
           if (resposta === true) {
             history.push('management')
           } else {
-            history.push('requestFormC')
+            history.push('requestForm')
           }
         }
       }

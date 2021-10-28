@@ -7,7 +7,7 @@ import { AuthContext } from './../../helpers/AuthContext';
 
 import MenuG from './../../components/hamburgerButtonG';
 import Header from './../../components/header';
-import SideBarGerencia from './../../components/sidebarGerencia';
+import SideBarGerencia from '../../components/formSideBar';
 
 function RequestManager() {
     return (

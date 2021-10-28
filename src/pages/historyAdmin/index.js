@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../../styles/historyAdmin.scss';
 
 import Header from '../../components/header';
-import SideBarGerencia from '../../components/sidebarGerencia';
+import SideBarGerencia from '../../components/formSideBar';
 
 import MenuG from '../../components/hamburgerButtonG';
 
