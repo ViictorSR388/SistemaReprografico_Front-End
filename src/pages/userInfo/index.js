@@ -3,7 +3,6 @@ import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
-import { Button, ButtonGroup, Card, Form } from 'react-bootstrap';
 // import { PassContext } from "../../helpers/changePassContext";
 
 import ProfileContainer from "../../components/profileContainer";
@@ -69,10 +68,6 @@ function UserInfo() {
   };
 
   const history = useHistory();
-
-  const userPath = () => {
-    history.push("/management");
-  }
 
   const routeUserInfo = () => {
     history.goBack();
@@ -198,15 +193,15 @@ function UserInfo() {
           <button onClick={() => { setChangePass(false) }}>Voltar</button>
           <h4>{message}</h4>
         </> : <>
-          <Card.Title id="h2" className="ui-subTitle">
+          <h2 id="h2" className="ui-subTitle">
             Informações pessoais
-          </Card.Title>
+          </h2>
           {edit ? (
             <>
               {" "}
-              <Form onSubmit={handleUpload}>
-                <Card.Subtitle className="input-title">NOME</Card.Subtitle>
-                <Form.Control
+              <form onSubmit={handleUpload}>
+                <h3 className="input-title">NOME</h3>
+                <input
                   className="input-box"
                   name="nameUser"
                   type="text"
@@ -215,8 +210,8 @@ function UserInfo() {
                     setNameUser(e.target.value);
                   }}
                 />
-                <Card.Subtitle className="input-title">EMAIL</Card.Subtitle>
-                <Form.Control
+                <h3 className="input-title">EMAIL</h3>
+                <input
                   className="input-box"
                   name="emailUser"
                   type="email"
@@ -225,8 +220,8 @@ function UserInfo() {
                     setEmailUser(e.target.value);
                   }}
                 />
-                <Card.Subtitle className="input-title">CFP</Card.Subtitle>
-                <Form.Control
+                <h3 className="input-title">CFP</h3>
+                <input
                   className="input-box"
                   name="cfpUser"
                   type="text"
@@ -235,8 +230,8 @@ function UserInfo() {
                     setCfpUser(e.target.value);
                   }}
                 />
-                <Card.Subtitle className="input-title">TELEFONE</Card.Subtitle>
-                <Form.Control
+                <h3 className="input-title">TELEFONE</h3>
+                <input
                   className="input-box"
                   name="telefoneUser"
                   type="text"
@@ -245,19 +240,19 @@ function UserInfo() {
                     setTelefoneUser(e.target.value);
                   }}
                 />
-                <Card.Subtitle className="input-title">IMAGEM</Card.Subtitle>
-                <Form.Text className="customize">
-                  <Form.Control
+                <h3 className="input-title">IMAGEM</h3>
+                <label className="customize">
+                  <input
                     type="file"
                     name="image"
                     onChange={handleChange}
                     accept="image/*"
                   />
-                  <FaCloudUploadAlt />
-                  Uploud
-                </Form.Text>
-                <Card.Subtitle className="input-title">DEPARTAMENTO</Card.Subtitle>
-                <Form.Select
+                  <FaCloudUploadAlt className="uploud"/>
+                  Upload
+                </label>
+                <h3 className="input-title">DEPARTAMENTO</h3>
+                <select
                   className="select"
                   id="deptoUser"
                   name="deptoUser"
@@ -289,29 +284,30 @@ function UserInfo() {
                   <option value="7" name="AEPP" id="AEPP">
                     Aperfeiç./Especializ. Profis. Presencial
                   </option>
-                </Form.Select>
-                <ButtonGroup className="ui-btns">
-                  <Button type="submit" className="btn-edit-user" id="btn" variant="primary" value="Enviar" >Enviar</Button>
-                  <Button className="btn-back-user" id="btn" variant="primary" onClick={() => { setEdit(false) }}> Voltar</Button>
-                </ButtonGroup>
-              </Form>
+                </select>
+                <div className="btns">
+                  <input type="submit" className="nu-button" id="btn" value="Enviar"
+                  />
+                  <button className="nu-button" id="btn" onClick={() => { setEdit(false) }}> Voltar</button>
+                </div>
+              </form>
             </>
           ) : (
             <>
-              <Card.Subtitle className="input-title">NIF</Card.Subtitle>
-              <Card.Text className="userInformation">{nif}</Card.Text>
-              <Card.Subtitle className="input-title">EMAIL</Card.Subtitle>
-              <Card.Text className="userInformation">{emailUser}</Card.Text>
-              <Card.Subtitle className="input-title">CFP</Card.Subtitle>
-              <Card.Text className="userInformation">{cfpUser}</Card.Text>
-              <Card.Subtitle className="input-title">TELEFONE</Card.Subtitle>
-              <Card.Text className="userInformation">{telefoneUser}</Card.Text>
-              <Card.Subtitle className="input-title">DEPARTAMENTO</Card.Subtitle>
-              <Card.Text className="userInformation">{id_depto}</Card.Text>
-              <ButtonGroup className="ui-btns">
-                <Button className="btn-edit-user" id="btn" variant="primary" onClick={() => { setEdit(true) }}> Editar </Button>
-                <Button className="btn-back-user" id="btn" variant="primary" onClick={userPath}> Voltar</Button>
-              </ButtonGroup>
+              <h3 className="input-title">NIF</h3>
+              <h2 className="userInformation">{nif}</h2>
+              <h3 className="input-title">EMAIL</h3>
+              <h2 className="userInformation">{emailUser}</h2>
+              <h3 className="input-title">CFP</h3>
+              <h2 className="userInformation">{cfpUser}</h2>
+              <h3 className="input-title">TELEFONE</h3>
+              <h2 className="userInformation">{telefoneUser}</h2>
+              <h3 className="input-title">DEPARTAMENTO</h3>
+              <h2 className="userInformation">{id_depto}</h2>
+              <div className="btns">
+                <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button>
+                <button className="btn-back-user" id="btn" onClick={routeUserInfo}> Voltar</button>
+              </div>
             </>
           )}</>}
 

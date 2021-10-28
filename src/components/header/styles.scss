@@ -1,5 +1,9 @@
 @import '../../styles/global';
 
+.navbar {
+  display: none !important;
+}
+
 header {
   background-color: $red;
   width: 100vw;

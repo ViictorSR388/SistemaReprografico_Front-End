@@ -14,7 +14,7 @@
     background-color: $grey-button;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
     color: white;
     font-size: 1rem;
     height: 3rem;
@@ -36,15 +36,9 @@
   margin: 8.0rem 0;
 }
 
-.statics-subtitle{
-  color: rgb(99, 89, 89);
-  font-size: 1.3rem;
-}
-
 .cards {
   display: flex;
-  justify-content: start;
-  text-align: center;
+  justify-content: center;
   flex-direction: column;
   border-radius: 10px;
   box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
@@ -57,8 +51,7 @@
 
 .cards2 {
   display: flex;
-  justify-content: start;
-  text-align: center;
+  justify-content: center;
   flex-direction: column;
   border-radius: 10px;
   box-shadow: 7px 7px 13px 0px rgba(50, 50, 50, 0.22);
@@ -79,10 +72,6 @@
 
 .cards:nth-child(1) {
   background-color: rgba(26, 148, 247, 0.527);
-
-  h4 {
-    margin-bottom: 3rem;
-  }
 }
   
 .cards:nth-child(2) {
@@ -91,10 +80,6 @@
 
 .cards:nth-child(3) {
   background-color: rgba(29, 252, 0, 0.541);
-
-  h4 {
-    margin-bottom: 3rem;
-  }
 }
 
 .cards2:nth-child(1) {
@@ -109,22 +94,8 @@
   background-color: rgba(253, 1, 98, 0.596);
 }
 
-@media (max-width: 1417px) {
-  .statistics-container {
-    margin: auto;
-    z-index: -1;
-  }
-}
 
-@media (max-width: 1250px) {
-  section {
-    flex-direction: column;
-  }
-}
 
-@media (max-width: 740px) {
-  .statistics-container {
-    margin: auto;
-    left: 5rem;
-  }
-}
+
+
+

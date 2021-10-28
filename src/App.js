@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import login from './pages/login';
 import notAuthorized from "./NotAuthorized";
 import newUser from './pages/newUser';
@@ -10,15 +9,18 @@ import userInfo from './pages/userInfo';
 import requestFormC from './pages/requestFormC';
 import requestFormG from './pages/requestFormG';
 import management from './pages/management';
+import requestManager from './pages/requestManager';
 import review from './pages/review';
 import historyDefault from './pages/historyDefault';
 import historyAdmin from './pages/historyAdmin';
 import statistics from './pages/statistics';
 import myRequests from './pages/myRequests';
-import detPedido from './pages/detPedido'
+import detPedido from './pages/detPedido';
+import EditUser from './pages/EditUser';
 import { isAuthenticated } from './auth';
 import axios from "axios";
 import { AuthContext } from "./helpers/AuthContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
@@ -95,6 +97,7 @@ function App() {
                 <Route path='/requestFormC' exact component={requestFormC} />
                 <Route path='/requestFormG' exact component={requestFormG} />
                 <Route path='/management' exact component={management} />
+                <Route path='/requestManager' exact component={requestManager} />
                 <Route path='/review/:id' exact component={review} />
                 <Route path='/historyDefault' exact component={historyDefault} />
                 <Route path='/historyAdmin' exact component={historyAdmin} />
@@ -102,6 +105,7 @@ function App() {
                 <Route path='/notAuthorized' exact component={notAuthorized} />
                 <Route path='/myRequests' exact component={myRequests} />
                 <Route path='/detPedido/:id' exact component={detPedido} />
+                <Route path="/edit/:nif" component={EditUser} />
               </>
             }
           </Switch>

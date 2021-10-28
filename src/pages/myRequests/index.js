@@ -17,7 +17,6 @@ const MyRequests = () => {
         message: ""
     });
 
-<<<<<<< HEAD
     var [nameUser, setNameUser] = useState();
     var [image, setImage] = useState();
     var [loading, setLoading] = useState();
@@ -29,15 +28,6 @@ const MyRequests = () => {
                 accessToken: localStorage.getItem("accessToken"),
             },
         })
-=======
-    useEffect(() => {
-        axios
-            .get("http://localhost:3002/meusPedidos", {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken"),
-                },
-            })
->>>>>>> c6e55e8d2ca426ff769dac4ceef9b47230290542
             .then((result) => {
                 console.log(result)
                 if (result.data.length > 0) {
@@ -62,7 +52,6 @@ const MyRequests = () => {
                     })
                 }
             });
-<<<<<<< HEAD
 
         axios.get("http://localhost:3002/meuUsuario", {
             headers: {
@@ -73,56 +62,15 @@ const MyRequests = () => {
             setNameUser(result.data.nome)
             setLoading(false)
         })
-=======
->>>>>>> c6e55e8d2ca426ff769dac4ceef9b47230290542
     }, []);
 
     return (
         <>
-
-<<<<<<< HEAD
             <div className="content">
-                {loading ? <> Loading...</> : <><ProfileContainer requestsNoInfo="true" source={image} name={nameUser} changePassword={() => {
-=======
-                <ProfileContainer changePassword={() => {
->>>>>>> c6e55e8d2ca426ff769dac4ceef9b47230290542
+            {loading ? <> Loading...</> : <><ProfileContainer requestsNoInfo="true" source={image} name={nameUser} changePassword={() => {
                     history.push("/userInfo")
                     setChangePass(true)
                 }} />
-<<<<<<< HEAD
-                    <div className="container">
-                        {pedidos.status ?
-                            <>
-                                {pedidos.list.map((data) => (
-                                    <React.Fragment key={data.id_pedido}> {/* é a mesma coisa que <> ... <> é a abreviação de <React.Fragment>
-                            A key é para referenciar uma key única para o map não se perder... e também parar de dar erro no console */}
-
-                                        <div /* style={data.criado} */ > {/* Setei a cor das palavras dentro da div lá em cima no UseEffect para estar passando um estilo diferente 
-                                    se um pedido já tiver sido atualizado (vocês podem alterar depois a forma que querem exibir essa diferença, pode ser um border, talvez...) */}
-
-                                            <h2>Pedido{/*<N.ºspan>{data.id_pedido}</span>*/}:<span>{data.titulo_pedido}</span></h2>
-                                            {/* <h2>Realizado pelo usuário com Nif: <span>{data.nif}</span> </h2> */}
-                                            <h2>Centro de custos: <span>{data.centro_custos}</span></h2>
-
-                                            <h2>status: <span>{data.avaliacao_pedido}</span></h2>
-                                        </div>
-                                        <button onClick={() => { history.push("/detPedido/" + data.id_pedido) }}>detalhes</button>
-                                        {data.avaliado ? <></> : <button onClick={() => { history.push("/review/" + data.id_pedido) }}>Avaliar</button>}
-                                        <h3>----------------------------</h3>  {/* Só coloquei para separar, para nao
-                ter que mexer no css de voces e bagunçar algo lá... */}
-
-                                    </React.Fragment>
-                                ))}
-
-                            </> :
-                            <>
-                                <h1>{pedidos.message}</h1>
-                            </>
-                        }
-                        <button onClick={() => { history.push("/userInfo") }}> Voltar </button>
-                    </div> </>}
-
-=======
                 <div className="container">
                     {pedidos.status ?
                         <>
@@ -164,7 +112,7 @@ const MyRequests = () => {
                     }
                     <Button className="btn-back-user" onClick={() => { history.push("/userInfo") }}> Voltar </Button>
                 </div>
->>>>>>> c6e55e8d2ca426ff769dac4ceef9b47230290542
+                </>}
             </div>
         </>
     )

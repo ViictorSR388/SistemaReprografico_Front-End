@@ -33,7 +33,6 @@ form {
 
 .login-input-box {
     border: 1px solid #363232;
-    font-size: 1.2rem;
     box-sizing: border-box;
     border-radius: 4px;
     margin-bottom: 1rem;
@@ -67,7 +66,6 @@ form {
     background-color: $red;
     height: 3rem;
     border-radius: 40px;
-    font-size: 1.2rem;
 }
 
 .login-button:hover {
@@ -75,7 +73,7 @@ form {
     background-color: #BA181B;
 }
 
-.login-message {
+h4 {
     margin-top: 2rem;
 }
 // .icon-position {
@@ -84,39 +82,32 @@ form {
 // }
 
 // #icon1 {
-    //     position: absolute;
+//     position: absolute;
 //     margin-top: 1rem;
 //     margin-left: 0.3rem;
 // }
 
 // #icon2 {
-    //     margin-top: 5.4rem;
-    //     margin-left: 0.3rem;
-    //     position: absolute;
-    // }
+//     margin-top: 5.4rem;
+//     margin-left: 0.3rem;
+//     position: absolute;
+// }
 
 @media (max-width: 800px) {
     .content{
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: auto;
-        flex-direction: column;
-        position: fixed;
-        width: 100vw;
 
         .container{
             background-color: $grey-button;
             height: 60vh;
             width: 80vw;
             border-radius: 1rem;
-            
+
             .login-subTitle{
                 color: $white;
                 font-size: 4rem;
-                width: 3rem;
-                margin-bottom: 5vh;
-                background-color: transparent;
             }
 
             .login-input-box {

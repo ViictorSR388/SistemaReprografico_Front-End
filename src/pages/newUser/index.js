@@ -203,12 +203,15 @@ function NewUser() {
               setTelefoneUser(e.target.value);
             }}
           />
-          <input
-            type="file"
-            name="image"
-            onChange={handleChange}
-            accept="image/*"
-          />
+          <label className="customize">
+            <input
+              type="file"
+              name="image"
+              onChange={handleChange}
+              accept="image/*"
+            />
+            Upload
+          </label>
           <h3 className="departamento">DEPARTAMENTO</h3>
           <select
             className="select"

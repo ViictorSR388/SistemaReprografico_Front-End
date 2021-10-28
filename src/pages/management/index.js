@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/management.scss';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 import { AuthContext } from './../../helpers/AuthContext';
-import ManagerImg from '../../components/managerImg';
 
-import MenuG from './../../components/hamburgerButtonG'
-import Header from './../../components/header'
-import SideBarGerencia from './../../components/sidebarGerencia'
+import MenuG from './../../components/hamburgerButtonG';
+import Header from './../../components/header';
+import SideBarGerencia from './../../components/sidebarGerencia';
+import { Table } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 function Management() {
   const { setAuthState } = useContext(AuthContext);
   var history = useHistory();
 
+  // var [nameUser, setNameUser] = useState();
+  // var [emailUser, setEmailUser] = useState();
+  // var [nifUser, setNifUser] = useState();
+  // var [CfpUser, setCfpUser] = useState();
+  // var [telefoneUser, setTelefoneUser] = useState();
+
+  //autenticação
   useEffect(() => {
     axios
       .get("http://localhost:3002/auth", {
@@ -22,7 +30,7 @@ function Management() {
         },
       })
       .then((response) => {
-        if (response.status == 500 || response.data.error) {
+        if (response.status === 500 || response.data.error) {
           setAuthState({ status: false });
           history.push('./')
         }
@@ -36,7 +44,7 @@ function Management() {
             status: true
           });
           var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-          if (resposta == false) {
+          if (resposta === false) {
             setAuthState({ status: false });
             history.push('./notAuthorized')
           }
@@ -44,15 +52,17 @@ function Management() {
       })
   }, []);
 
+  //lista
   var [users, setUsers] = useState({
     status: false,
     list: [],
     message: ""
   });
 
+  //map
   useEffect(() => {
     axios
-      .get("http://localhost:3002/clientes", {
+      .get("http://localhost:3002/usuarios", {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -67,7 +77,7 @@ function Management() {
             else {
               data.usuarios += " | Atualizado em:" + data.atualizado
             }
-            // console.log(result.data.avaliacao_pedido)
+            // console.log(result.data.usuarios);
             return null;
           })
           setUsers({
@@ -91,6 +101,15 @@ function Management() {
       });
   }, []);
 
+  const deleteUser = (nif) => {
+    axios.delete(`http://localhost:3002/usuario/${nif}`, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    }).then((result) => {
+      console.log(result);
+    });
+  }
 
   return (
     <>
@@ -113,134 +132,51 @@ function Management() {
         </div>
 
         <div className="section">
+
           {users.status ?
-          <>
-        {users.list.map((data) => (
-          <React.Fragment key={data.nif}>
-            <div>
-              <h2>Imagem:<span>{data.imagem}</span></h2>
-              <h2>Nome:<span>{data.nome}</span></h2>
-              <h2>Email:<span>{data.email}</span></h2>
-              <h2>CPF:<span>{data.cfp}</span></h2>
-              <h2>telefone:<span>{data.telefone}</span></h2>
-              <h2>Departamento:<span>{data.depto}</span></h2>
-            </div>
-            <h3>--------------------------------------------------</h3>  
-          </React.Fragment>
-        ))}
-          </> :
-          <>
-            <h1>{users.message}</h1>
-          </>
-        }
+            <>
+              <Table striped bordered hover size="sm" >
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Departamento</th>
+                  </tr>
+                </thead>
+                {users.list.map((data) => (
+                  <React.Fragment key={data.nif}>
+                    <tbody>
+                      <tr>
+                        <img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" />
+                        <td>{data.nome}</td>
+                        <td>{data.email}</td>
+                        <td>{data.cfp}</td>
+                        <td>{data.telefone}</td>
+                        <td>{data.id_depto}</td>
+                        <Button color="primary" size="lg" onClick={() => { history.push(`/edit/${data.nif}`) }}>
+                          Editar
+                        </Button>{' '}
+                        <Button variant="primary" size="lg" onClick={() => deleteUser(data.nif)}>
+                          Deletar
+                        </Button>{' '}
+                      </tr>
+                    </tbody>
+                  </React.Fragment>
+                ))}
+              </Table>
+            </> :
+            <>
+              <h1>{users.message}</h1>
+            </>
+          }
         </div>
-
-
-        {/* <div className="section">
-          <ManagerImg />
-
-          <input className="input-management" type="text" placeholder="Nome" />
-          <input
-            className="input-management"
-            type="email"
-            placeholder="Email"
-          />
-          <input
-            className="input-management nif"
-            type="number"
-            placeholder="NIF"
-          />
-          <input
-            className="input-management dp"
-            type="text"
-            placeholder="Departamento"
-          />
-          <input
-            className="input-management cfp"
-            type="number"
-            placeholder="CFP"
-          />
-          <input
-            className="input-management tel"
-            type="text"
-            placeholder="TEL"
-          />
-
-          <div className="btn-management">
-            <button className="btn-management-E">Editar</button>
-            <button className="btn-management-D">Apagar</button>
-          </div>
-        </div>
-        <div className="section">
-          <ManagerImg />
-
-          <input className="input-management" type="text" placeholder="Nome" />
-          <input
-            className="input-management"
-            type="email"
-            placeholder="Email"
-          />
-          <input
-            className="input-management nif"
-            type="number"
-            placeholder="NIF"
-          />
-          <input
-            className="input-management dp"
-            type="text"
-            placeholder="Departamento"
-          />
-          <input
-            className="input-management cfp"
-            type="number"
-            placeholder="CFP"
-          />
-          <input
-            className="input-management tel"
-            type="text"
-            placeholder="TEL"
-          />
-          <div className="btn-management">
-            <button className="btn-management-E">Editar</button>
-            <button className="btn-management-D">Apagar</button>
-          </div>
-        </div>
-        <div className="section">
-          <ManagerImg />
-
-          <input className="input-management" type="text" placeholder="Nome" />
-          <input
-            className="input-management"
-            type="email"
-            placeholder="Email"
-          />
-          <input
-            className="input-management nif"
-            type="number"
-            placeholder="NIF"
-          />
-          <input
-            className="input-management dp"
-            type="text"
-            placeholder="Departamento"
-          />
-          <input
-            className="input-management cfp"
-            type="number"
-            placeholder="CFP"
-          />
-          <input
-            className="input-management tel"
-            type="text"
-            placeholder="TEL"
-          />
-          <div className="btn-management">
-            <button className="btn-management-E">Editar</button>
-            <button className="btn-management-D">Apagar</button>
-          </div>
-        </div> */}
         <div className="btn-newUser">
-          <button>Criar novo usuário</button>
+          <Button variant="primary" size="lg" onClick={() => { history.push("/newUser/") }}>
+            Cadastrar Usuário
+          </Button>{' '}
         </div>
       </div>
     </>
