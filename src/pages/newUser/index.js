@@ -1,44 +1,15 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { AuthContext } from './../../helpers/AuthContext';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/newUser.scss';
+import Header from '../../components/header';
+import Menu from '../../components/hamburgerButton';
+import SideBar from '../../components/formSideBar';
 
-import NewUserContainer from '../../components/newUserContainer';
+// import NewUserContainer from '../../components/newUserContainer';
 
-function NewUser() {
-  const { setAuthState } = useContext(AuthContext);
+function NewUser(props) {
   var history = useHistory();
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3002/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((response) => {
-        if (response.status === 500 || response.data.error) {
-          setAuthState({ status: false });
-          history.push('./')
-        }
-        else {
-          setAuthState({
-            nif: response.data.nif,
-            email: response.data.email,
-            nome: response.data.nome,
-            imagem: "http://localhost:3002/" + response.data.imagem,
-            roles: response.data.roles,
-            status: true
-          });
-          var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-          if (resposta === false) {
-            setAuthState({ status: false });
-            history.push('./notAuthorized')
-          }
-        }
-      })
-  }, []);
 
   //nome
   const [nameUser, setNameUser] = useState('');
@@ -137,7 +108,11 @@ function NewUser() {
 
   return (
     <div className="content">
-      <NewUserContainer />
+
+      <Menu />
+      <Header />
+      <SideBar image={props.image} name={props.name} admin={true}/>
+
       <div className="container">
         <h2 id="h2" className="nu-subTitle">
           Criar novo usuário

@@ -9,7 +9,7 @@ import SideBar from '../../components/formSideBar';
 
 import Form from '../../components/form';
 
-function RequestForm() {
+function RequestForm(props) {
 
   var [loading, setLoading] = useState(false);
   var [admin, setAdmin] = useState();
@@ -42,7 +42,7 @@ function RequestForm() {
         <>
           <MenuG />
           <Header />
-          <SideBar admin = {admin} requestForm = {requestForm}/>
+          <SideBar image = {props.image} name= {props.name} admin = {admin} requestForm = {requestForm}/>
           <Form />
         </>
       }

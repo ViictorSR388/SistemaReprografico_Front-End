@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles.scss';
 import { useHistory } from 'react-router';
+import Profile from "../img/profile"
 
 function ProfileContainer(props) {
 
@@ -10,9 +11,8 @@ function ProfileContainer(props) {
         <div className="left-container" >
             <div className="icon-container" >
                 <div className="profile-div">
-                    <img className="profile-image" src={props.source} id="profile-image" name="profile-image" alt="imagem de perfil" />
+                <Profile image={props.image} />                
                 </div>
-
             </div>
             <h2 className="subTitle" onClick={() => {history.push("/userInfo")}}>{props.name}</h2>
             <div className="profile-links" >
