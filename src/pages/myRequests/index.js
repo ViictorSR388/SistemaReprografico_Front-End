@@ -5,7 +5,7 @@ import axios from 'axios'
 // import { PassContext } from "../../helpers/changePassContext";
 import { Button, Card, Table } from 'react-bootstrap';
 
-const MyRequests = () => {
+const MyRequests = (props) => {
 
     const history = useHistory();
 
@@ -29,8 +29,6 @@ const MyRequests = () => {
             },
         })
             .then((result) => {
-                console.log(result
-                )
                 if (result.data.length > 0) {
                     result.data.map((data) => {
                         if (data.avaliacao_pedido === "Ainda não avaliado.") {
@@ -54,23 +52,14 @@ const MyRequests = () => {
                         message: result.data.message
                     })
                 }
+                setLoading(false)
             });
-
-        axios.get("http://localhost:3002/meuUsuario", {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-            },
-        }).then((result) => {
-            setImage("http://localhost:3002/" + result.data.imagem)
-            setNameUser(result.data.nome)
-            setLoading(false)
-        })
     }, []);
 
     return (
         <>
             <div className="content">
-                {loading ? <> Loading...</> : <><ProfileContainer requestsNoInfo="true" source={image} name={nameUser} changePassword={() => {
+                {loading ? <> Loading... </> : <><ProfileContainer requestsNoInfo="true" image={props.image} name={props.name} changePassword={() => {
                     history.push("/userInfo")
                 }} />
                     <div className="container">

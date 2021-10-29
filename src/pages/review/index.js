@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../../styles/review.scss';
 import Header from '../../components/header';
@@ -6,7 +6,7 @@ import Menu from '../../components/hamburgerButton';
 import SideBar from '../../components/formSideBar';
 import axios from 'axios';
 
-function Review() {
+function Review(props) {
 
   var history = useHistory();
 
@@ -17,6 +17,8 @@ function Review() {
   var [atendInput, setAtendInput] = useState();
 
   var [mensagem, setMensagem] = useState();
+
+  var [image, setImage] = useState();
 
   const avaliaPost = (e) => {
     e.preventDefault();
@@ -44,7 +46,7 @@ function Review() {
     <>
       <Menu />
       <Header />
-      <SideBar />
+      <SideBar image={props.image} name={props.name}/>
 
       <div id="main-container">
 

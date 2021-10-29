@@ -5,7 +5,7 @@ function Logo() {
   return (
     <>
       <div className="logo">
-        <img className="logo" src="assets/img/logo.jpg" alt="logo"/>
+        <img className="logo" src="../assets/img/logo.jpg" alt="logo"/>
       </div>
     </>
   );

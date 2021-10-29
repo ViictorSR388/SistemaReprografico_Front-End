@@ -1,53 +1,36 @@
 import React, {useEffect, useContext} from 'react';
 import { AuthContext } from './../../helpers/AuthContext';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/historyAdmin.scss';
 
 import Header from '../../components/header';
-import SideBarGerencia from '../../components/formSideBar';
+import SideBar from '../../components/formSideBar';
 
 import MenuG from '../../components/hamburgerButtonG';
 
-function HistoryAdmin () {
+function HistoryAdmin (props) {
   const { setAuthState } = useContext(AuthContext);
   var history = useHistory();
 
+  var { nif } = useParams();
+
   useEffect(() => {
     axios
-      .get("http://localhost:3002/auth", {
+      .get("http://localhost:3002/pedido/nif" + nif, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
+      }).then((result) => {
+        console.log(result)
       })
-      .then((response) => {
-        if (response.status == 500 || response.data.error) {
-          setAuthState({ status: false });
-          history.push('./')
-        }
-        else {
-          setAuthState({
-            nif: response.data.nif,
-            email: response.data.email,
-            nome: response.data.nome,
-            imagem: "http://localhost:3002/" + response.data.imagem,
-            roles: response.data.roles,
-            status: true
-          });
-          var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-          if (resposta == false) {
-            setAuthState({ status: false });
-            history.push('./notAuthorized')
-        }
-      }
-    })
   }, []);
   
   return (
     <>
       <MenuG />
       <Header />
-      <SideBarGerencia />
+      <SideBar image={props.image} name={props.name} admin={true}/>
 
       <div className="container-history-admin">
         <div className="history-admin-title">

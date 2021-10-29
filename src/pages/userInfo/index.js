@@ -161,7 +161,7 @@ function UserInfo() {
   return (
     <div className="content">
       {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
-      <ProfileContainer source={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} />
+      <ProfileContainer image={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} />
       <div className="container">
 
         {changePass ? <>         <h2 id="h2" className="ui-subTitle">

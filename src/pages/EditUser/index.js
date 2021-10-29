@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router"
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
 
-function EditUser() {
+import { Button } from "react-bootstrap";
+
+import SideBar from '../../components/formSideBar';
+import Header from '../../components/header';
+import Menu from '../../components/hamburgerButton';
+
+
+function EditUser(props) {
+
+  const { nif } = useParams();
 
   const [image, setImage] = useState({ raw: "", preview: "" });
 
@@ -55,6 +65,22 @@ function EditUser() {
 
   const history = useHistory();
 
+  const resetaSenha = () => {
+    axios.put("http://localhost:3002/resetarSenha/" + nif, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken")
+      },
+    }).then((result) => {
+      if(result.data.error){
+        console.log(result.data.error)
+      }
+      else{
+        console.log(result.data.message)
+      }
+    })
+  }
+  
+
   const handleUpload = (e) => {
     e.preventDefault();
     var departamento;
@@ -95,7 +121,7 @@ function EditUser() {
     }
 
     axios
-      .put(`http://localhost:3002/meuUsuario`, formData, {
+      .put(`http://localhost:3002/usuario/` + nif, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -106,12 +132,13 @@ function EditUser() {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/meuUsuario`, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
+    axios.get(`http://localhost:3002/usuario/nif/` + nif, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    })
       .then((result) => {
+        console.log(result)
         setNameUser(result.data.nome);
         setEmailUser(result.data.email);
         setCfpUser(result.data.cfp);
@@ -122,102 +149,110 @@ function EditUser() {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="content">
+
+      <Menu />
+      <Header />
+      <SideBar image={props.image} name={props.name} admin={true} />
+
+
+      <div className="container">
         <h2 id="h2">
           Informações pessoais
         </h2>
         <h3>NOME</h3>
-        <form onSubmit={handleUpload}></form>
-        <input
-          className="input-box"
-          name="nameUser"
-          type="text"
-          placeholder={nameUser}
-          onChange={(e) => {
-            setNameUser(e.target.value);
-          }}
-        />
-        <h3>EMAIL</h3>
-        <input
-          className="input-box"
-          name="emailUser"
-          type="email"
-          placeholder={emailUser}
-          onChange={(e) => {
-            setEmailUser(e.target.value);
-          }}
-        />
-        <h3>CFP</h3>
-        <input
-          className="input-box"
-          name="cfpUser"
-          type="text"
-          placeholder={cfpUser}
-          onChange={(e) => {
-            setCfpUser(e.target.value);
-          }}
-        />
-        <h3>TELEFONE</h3>
-        <input
-          className="input-box"
-          name="telefoneUser"
-          type="text"
-          placeholder={telefoneUser}
-          onChange={(e) => {
-            setTelefoneUser(e.target.value);
-          }}
-        />
-        <h3>IMAGEM</h3>
-        <label className="customize">
+        <form onSubmit={handleUpload}>
           <input
-            type="file"
-            name="image"
-            onChange={handleChange}
-            accept="image/*"
+            className="input-box"
+            name="nameUser"
+            type="text"
+            placeholder={nameUser}
+            onChange={(e) => {
+              setNameUser(e.target.value);
+            }}
           />
-          <FaCloudUploadAlt className="uploud" />
-          Upload
-        </label>
-        <h3>DEPARTAMENTO</h3>
-        <select
-          className="select"
-          id="deptoUser"
-          name="deptoUser"
-          onChange={(e) => {
-            setDeptoUser(e.target.value);
-          }}
-        >
-          <option value="0" name="nothing" id="nothing">
-            Nenhuma Selecionada
-          </option>
-          <option value="1" name="AIP" id="AIP">
-            Aprendizagem Industrial Presencial
-          </option>
-          <option value="2" name="GTP" id="GTP">
-            Graduação Tecnológica Presencial
-          </option>
-          <option value="3" name="PGP" id="PGP">
-            Pós-Graduação Presencial
-          </option>
-          <option value="4" name="EP" id="EP">
-            Extensão Presencial
-          </option>
-          <option value="5" name="IPP" id="IPP">
-            Iniciação Profissional Presencial
-          </option>
-          <option value="6" name="QPP" id="QPP">
-            Qualificação Profissional Presencial
-          </option>
-          <option value="7" name="AEPP" id="AEPP">
-            Aperfeiç./Especializ. Profis. Presencial
-          </option>
-        </select>
-        <div className="btns">
-          <input type="submit" id="btn" value="Enviar"
+          <h3>EMAIL</h3>
+          <input
+            className="input-box"
+            name="emailUser"
+            type="email"
+            placeholder={emailUser}
+            onChange={(e) => {
+              setEmailUser(e.target.value);
+            }}
           />
-          <button> Voltar</button>
-        </div>
+          <h3>CFP</h3>
+          <input
+            className="input-box"
+            name="cfpUser"
+            type="text"
+            placeholder={cfpUser}
+            onChange={(e) => {
+              setCfpUser(e.target.value);
+            }}
+          />
+          <h3>TELEFONE</h3>
+          <input
+            className="input-box"
+            name="telefoneUser"
+            type="text"
+            placeholder={telefoneUser}
+            onChange={(e) => {
+              setTelefoneUser(e.target.value);
+            }}
+          />
+          <Button onClick={resetaSenha}>Resetar Senha</Button>
+          <h3>IMAGEM</h3>
+          <label className="customize">
+            <input
+              type="file"
+              name="image"
+              onChange={handleChange}
+              accept="image/*"
+            />
+            <FaCloudUploadAlt className="uploud" />
+            Upload
+          </label>
+          <h3>DEPARTAMENTO</h3>
+          <select
+            className="select"
+            id="deptoUser"
+            name="deptoUser"
+            onChange={(e) => {
+              setDeptoUser(e.target.value);
+            }}
+          >
+            <option value="0" name="nothing" id="nothing">
+              Nenhuma Selecionada
+            </option>
+            <option value="1" name="AIP" id="AIP">
+              Aprendizagem Industrial Presencial
+            </option>
+            <option value="2" name="GTP" id="GTP">
+              Graduação Tecnológica Presencial
+            </option>
+            <option value="3" name="PGP" id="PGP">
+              Pós-Graduação Presencial
+            </option>
+            <option value="4" name="EP" id="EP">
+              Extensão Presencial
+            </option>
+            <option value="5" name="IPP" id="IPP">
+              Iniciação Profissional Presencial
+            </option>
+            <option value="6" name="QPP" id="QPP">
+              Qualificação Profissional Presencial
+            </option>
+            <option value="7" name="AEPP" id="AEPP">
+              Aperfeiç./Especializ. Profis. Presencial
+            </option>
+          </select>
+          <div className="btns">
+            <input type="submit" id="btn" value="Enviar"
+            />
+            <button> Voltar</button>
+          </div>
+        </form>
       </div>
     </div>
   );

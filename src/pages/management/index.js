@@ -3,15 +3,15 @@ import '../../styles/management.scss';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
-import { AuthContext } from './../../helpers/AuthContext';
+import { AuthContext } from '../../../src/helpers/AuthContext';
 
-import MenuG from './../../components/hamburgerButtonG';
-import Header from './../../components/header';
-import SideBarGerencia from '../../components/formSideBar';
+import Menu from '../../../src/components/hamburgerButtonG';
+import Header from '../../../src/components/header';
+import SideBar from '../../../src/components/formSideBar';
 import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
-function Management() {
+function Management(props) {
   const { setAuthState } = useContext(AuthContext);
   var history = useHistory();
 
@@ -20,37 +20,6 @@ function Management() {
   // var [nifUser, setNifUser] = useState();
   // var [CfpUser, setCfpUser] = useState();
   // var [telefoneUser, setTelefoneUser] = useState();
-
-  //autenticação
-  useEffect(() => {
-    axios
-      .get("http://localhost:3002/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((response) => {
-        if (response.status === 500 || response.data.error) {
-          setAuthState({ status: false });
-          history.push('./')
-        }
-        else {
-          setAuthState({
-            nif: response.data.nif,
-            email: response.data.email,
-            nome: response.data.nome,
-            imagem: "http://localhost:3002/" + response.data.imagem,
-            roles: response.data.roles,
-            status: true
-          });
-          var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-          if (resposta === false) {
-            setAuthState({ status: false });
-            history.push('./notAuthorized')
-          }
-        }
-      })
-  }, []);
 
   //lista
   var [users, setUsers] = useState({
@@ -113,9 +82,9 @@ function Management() {
 
   return (
     <>
-      <MenuG />
+      <Menu />
       <Header />
-      <SideBarGerencia />
+      <SideBar image={props.image} name={props.name} admin={true}/>
 
       <div className="container-management">
         <div className="management">
@@ -150,13 +119,16 @@ function Management() {
                   <React.Fragment key={data.nif}>
                     <tbody>
                       <tr>
-                        <td><img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" /></td>
+                        <img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" />
                         <td>{data.nome}</td>
                         <td>{data.email}</td>
                         <td>{data.cfp}</td>
                         <td>{data.telefone}</td>
                         <td>{data.id_depto}</td>
-                        <Button color="primary" size="lg" onClick={() => { history.push(`/edit/${data.nif}`) }}>
+                        <Button color="primary" size="lg" onClick={() => { history.push(`/users-requests/${data.nif}`) }}>
+                          Solicitações
+                        </Button>{' '}
+                        <Button color="primary" size="lg" onClick={() => { history.push(`/edit-user/${data.nif}`) }}>
                           Editar
                         </Button>{' '}
                         <Button variant="primary" size="lg" onClick={() => deleteUser(data.nif)}>

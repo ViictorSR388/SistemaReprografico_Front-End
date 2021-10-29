@@ -30,8 +30,10 @@ function SideBar(props) {
 
     return (
         <div className="sidebarG">
-            <Repo />
+                <Repo image={props.image} />                
+            <h2 className="subTitle" onClick={() => {history.push("/userInfo")}}>{props.name}</h2>
             <div className="buttonsG">
+            
             {props.requestForm ? <></> : <><button className="buttonG" onClick={routeForm}>Solicitar Impressão</button></>}
                 {props.admin ? <>
                 <button className="buttonG" onClick={routeManagement}>Gerencia de usuários</button>

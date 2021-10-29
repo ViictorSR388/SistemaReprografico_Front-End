@@ -7,14 +7,16 @@ import { AuthContext } from './../../helpers/AuthContext';
 
 import MenuG from './../../components/hamburgerButtonG';
 import Header from './../../components/header';
-import SideBarGerencia from '../../components/formSideBar';
+import SideBar from '../../components/formSideBar';
 
-function RequestManager() {
+function RequestManager(props) {
+
+  
     return (
       <>
         <MenuG />
         <Header />
-        <SideBarGerencia />
+        <SideBar image={props.image} name={props.image} />
     
         <div>
           <div>
