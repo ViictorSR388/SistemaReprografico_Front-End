@@ -3,11 +3,12 @@ import { FaFileImport } from 'react-icons/fa';
 import { FaPrint } from 'react-icons/fa';
 import './styles.scss';
 import axios from 'axios';
+import { Button, Card, Form } from 'react-bootstrap';
 
-export default function Form() {
+export default function RequestForm() {
   //cursos
   const [course, setCourse] = useState(0);
-  // const [posGraduacao, setPosGraduacao] = useState('');
+  const [posGraduacao, setPosGraduacao] = useState('');
 
   var curso;
   // var detalheGraduacao;
@@ -151,6 +152,15 @@ export default function Form() {
   //   suporte = 5
   // }
 
+  // var coffee = document.forms[0];
+  //   var txt = "";
+  //   var i;
+  //   for (i = 0; i < coffee.length; i++) {
+  //     if (coffee[i].checked) {
+  //       txt = txt + coffee[i].value + " ";
+  //     }
+  //   }
+
   // modo de envio
   const [typeSend, setTypeSend] = useState(0);
   const [observacao, setObservacao] = useState('');
@@ -185,13 +195,13 @@ export default function Form() {
     formData.append("titulo", title);
     formData.append("num_paginas", pages);
     formData.append("num_copias", copy);
-    
+
     formData.append("acabamento", acabamento);
     formData.append("tipos_capa", capa);
-    
+
     formData.append("tamanho_pagina", formato);
     formData.append("tipos_copia", cor);
-    
+
     formData.append("modo_envio", modo_envio);
     formData.append("observacoes", observacao_envio);
 
@@ -203,6 +213,7 @@ export default function Form() {
       console.log(result);
     })
   };
+
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -248,532 +259,455 @@ export default function Form() {
   //   e.preventDefault();
   //   handleUpload();
   // };
+  const [step, setStep] = useState(1);
 
   return (
     <>
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <div className="containerForm">
-          <div className="dateCourse">
-            <div className="title-repro">
-              <h1>Solicitação de reprografia</h1>
-            </div>
-            <div className="course">
-              <span>Curso:</span>
-              <div className="radioName">
-                <label htmlFor="cai" className="radio-label">
-                  CT-DS
-                </label>
-                <input
-                  className="classRadio"
-                  type="radio"
-                  name="course"
-                  id="curso"
-                  value="1"
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    setCourse(newValue);
-                  }}
-                />
-              </div>
-              <div className="radioName">
-                <label htmlFor="ct">CT-MP</label>
-                <input
-                  className="classRadio"
-                  type="radio"
-                  name="course"
-                  id="curso"
-                  value="2"
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    setCourse(newValue);
-                  }}
-                />
-              </div>
-              <div className="radioName">
-                <label htmlFor="fc">CST-MP</label>
-                <input
-                  className="classRadio"
-                  type="radio"
-                  name="course"
-                  id="curso"
-                  value="3"
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    setCourse(newValue);
-                  }}
-                />
-              </div>
-              <label className="input-pos" htmlFor="pos">
-                Pós Graduação
-              </label>
-              <input
-                className="classRadio"
-                type="radio"
-                name="course"
-                id="graduacao"
-                value="4"
-                onChange={(e) => {
-                  const newValue = e.target.value;
-                  setCourse(newValue);
-                }}
-              />
-              <input
-                type="text"
-                // disabled={true}
-                name="posGraduacao"
-                id="posGraduacao"
-              // onChange={(e) => {
-              //   setPosGraduacao(e.target.value);
-              // }}
-              />
-
-              <label htmlFor="cost">Centro de custos:</label>
-              <select
-                className="select"
-                id="cc"
-                name="cc"
-                onChange={(e) => {
-                  setCc(e.target.value);
-                }}
-              >
-                <option value="0" name="nothing" id="nothing">
-                  Nenhuma Selecionada
-                </option>
-                <option value="1" name="AIP" id="AIP">
-                  Aprendizagem Industrial Presencial
-                </option>
-                <option value="2" name="GTP" id="GTP">
-                  Graduação Tecnológica Presencial
-                </option>
-                <option value="3" name="PGP" id="PGP">
-                  Pós-Graduação Presencial
-                </option>
-                <option value="4" name="EP" id="EP">
-                  Extensão Presencial
-                </option>
-                <option value="5" name="IPP" id="IPP">
-                  Iniciação Profissional Presencial
-                </option>
-                <option value="6" name="QPP" id="QPP">
-                  Qualificação Profissional Presencial
-                </option>
-                <option value="7" name="AEPP" id="AEPP">
-                  Aperfeiç./Especializ. Profis. Presencial
-                </option>
-              </select>
-            </div>
+          <div className="title-repro">
+            <h1>Solicitação de reprografia</h1>
           </div>
-
           <div className="containerWrapper">
             <section className="card-wrapper">
-              <div className="card">
-                <h3 className="cardTitle">Item</h3>
-                <label htmlFor="title">Titulo</label>
-                <input
-                  className="input-minor"
-                  type="text"
-                  name="title"
-                  id=""
-                  onChange={(e) => {
-                    setTitle(e.target.value);
-                  }}
-                />
-                <label htmlFor="page-request">Páginas</label>
-                <input
-                  className="short"
-                  type="number"
-                  name="pages"
-                  id="pages"
-                  onChange={(e) => {
-                    setPages(e.target.value);
-                  }}
-                />
-                <label htmlFor="copy">Cópias</label>
-                <input
-                  className="short"
-                  type="number"
-                  name="copy"
-                  id="copy"
-                  onChange={(e) => {
-                    setCopy(e.target.value);
-                  }}
-                />
-                <label htmlFor="total">Total de Paginas</label>
-                <span className="total-pages" name="total">
-                  {total}
-                </span>
-              </div>
+              {step === 1 && (
+                <Card className="card">
+                  <Card.Title className="cardTitle">Curso</Card.Title>
+                  <div className="radio-container">
+                    <div className="radioName">
+                      <Form.Check
+                        className="classRadio"
+                        type="radio"
+                        name="course"
+                        id="curso"
+                        checked={course === "1"}
+                        value="1"
+                        onChange={(e) => {
+                          const newValue = e.target.value;
+                          setCourse(newValue);
+                        }}
+                      />
+                      <Form.Check.Label htmlFor="cai" className="radio-label">
+                        CT-DS
+                      </Form.Check.Label>
+                    </div>
+                    <div className="radioName">
+                      <Form.Check
+                        className="classRadio"
+                        type="radio"
+                        name="course"
+                        id="curso"
+                        checked={course === "2"}
+                        value="2"
+                        onChange={(e) => {
+                          const newValue = e.target.value;
+                          setCourse(newValue);
+                        }}
+                      />
+                      <Form.Check.Label htmlFor="ct">CT-MP</Form.Check.Label>
+                    </div>
+                    <div className="radioName">
+                      <Form.Check
+                        className="classRadio"
+                        type="radio"
+                        name="course"
+                        id="curso"
+                        checked={course === "3"}
+                        value="3"
+                        onChange={(e) => {
+                          const newValue = e.target.value;
+                          setCourse(newValue);
+                        }}
+                      />
+                      <Form.Check.Label htmlFor="fc">CST-MP</Form.Check.Label>
+                    </div>
+                    <div className="radioName">
+                      <Form.Check
+                        className="classRadio"
+                        type="radio"
+                        name="course"
+                        id="graduacao"
+                        checked={course === "4"}
+                        value="4"
+                        onChange={(e) => {
+                          const newValue = e.target.value;
+                          setCourse(newValue);
+                        }}
+                      />
+                      <Form.Check.Label className="input-pos" htmlFor="pos">
+                        Pós Graduação
+                      </Form.Check.Label>
+                    </div>
+                  </div>
+                  {course === '4' && (
+                    <Form.Control
+                      className="textInput"
+                      as="textarea"
+                      // disabled={true}
+                      name="posGraduacao"
+                      id="posGraduacao"
+                      onChange={(e) => {
+                        setPosGraduacao(e.target.value);
+                      }}
+                    />
+                  )}
 
-              <div className="card">
-                <h3 className="cardTitle">Encadernação</h3>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="attachment">
-                    Capa em Papel 150g - 2 Grampos a Cavalo
-                  </label>
+                  <Card.Title className="cardTitle" htmlFor="cost">Centro de custos</Card.Title>
+                  <div className="radio-container">
+                    <Form.Select
+                      className="select"
+                      id="cc"
+                      name="cc"
+                      onChange={(e) => {
+                        setCc(e.target.value);
+                      }}
+                    >
+                      <option value="0" name="nothing" id="nothing" selected={cc === "0"} >
+                        Nenhuma Selecionada
+                      </option>
+                      <option value="1" name="AIP" id="AIP" selected={cc === "1"} >
+                        Aprendizagem Industrial Presencial
+                      </option>
+                      <option value="2" name="GTP" id="GTP" selected={cc === "2"} >
+                        Graduação Tecnológica Presencial
+                      </option>
+                      <option value="3" name="PGP" id="PGP" selected={cc === "3"} >
+                        Pós-Graduação Presencial
+                      </option>
+                      <option value="4" name="EP" id="EP" selected={cc === "4"} >
+                        Extensão Presencial
+                      </option>
+                      <option value="5" name="IPP" id="IPP" selected={cc === "5"} >
+                        Iniciação Profissional Presencial
+                      </option>
+                      <option value="6" name="QPP" id="QPP" selected={cc === "6"} >
+                        Qualificação Profissional Presencial
+                      </option>
+                      <option value="7" name="AEPP" id="AEPP" selected={cc === "7"} >
+                        Aperfeiç./Especializ. Profis. Presencial
+                      </option>
+                    </Form.Select>
+                  </div>
+                  <Button className="step-btn" onClick={() => {
+                    setStep(2);
+                  }}>
+                    Próximo
+                  </Button>
+                </Card>
+              )}
+              {step === 2 && (
+                <Card className="card">
+                  <h3 className="cardTitle">Item</h3>
+                  <label htmlFor="title">Titulo</label>
                   <input
-                    className="check classRadio"
-                    type="radio"
-                    name="attachment"
-                    id="gcCapaPapel"
-                    value="1"
+                    className="input-minor"
+                    type="text"
+                    name="title"
+                    id=""
+                    value={title}
                     onChange={(e) => {
-                      const newValue = e.target.value;
-                      setAttachment(newValue);
+                      setTitle(e.target.value);
                     }}
                   />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="attachment">
-                    Capa em Papel 150g - 2 Grampo Laterais
-                  </label>
+                  <label htmlFor="page-request">Páginas</label>
                   <input
-                    className="check classRadio"
-                    type="radio"
-                    name="attachment"
-                    id="glCapaPapel"
-                    value="2"
+                    className="short"
+                    type="number"
+                    name="pages"
+                    id="pages"
+                    value={pages}
                     onChange={(e) => {
-                      const newValue = e.target.value;
-                      setAttachment(newValue);
+                      setPages(e.target.value);
                     }}
                   />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="spiral-binding">
-                    Capa em Papel 150g - Espiral de Plástico
-                  </label>
+                  <label htmlFor="copy">Cópias</label>
                   <input
-                    className="check classRadio"
-                    type="radio"
-                    name="attachment"
-                    id="epCapa150g"
-                    value="3"
+                    className="short"
+                    type="number"
+                    name="copy"
+                    id="copy"
+                    value={copy}
                     onChange={(e) => {
-                      const newValue = e.target.value;
-                      setAttachment(newValue);
+                      setCopy(e.target.value);
                     }}
                   />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="front-cover">
-                    Capa em PVC - Espiral de Plástico
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="attachment"
-                    id="epCapaPVC"
-                    value="4"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setAttachment(newValue);
-                    }}
-                  />
-                </div>
-              </div>
+                  <label htmlFor="total">Total de Paginas</label>
+                  <span className="total-pages" name="total">
+                    {total}
+                  </span>
+                  <Button className="step-btn" onClick={() => {
+                    setStep(3);
+                  }}>
+                    Próximo
+                  </Button>
+                  <Button className="step-btn" onClick={() => {
+                    setStep(1);
+                  }}>
+                    Anterior
+                  </Button>
+                </Card>
+              )}
 
-              {/* <div className="card">
-            <h3 className="cardTitle">Outros detalhes</h3>
-            <div className="radioName">
-              <label className="labelName" htmlFor="staple">
-                Grampear
-                </label>
-                <input className="check classRadio" 
-                type="radio" 
-              name="staple" 
-              id="grampear"
-              value="grampear"
-              checked={grampear === 1}
-              onChange={(e) => {
-                setGrampear(e.target.value);
-              }}
-              />
-              </div>
-              <div className="radioName">
-              <label className="labelName" htmlFor="staple">
-                Frente e verso
-                </label>
-                <input
-                className="check classRadio"
-                type="radio"
-                name="staple"
-                id="frenteVerso"
-                value="frenteVerso"
-                checked={frenteVerso === 1}
-                onChange={(e) => {
-                  setFrenteVerso(e.target.value);
-                }}
-              />
-              </div>
-            <div className="radioName">
-            <label className="labelName" htmlFor="staple">
-                Só frente
-                </label>
-                <input
-                className="check classRadio"
-                type="radio"
-                name="staple"
-                id="frente"
-                value="frente"
-                checked={frente === 1}
-                onChange={(e) => {
-                  setFrente(e.target.value);
-                }}
-              />
-              </div>
-            <div className="radioName">
-              <label className="labelName" htmlFor="staple">
-              Cortar ao meio
-              </label>
-              <input
-                className="check classRadio"
-                type="radio"
-                name="staple"
-                id="cortar"
-                value="cortar"
-                checked={cortar === 1}
-                onChange={(e) => {
-                  setCortar(e.target.value);
-                }}
-              />
-              </div>
-          </div> */}
+              {step === 3 && (
+                <Card className="card">
+                  <h3 className="cardTitle">Encadernação</h3>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="attachment">
+                      Capa em Papel 150g - 2 Grampos a Cavalo
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="attachment"
+                      id="gcCapaPapel"
+                      checked={attachment === "1"}
+                      value="1"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setAttachment(newValue);
+                      }}
+                    />
+                  </div>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="attachment">
+                      Capa em Papel 150g - 2 Grampo Laterais
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="attachment"
+                      id="glCapaPapel"
+                      checked={attachment === "2"}
+                      value="2"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setAttachment(newValue);
+                      }}
+                    />
+                  </div>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="spiral-binding">
+                      Capa em Papel 150g - Espiral de Plástico
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="attachment"
+                      id="epCapa150g"
+                      checked={attachment === "3"}
+                      value="3"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setAttachment(newValue);
+                      }}
+                    />
+                  </div>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="front-cover">
+                      Capa em PVC - Espiral de Plástico
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="attachment"
+                      id="epCapaPVC"
+                      checked={attachment === "4"}
+                      value="4"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setAttachment(newValue);
+                      }}
+                    />
+                  </div>
+                  <Button className="step-btn" onClick={() => {
+                    setStep(4);
+                  }}>
+                    Próximo
+                  </Button>
+                  <Button className="step-btn" onClick={() => {
+                    setStep(2);
+                  }}>
+                    Anterior
+                  </Button>
+                </Card>
+              )}
+
+              {step === 4 && (
+                <div className="card medium">
+                  <h3 className="cardTitle">Formato e Cor</h3>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      A3 Preto e Branco
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="typePaper"
+                      id="a3pb"
+                      checked={typePaper === "1"}
+                      value="1"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setTypePaper(newValue);
+                      }}
+                    />
+                  </div>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      A4 Preto e Branco
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="typePaper"
+                      id="a4pb"
+                      checked={typePaper === "2"}
+                      value="2"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setTypePaper(newValue);
+                      }}
+                    />
+                  </div>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      A5 Preto e Branco
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="typePaper"
+                      id="a5pb"
+                      checked={typePaper === "3"}
+                      value="3"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setTypePaper(newValue);
+                      }}
+                    />
+                  </div>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      Reduzida Preto e Branco
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="typePaper"
+                      id="redpb"
+                      checked={typePaper === "4"}
+                      value="4"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setTypePaper(newValue);
+                      }}
+                    />
+                  </div>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      Ampliada Preto e Branco
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="typePaper"
+                      id="amppb"
+                      checked={typePaper === "5"}
+                      value="5"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setTypePaper(newValue);
+                      }}
+                    />
+                  </div>
+                  <Button className="step-btn" onClick={(e) => {
+                    setStep(5);
+                  }}>
+                    Próximo
+                  </Button>
+                  <Button className="step-btn" onClick={(e) => {
+                    setStep(3);
+                  }}>
+                    Anterior
+                  </Button>
+                </div>
+              )}
+              {step === 5 && (
+                <div className="card">
+                  <h3 className="cardTitle">Modo de envio</h3>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      Envio digital
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="typeSend"
+                      id="digital"
+                      checked={typeSend === "1"}
+                      value="1"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setTypeSend(newValue);
+                      }}
+                    />
+                  </div>
+                  <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      Envio presencial
+                    </label>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="typeSend"
+                      id="presencial"
+                      checked={typeSend === "2"}
+                      value="2"
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setTypeSend(newValue);
+                      }}
+                    />
+                    <textarea
+                      className="observation"
+                      // disabled={true}
+                      id="observacoes"
+                      name="observacoes"
+                      value={observacao}
+                      onChange={(e) => {
+                        setObservacao(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="contentButton">
+                    <Form.Group controlId="formFile" className="mb-3">
+                    {/* <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
+                    <Form.Label htmlFor="file" className="functionButton">
+                      Anexar
+                      <FaFileImport />
+                    </Form.Label> */}
+                      <Form.Label>Default file input example</Form.Label>
+                      <Form.Control type="file" />
+                    </Form.Group>
+                    <input type="file" name="file" onChange={handleChange} accept="application/pdf" />
+                    <Button className="functionButton" type="submit">
+                      Solicitar <FaPrint />
+                    </Button>
+                    <Button className="functionButton" onClick={() => {
+                      setStep(4);
+                    }}>
+                      Anterior
+                    </Button>
+                  </div>
+                </div>
+              )}
             </section>
 
-            <div className="wrapper">
-              <div className="card medium">
-                <h3 className="cardTitle">Formato e Cor</h3>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="type-paper">
-                    A3 Preto e Branco
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="typePaper"
-                    id="a3pb"
-                    value="1"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setTypePaper(newValue);
-                    }}
-                  />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="type-paper">
-                    A4 Preto e Branco
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="typePaper"
-                    id="a4pb"
-                    value="2"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setTypePaper(newValue);
-                    }}
-                  />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="type-paper">
-                    A5 Preto e Branco
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="typePaper"
-                    id="a5pb"
-                    value="3"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setTypePaper(newValue);
-                    }}
-                  />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="type-paper">
-                    Reduzida Preto e Branco
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="typePaper"
-                    id="redpb"
-                    value="4"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setTypePaper(newValue);
-                    }}
-                  />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="type-paper">
-                    Ampliada Preto e Branco
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="typePaper"
-                    id="amppb"
-                    value="5"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setTypePaper(newValue);
-                    }}
-                  />
-                </div>
-              </div>
 
-              {/* <div className="card">
-            <h3 className="cardTitle">Suporte</h3>
-            <div className="radioName">
-              <label className="labelName" htmlFor="type-support">
-                Zipdrive
-              </label>
-              <input
-                className="check classRadio"
-                type="radio"
-                name="type-support"
-                id="zipDrive"
-                value="zipDrive"
-                checked={zipDrive === 1}
-                // onChange={(e) => {
-                //   setZipDrive(e.target.value);
-                // }}
-              />
-            </div>
-            <div className="radioName">
-              <label className="labelName" htmlFor="type-support">
-                Papel
-              </label>
-              <input
-                className="check classRadio"
-                type="radio"
-                name="type-support"
-                id="papel"
-                value="papel"
-                checked={papel === 1}
-                // onChange={(e) => {
-                //   setPapel(e.target.value);
-                // }}
-              />
-            </div>
-            <div className="radioName">
-              <label className="labelName" htmlFor="type-support">
-                CD
-              </label>
-              <input className="check classRadio"
-                type="radio"
-                name="type-support"
-                id="cd"
-                value="cd"
-                checked={cd === 1}
-                // onChange={(e) => {
-                //   setCd(e.target.value);
-                // }}
-              />
-            </div>
-            <div className="radioName">
-              <label className="labelName" htmlFor="type-support">
-                Email
-              </label>
-              <input className="check classRadio"
-                type="radio"
-                name="type-support"
-                id="email"
-                value="email"
-                checked={email === 1}
-                // onChange={(e) => {
-                //   setEmail(e.target.value);
-                // }}
-              />
-            </div>
-            <div className="radioName">
-              <label className="labelName" htmlFor="others">
-                Outro
-              </label>
-              <input className="check classRadio"
-                type="radio"
-                name="type-support"
-                id="outros"
-                value="outros"
-                checked={outros === 1}
-                // onChange={(e) => {
-                //   setOutros(e.target.value);
-                // }}
-              />
-            </div>
-            <input className="text-other"
-              type="text"
-              name="others"
-              id="outrosObservacao"
-              // onChange={(e) => {
-              //   setOutrosObservacao(e.target.value);
-              // }}
-            />
-          </div> */}
-
-              <div className="card">
-                <h3 className="cardTitle">Modo de envio</h3>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="type-paper">
-                    Envio digital
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="typeSend"
-                    id="digital"
-                    value="1"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setTypeSend(newValue);
-                    }}
-                  />
-                </div>
-                <div className="radioName">
-                  <label className="labelName" htmlFor="type-paper">
-                    Envio presencial
-                  </label>
-                  <input
-                    className="check classRadio"
-                    type="radio"
-                    name="typeSend"
-                    id="presencial"
-                    value="2"
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setTypeSend(newValue);
-                    }}
-                  />
-                  <textarea
-                    className="observation"
-                    // disabled={true}
-                    id="observacoes"
-                    name="observacoes"
-                    onChange={(e) => {
-                      setObservacao(e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="contentButton">
-              <button className="functionButton">Adicionar Item</button>
-              <label htmlFor="file" className="functionButton">
-                Anexar
-                <FaFileImport />
-              </label>
-              <input type="file" name="file" onChange={handleChange} accept="application/pdf"/>
-              <button className="functionButton" type="submit">
-                Solicitar <FaPrint />
-              </button>
-            </div>
           </div>
+
         </div>
-      </form>
+      </Form>
     </>
   );
 }
