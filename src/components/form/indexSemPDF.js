@@ -176,92 +176,89 @@ export default function RequestForm() {
     observacao_envio = observacao;
   }
 
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
-  const [isSelected, setIsSelected] = useState()
+  // const [file, setFile] = useState();
 
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsSelected(true);
-  };
+  // const handleChange = e => {
+  //   if (e.target.files.length) {
+  //     setFile(
+  //       e.target.files[0]
+  //     );
+  //   }
+  // }
 
-  const handleSubmission = () => {
-    const formData = new FormData();
+  // const handleUpload = () => {
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("curso", curso);
+  //   formData.append("centro_custos", centro_custos);
 
-    formData.append("file", selectedFile);
-    formData.append("curso", curso);
-    formData.append("centro_custos", centro_custos);
+  //   formData.append("titulo", title);
+  //   formData.append("num_paginas", pages);
+  //   formData.append("num_copias", copy);
 
-    formData.append("titulo", title);
-    formData.append("num_paginas", pages);
-    formData.append("num_copias", copy);
+  //   formData.append("acabamento", acabamento);
+  //   formData.append("tipos_capa", capa);
 
-    formData.append("acabamento", acabamento);
-    formData.append("tipos_capa", capa);
+  //   formData.append("tamanho_pagina", formato);
+  //   formData.append("tipos_copia", cor);
 
-    formData.append("tamanho_pagina", formato);
-    formData.append("tipos_copia", cor);
+  //   formData.append("modo_envio", modo_envio);
+  //   formData.append("observacoes", observacao_envio);
 
-    formData.append("modo_envio", modo_envio);
-    formData.append("observacoes", observacao_envio);
-
-    axios.post('http://localhost:3002/pedido', formData, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      }
-    }).then((response) => response.json())
-      .then((result) => {
-        console.log('Success:', result);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    handleSubmission();
-  };
-
-  var total = pages * copy;
-
-  // const FormPost = () => {
-  //   const data = {
-  //     curso: curso,
-  //     // detalheGraduacao,
-
-  //     centro_custos: centro_custos,
-
-  //     titulo_pedido: title,
-  //     num_paginas: pages,
-  //     num_copias: copy,
-
-  //     acabamento: acabamento,
-  //     tipos_capa: capa,
-
-  //     // outros detalhes
-
-  //     tamanho_pagina: formato,
-  //     tipos_copia: cor,
-
-  //     // suporte
-
-  //     modo_envio: modo_envio,
-  //     observacoes: observacao_envio,
-  //   };
-  //   axios.post('http://localhost:3002/pedido', data, {
+  //   axios.post('http://localhost:3002/pedido', formData, {
   //     headers: {
   //       accessToken: localStorage.getItem("accessToken"),
   //     }
   //   }).then((result) => {
   //     console.log(result);
   //   })
-  // }
+  // };
+
 
   // const onSubmit = (e) => {
   //   e.preventDefault();
-  //   FormPost();
+  //   handleUpload();
   // };
+
+  var total = pages * copy;
+
+  const FormPost = () => {
+    const data = {
+      curso: curso,
+      // detalheGraduacao,
+
+      centro_custos: centro_custos,
+
+      titulo_pedido: title,
+      num_paginas: pages,
+      num_copias: copy,
+
+      acabamento: acabamento,
+      tipos_capa: capa,
+
+      // outros detalhes
+
+      tamanho_pagina: formato,
+      tipos_copia: cor,
+
+      // suporte
+
+      modo_envio: modo_envio,
+      observacoes: observacao_envio,
+    };
+    axios.post('http://localhost:3002/pedido', data, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      }
+    }).then((result) => {
+      console.log(result);
+    })
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    FormPost();
+  };
 
   const [step, setStep] = useState(1);
 
@@ -686,7 +683,7 @@ export default function RequestForm() {
                   </div>
                   <div className="contentButton">
                     <Form.Group controlId="formFile" className="mb-3">
-                      {/* <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
+                    {/* <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
                     <Form.Label htmlFor="file" className="functionButton">
                       Anexar
                       <FaFileImport />
@@ -694,21 +691,8 @@ export default function RequestForm() {
                       <Form.Label>Default file input example</Form.Label>
                       <Form.Control type="file" />
                     </Form.Group>
-                    <input type="file" name="file" onClick={changeHandler} accept="application/pdf" />
+                    <input type="file" name="file" accept="application/pdf" />
                     <Button className="functionButton" type="submit">
-                      {isSelected ? (
-                        <div>
-                          <p>Filename: {selectedFile.name}</p>
-                          <p>Filetype: {selectedFile.type}</p>
-                          <p>Size in bytes: {selectedFile.size}</p>
-                          <p>
-                            lastModifiedDate:{' '}
-                            {selectedFile.lastModifiedDate.toLocaleDateString()}
-                          </p>
-                        </div>
-                      ) : (
-                        <p>Select a file to show details</p>
-                      )}
                       Solicitar <FaPrint />
                     </Button>
                     <Button className="functionButton" onClick={() => {
