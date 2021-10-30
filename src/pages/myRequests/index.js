@@ -89,6 +89,7 @@ const MyRequests = (props) => {
                                                         <Card.Text>{data.avaliacao_pedido}</Card.Text>
                                                     </td>
                                                     <td >
+                                                    <div className="details-btns">
                                                         {data.atualizado ? <>
                                                         <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/detPedido/" + data.id_pedido) }}>detalhes</Button>
                                                         </> :
@@ -96,6 +97,7 @@ const MyRequests = (props) => {
                                                                 <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/detPedido/" + data.id_pedido) }}>avaliar</Button>
                                                                 <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/detPedido/" + data.id_pedido) }}>detalhes</Button>
                                                             </>}
+                                                            </div>
 
                                                     </td>
                                                 </tr>
