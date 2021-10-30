@@ -11,7 +11,6 @@ import SideBar from '../../../src/components/formSideBar';
 
 const UserRequest = (props) => {
   const history = useHistory();
-
   const { nif } = useParams();
 
   var [pedidos, setPedidos] = useState({
@@ -96,7 +95,7 @@ const UserRequest = (props) => {
                               className="detailsForm"
                               variant="secondary"
                               onClick={() => {
-                                history.push("/detPedido/" + data.id_pedido);
+                                history.push("/requestList/" + data.id_pedido);
                               }}
                             >
                               detalhes

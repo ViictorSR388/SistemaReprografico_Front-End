@@ -22,7 +22,6 @@ export default function DetPedido() {
             })
         }, [])
 
-
         return (
             <>
             <h1>{message}</h1>

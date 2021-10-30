@@ -17,6 +17,7 @@ import MyRequests from '../pages/myRequests';
 import DetPedido from '../pages/detPedido';
 import EditUser from '../pages/EditUser';
 import Request from '../pages/userRequest';
+import RequestList from "../pages/requestList";
 import { isAuthenticated } from '../auth';
 import { RemountingRoute } from './RemountingRoute';
 import axios from "axios";
@@ -102,6 +103,7 @@ function Rotas() {
                 <Route path='/detPedido/:id' exact component={() => (<DetPedido image={authState.imagem} name={authState.nome}/>)}/>
                 <Route path="/edit-user/:nif" exact component={() => (<EditUser image={authState.imagem} name={authState.nome}/>)}/>
                 <Route path="/users-requests/:nif" exact component={() => (<Request image={authState.imagem} name={authState.nome}/>)}/>
+                <Route path="/requestList/:nif" exact component={() => (<RequestList image={authState.imagem} name={authState.nome}/>)}/>
               </>
             }
           </Switch>
