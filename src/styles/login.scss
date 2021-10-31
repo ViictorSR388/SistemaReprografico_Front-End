@@ -38,6 +38,8 @@ form {
     margin-bottom: 1rem;
     height: 3.5rem;
     width: 38rem;
+    font-size: 1.5rem;
+    padding-left: 1.0rem;
 }
 
 .login-subTitle {
@@ -58,14 +60,16 @@ form {
 }
 
 .newPassword:hover {
-    color: rgb(177, 0, 0)
+    color: rgb(177, 0, 0);
 }
 
 .login-button {
     color: $white;
     background-color: $red;
     height: 3rem;
-    border-radius: 40px;
+    border-radius: 1.0rem;
+    box-shadow: $grey 0.2rem 0.3rem;
+    font-size: 1.5rem;
 }
 
 .login-button:hover {
