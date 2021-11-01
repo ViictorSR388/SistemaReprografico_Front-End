@@ -14,8 +14,8 @@ const Statistics = (props) => {
   return (
     <>
       <MenuG />
-      <Header />
-      <SideBar image={props.image} name={props.name} admin={true}/>
+      <Header nif={props.nif}/>
+      <SideBar image={props.image} name={props.name} admin={true} estatisticas={true} nif={props.nif}/>
       
       <div className="statistics-container">
         <div className="statistics-title">

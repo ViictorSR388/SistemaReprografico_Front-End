@@ -45,8 +45,8 @@ function Review(props) {
   return (
     <>
       <Menu />
-      <Header />
-      <SideBar image={props.image} name={props.name}/>
+      <Header nif={props.nif}/>
+      <SideBar image={props.image} name={props.name} nif={props.nif}/>
 
       <div id="main-container">
 

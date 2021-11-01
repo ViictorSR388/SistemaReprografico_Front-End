@@ -66,7 +66,7 @@ function NewUser(props) {
     formData.append("telefone", telefoneUser);
     formData.append("depto", departamento);
 
-    axios.post('http://localhost:3002/registrar', formData, {
+    axios.post('http://localhost:3002/newUser', formData, {
       headers: {
         accessToken: localStorage.getItem("accessToken")
       }
@@ -110,8 +110,8 @@ function NewUser(props) {
     <div className="content">
 
       <Menu />
-      <Header />
-      <SideBar image={props.image} name={props.name} admin={true}/>
+      <Header nif={props.nif}/>
+      <SideBar image={props.image} name={props.name} admin={true} nif={props.nif}/>
 
       <div className="container">
         <h2 id="h2" className="nu-subTitle">
@@ -231,7 +231,6 @@ function NewUser(props) {
             />
             <input
               className="nu-button"
-              id="btn"
               value="Voltar"
             />
           </div>

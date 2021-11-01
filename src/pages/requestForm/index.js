@@ -12,7 +12,7 @@ import Form from '../../components/form';
 function RequestForm(props) {
 
   var [loading, setLoading] = useState(false);
-  var [admin, setAdmin] = useState();
+  var [admin, setAdmin] = useState(false);
   var requestForm = true;
 
   var history = useHistory();
@@ -26,7 +26,8 @@ function RequestForm(props) {
         },
       })
       .then((result) => {
-        var resposta = result.data.roles.includes("3_ROLE_ADMIN");
+        console.log(result)
+        var resposta = result.data.roles.includes("2_ROLE_ADMIN");
         if (resposta === true) {
           setAdmin(true)
         }
@@ -41,8 +42,8 @@ function RequestForm(props) {
       {loading ? <>Loading...</> :
         <>
           <MenuG />
-          <Header />
-          <SideBar image = {props.image} name= {props.name} admin = {admin} requestForm = {requestForm}/>
+          <Header nif={props.nif}/>
+          <SideBar image = {props.image} name= {props.name} admin = {admin} requestForm = {requestForm} nif={props.nif}/>
           <Form />
         </>
       }

@@ -41,7 +41,7 @@ export default function NewPassword() {
     }
     else {
       const data = { senha: senhaInput, senha2: senhaInput2, token: values.token, email: values.email };
-      axios.post("http://localhost:3002/reset-password", data).then((result) => {
+      axios.post("http://localhost:3002/resetPassword", data).then((result) => {
         setEnviado(true)
         setMensagem(result.data.message)
         console.log(result)

@@ -8,7 +8,7 @@ import LoginContainer from '../../components/loginContainer'
 
 export default function Login() {
   const [emailOrNif, setEmailOrNif] = useState("");
-  const [senha, setSenha] = useState("");
+  const [ senha, setSenha ] = useState("");
   const { setAuthState } = useContext(AuthContext);
 
   const [mensagem, setMensagem] = useState("")
@@ -17,25 +17,29 @@ export default function Login() {
 
   const LoginPost = () => {
     const data = { emailOrNif: emailOrNif, senha: senha };
-    axios.post("http://localhost:3002/logar", data).then((result) => {
-      console.log(result)
-      if (result.data.error) {
-        setMensagem(result.data.error)
+    axios.post("http://localhost:3002/login", data).then((result) => {
+      if (result.data.status === "error"){
+        setMensagem(result.data.message)
       }
       else {
         setAuthState({
           nif: result.data.nif,
           nome: result.data.nome,
           roles: result.data.roles,
-          status: true
+          imagem: "http://localhost:3002/" + result.data.imagem,
+          redirect: false
         });
         localStorage.setItem("accessToken", result.data.accessToken);
-
-        var resposta = result.data.roles.includes("3_ROLE_ADMIN");
-        if (resposta === true) {
-          history.push('management')
-        } else {
-          history.push('requestForm')
+        if(result.data.primeiro_acesso === 1){
+          history.push("/firstAccess")
+        }
+        else if(result.data.roles){
+          var resposta = result.data.roles.includes("2_ROLE_ADMIN");
+          if (resposta === true) {
+            history.push('management')
+          } else {
+            history.push('requestForm')
+          }
         }
       }
     });
@@ -47,12 +51,10 @@ export default function Login() {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
-        validateStatus: () => true
       })
       .then((response) => {
         if (response.data.roles) {
-          var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-
+          var resposta = response.data.roles.includes("2_ROLE_ADMIN");
           if (resposta === true) {
             history.push('management')
           } else {

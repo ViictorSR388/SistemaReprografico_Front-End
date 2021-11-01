@@ -65,22 +65,6 @@ function EditUser(props) {
 
   const history = useHistory();
 
-  const resetaSenha = () => {
-    axios.put("http://localhost:3002/resetarSenha/" + nif, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken")
-      },
-    }).then((result) => {
-      if(result.data.error){
-        console.log(result.data.error)
-      }
-      else{
-        console.log(result.data.message)
-      }
-    })
-  }
-  
-
   const handleUpload = (e) => {
     e.preventDefault();
     var departamento;
@@ -121,7 +105,7 @@ function EditUser(props) {
     }
 
     axios
-      .put(`http://localhost:3002/usuario/` + nif, formData, {
+      .put(`http://localhost:3002/user/` + nif, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -132,7 +116,7 @@ function EditUser(props) {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/usuario/nif/` + nif, {
+    axios.get(`http://localhost:3002/user/` + nif, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -201,7 +185,6 @@ function EditUser(props) {
               setTelefoneUser(e.target.value);
             }}
           />
-          <Button onClick={resetaSenha}>Resetar Senha</Button>
           <h3>IMAGEM</h3>
           <label className="customize">
             <input

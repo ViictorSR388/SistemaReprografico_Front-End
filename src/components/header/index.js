@@ -10,41 +10,15 @@ import { useHistory } from "react-router";
 
 import Logo from '../img/logo';
 
-function Header () {
+function Header (props) {
   const history = useHistory();
 
-  const [authState, setAuthState] = useState({
-    email: "",
-    nif: 0,
-    status: false,
-  });
-
-  useEffect(() => {
-    axios.get("http://localhost:3002/auth/", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((response) => {
-        if (response.data.error) {
-          setAuthState({ ...authState, status: false });
-        } else {
-          setAuthState({
-            email: response.data.email,
-            nif: response.data.id,
-            status: true,
-          });
-        }
-      });
-  }, []);
-
   const routeUi = () => {
-    history.push('/userInfo')
+    history.push(`/user/${props.nif}`)
   }
 
   const logout = () => {
     localStorage.removeItem("accessToken");
-    setAuthState(false);
     history.push('/')
   }; 
   
