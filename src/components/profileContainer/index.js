@@ -23,10 +23,14 @@ function ProfileContainer(props) {
                 </button>
                 </>
                 }
+                {props.change ? <></>:
+                <>
                 <button className="button-edit" onClick={props.changePassword}>
                     Alterar Senha
                 </button>
-            </div>
+                </>
+           }
+  </div>
         </div>
 
     );

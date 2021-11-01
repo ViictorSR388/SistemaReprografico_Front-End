@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from 'react-router-dom'
 import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
 // import { PassContext } from "../../helpers/changePassContext";
+import { AuthContext } from './../../helpers/AuthContext';
 
 import ProfileContainer from "../../components/profileContainer";
 
@@ -36,10 +37,12 @@ function UserInfo(props) {
 
   const [message, setMessage] = useState();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const [editableAccount, setEditableAccount] = useState(false)
-  
+  const [editableAccount, setEditableAccount] = useState(false);
+
+  const { setAuthState } = useContext(AuthContext);
+
   var id_depto = deptoUser;
 
   //estrutura de decisão para exibir corretamente o departamento
@@ -153,19 +156,19 @@ function UserInfo(props) {
 
   const onLoad = () => {
     axios
-    .get("http://localhost:3002/user/" + id, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    })
-    .then((result) => {
-      setNif(result.data.nif)
-      setNameUser(result.data.nome);
-      setEmailUser(result.data.email);
-      setCfpUser(result.data.cfp);
-      setTelefoneUser(result.data.telefone);
-      setDeptoUser(result.data.id_depto);
-      setImage({ preview: "http://localhost:3002/" + result.data.imagem });
+      .get("http://localhost:3002/user/" + id, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        setNif(result.data.nif)
+        setNameUser(result.data.nome);
+        setEmailUser(result.data.email);
+        setCfpUser(result.data.cfp);
+        setTelefoneUser(result.data.telefone);
+        setDeptoUser(result.data.id_depto);
+        setImage({ preview: "http://localhost:3002/" + result.data.imagem });
         // if (props.nif === result.data.nif) {
         //   setEditableAccount(true)
         // }
@@ -173,12 +176,31 @@ function UserInfo(props) {
       })
   }
 
+  const voltar = () => {
+    axios
+    .get("http://localhost:3002/auth", {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    }).then((result) => {
+      setAuthState({
+        nif: result.data.nif,
+        nome: result.data.nome,
+        roles: result.data.roles,
+        imagem: "http://localhost:3002/" + result.data.imagem,
+        redirect: false
+      });
+      history.push("/requestForm");
+    })
+  }
+
   return (
     <>
       {loading ? <> Loading ... </> :
         <div className="content">
           {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
-          <ProfileContainer image={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} nif={props.nif} />
+          {props.nif === nif ? <ProfileContainer image={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} nif={props.nif} /> : <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />}
+
           <div className="container">
 
             {changePass ? <>         <h2 id="h2" className="ui-subTitle">
@@ -323,8 +345,8 @@ function UserInfo(props) {
                   <h2 className="userInformation">{id_depto}</h2>
                   <div className="btns">
                     {props.admin || props.nif === nif ? <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button> : <></>}
-                    
-                    <button className="btn-back-user" id="btn" onClick={() => { history.push("/requestForm") }}> Voltar</button>
+
+                    <button className="btn-back-user" id="btn" onClick={voltar}> Voltar</button>
                   </div>
                 </>
               )}</>}

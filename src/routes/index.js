@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter  as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import login from '../pages/login';
 import notAuthorized from "../NotAuthorized";
 import NewUser from '../pages/newUser';
@@ -40,7 +40,7 @@ function Rotas() {
 
   const [redirect, setRedirect] = useState(false)
 
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
 
   const [administrator, setAdministrator] = useState()
 
@@ -66,61 +66,62 @@ function Rotas() {
             imagem: "http://localhost:3002/" + response.data.imagem,
             roles: response.data.roles,
           });
-          if(response.data.roles[0] === "2_ROLE_ADMIN"){
+          if (response.data.roles[0] === "2_ROLE_ADMIN") {
             setAdministrator(true)
           }
           setRedirect(false)
           setLoading(false)
-          setAuthState({redirect: false})
+          setAuthState({ redirect: false })
         }
       })
   }, []);
 
   return (
-    <>{loading ? <>Loading...</>: <> <AuthContext.Provider value={{ authState, setAuthState }}>
-    <Router>
+    <AuthContext.Provider value={{ authState, setAuthState }}>
+      <>{loading ? <>Loading...</> : <>
+        <Router>
 
-      <Switch>
-        <Route path='/' exact component={login} />
-        <Route path='/forgotPassword' exact component={forgotPassword} />
-        <Route path='/newPassword' exact component={newPassword} />
-        {authState.redirect ? (
-          <>
-            <Route path='*' exact component={notAuthorized} />
-          </>
-        ) :
-          <>
-            <Route path='/newUser' exact component={() => (<NewUser image={authState.imagem} name={authState.nome} nif={authState.nif}/>)}/>
-            <Route path='/user/:id' exact component={() => (<UserInfo image={authState.imagem} name={authState.nome} nif={authState.nif} admin={administrator}/>)}/>
-            <Route path='/requestForm' exact component={() => (<RequestForm image={authState.imagem} name={authState.nome} nif={authState.nif}/>)}/>
-            <Route path='/management' exact component={() => (<Management image={authState.imagem} name={authState.nome} nif={authState.nif}/>)} />
-            <Route path='/requestManager' exact component={() => (<RequestManager image={authState.imagem}/>)} />
+          <Switch>
+            <Route path='/' exact component={login} />
+            <Route path='/forgotPassword' exact component={forgotPassword} />
+            <Route path='/newPassword' exact component={newPassword} />
+            {authState.redirect ? (
+              <>
+                <Route path='*' exact component={notAuthorized} />
+              </>
+            ) :
+              <>
+                <Route path='/newUser' exact component={() => (<NewUser image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />
+                <Route path='/user/:id' exact component={() => (<UserInfo image={authState.imagem} name={authState.nome} nif={authState.nif} admin={administrator} />)} />
+                <Route path='/requestForm' exact component={() => (<RequestForm image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />
+                <Route path='/management' exact component={() => (<Management image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />
+                <Route path='/requestManager' exact component={() => (<RequestManager image={authState.imagem} />)} />
 
-            {/* <Route path='/review/:id' exact component={review} /> */}
-            {/* <Route path="/review/:id" render={(props) => (
+                {/* <Route path='/review/:id' exact component={review} /> */}
+                {/* <Route path="/review/:id" render={(props) => (
               <Page key={props.match.params.pageid} {...props} />)
             } /> */}
 
-            <Route path="/review/:id" component={() => (<Review image={authState.imagem}/>)}/>
+                <Route path="/review/:id" component={() => (<Review image={authState.imagem} />)} />
 
 
-            <Route path='/historyDefault' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome}/>)}/>
-            <Route path='/historyAdmin/:nif' exact component={() => (<HistoryAdmin image={authState.imagem} name={authState.nome}/>)}/>
-            <Route path='/statistics' exact component={() => (<Statistics image={authState.imagem} name={authState.nome}/>)}/>
-            <Route path='/notAuthorized' exact component={notAuthorized} />
-            <Route path='/myRequests' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome}/>)}/>
-            <Route path='/detPedido/:id' exact component={() => (<DetPedido image={authState.imagem} name={authState.nome}/>)}/>
-            <Route path="/edit-user/:nif" exact component={() => (<EditUser image={authState.imagem} name={authState.nome}/>)}/>
-            <Route path="/users-requests/:nif" exact component={() => (<Request image={authState.imagem} name={authState.nome}/>)}/>
-            <Route path="/requestList/:nif" exact component={() => (<RequestList image={authState.imagem} name={authState.nome}/>)}/>
-            <Route path="/firstAccess" exact component={() => (<FirstAccess image={authState.imagem} name={authState.nome}/>)}/>
-          </>
-        }
-      </Switch>
-    </Router>
-  </AuthContext.Provider></>}
-     
-    </>
+                <Route path='/historyDefault' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome} />)} />
+                <Route path='/historyAdmin/:nif' exact component={() => (<HistoryAdmin image={authState.imagem} name={authState.nome} />)} />
+                <Route path='/statistics' exact component={() => (<Statistics image={authState.imagem} name={authState.nome} />)} />
+                <Route path='/notAuthorized' exact component={notAuthorized} />
+                <Route path='/myRequests' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome} />)} />
+                <Route path='/detPedido/:id' exact component={() => (<DetPedido image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/edit-user/:nif" exact component={() => (<EditUser image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/users-requests/:nif" exact component={() => (<Request image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/requestList/:nif" exact component={() => (<RequestList image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/firstAccess" exact component={() => (<FirstAccess image={authState.imagem} name={authState.nome} />)} />
+              </>
+            }
+          </Switch>
+        </Router>
+      </>}
+      </>
+    </AuthContext.Provider>
   );
 }
 
