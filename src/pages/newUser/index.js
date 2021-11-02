@@ -15,8 +15,6 @@ function NewUser(props) {
   const [nameUser, setNameUser] = useState('');
   //email
   const [emailUser, setEmailUser] = useState('');
-  //senha
-  const [senhaUser, setSenhaUser] = useState('');
   //nif
   const [nifUser, setNifUser] = useState('');
   //cfp
@@ -60,7 +58,6 @@ function NewUser(props) {
     formData.append("image", image);
     formData.append("nome", nameUser);
     formData.append("email", emailUser);
-    formData.append("senha", senhaUser);
     formData.append("nif", nifUser);
     formData.append("cfp", cfpUser);
     formData.append("telefone", telefoneUser);
@@ -136,16 +133,6 @@ function NewUser(props) {
             required
             onChange={(e) => {
               setEmailUser(e.target.value);
-            }}
-          />
-          <input
-            className="input-box"
-            name="senhaUser"
-            type="password"
-            placeholder="Senha"
-            required
-            onChange={(e) => {
-              setSenhaUser(e.target.value);
             }}
           />
           <input

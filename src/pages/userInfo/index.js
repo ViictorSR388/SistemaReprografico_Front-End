@@ -41,6 +41,8 @@ function UserInfo(props) {
 
   const [editableAccount, setEditableAccount] = useState(false);
 
+  const [notFound, setNotFound] = useState(false);
+
   const { setAuthState } = useContext(AuthContext);
 
   var id_depto = deptoUser;
@@ -150,18 +152,30 @@ function UserInfo(props) {
     })
   }
 
+var [myNif, setMyNif] = useState()
+var [adm, setAdm] = useState()
   useEffect(() => {
     onLoad();
-  }, []);
+    setAdm(props.admin);
+    return () => {
+    setAdm({})
+    }
+  }, [props.admin]);
 
   const onLoad = () => {
     axios
       .get("http://localhost:3002/user/" + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
-        },
+        },  
+        validateStatus: () => true
       })
       .then((result) => {
+
+        if(result.status === 404){
+          setNotFound(true)
+        }
+
         setNif(result.data.nif)
         setNameUser(result.data.nome);
         setEmailUser(result.data.email);
@@ -174,6 +188,13 @@ function UserInfo(props) {
         // }
         setLoading(false);
       })
+      axios.get("http://localhost:3002/auth", {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    }).then((result) => {
+      setMyNif(result.data.nif);
+    })
   }
 
   const voltar = () => {
@@ -190,6 +211,7 @@ function UserInfo(props) {
         imagem: "http://localhost:3002/" + result.data.imagem,
         redirect: false
       });
+      
       history.push("/requestForm");
     })
   }
@@ -197,9 +219,11 @@ function UserInfo(props) {
   return (
     <>
       {loading ? <> Loading ... </> :
+      <>
+      {notFound ? <> Usuário não encontrado </> : <> 
         <div className="content">
           {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
-          {props.nif === nif ? <ProfileContainer image={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} nif={props.nif} /> : <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />}
+          {myNif === nif ? <ProfileContainer image={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} nif={props.nif} /> : <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />}
 
           <div className="container">
 
@@ -344,7 +368,7 @@ function UserInfo(props) {
                   <h3 className="input-title">DEPARTAMENTO</h3>
                   <h2 className="userInformation">{id_depto}</h2>
                   <div className="btns">
-                    {props.admin || props.nif === nif ? <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button> : <></>}
+                    {adm || myNif === nif ? <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button> : <></>}
 
                     <button className="btn-back-user" id="btn" onClick={voltar}> Voltar</button>
                   </div>
@@ -354,6 +378,8 @@ function UserInfo(props) {
           </div>
           {/* </PassContext.Provider> */}
         </div>
+      </>}
+      </>
       }
     </>
   );

@@ -13,7 +13,6 @@ function RequestForm(props) {
 
   var [loading, setLoading] = useState(false);
   var [admin, setAdmin] = useState(false);
-  var [nif, setNif] = useState();
   var requestForm = true;
 
   var history = useHistory();
@@ -26,9 +25,7 @@ function RequestForm(props) {
           accessToken: localStorage.getItem("accessToken"),
         },
       })
-      .then((result) => {
-        setNif(result.data.nif);
-        
+      .then((result) => {        
         var resposta = result.data.roles.includes("2_ROLE_ADMIN");
         if (resposta === true) {
           setAdmin(true)
@@ -45,7 +42,7 @@ function RequestForm(props) {
         <>
           <MenuG />
           <Header nif={props.nif}/>
-          <SideBar image = {props.image} name= {props.name} admin = {admin} requestForm = {requestForm} nif={nif}/>
+          <SideBar image = {props.image} name= {props.name} admin = {admin} requestForm = {requestForm} nif={props.nif}/>
           <Form />
         </>
       }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import login from '../pages/login';
 import notAuthorized from "../NotAuthorized";
@@ -21,14 +21,14 @@ import RequestList from "../pages/requestList";
 import { isAuthenticated } from '../auth';
 import { RemountingRoute } from './RemountingRoute';
 import axios from "axios";
-import { AuthContext } from "../helpers/AuthContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HistoryAdmin from '../pages/historyAdmin';
 import FirstAccess from '../pages/firstAccess';
+import { AuthContext } from "../helpers/AuthContext";
+// import { InfoContext } from '../helpers/InfosContext';
 
 
 function Rotas() {
-
   const [authState, setAuthState] = useState({
     nif: 0,
     email: "",
@@ -37,10 +37,10 @@ function Rotas() {
     Roles: [],
     redirect: false
   });
+  
+  // const { setInfoState } = useContext(InfoContext)
 
-  const [redirect, setRedirect] = useState(false)
-
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [administrator, setAdministrator] = useState()
 
@@ -53,11 +53,14 @@ function Rotas() {
         validateStatus: () => true
       })
       .then((response) => {
+        setLoading(false)
         if (response.status === 500 || response.data.error) {
           setAuthState({ redirect: true });
-          setRedirect(true)
         }
         else {
+          // setInfoState({
+          //   nif: 1
+          // })
           setAuthState({
             status: true,
             nif: response.data.nif,
@@ -69,8 +72,6 @@ function Rotas() {
           if (response.data.roles[0] === "2_ROLE_ADMIN") {
             setAdministrator(true)
           }
-          setRedirect(false)
-          setLoading(false)
           setAuthState({ redirect: false })
         }
       })
