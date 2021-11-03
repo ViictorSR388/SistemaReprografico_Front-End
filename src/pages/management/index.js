@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import '../../styles/management.scss';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { FaSearch } from 'react-icons/fa';
+import { FaClosedCaptioning, FaSearch } from 'react-icons/fa';
 
 import Menu from '../../../src/components/hamburgerButtonG';
 import Header from '../../../src/components/header';
@@ -15,18 +15,18 @@ function Management(props) {
 
   //lista
   var [users, setUsers] = useState({
-    ativos: true,
     status: false,
     list: [],
     message: ""
   });
 
+  var [ativos, setAtivos] = useState();
   var [loading, setLoading] = useState(true);
 
 
-  const usuariosAtivos = () => {
+  const usuariosAtivos = (id) => {
     axios
-      .get("http://localhost:3002/users/enabled=1", {
+      .get("http://localhost:3002/users/enabled=" + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -41,11 +41,16 @@ function Management(props) {
             cfp: result.data.cfp,
             telefone: result.data.telefone,
             depto: result.data.depto,
-
             list: result.data,
-            ativos: true,
             status: true
           })
+          console.log(result.data)
+          if (id === 1) {
+            setAtivos(true);
+          }
+          else {
+            setAtivos(false);
+          }
         }
         else {
           setUsers({
@@ -56,46 +61,13 @@ function Management(props) {
       });
   }
 
+  const enableUser = ({ nif, enable }) => {
 
-  const usuariosInativos = () => {
-    axios
-      .get("http://localhost:3002/users/enabled=0", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((result) => {
-        if (result.data.length > 0) {
-          setUsers({
-            nif: result.data.nif,
-            email: result.data.email,
-            nome: result.data.nome,
-            imagem: "http://localhost:3002/" + result.data.imagem,
-            cfp: result.data.cfp,
-            telefone: result.data.telefone,
-            depto: result.data.depto,
-
-            list: result.data,
-            ativos: false,
-            status: true
-          })
-        }
-        else {
-          setUsers({
-            message: "Sem registros...",
-            ativos: false
-          })
-        }
-      });
-  }
-
-  const enableUser = ({nif, enable}) => {
-
-    if(enable === 1) {
+    if (enable === 1) {
       var id = 0
     }
-    else{
-       id = 1
+    else {
+      id = 1
     }
 
     var config = {
@@ -108,8 +80,8 @@ function Management(props) {
 
     axios(config)
       .then(function (response) {
-        if(id === 1){ usuariosInativos(); }
-        else if(id === 0) { usuariosAtivos(); }
+        if (id === 1) { usuariosAtivos(0); }
+        else if (id === 0) { usuariosAtivos(1); }
         console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
@@ -151,22 +123,22 @@ function Management(props) {
       });
   }, []);
 
-  const deleteUser = (nif) => {
-    axios.delete(`http://localhost:3002/user/${nif}`, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    }).then((result) => {
-      console.log(result);
-    });
-  }
+  // const deleteUser = (nif) => {
+  //   axios.delete(`http://localhost:3002/user/${nif}`, {
+  //     headers: {
+  //       accessToken: localStorage.getItem("accessToken"),
+  //     },
+  //   }).then((result) => {
+  //     console.log(result);
+  //   });
+  // }
 
   return (
     <>
       {loading ? <> Loading... </> :
         <>
           <Menu />
-          <Header nif={props.nif}/>
+          <Header nif={props.nif} />
           <SideBar image={props.image} name={props.name} admin={true} management={true} nif={props.nif} />
 
           <div className="container-management">
@@ -184,11 +156,11 @@ function Management(props) {
             </div>
 
             <div>
-              <button onClick={usuariosAtivos}>Usuários ativos</button>
-              <button onClick={usuariosInativos}>Usuários inativos</button>
+              <button onClick={() => usuariosAtivos(1)}>Usuários ativos</button>
+              <button onClick={() => usuariosAtivos(0)}>Usuários inativos</button>
             </div>
 
-            {users.ativos ? <h2>Usuários Ativos:</h2> : <h2>Usuários Inativos:</h2>}
+            {ativos ? <h2>Usuários Ativos:</h2> : <h2>Usuários Inativos:</h2>}
 
             <div className="section">
               <Table striped bordered hover size="sm" >
@@ -209,7 +181,7 @@ function Management(props) {
                       <React.Fragment key={data.nif}>
                         <tbody>
                           <tr>
-                            <td onClick={() => {history.push(`/user/${data.nif}`)}}><img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" /></td>
+                            <td onClick={() => { history.push(`/user/${data.nif}`) }}><img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" /></td>
                             <td>{data.nome}</td>
                             <td>{data.email}</td>
                             <td>{data.cfp}</td>
@@ -222,15 +194,15 @@ function Management(props) {
                               Editar
                             </Button>{' '}
                             {data.ativado ? <>
-                              <Button variant="primary" size="lg" onClick={() => enableUser({nif: data.nif, enable: data.ativado})}>
+                              <Button variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
                                 Desabilitar
                               </Button>{' '}</> : <>
-                              <Button variant="primary" size="lg" onClick={() => enableUser({nif: data.nif, enable: data.ativado})}>
+                              <Button variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
                                 Habilitar
                               </Button>{' '}
-                              <Button variant="primary" size="lg" onClick={() => deleteUser(data.nif)}>
+                              {/* <Button variant="primary" size="lg" onClick={() => deleteUser(data.nif)}>
                                 Deletar
-                              </Button>{' '}
+                              </Button>{' '} */}
                             </>}
 
                           </tr>

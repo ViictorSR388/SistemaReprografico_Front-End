@@ -19,61 +19,92 @@ const UserRequest = (props) => {
     message: "",
   });
 
+  // var [loading, setLoading] = useState();
+  var [avaliados, setAvaliados] = useState();
+
   useEffect(() => {
-    axios
-        .get(`http://localhost:3002/pedido/nif/${nif}`, {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-            },
-      })
+    // setLoading(true)
+    axios.get(`http://localhost:3002/request/nif/${nif}/rated=0`, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    })
       .then((result) => {
-        console.log(result);
         if (result.data.length > 0) {
-          result.data.map((data) => {
-            if (data.avaliacao_pedido === "Ainda não avaliado.") {
-              data.avaliacao_pedido =
-                "Ainda Não avaliado! | Criado em:" + data.criado;
-              data.avaliado = false;
-            } else {
-              data.avaliacao_pedido += " | Atualizado em:" + data.atualizado;
-              data.avaliado = true;
-            }
-            return null;
-          });
           setPedidos({
             list: result.data,
-            status: true,
-          });
-        } else {
-          setPedidos({
-            message: result.data.message,
-          });
+            status: true
+          })
         }
+        else {
+          setPedidos({
+            message: result.data.message
+          })
+        }
+        // setLoading(false)
       });
   }, []);
+
+  const getAvaliados = (id) => {
+    axios
+      .get(`http://localhost:3002/request/nif/${nif}/rated=${id}`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        console.log(result)
+        if (result.data.length > 0) {
+          setPedidos({
+            list: result.data,
+            status: true
+          })
+          console.log(result.data)
+          if (id === 1) {
+            setAvaliados(true);
+          }
+          else {
+            setAvaliados(false);
+          }
+        }
+        else {
+          setPedidos({
+            message: "Sem registros...",
+            ativos: true
+          })
+        }
+      });
+  }
 
   return (
     <>
       <Menu />
       <Header />
-      <SideBar image={props.image} name={props.name} admin={true}/>
-      
+      <SideBar image={props.image} name={props.name} admin={true} />
+
       <div className="container-management">
         <div className="management">
-          <h1 className="userRequest">Solicitação de usuário</h1>
+          <h1 className="userRequest">Solicitações do usuário</h1>
         </div>
+
+        {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
       </div>
 
       <div className="container-management">
+
         <>
           <div className="request">
+            <div>
+              <button onClick={() => getAvaliados(0)}>Não avaliados</button>
+              <button onClick={() => getAvaliados(1)}>Avaliados</button>
+            </div>
             {pedidos.status ? (
               <>
                 <Table striped bordered hover size="sm">
                   <thead>
                     <tr>
                       <th>Pedido</th>
-                      <th>Centro de custos</th>
+                      {avaliados ? <th>Atualizado</th> : <th>Realizado</th>}
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -85,10 +116,10 @@ const UserRequest = (props) => {
                             <Card.Text>{data.titulo_pedido}</Card.Text>
                           </td>
                           <td>
-                            <Card.Text>{data.centro_custos}</Card.Text>
+                            {avaliados ? <Card.Text>{data.updatedAt}</Card.Text> : <Card.Text>{data.createdAt}</Card.Text>}
                           </td>
                           <td>
-                            <Card.Text>{data.avaliacao_pedido}</Card.Text>
+                            <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
                           </td>
                           <td>
                             <Button
@@ -100,7 +131,7 @@ const UserRequest = (props) => {
                             >
                               detalhes
                             </Button>
-                            {data.avaliado ? (
+                            {avaliados ? (
                               <></>
                             ) : (
                               <Button

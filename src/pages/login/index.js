@@ -8,7 +8,7 @@ import LoginContainer from '../../components/loginContainer'
 
 export default function Login() {
   const [emailOrNif, setEmailOrNif] = useState("");
-  const [ senha, setSenha ] = useState("");
+  const [senha, setSenha] = useState("");
   const { setAuthState } = useContext(AuthContext);
 
   const [mensagem, setMensagem] = useState("")
@@ -18,7 +18,7 @@ export default function Login() {
   const LoginPost = () => {
     const data = { emailOrNif: emailOrNif, senha: senha };
     axios.post("http://localhost:3002/login", data).then((result) => {
-      if (result.data.status === "error"){
+      if (result.data.status === "error") {
         setMensagem(result.data.message)
       }
       else {
@@ -30,10 +30,10 @@ export default function Login() {
           redirect: false
         });
         localStorage.setItem("accessToken", result.data.accessToken);
-        if(result.data.primeiro_acesso === 1){
+        if (result.data.primeiro_acesso === 1) {
           history.push("/firstAccess")
         }
-        else if(result.data.roles){
+        else if (result.data.roles) {
           var resposta = result.data.roles.includes("2_ROLE_ADMIN");
           if (resposta === true) {
             history.push('management')

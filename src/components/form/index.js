@@ -448,7 +448,7 @@ export default function RequestForm() {
                 <div className="card medium">
                   <h3 className="cardTitle">Formato e Cor</h3>
                   {servicos.servicosCT.map((data) => (
-                  <React.Fragment key={data.id_servicoCT}>
+                  <React.Fragment key={data.id_servico}>
                     <div className="radioName">
                     <input
                       className="check classRadio"
@@ -457,7 +457,7 @@ export default function RequestForm() {
                       id="a3pb"
                       // checked={typePaper === data.id_servicosCT}
                       onChange={() => {
-                        setServicoCT(data.id_servicoCT)
+                        setServicoCT(data.id_servico)
                       }}
                     />
                     <label className="labelName" htmlFor="type-paper">
@@ -483,7 +483,7 @@ export default function RequestForm() {
                   <h3 className="cardTitle">Tipos de Capa e Encadernação</h3>
                   <div className="radioName">
                   {servicos.servicosCA.map((data) => (
-                  <React.Fragment key={data.id_servicoCA}>
+                  <React.Fragment key={data.id_servico}>
                     <div className="radioName">
                     <input
                       className="check classRadio"
@@ -492,7 +492,7 @@ export default function RequestForm() {
                       id="a3pb"
                       // checked={typePaper === data.id_servicosCT}
                       onChange={() => {
-                        setServicoCA(data.id_servicoCA)
+                        setServicoCA(data.id_servico)
                       }}
                     />
                     <label className="labelName" htmlFor="type-paper">
