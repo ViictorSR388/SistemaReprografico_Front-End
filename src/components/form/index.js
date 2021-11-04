@@ -247,8 +247,8 @@ export default function RequestForm() {
       const response = await axios(config)
       if(response){
         setServicos({
-          servicosCA: response.data[0],
-          servicosCT: response.data[1]
+          servicosCA: response.data.servicosCA,
+          servicosCT: response.data.servicosCT
         })
         console.log((response.data));
       }
