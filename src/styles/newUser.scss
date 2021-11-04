@@ -49,30 +49,59 @@ form {
     margin-top: 4.5rem;
 }
 
-.nu-button {
-    color: $white;
-    background-color: $red;
-    height: 3rem;
-    border-radius: 40px;
+.nu-send-button {
+    width: 38rem;
+    height: 3.5rem;
     cursor: pointer;
-    transition: .5s;
     margin-top: 2rem;
-}
-
-.nu-button:nth-child(1) {
+    padding: 1rem;
     background-color: $blue;
+    color: $white;
+    border-radius: 2rem;
+    transition: .5s;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background-color: #04345c;
     }
 }
 
-.nu-button:nth-child(2) {
-
+.nu-back-button {
+    width: 38rem;
+    height: 3.5rem;
+    cursor: pointer;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: $red;
+    color: $white;
+    border-radius: 2rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
     &:hover {
         background-color: #BA181B;
     }
 }
+
+// .nu-button:nth-child(1) {
+//     background-color: $blue;
+
+//     &:hover {
+//         background-color: #04345c;
+//     }
+// }
+
+// .nu-button:nth-child(2) {
+
+//     &:hover {
+//         background-color: #BA181B;
+//     }
+// }
 
 .input-title {
     display: flex;
@@ -84,5 +113,4 @@ form {
     width: 38rem;
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
-    border-radius: 10px;
 }
