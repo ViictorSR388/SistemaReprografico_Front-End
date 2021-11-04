@@ -144,15 +144,17 @@ function Management(props) {
           <div className="container-management">
             <div className="management">
               <h1 className="management-title">Gerência de Usuários</h1>
-              <label htmlFor="search">
-                <input
-                  type="search"
-                  name="search"
-                  id="search"
-                  placeholder="Filtro"
-                />
-              </label>
-              <FaSearch className="icon-management" />
+              <div className="div-search">
+                <label htmlFor="search">
+                  <input
+                    type="search"
+                    name="search"
+                    id="search"
+                    placeholder="Filtro"
+                  />
+                </label>
+                <FaSearch className="icon-management" />
+              </div>
             </div>
 
             <div className="btns-boot">
@@ -160,7 +162,7 @@ function Management(props) {
               <Button className="btn-boot" onClick={() => usuariosAtivos(0)}>Usuários inativos</Button>
             </div>
 
-            {ativos ? <Button className="btn-boot">Usuários Ativos:</Button> : <Button className="btn-boot">Usuários Inativos:</Button>}
+            {ativos ? <h1 className="title-enable-disable">Usuários Ativos:</h1> : <h1 className="title-enable-disable">Usuários Inativos:</h1>}
 
             <div className="section">
               <Table striped bordered hover size="sm" >
@@ -195,10 +197,10 @@ function Management(props) {
                                 Editar
                               </Button>{' '}
                               {data.ativado ? <>
-                                <Button variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
+                                <Button className="btn-disable" variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
                                   Desabilitar
                                 </Button>{' '}</> : <>
-                                <Button variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
+                                <Button className="btn-enable" variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
                                   Habilitar
                                 </Button>{' '}
                               </>}

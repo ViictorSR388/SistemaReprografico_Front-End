@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
-import ProfileContainer from "../../components/profileContainer";
+import LoginContainer from "../../components/loginContainer";
 import '../../styles/firstAccess.scss';
 
 function FirstAccess() {
@@ -36,7 +36,7 @@ function FirstAccess() {
     return (
         <>
             <div className="content">
-                <ProfileContainer />
+                <LoginContainer />
                 <div className="container">
                     <h2 className="title-first">
                         Insira sua senha

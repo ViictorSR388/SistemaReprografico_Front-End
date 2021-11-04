@@ -27,7 +27,7 @@
 
   .management {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: $grey-button;
     color: $white;
@@ -36,8 +36,13 @@
 
     .management-title {
       color: $white;
-      margin-left: 25.3rem;
-      margin-right: 20rem;
+      margin-left: 1.5rem;
+      // margin-left: 25.3rem;
+      // margin-right: 20rem;
+    }
+
+    .div-search {
+      margin-right: 2rem;
     }
 
     .icon-management {
@@ -228,4 +233,45 @@
       background-color: $blue-hover;
     }
   }
+}
+
+.btn-enable {
+  background-color: $blue !important;
+  font-size: 1.6rem !important;
+  border: transparent !important;
+  margin-bottom: 1rem !important;
+  color: $white !important;
+  margin-right: 1rem !important;
+  background-color: none !important;
+
+  &:hover {
+    background-color: #04345c !important;
+    color: $white;
+  }
+}
+
+.btn-disable {
+  background-color: $red !important;
+  font-size: 1.6rem !important;
+  border: transparent !important;
+  margin-bottom: 1rem !important;
+  color: $white !important;
+  margin-right: 1rem !important;
+  background-color: none !important;
+
+  &:hover {
+    background-color: #BA181B !important;
+    color: $white;
+  }
+}
+
+.title-enable-disable {
+  display: flex;
+  justify-content: center;
+  width: 27.3rem;
+  margin-right: 0.7rem;
+  background-color: $grey-button;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: $white;
 }
