@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/newUser.scss';
-import Header from '../../components/header';
-import Menu from '../../components/hamburgerButton';
-import SideBar from '../../components/formSideBar';
+import ProfileContainer from "../../components/profileContainer";
 
 // import NewUserContainer from '../../components/newUserContainer';
 
@@ -105,11 +103,7 @@ function NewUser(props) {
 
   return (
     <div className="content">
-
-      <Menu />
-      <Header nif={props.nif}/>
-      <SideBar image={props.image} name={props.name} admin={true} nif={props.nif}/>
-
+      <ProfileContainer  />
       <div className="container">
         <h2 id="h2" className="nu-subTitle">
           Criar novo usuário

@@ -1,13 +1,26 @@
-@import './global';
+@import "./global";
 
 .container-management {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   position: absolute;
+  //   width: 120rem;
+  //   top: 13rem;
+  //   left: 45rem;
+  //   font-size: 2rem;
+  //   font-weight: 500;
+  //   flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 120rem;
-  top: 13rem;
-  left: 45rem;
+  // width: 120rem;
+  width: 65vw;
+  // top: 13rem;
+  top: 20vh;
+  // left: 45rem;
+  left: 24vw;
   font-size: 2rem;
   font-weight: 500;
   flex-direction: column;
@@ -57,7 +70,7 @@
   }
 
   /* Firefox */
-  .nif[type='number'] {
+  .nif[type="number"] {
     -moz-appearance: textfield;
   }
 
@@ -69,7 +82,7 @@
   }
 
   /* Firefox */
-  .cfp[type='number'] {
+  .cfp[type="number"] {
     -moz-appearance: textfield;
   }
 
@@ -92,6 +105,7 @@
     background-color: $grey;
     width: 100%;
     margin: 2rem 0;
+    text-align: center !important;
 
     .btn-management {
       display: flex;
@@ -125,13 +139,69 @@
         }
       }
     }
+
+    .btns-bootM {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      width: 100% !important;
+      height: 12rem !important;
+      
+      .btn-bootM {
+        background-color: $grey-button !important;
+        font-size: 1.6rem !important;
+        border: transparent !important;
+        margin-bottom: 1rem !important;
+        color: $white !important;
+        margin-right: 1rem !important;
+        background-color: none !important;
+
+        &:hover {
+          background-color: $grey !important;
+          color: $grey-button;
+        }
+      }
+    }
   }
 
-  .img-user-upload{
+  .btns-boot {
+    height: 5rem;
+    width: 28rem;
+    display: flex;
+    transition: 0.5s;
+
+    .btn-boot {
+      background-color: $grey-button !important;
+      font-size: 1.6rem !important;
+      margin-bottom: 1rem !important;
+
+      &:hover {
+        background-color: $grey !important;
+        color: $grey-button;
+      }
+    }
+
+    .btn-boot:nth-child(1) {
+      margin-right: 1rem !important;
+    }
+  }
+
+  .btn-boot {
+    background-color: $grey-button !important;
+    font-size: 1.6rem !important;
+    border: transparent !important;
+    margin-bottom: 1rem !important;
+
+    &:hover {
+      background-color: $grey !important;
+      color: $grey-button;
+    }
+  }
+
+  .img-user-upload {
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
-    margin-left: 3vw !important;
   }
 
   // .edit-user-managent{

@@ -3,15 +3,13 @@ import { useParams } from "react-router"
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
-
+import ProfileContainer from "../../components/profileContainer";
+import '../../styles/editUser.scss';
 import { Button } from "react-bootstrap";
 
-import SideBar from '../../components/formSideBar';
-import Header from '../../components/header';
-import Menu from '../../components/hamburgerButton';
 
 
-function EditUser(props) {
+function EditUser() {
 
   const { nif } = useParams();
 
@@ -134,20 +132,15 @@ function EditUser(props) {
 
   return (
     <div className="content">
-
-      <Menu />
-      <Header />
-      <SideBar image={props.image} name={props.name} admin={true} />
-
-
+      <ProfileContainer  />
       <div className="container">
-        <h2 id="h2">
+        <h2 className="title-info" >
           Informações pessoais
         </h2>
         <h3>NOME</h3>
         <form onSubmit={handleUpload}>
           <input
-            className="input-box"
+            className="input-textED"
             name="nameUser"
             type="text"
             placeholder={nameUser}
@@ -157,7 +150,7 @@ function EditUser(props) {
           />
           <h3>EMAIL</h3>
           <input
-            className="input-box"
+            className="input-textED"
             name="emailUser"
             type="email"
             placeholder={emailUser}
@@ -167,7 +160,7 @@ function EditUser(props) {
           />
           <h3>CFP</h3>
           <input
-            className="input-box"
+            className="input-textED"
             name="cfpUser"
             type="text"
             placeholder={cfpUser}
@@ -177,7 +170,7 @@ function EditUser(props) {
           />
           <h3>TELEFONE</h3>
           <input
-            className="input-box"
+            className="input-textED"
             name="telefoneUser"
             type="text"
             placeholder={telefoneUser}
@@ -198,7 +191,7 @@ function EditUser(props) {
           </label>
           <h3>DEPARTAMENTO</h3>
           <select
-            className="select"
+            className="select-depto"
             id="deptoUser"
             name="deptoUser"
             onChange={(e) => {
@@ -230,10 +223,9 @@ function EditUser(props) {
               Aperfeiç./Especializ. Profis. Presencial
             </option>
           </select>
-          <div className="btns">
-            <input type="submit" id="btn" value="Enviar"
-            />
-            <button> Voltar</button>
+          <div>
+            <Button className="btn-Edit"> Editar</Button>
+            <Button className="btn-goBack"> Voltar</Button>
           </div>
         </form>
       </div>

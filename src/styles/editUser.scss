@@ -1,0 +1,40 @@
+@import '_global.scss';
+
+.select-depto {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.title-info {
+  background-color: $grey-button;
+  color: $white;
+  width: 40rem;
+  height: 4rem;
+  padding: 0.8rem;
+  margin-bottom: 3rem;
+  font-size: 2rem;
+}
+
+.input-textED {
+  border: 1px solid black;
+  font-size: 1.6rem;
+  width: 35rem;
+  height: 4rem;
+  margin: 1rem 0;
+}
+
+.btn-goBack, .btn-Edit {
+  width: 100% !important;
+  height: 40% !important;
+  display: flex !important;
+  margin-bottom: 1rem !important;
+  padding: 1rem !important;
+  font-size: 1.4rem !important;
+  flex-direction: column !important;
+  border-radius: 20px !important;
+}
+
+.btn-goBack {
+  background-color: $red !important;
+  border: none !important;
+}

@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState, useEffect } from 'react';
 import '../../styles/login.scss';
 import axios from "axios";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { AuthContext } from './../../helpers/AuthContext';
 
 import LoginContainer from '../../components/loginContainer'
@@ -10,6 +10,8 @@ export default function Login() {
   const [emailOrNif, setEmailOrNif] = useState("");
   const [senha, setSenha] = useState("");
   const { setAuthState } = useContext(AuthContext);
+
+  const nif = useParams();
 
   const [mensagem, setMensagem] = useState("")
 
@@ -36,9 +38,9 @@ export default function Login() {
         else if (result.data.roles) {
           var resposta = result.data.roles.includes("2_ROLE_ADMIN");
           if (resposta === true) {
-            history.push('management')
+            history.push("user/" + result.data.nif)
           } else {
-            history.push('requestForm')
+            history.push("user/" + result.data.nif)
           }
         }
       }
@@ -56,9 +58,9 @@ export default function Login() {
         if (response.data.roles) {
           var resposta = response.data.roles.includes("2_ROLE_ADMIN");
           if (resposta === true) {
-            history.push('management')
+            history.push("management")
           } else {
-            history.push('requestForm')
+            history.push("requestForm")
           }
         }
       }
