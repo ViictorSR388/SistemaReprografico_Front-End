@@ -106,11 +106,12 @@ function Management(props) {
             imagem: "http://localhost:3002/" + result.data.imagem,
             cfp: result.data.cfp,
             telefone: result.data.telefone,
-            depto: result.data.depto,
+            depto: result.data.id_depto,
 
             list: result.data,
             ativos: true,
             status: true
+            
           })
         }
         else {
@@ -122,6 +123,30 @@ function Management(props) {
         setLoading(false);
       });
   }, []);
+
+  // var depto
+
+  // if (data.id_depto === "1") {
+  // depto = "Aprendizagem Industrial Presencial"
+  // }
+  // else if (data.id_depto === "2") {
+  //   depto = "Graduação Tecnológica Presencial"
+  // }
+  // else if (data.id_depto === "3") {
+  //   depto = "Pós-Graduação Presencial"
+  // }
+  // else if (data.id_depto === "4") {
+  //   depto = "Extensão Presencial"
+  // }
+  // else if (data.id_depto === "5") {
+  //   depto = "Iniciação Profissional Presencial"
+  // }
+  // else if (data.id_depto === "6") {
+  //   depto = "Qualificação Profissional Presencial"
+  // }
+  // else if (data.id_depto === "7") {
+  //   depto = "Aperfeiç./Especializ. Profis. Presencial"
+  // }
 
   // const deleteUser = (nif) => {
   //   axios.delete(`http://localhost:3002/user/${nif}`, {

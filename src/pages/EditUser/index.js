@@ -9,7 +9,7 @@ import { AuthContext } from './../../helpers/AuthContext';
 import { Button } from "react-bootstrap";
 
 
-function EditUser() {
+function EditUser(props) {
 
   const { nif } = useParams();
 
@@ -18,6 +18,8 @@ function EditUser() {
   const [nameUser, setNameUser] = useState("");
 
   const [nifUser, setNifUser] = useState("");
+
+  const [changePass, setChangePass] = useState();
 
   const [emailUser, setEmailUser] = useState("");
 
@@ -153,7 +155,7 @@ function EditUser() {
 
   return (
     <div className="content">
-      <ProfileContainer  />
+      <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />
       <div className="container">
         <h2 className="ui-subTitle" >
           Informações pessoais

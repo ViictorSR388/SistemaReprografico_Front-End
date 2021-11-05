@@ -43,15 +43,16 @@ function NewUser(props) {
   }
 
   //imagem
-  const [image, setImage] = useState();
+  const [image, setImage] = useState({ raw: "", preview: "" });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     if (e.target.files.length) {
-      setImage(
-        e.target.files[0]
-      );
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0],
+      });
     }
-  }
+  };
 
   const handleUpload = () => {
     const formData = new FormData();
@@ -78,6 +79,8 @@ function NewUser(props) {
     // CreateUserPost();
   }
 
+  const [changePass, setChangePass] = useState();
+
   const voltar = () => {
     axios
     .get("http://localhost:3002/auth", {
@@ -99,7 +102,7 @@ function NewUser(props) {
 
   return (
     <div className="content">
-      <ProfileContainer  />
+      <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />
       <div className="container">
         <h2 id="h2" className="nu-subTitle">
           Criar novo usuário
