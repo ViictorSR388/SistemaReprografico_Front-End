@@ -161,7 +161,7 @@ export default function RequestForm() {
     formData.append("modo_envio", modo_envio);
     formData.append("observacoes", observacao_envio);
 
-    axios.post('http://localhost:3002/pedido', formData, {
+    axios.post('http://localhost:3002/request', formData, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
@@ -238,7 +238,7 @@ export default function RequestForm() {
   const onLoad = async () => {
     var config = {
       method: 'get',
-      url: `http://localhost:3002/services`,
+      url: `http://localhost:3002/services/enabled=1`,
       headers: {
         'accessToken': localStorage.getItem("accessToken"),
       },
@@ -247,8 +247,8 @@ export default function RequestForm() {
       const response = await axios(config)
       if(response){
         setServicos({
-          servicosCA: response.data[0],
-          servicosCT: response.data[1]
+          servicosCA: response.data.servicosCA,
+          servicosCT: response.data.servicosCT
         })
         console.log((response.data));
       }
