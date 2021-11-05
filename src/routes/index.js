@@ -8,7 +8,6 @@ import forgotPassword from '../pages/forgotPassword';
 import UserInfo from '../pages/userInfo';
 import RequestForm from '../pages/requestForm';
 import Management from '../pages/management';
-import RequestManager from '../pages/requestManager';
 import Review from '../pages/review';
 import historyDefault from '../pages/historyDefault';
 import historyAdmin from '../pages/historyAdmin';
@@ -96,7 +95,6 @@ function Rotas() {
                 <Route path='/user/:id' exact component={() => (<UserInfo image={authState.imagem} name={authState.nome} nif={authState.nif} admin={administrator} />)} />
                 <Route path='/requestForm' exact component={() => (<RequestForm image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />
                 <Route path='/management' exact component={() => (<Management image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />
-                <Route path='/requestManager' exact component={() => (<RequestManager image={authState.imagem} />)} />
 
                 {/* <Route path='/review/:id' exact component={review} /> */}
                 {/* <Route path="/review/:id" render={(props) => (

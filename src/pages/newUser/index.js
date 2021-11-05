@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/newUser.scss';
-import Header from '../../components/header';
-import Menu from '../../components/hamburgerButton';
-import SideBar from '../../components/formSideBar';
-
-// import NewUserContainer from '../../components/newUserContainer';
+import ProfileContainer from "../../components/profileContainer";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { AuthContext } from './../../helpers/AuthContext';
 
 function NewUser(props) {
   var history = useHistory();
@@ -23,6 +21,8 @@ function NewUser(props) {
   const [telefoneUser, setTelefoneUser] = useState('');
   //departamento
   const [deptoUser, setDeptoUser] = useState('');
+
+  const { setAuthState } = useContext(AuthContext);
 
   var departamento;
 
@@ -43,15 +43,16 @@ function NewUser(props) {
   }
 
   //imagem
-  const [image, setImage] = useState();
+  const [image, setImage] = useState({ raw: "", preview: "" });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     if (e.target.files.length) {
-      setImage(
-        e.target.files[0]
-      );
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0],
+      });
     }
-  }
+  };
 
   const handleUpload = () => {
     const formData = new FormData();
@@ -72,44 +73,36 @@ function NewUser(props) {
     })
   };
 
-  // const CreateUserPost = () => {
-  //   const data = {
-  //     nome: nameUser,
-
-  //     email: emailUser,
-
-  //     senha: senhaUser,
-
-  //     nif: nifUser,
-
-  //     cfp: cfpUser,
-
-  //     telefone: telefoneUser,
-
-  //     depto:  departamento,
-  //   }
-  //   axios.post('http://localhost:3002/registrar', data, {
-  //     headers: {
-  //       accessToken: localStorage.getItem("accessToken"),        
-  //     }
-  //   }).then((result) => {
-  //     console.log(result);
-  //   })
-  // }
-
   const onSubmit = (e) => {
     e.preventDefault();
     handleUpload();
     // CreateUserPost();
   }
 
+  const [changePass, setChangePass] = useState();
+
+  const voltar = () => {
+    axios
+    .get("http://localhost:3002/auth", {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    }).then((result) => {
+      setAuthState({
+        nif: result.data.nif,
+        nome: result.data.nome,
+        roles: result.data.roles,
+        imagem: "http://localhost:3002/" + result.data.imagem,
+        redirect: false
+      });
+      
+      history.push("/management");
+    })
+  }
+
   return (
     <div className="content">
-
-      <Menu />
-      <Header nif={props.nif}/>
-      <SideBar image={props.image} name={props.name} admin={true} nif={props.nif}/>
-
+      <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />
       <div className="container">
         <h2 id="h2" className="nu-subTitle">
           Criar novo usuário
@@ -172,9 +165,10 @@ function NewUser(props) {
               onChange={handleChange}
               accept="image/*"
             />
+            <FaCloudUploadAlt className="uploud" />
             Upload
           </label>
-          <h3 className="departamento">DEPARTAMENTO</h3>
+          <h3 className="input-title">DEPARTAMENTO</h3>
           <select
             className="select"
             id="deptoUser"
@@ -212,14 +206,16 @@ function NewUser(props) {
           <div className="btns">
             <input
               type="submit"
-              className="nu-button"
+              className="nu-send-button"
               id="btn"
               value="Enviar"
             />
-            <input
-              className="nu-button"
-              value="Voltar"
-            />
+            <button 
+            className="btn-back-user" 
+            id="btn" 
+            onClick={voltar}> 
+            Voltar
+            </button>
           </div>
         </form>
       </div>

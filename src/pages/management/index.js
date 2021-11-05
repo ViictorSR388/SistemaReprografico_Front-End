@@ -106,11 +106,12 @@ function Management(props) {
             imagem: "http://localhost:3002/" + result.data.imagem,
             cfp: result.data.cfp,
             telefone: result.data.telefone,
-            depto: result.data.depto,
+            depto: result.data.id_depto,
 
             list: result.data,
             ativos: true,
             status: true
+            
           })
         }
         else {
@@ -122,6 +123,30 @@ function Management(props) {
         setLoading(false);
       });
   }, []);
+
+  // var depto
+
+  // if (data.id_depto === "1") {
+  // depto = "Aprendizagem Industrial Presencial"
+  // }
+  // else if (data.id_depto === "2") {
+  //   depto = "Graduação Tecnológica Presencial"
+  // }
+  // else if (data.id_depto === "3") {
+  //   depto = "Pós-Graduação Presencial"
+  // }
+  // else if (data.id_depto === "4") {
+  //   depto = "Extensão Presencial"
+  // }
+  // else if (data.id_depto === "5") {
+  //   depto = "Iniciação Profissional Presencial"
+  // }
+  // else if (data.id_depto === "6") {
+  //   depto = "Qualificação Profissional Presencial"
+  // }
+  // else if (data.id_depto === "7") {
+  //   depto = "Aperfeiç./Especializ. Profis. Presencial"
+  // }
 
   // const deleteUser = (nif) => {
   //   axios.delete(`http://localhost:3002/user/${nif}`, {
@@ -144,23 +169,25 @@ function Management(props) {
           <div className="container-management">
             <div className="management">
               <h1 className="management-title">Gerência de Usuários</h1>
-              <label htmlFor="search">
-                <input
-                  type="search"
-                  name="search"
-                  id="search"
-                  placeholder="Filtro"
-                />
-              </label>
-              <FaSearch className="icon-management" />
+              <div className="div-search">
+                <label htmlFor="search">
+                  <input
+                    type="search"
+                    name="search"
+                    id="search"
+                    placeholder="Filtro"
+                  />
+                </label>
+                <FaSearch className="icon-management" />
+              </div>
             </div>
 
-            <div>
-              <button onClick={() => usuariosAtivos(1)}>Usuários ativos</button>
-              <button onClick={() => usuariosAtivos(0)}>Usuários inativos</button>
+            <div className="btns-boot">
+              <Button className="btn-boot" onClick={() => usuariosAtivos(1)}>Usuários ativos</Button>
+              <Button className="btn-boot" onClick={() => usuariosAtivos(0)}>Usuários inativos</Button>
             </div>
 
-            {ativos ? <h2>Usuários Ativos:</h2> : <h2>Usuários Inativos:</h2>}
+            {ativos ? <h1 className="title-enable-disable">Usuários Ativos:</h1> : <h1 className="title-enable-disable">Usuários Inativos:</h1>}
 
             <div className="section">
               <Table striped bordered hover size="sm" >
@@ -187,23 +214,22 @@ function Management(props) {
                             <td>{data.cfp}</td>
                             <td>{data.telefone}</td>
                             <td>{data.id_depto}</td>
-                            <Button color="primary" size="lg" onClick={() => { history.push(`/users-requests/${data.nif}`) }}>
-                              Solicitações
-                            </Button>{' '}
-                            <Button color="primary" size="lg" onClick={() => { history.push(`/edit-user/${data.nif}`) }}>
-                              Editar
-                            </Button>{' '}
-                            {data.ativado ? <>
-                              <Button variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
-                                Desabilitar
-                              </Button>{' '}</> : <>
-                              <Button variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
-                                Habilitar
+                            <div className="btns-bootM">
+                              <Button className="btn-bootM" color="primary" size="lg" onClick={() => { history.push(`/users-requests/${data.nif}`) }}>
+                                Solicitações
                               </Button>{' '}
-                              {/* <Button variant="primary" size="lg" onClick={() => deleteUser(data.nif)}>
-                                Deletar
-                              </Button>{' '} */}
-                            </>}
+                              <Button className="btn-bootM" color="primary" size="lg" onClick={() => { history.push(`/edit-user/${data.nif}`) }}>
+                                Editar
+                              </Button>{' '}
+                              {data.ativado ? <>
+                                <Button className="btn-disable" variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
+                                  Desabilitar
+                                </Button>{' '}</> : <>
+                                <Button className="btn-enable" variant="primary" size="lg" onClick={() => enableUser({ nif: data.nif, enable: data.ativado })}>
+                                  Habilitar
+                                </Button>{' '}
+                              </>}
+                            </div>
 
                           </tr>
                         </tbody>

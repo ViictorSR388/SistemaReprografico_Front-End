@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.scss";
 import { useHistory } from 'react-router';
-
 import Repo from '../img/repo'
 
 function SideBar(props) {

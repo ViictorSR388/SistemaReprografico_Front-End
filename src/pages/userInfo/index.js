@@ -251,9 +251,9 @@ var [adm, setAdm] = useState()
                     }}
                   ></input>
                 </div>
-                <button type="submit">Enviar</button>
+                <button className="nu-send-button" type="submit">Enviar</button>
               </form>
-              <button onClick={() => { setChangePass(false) }}>Voltar</button>
+              <button className="nu-back-button" onClick={() => { setChangePass(false) }}>Voltar</button>
               <h4>{message}</h4>
             </> : <>
               <h2 id="h2" className="ui-subTitle">
@@ -349,9 +349,9 @@ var [adm, setAdm] = useState()
                       </option>
                     </select>
                     <div className="btns">
-                      <input type="submit" className="nu-button" id="btn" value="Enviar"
+                      <input type="submit" className="nu-send-button" id="btn" value="Enviar"
                       />
-                      <button className="nu-button" id="btn" onClick={() => { setEdit(false) }}> Voltar</button>
+                      <button className="nu-back-button"id="btn" onClick={() => { setEdit(false) }}> Voltar</button>
                     </div>
                   </form>
                 </>

@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
-import '../../styles/newUser.scss';
-// import Header from '../../components/header';
-// import Menu from '../../components/hamburgerButton';
-// import SideBar from '../../components/formSideBar';
+import LoginContainer from "../../components/loginContainer";
+import '../../styles/firstAccess.scss';
 
-// import NewUserContainer from '../../components/newUserContainer';
-
-function FirstAccess(props) {
+function FirstAccess() {
     var history = useHistory();
-
     //nome
     const [senha, setSenha] = useState('');
     //email
@@ -26,7 +21,7 @@ function FirstAccess(props) {
         }).then((result) => {
             setMessage(result.data.message)
             setTimeout(() => {
-                if(result.data.status === "ok"){
+                if (result.data.status === "ok") {
                     history.push("/requestForm")
                 }
             }, 1000);
@@ -40,49 +35,44 @@ function FirstAccess(props) {
 
     return (
         <>
-            {/*  <div className="content">
-
-        <Menu />
-        <Header />
-        <SideBar image={props.image} name={props.name} admin={true}/> */ }
-
-            <div className="container">
-                <h2 id="h2" className="nu-subTitle">
-                    Insira sua senha
-                </h2>
-                <form onSubmit={onSubmit}>
-                    <input
-                        className="input-box"
-                        name="password"
-                        type="password"
-                        placeholder="Senha"
-                        required
-                        onChange={(e) => {
-                            setSenha(e.target.value);
-                        }}
-                    />
-                    <input
-                        className="input-box"
-                        name="password"
-                        type="password"
-                        placeholder="Confirmar senha"
-                        required
-                        onChange={(e) => {
-                            setConfirmSenha(e.target.value);
-                        }}
-                    />
-                    <h4>{message}</h4>
-                    <div className="btns">
+            <div className="content">
+                <LoginContainer />
+                <div className="container">
+                    <h2 className="title-first">
+                        Insira sua senha
+                    </h2>
+                    <form onSubmit={onSubmit}>
                         <input
-                            type="submit"
-                            className="nu-button"
-                            id="btn"
-                            value="Enviar"
+                            className="pass-first"
+                            name="password"
+                            type="password"
+                            placeholder="Senha"
+                            required
+                            onChange={(e) => {
+                                setSenha(e.target.value);
+                            }}
                         />
-                    </div>
-                </form>
+                        <input
+                            className="pass-first"
+                            name="password"
+                            type="password"
+                            placeholder="Confirmar senha"
+                            required
+                            onChange={(e) => {
+                                setConfirmSenha(e.target.value);
+                            }}
+                        />
+                        <h4>{message}</h4>
+                        <div className="btns">
+                            <input
+                                className="env-first"
+                                type="submit"
+                                value="Enviar"
+                            />
+                        </div>
+                    </form>
+                </div>
             </div>
-            {/* </div> */}
         </>
     );
 };

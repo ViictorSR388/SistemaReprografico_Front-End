@@ -23,7 +23,7 @@ function Review(props) {
   const avaliaPost = (e) => {
     e.preventDefault();
 
-    axios.put("http://localhost:3002/avaliacao/" + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
+    axios.put("http://localhost:3002/rating/" + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },

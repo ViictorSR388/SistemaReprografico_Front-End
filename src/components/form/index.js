@@ -150,17 +150,17 @@ export default function RequestForm() {
     formData.append("file", selectedFile);
     formData.append("curso", curso);
     formData.append("centro_custos", centro_custos);
-
+    
     formData.append("servicoCT", servicoCT);
     formData.append("servicoCA", servicoCA);
-
+    
     formData.append("titulo_pedido", title);
     formData.append("num_paginas", pages);
     formData.append("num_copias", copy);
-
+    
     formData.append("modo_envio", modo_envio);
     formData.append("observacoes", observacao_envio);
-
+    
     axios.post('http://localhost:3002/request', formData, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
