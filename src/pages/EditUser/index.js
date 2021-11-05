@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router"
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
 import ProfileContainer from "../../components/profileContainer";
 import '../../styles/editUser.scss';
+import { AuthContext } from './../../helpers/AuthContext';
 import { Button } from "react-bootstrap";
-
 
 
 function EditUser() {
@@ -26,6 +26,8 @@ function EditUser() {
   const [telefoneUser, setTelefoneUser] = useState("");
 
   const [deptoUser, setDeptoUser] = useState("");
+
+  const { setAuthState } = useContext(AuthContext);
 
   var id_depto = deptoUser;
 
@@ -130,17 +132,36 @@ function EditUser() {
       });
   }, []);
 
+  const voltar = () => {
+    axios
+    .get("http://localhost:3002/auth", {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    }).then((result) => {
+      setAuthState({
+        nif: result.data.nif,
+        nome: result.data.nome,
+        roles: result.data.roles,
+        imagem: "http://localhost:3002/" + result.data.imagem,
+        redirect: false
+      });
+      
+      history.push("/management");
+    })
+  }
+
   return (
     <div className="content">
       <ProfileContainer  />
       <div className="container">
-        <h2 className="title-info" >
+        <h2 className="ui-subTitle" >
           Informações pessoais
         </h2>
-        <h3>NOME</h3>
+        <h3 className="input-title">NOME</h3>
         <form onSubmit={handleUpload}>
           <input
-            className="input-textED"
+            className="input-box"
             name="nameUser"
             type="text"
             placeholder={nameUser}
@@ -148,9 +169,9 @@ function EditUser() {
               setNameUser(e.target.value);
             }}
           />
-          <h3>EMAIL</h3>
+          <h3 className="input-title">EMAIL</h3>
           <input
-            className="input-textED"
+            className="input-box"
             name="emailUser"
             type="email"
             placeholder={emailUser}
@@ -158,9 +179,9 @@ function EditUser() {
               setEmailUser(e.target.value);
             }}
           />
-          <h3>CFP</h3>
+          <h3 className="input-title">CFP</h3>
           <input
-            className="input-textED"
+            className="input-box"
             name="cfpUser"
             type="text"
             placeholder={cfpUser}
@@ -168,9 +189,9 @@ function EditUser() {
               setCfpUser(e.target.value);
             }}
           />
-          <h3>TELEFONE</h3>
+          <h3 className="input-title">TELEFONE</h3>
           <input
-            className="input-textED"
+            className="input-box"
             name="telefoneUser"
             type="text"
             placeholder={telefoneUser}
@@ -178,9 +199,10 @@ function EditUser() {
               setTelefoneUser(e.target.value);
             }}
           />
-          <h3>IMAGEM</h3>
+          <h3 className="input-title">IMAGEM</h3>
           <label className="customize">
             <input
+              className="input-box"
               type="file"
               name="image"
               onChange={handleChange}
@@ -189,9 +211,9 @@ function EditUser() {
             <FaCloudUploadAlt className="uploud" />
             Upload
           </label>
-          <h3>DEPARTAMENTO</h3>
+          <h3 className="input-title">DEPARTAMENTO</h3>
           <select
-            className="select-depto"
+            className="select"
             id="deptoUser"
             name="deptoUser"
             onChange={(e) => {
@@ -223,9 +245,20 @@ function EditUser() {
               Aperfeiç./Especializ. Profis. Presencial
             </option>
           </select>
-          <div>
-            <Button className="btn-Edit"> Editar</Button>
-            <Button className="btn-goBack"> Voltar</Button>
+          <div className="btns">
+            <input
+              type="submit"
+              className="nu-send-button"
+              id="btn"
+              value="Enviar"
+            />
+            <button 
+              className="btn-back-user" 
+              id="btn" 
+              onClick={voltar}
+            > 
+            Voltar
+            </button>
           </div>
         </form>
       </div>
