@@ -508,8 +508,7 @@ export default function RequestForm() {
                     <label className="labelName" htmlFor="front-cover">
                       Capa em PVC - Espiral de Plástico
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="attachment"
                       id="epCapaPVC"
@@ -541,8 +540,7 @@ export default function RequestForm() {
                     <label className="labelName" htmlFor="type-paper">
                       A3 Preto e Branco
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typePaper"
                       id="a3pb"
@@ -558,8 +556,7 @@ export default function RequestForm() {
                     <label className="labelName" htmlFor="type-paper">
                       A4 Preto e Branco
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typePaper"
                       id="a4pb"
@@ -575,8 +572,7 @@ export default function RequestForm() {
                     <label className="labelName" htmlFor="type-paper">
                       A5 Preto e Branco
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typePaper"
                       id="a5pb"
@@ -592,8 +588,7 @@ export default function RequestForm() {
                     <label className="labelName" htmlFor="type-paper">
                       Reduzida Preto e Branco
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typePaper"
                       id="redpb"
@@ -609,8 +604,7 @@ export default function RequestForm() {
                     <label className="labelName" htmlFor="type-paper">
                       Ampliada Preto e Branco
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typePaper"
                       id="amppb"
@@ -641,8 +635,7 @@ export default function RequestForm() {
                     <label className="labelName" htmlFor="type-paper">
                       Envio digital
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typeSend"
                       id="digital"
@@ -658,8 +651,7 @@ export default function RequestForm() {
                     <label className="labelName" htmlFor="type-paper">
                       Envio presencial
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typeSend"
                       id="presencial"

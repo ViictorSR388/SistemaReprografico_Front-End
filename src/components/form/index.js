@@ -339,6 +339,7 @@ export default function RequestForm() {
                     <Form.Control
                       className="textInput"
                       as="textarea"
+                      placeholder="Especifique a Graduação"
                       // disabled={true}
                       name="posGraduacao"
                       id="posGraduacao"
@@ -348,8 +349,8 @@ export default function RequestForm() {
                     />
                   )}
 
-                  <Card.Title className="cardTitle" htmlFor="cost">Centro de custos</Card.Title>
-                  <div className="radio-container">
+                  <Card.Title className="cardTitle-CC" id="centro_custos" htmlFor="cost">Centro de custos</Card.Title>
+                  <div className="select-container">
                     <Form.Select
                       className="select"
                       id="cc"
@@ -394,7 +395,7 @@ export default function RequestForm() {
               {step === 2 && (
                 <Card className="card">
                   <h3 className="cardTitle">Item</h3>
-                  <label htmlFor="title">Titulo</label>
+                  <label className="label" htmlFor="title">Titulo</label>
                   <input
                     className="input-minor"
                     type="text"
@@ -405,9 +406,8 @@ export default function RequestForm() {
                       setTitle(e.target.value);
                     }}
                   />
-                  <label htmlFor="page-request">Páginas</label>
+                  <label className="label" htmlFor="page-request">Páginas</label>
                   <input
-                    className="short"
                     type="number"
                     name="pages"
                     id="pages"
@@ -416,9 +416,8 @@ export default function RequestForm() {
                       setPages(e.target.value);
                     }}
                   />
-                  <label htmlFor="copy">Cópias</label>
+                  <label className="label" htmlFor="copy">Cópias</label>
                   <input
-                    className="short"
                     type="number"
                     name="copy"
                     id="copy"
@@ -427,7 +426,7 @@ export default function RequestForm() {
                       setCopy(e.target.value);
                     }}
                   />
-                  <label htmlFor="total">Total de Paginas</label>
+                  <label className="label" htmlFor="total">Total de Paginas</label>
                   <span className="total-pages" name="total">
                     {total}
                   </span>
@@ -450,7 +449,7 @@ export default function RequestForm() {
                   {servicos.servicosCT.map((data) => (
                   <React.Fragment key={data.id_servico}>
                     <div className="radioName">
-                    <input
+                    <Form.Check
                       className="check classRadio"
                       type="radio"
                       name="typePaper"
@@ -485,8 +484,7 @@ export default function RequestForm() {
                   {servicos.servicosCA.map((data) => (
                   <React.Fragment key={data.id_servico}>
                     <div className="radioName">
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typePaper"
                       id="a3pb"
@@ -518,11 +516,10 @@ export default function RequestForm() {
                 <div className="card">
                   <h3 className="cardTitle">Modo de envio</h3>
                   <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
+                    <label className="label" htmlFor="type-paper">
                       Envio digital
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typeSend"
                       id="digital"
@@ -535,11 +532,11 @@ export default function RequestForm() {
                     />
                   </div>
                   <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
+                    <label className="label" htmlFor="type-paper">
                       Envio presencial
                     </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
+                      className="classRadio"
                       type="radio"
                       name="typeSend"
                       id="presencial"
@@ -555,6 +552,7 @@ export default function RequestForm() {
                       // disabled={true}
                       id="observacoes"
                       name="observacoes"
+                      placeholder="observações"
                       value={observacao}
                       onChange={(e) => {
                         setObservacao(e.target.value);
@@ -568,10 +566,10 @@ export default function RequestForm() {
                       Anexar
                       <FaFileImport />
                     </Form.Label> */}
-                      <Form.Label>Default file input example</Form.Label>
                       <Form.Control type="file" />
                     </Form.Group>
                     <input type="file" name="file" onClick={changeHandler} accept="application/pdf" />
+                    <div className="bootstrap-buttons">
                     <Button className="functionButton" type="submit">
                       {isSelected ? (
                         <div>
@@ -584,7 +582,7 @@ export default function RequestForm() {
                           </p>
                         </div>
                       ) : (
-                        <p>Select a file to show details</p>
+                        <p>Selecione um arquivo para mais detalhes</p>
                       )}
                       Solicitar <FaPrint />
                     </Button>
@@ -593,6 +591,7 @@ export default function RequestForm() {
                     }}>
                       Anterior
                     </Button>
+                  </div>
                   </div>
                 </div>
               )}
