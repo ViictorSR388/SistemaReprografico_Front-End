@@ -14,7 +14,7 @@ function MenuG() {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <div className="navbar">
+        <div className="navbarH">
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>

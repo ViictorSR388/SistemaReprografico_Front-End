@@ -141,7 +141,6 @@
     margin: auto;
     left: 0;
     right: 0;
-    z-index: -1;
   }
 }
 
@@ -240,7 +239,6 @@
     }
 
     .containerWrapper {
-      height: 190rem;
       display: flex;
       flex-direction: column;
       align-items: center;

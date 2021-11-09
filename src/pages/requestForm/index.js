@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 
 import MenuG from '../../components/hamburgerButtonG';
-import Menu from '../../components/hamburgerButton';
 
 import Header from '../../components/header';
 import SideBar from '../../components/formSideBar';
@@ -39,10 +38,9 @@ function RequestForm(props) {
   }, []);
   return (
     <>
-        <MenuG />
-        <Menu />
       {loading ? <>Loading...</> :
         <>
+          <MenuG />
           <Header nif={props.nif} />
           <SideBar image={props.image} name={props.name} admin={admin} requestForm={requestForm} nif={props.nif} />
           <Form />

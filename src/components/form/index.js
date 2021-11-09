@@ -449,6 +449,9 @@ export default function RequestForm() {
                   {servicos.servicosCT.map((data) => (
                   <React.Fragment key={data.id_servico}>
                     <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      {data.descricao}
+                    </label>
                     <Form.Check
                       className="check classRadio"
                       type="radio"
@@ -459,9 +462,6 @@ export default function RequestForm() {
                         setServicoCT(data.id_servico)
                       }}
                     />
-                    <label className="labelName" htmlFor="type-paper">
-                      {data.descricao}
-                    </label>
                     </div>
                   </React.Fragment>
                   ))}
@@ -484,6 +484,9 @@ export default function RequestForm() {
                   {servicos.servicosCA.map((data) => (
                   <React.Fragment key={data.id_servico}>
                     <div className="radioName">
+                    <label className="labelName" htmlFor="type-paper">
+                      {data.descricao}
+                    </label>
                     <Form.Check
                       type="radio"
                       name="typePaper"
@@ -493,9 +496,6 @@ export default function RequestForm() {
                         setServicoCA(data.id_servico)
                       }}
                     />
-                    <label className="labelName" htmlFor="type-paper">
-                      {data.descricao}
-                    </label>
                     </div>
                   </React.Fragment>
                   ))}

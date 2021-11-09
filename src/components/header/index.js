@@ -3,7 +3,8 @@ import './styles.scss';
 import { FaHome } from 'react-icons/fa';
 import { FaUserAlt } from 'react-icons/fa';
 import { FaSignOutAlt } from 'react-icons/fa';
-import { useHistory } from "react-router";
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 
 import Logo from '../img/logo';
