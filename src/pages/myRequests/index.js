@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom"
 import ProfileContainer from "../../components/profileContainer";
 import axios from 'axios'
-// import { PassContext } from "../../helpers/changePassContext";
 import { Button, Card, Table } from 'react-bootstrap';
+import '../../styles/myRequests.scss'
 
 const MyRequests = (props) => {
 
     const history = useHistory();
-
-    // const { setChangePass } = useContext(PassContext);
 
     var [pedidos, setPedidos] = useState({
         status: false,
@@ -42,6 +40,27 @@ const MyRequests = (props) => {
                 setLoading(false)
             });
     }, []);
+
+    // const [pastPassword] = useState();
+    // const [newPassword] = useState();
+    // const [setMessage] = useState();
+
+    // const passwordPost = (e) => {
+    //     e.preventDefault();
+
+    //     axios.put("http://localhost:3002/mudarSenha", { senhaAntiga: pastPassword, senhaNova: newPassword }, {
+    //         headers: {
+    //             accessToken: localStorage.getItem("accessToken"),
+    //         },
+    //     }).then((result) => {
+    //         if (result.data.error) {
+    //             setMessage(result.data.error)
+    //         }
+    //         else {
+    //             setMessage(result.data.message)
+    //         }
+    //     })
+    // }
 
     const getAvaliados = (id) => {
         axios
@@ -77,19 +96,21 @@ const MyRequests = (props) => {
     return (
         <>
             <div className="content">
-                {loading ? <> Loading... </> : <><ProfileContainer requestsNoInfo="true" image={props.image} name={props.name} changePassword={() => {
-                    history.push("/userInfo")
+                {loading ? <> loading... </> : <><ProfileContainer requestsNoInfo="true" image={props.image} name={props.name} changePassword={() => {
+                    history.push(`/user/${props.nif}`)
                 }} />
                     <div className="container">
-                        <div>
-                            <button onClick={() => getAvaliados(0)}>Não avaliados</button>
-                            <button onClick={() => getAvaliados(1)}>Avaliados</button>
+                        <div className="btns-request">
+                            <button className="btn-request" onClick={() => getAvaliados(0)}>Não avaliados</button>
+                            <button className="btn-request" onClick={() => getAvaliados(1)}>Avaliados</button>
                         </div>
-                        {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
+                        <div className="avaliacao-request">
+                            {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
+                        </div>
                         <>
                             {pedidos.status ?
                                 <>
-                                    <Table striped bordered hover size="sm">
+                                    <Table className="table-request" striped bordered hover size="sm">
                                         <thead>
                                             <tr>
                                                 <th>Pedido</th>
@@ -99,8 +120,7 @@ const MyRequests = (props) => {
                                             </tr>
                                         </thead>
                                         {pedidos.list.map((data) => (
-                                            <React.Fragment key={data.id_pedido}> {/* é a mesma coisa que <> ... <> é a abreviação de <React.Fragment>
-                            A key é para referenciar uma key única para o map não se perder... e também parar de dar erro no console */}
+                                            <React.Fragment key={data.id_pedido}>
                                                 <tbody>
                                                     <tr>
                                                         <td>
@@ -136,7 +156,7 @@ const MyRequests = (props) => {
                                 </>
                             }
                         </>
-                        <Button className="btn-back-user" onClick={() => { history.push("/userInfo") }}> Voltar </Button>
+                        <Button className="back-request" onClick={() => history.push('/requestForm')}> Voltar </Button>
                     </div>
                 </>}
             </div>

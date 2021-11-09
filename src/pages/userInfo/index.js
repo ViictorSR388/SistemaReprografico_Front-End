@@ -39,8 +39,6 @@ function UserInfo(props) {
 
   const [loading, setLoading] = useState(false);
 
-  const [editableAccount, setEditableAccount] = useState(false);
-
   const [notFound, setNotFound] = useState(false);
 
   const { setAuthState } = useContext(AuthContext);
@@ -80,10 +78,6 @@ function UserInfo(props) {
   };
 
   const history = useHistory();
-
-  const routeUserInfo = () => {
-    history.goBack();
-  }
 
   const handleUpload = (e) => {
     e.preventDefault();

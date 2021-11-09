@@ -19,11 +19,9 @@ const UserRequest = (props) => {
     message: "",
   });
 
-  // var [loading, setLoading] = useState();
   var [avaliados, setAvaliados] = useState();
 
   useEffect(() => {
-    // setLoading(true)
     axios.get(`http://localhost:3002/request/nif/${nif}/rated=0`, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
@@ -79,28 +77,26 @@ const UserRequest = (props) => {
   return (
     <>
       <Menu />
-      <Header />
+      <Header nif={props.nif}/>
       <SideBar image={props.image} name={props.name} admin={true} />
 
-      <div className="container-management">
-        <div className="management">
-          <h1 className="userRequest">Solicitações do usuário</h1>
-        </div>
 
+      <div className="container-management">
+      <h1 className="title-usersR">Solicitações do usuário</h1>
+
+      <div className="avaliacao-usersR">
         {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
       </div>
 
-      <div className="container-management">
-
         <>
           <div className="request">
-            <div>
-              <button onClick={() => getAvaliados(0)}>Não avaliados</button>
-              <button onClick={() => getAvaliados(1)}>Avaliados</button>
+            <div className="btns-usersR">
+              <button className="btn-usersR" onClick={() => getAvaliados(0)}>Não avaliados</button>
+              <button className="btn-usersR" onClick={() => getAvaliados(1)}>Avaliados</button>
             </div>
             {pedidos.status ? (
               <>
-                <Table striped bordered hover size="sm">
+                <Table className="table-usersR" striped bordered hover size="sm">
                   <thead>
                     <tr>
                       <th>Pedido</th>
@@ -122,8 +118,9 @@ const UserRequest = (props) => {
                             <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
                           </td>
                           <td>
+                            <div className="avaliations">
                             <Button
-                              className="detailsForm"
+                              className="usersR-avaliation"
                               variant="secondary"
                               onClick={() => {
                                 history.push("/requestList/" + data.id_pedido);
@@ -135,7 +132,7 @@ const UserRequest = (props) => {
                               <></>
                             ) : (
                               <Button
-                                className="detailsForm"
+                                className="usersR-avaliation"
                                 variant="secondary"
                                 onClick={() => {
                                   history.push("/review/" + data.id_pedido);
@@ -144,6 +141,7 @@ const UserRequest = (props) => {
                                 Avaliar
                               </Button>
                             )}
+                            </div>
                           </td>
                         </tr>
                       </tbody>
@@ -156,15 +154,17 @@ const UserRequest = (props) => {
                 <h1>{pedidos.message}</h1>
               </>
             )}
-            <Button
-              className="GoBack"
-              onClick={() => {
-                history.push("/userInfo");
-              }}
-            >
-              {" "}
-              Voltar{" "}
-            </Button>
+            <div className="backUsersR">
+              <Button
+                className="back-usersR"
+                onClick={() => {
+                  history.push(`/management`);
+                }}
+              >
+                {" "}
+                Voltar{" "}
+              </Button>
+            </div>
           </div>
         </>
       </div>

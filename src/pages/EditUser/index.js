@@ -1,25 +1,21 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router"
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
 import ProfileContainer from "../../components/profileContainer";
 import '../../styles/editUser.scss';
-import { AuthContext } from './../../helpers/AuthContext';
-import { Button } from "react-bootstrap";
 
 
 function EditUser(props) {
 
-  const { nif } = useParams();
+  const { id } = useParams();
 
   const [image, setImage] = useState({ raw: "", preview: "" });
 
   const [nameUser, setNameUser] = useState("");
 
-  const [nifUser, setNifUser] = useState("");
-
-  const [changePass, setChangePass] = useState();
+  const [setChangePass] = useState();
 
   const [emailUser, setEmailUser] = useState("");
 
@@ -28,8 +24,6 @@ function EditUser(props) {
   const [telefoneUser, setTelefoneUser] = useState("");
 
   const [deptoUser, setDeptoUser] = useState("");
-
-  const { setAuthState } = useContext(AuthContext);
 
   var id_depto = deptoUser;
 
@@ -52,7 +46,7 @@ function EditUser(props) {
   else if (deptoUser === "6") {
     id_depto = "Qualificação Profissional Presencial"
   }
-  else if (deptoUser === "7") {
+  else if (deptoUser === "7"){
     id_depto = "Aperfeiç./Especializ. Profis. Presencial"
   }
 
@@ -107,7 +101,7 @@ function EditUser(props) {
     }
 
     axios
-      .put(`http://localhost:3002/user/` + nif, formData, {
+      .put("http://localhost:3002/myUser", formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -118,7 +112,7 @@ function EditUser(props) {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/user/` + nif, {
+    axios.get(`http://localhost:3002/user/` + id, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -133,25 +127,6 @@ function EditUser(props) {
         setImage({ preview: "http://localhost:3002/" + result.data.imagem });
       });
   }, []);
-
-  const voltar = () => {
-    axios
-    .get("http://localhost:3002/auth", {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    }).then((result) => {
-      setAuthState({
-        nif: result.data.nif,
-        nome: result.data.nome,
-        roles: result.data.roles,
-        imagem: "http://localhost:3002/" + result.data.imagem,
-        redirect: false
-      });
-      
-      history.push("/management");
-    })
-  }
 
   return (
     <div className="content">
@@ -254,13 +229,7 @@ function EditUser(props) {
               id="btn"
               value="Enviar"
             />
-            <button 
-              className="btn-back-user" 
-              id="btn" 
-              onClick={voltar}
-            > 
-            Voltar
-            </button>
+            <button className="btn-back-user" onClick={() => history.push('/management')}>Voltar</button>
           </div>
         </form>
       </div>
