@@ -1,17 +1,16 @@
-@import "global";
+@import "_global";
 
-.request {
+.requestL {
   margin-top: 10vh;
   background-color: $grey !important;
   width: 65vw !important;
   height: 35rem !important;
   display: flex !important;
 
-  .title-itens {
-    font-size: 2.5rem !important;
-  }
 }
-
-.form-details {
-  background-color: aqua !important;
+.titleRL {
+  background-color: $grey-button;
+  color: $white;
+  text-align: center;
+  width: 100%;
 }

@@ -47,47 +47,16 @@ function RequestList(props) {
       <SideBar image={props.image} name={props.name} admin={true} />
 
       <div className="container-management">
-        <div className="management">
-          <h1 className="userRequest">Solicitação de usuário</h1>
+        <div className="titleRL">
+          <h1>Solicitação de usuário</h1>
         </div>
       </div>
 
       <div className="container-management">
         <>
-          <div className="request">
+          <div className="requestL">
             {pedidos.status ? (
               <>
-                {/* <Card className="details-card">
-                  <div className="details-title">
-                    <Card.Title className="title-itens">Curso</Card.Title>
-                    <Card.Title className="title-itens">Centro de Custos</Card.Title>
-                    <Card.Title className="title-itens">Titulo</Card.Title>
-                    <Card.Title className="title-itens">Páginas</Card.Title>
-                    <Card.Title className="title-itens">Cópias</Card.Title>
-                    <Card.Title className="title-itens">Total</Card.Title>
-                    <Card.Title className="title-itens">Encadernação</Card.Title>
-                    <Card.Title className="title-itens">Formato e Cor</Card.Title>
-                    <Card.Title className="title-itens">Modo de Envio</Card.Title>
-                  </div>
-                  <div className="form-details">
-                    {pedidos.list.map((data) => (
-                      <React.Fragment key={data.id_pedido}>
-                        <div>
-                          <Card.Text>{data.curso}</Card.Text>
-                          <Card.Text>{data.centro_custos}</Card.Text>
-                          <Card.Text>{data.titulo_pedido}</Card.Text>
-                          <Card.Text>{data.num_paginas}</Card.Text>
-                          <Card.Text>{data.num_copias}</Card.Text>
-                          <Card.Text>{data.custo_total}</Card.Text>
-                          <Card.Text>{data.acabamento}</Card.Text>
-                          <Card.Text>{data.tamanho}</Card.Text>
-                          <Card.Text>{data.modo_envio}</Card.Text>
-                        </div>
-                      </React.Fragment>
-                    ))}
-                  </div>
-                </Card> */}
-
                 <Table striped bordered hover size="sm">
                   {pedidos.list.map((data) => (
                     <React.Fragment key={data.id_pedido}>

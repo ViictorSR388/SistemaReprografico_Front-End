@@ -190,7 +190,7 @@ function Management(props) {
             {ativos ? <h1 className="title-enable-disable">Usuários Ativos:</h1> : <h1 className="title-enable-disable">Usuários Inativos:</h1>}
 
             <div className="section">
-              <Table striped bordered hover responsive size="sm" >
+              <Table className="tableBootstrap" striped bordered hover responsive size="sm" >
                 <thead>
                   <tr>
                     <th> </th>

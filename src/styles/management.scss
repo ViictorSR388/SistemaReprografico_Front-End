@@ -1,25 +1,12 @@
 @import "./global";
 
 .container-management {
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   position: absolute;
-  //   width: 120rem;
-  //   top: 13rem;
-  //   left: 45rem;
-  //   font-size: 2rem;
-  //   font-weight: 500;
-  //   flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  // width: 120rem;
   width: 65vw;
-  // top: 13rem;
   top: 20vh;
-  // left: 45rem;
   left: 24vw;
   font-size: 2rem;
   font-weight: 500;
@@ -37,8 +24,6 @@
     .management-title {
       color: $white;
       margin-left: 1.5rem;
-      // margin-left: 25.3rem;
-      // margin-right: 20rem;
     }
 
     .div-search {
@@ -108,12 +93,12 @@
     justify-content: center;
     align-items: center;
     background-color: $grey;
-    width: 100%;
     margin: 2rem 0;
     text-align: center !important;
 
-    table {
+    .tableBootstrap {
       height: 100% !important;
+      width: 100% !important;
     }
 
     .btn-management {
@@ -278,4 +263,9 @@
   font-size: 1.8rem;
   margin-bottom: 1rem;
   color: $white;
+}
+
+.table-responsive {
+  height: 28rem;
+  overflow: hidden;
 }

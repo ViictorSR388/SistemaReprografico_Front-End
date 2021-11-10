@@ -100,12 +100,12 @@ const MyRequests = (props) => {
                     history.push(`/user/${props.nif}`)
                 }} />
                     <div className="container">
+                    <div className="avaliacao-request">
+                        {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
+                    </div>
                         <div className="btns-request">
                             <button className="btn-request" onClick={() => getAvaliados(0)}>Não avaliados</button>
                             <button className="btn-request" onClick={() => getAvaliados(1)}>Avaliados</button>
-                        </div>
-                        <div className="avaliacao-request">
-                            {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
                         </div>
                         <>
                             {pedidos.status ?
