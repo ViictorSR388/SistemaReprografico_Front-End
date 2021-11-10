@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../styles/requestList.scss";
 import axios from "axios";
-import { Table, Card, Form } from "react-bootstrap";
+import { Table, Card } from "react-bootstrap";
 
 import Header from '../../../src/components/header';
 import Menu from '../../../src/components/hamburgerButton';
@@ -57,7 +57,7 @@ function RequestList(props) {
           <div className="request">
             {pedidos.status ? (
               <>
-                <Card className="details-card">
+                {/* <Card className="details-card">
                   <div className="details-title">
                     <Card.Title className="title-itens">Curso</Card.Title>
                     <Card.Title className="title-itens">Centro de Custos</Card.Title>
@@ -86,58 +86,70 @@ function RequestList(props) {
                       </React.Fragment>
                     ))}
                   </div>
-                </Card>
+                </Card> */}
 
-                {/* <Table striped bordered hover size="sm">
-                  <thead>
-                    <tr>
-                      <th>Curso</th>
-                      <th>Centro de custos</th>
-                      <th>Titulo</th>
-                      <th>Página</th>
-                      <th>Cópias</th>
-                      <th>Total</th>
-                      <th>Encadernação</th>
-                      <th>Formato e Cor</th>
-                      <th>Modo de Envio</th>
-                    </tr>
-                  </thead>
+                <Table striped bordered hover size="sm">
                   {pedidos.list.map((data) => (
                     <React.Fragment key={data.id_pedido}>
                       <tbody>
                         <tr>
+                          <td><strong>Curso</strong></td>
                           <td>
-                            <Card.Text>{data.curso}</Card.Text>
+                            <Card.Text>{data.det_pedidos.id_curso}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Centro de custos</strong></td>
                           <td>
-                            <Card.Text>{data.centro_custos}</Card.Text>
+                            <Card.Text>{data.det_pedidos.id_centro_custos}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Título</strong></td>
                           <td>
                             <Card.Text>{data.titulo_pedido}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Páginas</strong></td>
                           <td>
-                            <Card.Text>{data.num_paginas}</Card.Text>
+                            <Card.Text>{data.det_pedidos.num_paginas}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Cópias</strong></td>
                           <td>
-                            <Card.Text>{data.num_copias}</Card.Text>
+                            <Card.Text>{data.det_pedidos.num_copias}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Total</strong></td>
                           <td>
                             <Card.Text>{data.custo_total}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Encadernação</strong></td>
                           <td>
-                            <Card.Text>{data.acabamento}</Card.Text>
+                            <Card.Text>{data.servico_pedidos.servicoCA}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Formato e Cor</strong></td>
                           <td>
-                            <Card.Text>{data.tamanho}</Card.Text>
+                            <Card.Text>{data.servico_pedidos.servicoCT}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Modo de Envio</strong></td>
                           <td>
-                            <Card.Text>{data.modo_envio}</Card.Text>
+                            <Card.Text>{data.id_modo_envio}</Card.Text>
                           </td>
                         </tr>
                       </tbody>
                     </React.Fragment>
                   ))}
-                </Table> */}
+                </Table>
               </>
             ) : (
               <>

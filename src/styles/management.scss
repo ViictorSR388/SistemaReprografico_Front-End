@@ -112,6 +112,10 @@
     margin: 2rem 0;
     text-align: center !important;
 
+    table {
+      height: 100% !important;
+    }
+
     .btn-management {
       display: flex;
       align-items: center;
@@ -216,7 +220,7 @@
   // }
 
   .btn-newUser {
-    margin-left: 103.5rem;
+    margin-left: 54vw;
 
     button {
       background-color: $grey-button;
