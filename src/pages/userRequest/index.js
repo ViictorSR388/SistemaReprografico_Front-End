@@ -11,7 +11,7 @@ import SideBar from '../../../src/components/formSideBar';
 
 const UserRequest = (props) => {
   const history = useHistory();
-  const { nif } = useParams();
+  const {nif} = useParams();
 
   var [pedidos, setPedidos] = useState({
     status: false,
@@ -28,6 +28,7 @@ const UserRequest = (props) => {
       },
     })
       .then((result) => {
+        console.log(result)
         if (result.data.length > 0) {
           setPedidos({
             list: result.data,
@@ -39,7 +40,6 @@ const UserRequest = (props) => {
             message: result.data.message
           })
         }
-        // setLoading(false)
       });
   }, []);
 

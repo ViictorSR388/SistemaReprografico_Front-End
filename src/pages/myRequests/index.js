@@ -135,11 +135,11 @@ const MyRequests = (props) => {
                                                         <td>
                                                             <div className="details-btns">
                                                                 {avaliados ? <>
-                                                                    <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/detPedido/" + data.id_pedido) }}>detalhes</Button>
+                                                                    <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
                                                                 </> :
                                                                     <>
                                                                         <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/review/" + data.id_pedido) }}>avaliar</Button>
-                                                                        <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/detPedido/" + data.id_pedido) }}>detalhes</Button>
+                                                                        <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
                                                                     </>}
                                                             </div>
 

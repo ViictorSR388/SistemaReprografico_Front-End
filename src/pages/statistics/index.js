@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React from 'react';
 import '../../styles/statistics.scss';
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
 
@@ -11,7 +11,7 @@ const Statistics = (props) => {
   return (
     <>
       <MenuG />
-      <Header nif={props.nif}/>
+      <Header nif={props.nif} />
       <SideBar image={props.image} name={props.name} admin={true} estatisticas={true} nif={props.nif}/>
       
       <div className="statistics-container">
