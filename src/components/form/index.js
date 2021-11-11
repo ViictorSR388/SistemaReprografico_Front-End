@@ -150,24 +150,24 @@ export default function RequestForm() {
     formData.append("file", selectedFile);
     formData.append("curso", curso);
     formData.append("centro_custos", centro_custos);
-    
+
     formData.append("servicoCT", servicoCT);
     formData.append("servicoCA", servicoCA);
-    
+
     formData.append("titulo_pedido", title);
     formData.append("num_paginas", pages);
     formData.append("num_copias", copy);
-    
+
     formData.append("modo_envio", modo_envio);
     formData.append("observacoes", observacao_envio);
-    
+
     axios.post('http://localhost:3002/request', formData, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
     }).then((result) => {
-        console.log('Success:', result);
-      })
+      console.log('Success:', result);
+    })
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -245,7 +245,7 @@ export default function RequestForm() {
     };
     try {
       const response = await axios(config)
-      if(response){
+      if (response) {
         setServicos({
           servicosCA: response.data.servicosCA,
           servicosCT: response.data.servicosCT
@@ -447,23 +447,23 @@ export default function RequestForm() {
                 <div className="card medium">
                   <h3 className="cardTitle">Formato e Cor</h3>
                   {servicos.servicosCT.map((data) => (
-                  <React.Fragment key={data.id_servico}>
-                    <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      {data.descricao}
-                    </label>
-                    <Form.Check
-                      className="check classRadio"
-                      type="radio"
-                      name="typePaper"
-                      id="a3pb"
-                      // checked={typePaper === data.id_servicosCT}
-                      onChange={() => {
-                        setServicoCT(data.id_servico)
-                      }}
-                    />
-                    </div>
-                  </React.Fragment>
+                    <React.Fragment key={data.id_servico}>
+                      <div className="radioName">
+                        <label className="labelName" htmlFor="type-paper">
+                          {data.descricao}
+                        </label>
+                        <Form.Check
+                          className="check classRadio"
+                          type="radio"
+                          name="typePaper"
+                          id="a3pb"
+                          // checked={typePaper === data.id_servicosCT}
+                          onChange={() => {
+                            setServicoCT(data.id_servico)
+                          }}
+                        />
+                      </div>
+                    </React.Fragment>
                   ))}
                   <Button className="step-btn" onClick={(e) => {
                     setStep(4);
@@ -481,24 +481,24 @@ export default function RequestForm() {
                 <Card className="card">
                   <h3 className="cardTitle">Tipos de Capa e Encadernação</h3>
                   <div className="radioName">
-                  {servicos.servicosCA.map((data) => (
-                  <React.Fragment key={data.id_servico}>
-                    <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      {data.descricao}
-                    </label>
-                    <Form.Check
-                      type="radio"
-                      name="typePaper"
-                      id="a3pb"
-                      // checked={typePaper === data.id_servicosCT}
-                      onChange={() => {
-                        setServicoCA(data.id_servico)
-                      }}
-                    />
-                    </div>
-                  </React.Fragment>
-                  ))}
+                    {servicos.servicosCA.map((data) => (
+                      <React.Fragment key={data.id_servico}>
+                        <div className="radioName">
+                          <label className="labelName" htmlFor="type-paper">
+                            {data.descricao}
+                          </label>
+                          <Form.Check
+                            type="radio"
+                            name="typePaper"
+                            id="a3pb"
+                            // checked={typePaper === data.id_servicosCT}
+                            onChange={() => {
+                              setServicoCA(data.id_servico)
+                            }}
+                          />
+                        </div>
+                      </React.Fragment>
+                    ))}
                   </div>
                   <Button className="step-btn" onClick={() => {
                     setStep(5);
@@ -547,17 +547,20 @@ export default function RequestForm() {
                         setTypeSend(newValue);
                       }}
                     />
-                    <textarea
-                      className="observation"
-                      // disabled={true}
-                      id="observacoes"
-                      name="observacoes"
-                      placeholder="observações"
-                      value={observacao}
-                      onChange={(e) => {
-                        setObservacao(e.target.value);
-                      }}
-                    />
+                    {typeSend === "2" && (
+                      <Form.Control
+                        className="textInput"
+                        as="textarea"
+                        // disabled={true}
+                        id="observacoes"
+                        name="observacoes"
+                        placeholder="observações"
+                        value={observacao}
+                        onChange={(e) => {
+                          setObservacao(e.target.value);
+                        }}
+                      />
+                    )}
                   </div>
                   <div className="contentButton">
                     <Form.Group controlId="formFile" className="mb-3">
@@ -570,28 +573,28 @@ export default function RequestForm() {
                     </Form.Group>
                     <input type="file" name="file" onClick={changeHandler} accept="application/pdf" />
                     <div className="bootstrap-buttons">
-                    <Button className="functionButton" type="submit">
-                      {isSelected ? (
-                        <div>
-                          <p>Filename: {selectedFile.name}</p>
-                          <p>Filetype: {selectedFile.type}</p>
-                          <p>Size in bytes: {selectedFile.size}</p>
-                          <p>
-                            lastModifiedDate:{' '}
-                            {selectedFile.lastModifiedDate.toLocaleDateString()}
-                          </p>
-                        </div>
-                      ) : (
-                        <p>Selecione um arquivo para mais detalhes</p>
-                      )}
-                      Solicitar <FaPrint />
-                    </Button>
-                    <Button className="functionButton" onClick={() => {
-                      setStep(4);
-                    }}>
-                      Anterior
-                    </Button>
-                  </div>
+                      <Button className="functionButton" type="submit">
+                        {isSelected ? (
+                          <div>
+                            <p>Filename: {selectedFile.name}</p>
+                            <p>Filetype: {selectedFile.type}</p>
+                            <p>Size in bytes: {selectedFile.size}</p>
+                            <p>
+                              lastModifiedDate:{' '}
+                              {selectedFile.lastModifiedDate.toLocaleDateString()}
+                            </p>
+                          </div>
+                        ) : (
+                          <p>Selecione um arquivo para mais detalhes</p>
+                        )}
+                        Solicitar <FaPrint />
+                      </Button>
+                      <Button className="functionButton" onClick={() => {
+                        setStep(4);
+                      }}>
+                        Anterior
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )}
