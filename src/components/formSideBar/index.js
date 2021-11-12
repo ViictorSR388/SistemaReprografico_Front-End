@@ -23,6 +23,10 @@ function SideBar(props) {
         history.push("/statistics");
     }
 
+    const routeServices = () => {
+        history.push("/services");
+    }
+
     return (
         <div className="sidebarG">
                 <Repo image={props.image} nif={props.nif} />                
@@ -34,6 +38,7 @@ function SideBar(props) {
                  <>
                 {props.management ? <></> : <button className="buttonG" onClick={routeManagement}>Gerencia de usuários</button>}
                 {props.estatisticas ? <></> : <button className="buttonG" onClick={routeStatistics}>Estatísticas</button>}
+                {props.services ? <></> : <button className="buttonG" onClick={routeServices}>Serviços</button>}
                 </> : <></>}
                 <button className="buttonG" onClick={routeMyRequests}>Meus Pedidos</button>
             </div>
