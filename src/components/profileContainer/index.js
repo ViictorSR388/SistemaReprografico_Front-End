@@ -11,10 +11,10 @@ function ProfileContainer(props) {
         <div className="left-container" >
             <div className="icon-container" >
                 <div className="profile-div">
-                <Profile image={props.image} />                
+                <Profile image={props.image} nif={props.nif} />                
                 </div>
             </div>
-            <h2 className="subTitle" onClick={() => {history.push("/userInfo")}}>{props.name}</h2>
+            <h2 className="subTitle" onClick={() => {history.push(`/user/${props.nif}`)}}>{props.name}</h2>
             <div className="profile-links" >
                 {props.requestsNoInfo ? <></>: 
                 <> 
@@ -23,10 +23,14 @@ function ProfileContainer(props) {
                 </button>
                 </>
                 }
+                {props.change ? <></>:
+                <>
                 <button className="button-edit" onClick={props.changePassword}>
                     Alterar Senha
                 </button>
-            </div>
+                </>
+           }
+  </div>
         </div>
 
     );

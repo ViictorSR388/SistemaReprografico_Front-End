@@ -25,12 +25,6 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Histórico',
-    path: '/historyDefault',
-    icon: <FaBookReader />,
-    cName: 'nav-text'
-  },
-  {
     title: 'Sair',
     path: '/',
     icon: <FaSignOutAlt />,

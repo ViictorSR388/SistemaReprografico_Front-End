@@ -1,21 +1,18 @@
-import React, {useEffect, useContext} from 'react';
+import React from 'react';
 import '../../styles/statistics.scss';
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
-import { useHistory } from 'react-router-dom'
-import axios from 'axios';
 
 import Header from "../../components/header";
 import SideBar from "../../components/formSideBar";
 import MenuG from "../../components/hamburgerButtonG";
 
 const Statistics = (props) => {
-  var history = useHistory()
   
   return (
     <>
       <MenuG />
-      <Header />
-      <SideBar image={props.image} name={props.name} admin={true}/>
+      <Header nif={props.nif} />
+      <SideBar image={props.image} name={props.name} admin={true} estatisticas={true} nif={props.nif}/>
       
       <div className="statistics-container">
         <div className="statistics-title">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaFileImport } from 'react-icons/fa';
 import { FaPrint } from 'react-icons/fa';
 import './styles.scss';
@@ -69,25 +69,6 @@ export default function RequestForm() {
   const [pages, setPages] = useState('');
   const [copy, setCopy] = useState('');
 
-  //card encardenação
-  const [attachment, setAttachment] = useState(0);
-
-  var acabamento;
-  var capa;
-
-  if (attachment === "1") {
-    acabamento = 1;
-    capa = 1;
-  } else if (attachment === "2") {
-    acabamento = 2;
-    capa = 1;
-  } else if (attachment === "3") {
-    acabamento = 3;
-    capa = 1;
-  } else if (attachment === "4") {
-    acabamento = 3;
-    capa = 2;
-  }
 
   //card outros detalhes
   // const [grampear, setGrampear] = useState(0);
@@ -107,28 +88,6 @@ export default function RequestForm() {
   //   detalhes = 4
   // }
 
-  //card formato e cor
-  const [typePaper, setTypePaper] = useState(0);
-
-  var formato;
-  var cor;
-
-  if (typePaper === "1") {
-    formato = 1;
-    cor = 1;
-  } else if (typePaper === "2") {
-    formato = 2;
-    cor = 1;
-  } else if (typePaper === "3") {
-    formato = 3;
-    cor = 1;
-  } else if (typePaper === "4") {
-    formato = 4;
-    cor = 1;
-  } else if (typePaper === "5") {
-    formato = 5;
-    cor = 1;
-  }
 
   //card suporte
   // const [zipDrive, setZipDrive] = useState(0);
@@ -192,27 +151,23 @@ export default function RequestForm() {
     formData.append("curso", curso);
     formData.append("centro_custos", centro_custos);
 
-    formData.append("titulo", title);
+    formData.append("servicoCT", servicoCT);
+    formData.append("servicoCA", servicoCA);
+
+    formData.append("titulo_pedido", title);
     formData.append("num_paginas", pages);
     formData.append("num_copias", copy);
-
-    formData.append("acabamento", acabamento);
-    formData.append("tipos_capa", capa);
-
-    formData.append("tamanho_pagina", formato);
-    formData.append("tipos_copia", cor);
 
     formData.append("modo_envio", modo_envio);
     formData.append("observacoes", observacao_envio);
 
-    axios.post('http://localhost:3002/pedido', formData, {
+    axios.post('http://localhost:3002/request', formData, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
-    }).then((response) => response.json())
-      .then((result) => {
-        console.log('Success:', result);
-      })
+    }).then((result) => {
+      console.log('Success:', result);
+    })
       .catch((error) => {
         console.error('Error:', error);
       });
@@ -265,6 +220,42 @@ export default function RequestForm() {
 
   const [step, setStep] = useState(1);
 
+  const [servicos, setServicos] = useState({
+    servicosCA: [],
+    servicosCT: [],
+  })
+
+  var [servicoCA, setServicoCA] = useState();
+  var [servicoCT, setServicoCT] = useState();
+
+  useEffect(() => {
+    onLoad();
+    return () => {
+      setServicos({});
+    };
+  }, [])
+
+  const onLoad = async () => {
+    var config = {
+      method: 'get',
+      url: `http://localhost:3002/services/enabled=1`,
+      headers: {
+        'accessToken': localStorage.getItem("accessToken"),
+      },
+    };
+    try {
+      const response = await axios(config)
+      if (response) {
+        setServicos({
+          servicosCA: response.data.servicosCA,
+          servicosCT: response.data.servicosCT
+        })
+        console.log((response.data));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   return (
     <>
@@ -348,6 +339,7 @@ export default function RequestForm() {
                     <Form.Control
                       className="textInput"
                       as="textarea"
+                      placeholder="Especifique a Graduação"
                       // disabled={true}
                       name="posGraduacao"
                       id="posGraduacao"
@@ -357,8 +349,8 @@ export default function RequestForm() {
                     />
                   )}
 
-                  <Card.Title className="cardTitle" htmlFor="cost">Centro de custos</Card.Title>
-                  <div className="radio-container">
+                  <Card.Title className="cardTitle-CC" id="centro_custos" htmlFor="cost">Centro de custos</Card.Title>
+                  <div className="select-container">
                     <Form.Select
                       className="select"
                       id="cc"
@@ -402,8 +394,8 @@ export default function RequestForm() {
               )}
               {step === 2 && (
                 <Card className="card">
-                  <h3 className="cardTitle">Item</h3>
-                  <label htmlFor="title">Titulo</label>
+                  <Card.Title className="cardTitle">Item</Card.Title>
+                  <label className="label" htmlFor="title">Titulo</label>
                   <input
                     className="input-minor"
                     type="text"
@@ -414,9 +406,8 @@ export default function RequestForm() {
                       setTitle(e.target.value);
                     }}
                   />
-                  <label htmlFor="page-request">Páginas</label>
+                  <label className="label" htmlFor="page-request">Páginas</label>
                   <input
-                    className="short"
                     type="number"
                     name="pages"
                     id="pages"
@@ -425,9 +416,8 @@ export default function RequestForm() {
                       setPages(e.target.value);
                     }}
                   />
-                  <label htmlFor="copy">Cópias</label>
+                  <label className="label" htmlFor="copy">Cópias</label>
                   <input
-                    className="short"
                     type="number"
                     name="copy"
                     id="copy"
@@ -436,7 +426,7 @@ export default function RequestForm() {
                       setCopy(e.target.value);
                     }}
                   />
-                  <label htmlFor="total">Total de Paginas</label>
+                  <label className="label" htmlFor="total">Total de Paginas</label>
                   <span className="total-pages" name="total">
                     {total}
                   </span>
@@ -454,198 +444,77 @@ export default function RequestForm() {
               )}
 
               {step === 3 && (
-                <Card className="card">
-                  <h3 className="cardTitle">Encadernação</h3>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="attachment">
-                      Capa em Papel 150g - 2 Grampos a Cavalo
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="attachment"
-                      id="gcCapaPapel"
-                      checked={attachment === "1"}
-                      value="1"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setAttachment(newValue);
-                      }}
-                    />
-                  </div>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="attachment">
-                      Capa em Papel 150g - 2 Grampo Laterais
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="attachment"
-                      id="glCapaPapel"
-                      checked={attachment === "2"}
-                      value="2"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setAttachment(newValue);
-                      }}
-                    />
-                  </div>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="spiral-binding">
-                      Capa em Papel 150g - Espiral de Plástico
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="attachment"
-                      id="epCapa150g"
-                      checked={attachment === "3"}
-                      value="3"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setAttachment(newValue);
-                      }}
-                    />
-                  </div>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="front-cover">
-                      Capa em PVC - Espiral de Plástico
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="attachment"
-                      id="epCapaPVC"
-                      checked={attachment === "4"}
-                      value="4"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setAttachment(newValue);
-                      }}
-                    />
-                  </div>
-                  <Button className="step-btn" onClick={() => {
+                <div className="card medium">
+                  <Card.Title className="cardTitle">Formato e Cor</Card.Title>
+                  {servicos.servicosCT.map((data) => (
+                    <React.Fragment key={data.id_servico}>
+                      <div className="radioName">
+                        <Form.Check
+                          className="check classRadio"
+                          type="radio"
+                          name="typePaper"
+                          id="a3pb"
+                          // checked={typePaper === data.id_servicosCT}
+                          onChange={() => {
+                            setServicoCT(data.id_servico)
+                          }}
+                        />
+                        <label className="labelName" htmlFor="type-paper">
+                          {data.descricao}
+                        </label>
+                      </div>
+                    </React.Fragment>
+                  ))}
+                  <Button className="step-btn" onClick={(e) => {
                     setStep(4);
                   }}>
                     Próximo
                   </Button>
-                  <Button className="step-btn" onClick={() => {
+                  <Button className="step-btn" onClick={(e) => {
                     setStep(2);
-                  }}>
-                    Anterior
-                  </Button>
-                </Card>
-              )}
-
-              {step === 4 && (
-                <div className="card medium">
-                  <h3 className="cardTitle">Formato e Cor</h3>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      A3 Preto e Branco
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="typePaper"
-                      id="a3pb"
-                      checked={typePaper === "1"}
-                      value="1"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setTypePaper(newValue);
-                      }}
-                    />
-                  </div>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      A4 Preto e Branco
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="typePaper"
-                      id="a4pb"
-                      checked={typePaper === "2"}
-                      value="2"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setTypePaper(newValue);
-                      }}
-                    />
-                  </div>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      A5 Preto e Branco
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="typePaper"
-                      id="a5pb"
-                      checked={typePaper === "3"}
-                      value="3"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setTypePaper(newValue);
-                      }}
-                    />
-                  </div>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      Reduzida Preto e Branco
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="typePaper"
-                      id="redpb"
-                      checked={typePaper === "4"}
-                      value="4"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setTypePaper(newValue);
-                      }}
-                    />
-                  </div>
-                  <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      Ampliada Preto e Branco
-                    </label>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="typePaper"
-                      id="amppb"
-                      checked={typePaper === "5"}
-                      value="5"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setTypePaper(newValue);
-                      }}
-                    />
-                  </div>
-                  <Button className="step-btn" onClick={(e) => {
-                    setStep(5);
-                  }}>
-                    Próximo
-                  </Button>
-                  <Button className="step-btn" onClick={(e) => {
-                    setStep(3);
                   }}>
                     Anterior
                   </Button>
                 </div>
               )}
+              {step === 4 && (
+                <Card className="card medium">
+                  <Card.Title className="cardTitle">Tipos de Capa e Encadernação</Card.Title>
+                    {servicos.servicosCA.map((data) => (
+                      <React.Fragment key={data.id_servico}>
+                        <div className="radioName">
+                          <Form.Check
+                            type="radio"
+                            name="typePaper"
+                            id="a3pb"
+                            // checked={typePaper === data.id_servicosCT}
+                            onChange={() => {
+                              setServicoCA(data.id_servico)
+                            }}
+                          />
+                          <label className="labelName" htmlFor="type-paper">
+                            {data.descricao}
+                          </label>
+                        </div>
+                      </React.Fragment>
+                    ))}
+                  <Button className="step-btn" onClick={() => {
+                    setStep(5);
+                  }}>
+                    Próximo
+                  </Button>
+                  <Button className="step-btn" onClick={() => {
+                    setStep(3);
+                  }}>
+                    Anterior
+                  </Button>
+                </Card>
+              )}
               {step === 5 && (
                 <div className="card">
-                  <h3 className="cardTitle">Modo de envio</h3>
+                  <Card.Title className="cardTitle">Modo de envio</Card.Title>
                   <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      Envio digital
-                    </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
                       type="radio"
                       name="typeSend"
                       id="digital"
@@ -656,13 +525,13 @@ export default function RequestForm() {
                         setTypeSend(newValue);
                       }}
                     />
+                    <label className="labelName" htmlFor="type-paper">
+                      Envio digital
+                    </label>
                   </div>
                   <div className="radioName">
-                    <label className="labelName" htmlFor="type-paper">
-                      Envio presencial
-                    </label>
-                    <input
-                      className="check classRadio"
+                    <Form.Check
+                      className="classRadio"
                       type="radio"
                       name="typeSend"
                       id="presencial"
@@ -673,17 +542,24 @@ export default function RequestForm() {
                         setTypeSend(newValue);
                       }}
                     />
-                    <textarea
-                      className="observation"
-                      // disabled={true}
-                      id="observacoes"
-                      name="observacoes"
-                      value={observacao}
-                      onChange={(e) => {
-                        setObservacao(e.target.value);
-                      }}
-                    />
+                    <label className="labelName" htmlFor="type-paper">
+                      Envio presencial
+                    </label>
                   </div>
+                    {typeSend === "2" && (
+                      <Form.Control
+                        className="sendTextInput"
+                        as="textarea"
+                        // disabled={true}
+                        id="observacoes"
+                        name="observacoes"
+                        placeholder="observações"
+                        value={observacao}
+                        onChange={(e) => {
+                          setObservacao(e.target.value);
+                        }}
+                      />
+                    )}
                   <div className="contentButton">
                     <Form.Group controlId="formFile" className="mb-3">
                       {/* <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
@@ -691,31 +567,32 @@ export default function RequestForm() {
                       Anexar
                       <FaFileImport />
                     </Form.Label> */}
-                      <Form.Label>Default file input example</Form.Label>
                       <Form.Control type="file" />
                     </Form.Group>
                     <input type="file" name="file" onClick={changeHandler} accept="application/pdf" />
-                    <Button className="functionButton" type="submit">
-                      {isSelected ? (
-                        <div>
-                          <p>Filename: {selectedFile.name}</p>
-                          <p>Filetype: {selectedFile.type}</p>
-                          <p>Size in bytes: {selectedFile.size}</p>
-                          <p>
-                            lastModifiedDate:{' '}
-                            {selectedFile.lastModifiedDate.toLocaleDateString()}
-                          </p>
-                        </div>
-                      ) : (
-                        <p>Select a file to show details</p>
-                      )}
-                      Solicitar <FaPrint />
-                    </Button>
-                    <Button className="functionButton" onClick={() => {
-                      setStep(4);
-                    }}>
-                      Anterior
-                    </Button>
+                    <div className="bootstrap-buttons">
+                      <Button className="functionButton" type="submit">
+                        {isSelected ? (
+                          <div>
+                            <p>Filename: {selectedFile.name}</p>
+                            <p>Filetype: {selectedFile.type}</p>
+                            <p>Size in bytes: {selectedFile.size}</p>
+                            <p>
+                              lastModifiedDate:{' '}
+                              {selectedFile.lastModifiedDate.toLocaleDateString()}
+                            </p>
+                          </div>
+                        ) : (
+                          <p>Selecione um arquivo para mais detalhes</p>
+                        )}
+                        Solicitar <FaPrint />
+                      </Button>
+                      <Button className="functionButton" onClick={() => {
+                        setStep(4);
+                      }}>
+                        Anterior
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )}

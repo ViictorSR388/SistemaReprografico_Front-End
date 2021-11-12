@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState, useEffect } from 'react';
 import '../../styles/login.scss';
 import axios from "axios";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { AuthContext } from './../../helpers/AuthContext';
 
 import LoginContainer from '../../components/loginContainer'
@@ -11,31 +11,37 @@ export default function Login() {
   const [senha, setSenha] = useState("");
   const { setAuthState } = useContext(AuthContext);
 
+  const nif = useParams();
+
   const [mensagem, setMensagem] = useState("")
 
   let history = useHistory();
 
   const LoginPost = () => {
     const data = { emailOrNif: emailOrNif, senha: senha };
-    axios.post("http://localhost:3002/logar", data).then((result) => {
-      console.log(result)
-      if (result.data.error) {
-        setMensagem(result.data.error)
+    axios.post("http://localhost:3002/login", data).then((result) => {
+      if (result.data.status === "error") {
+        setMensagem(result.data.message)
       }
       else {
         setAuthState({
           nif: result.data.nif,
           nome: result.data.nome,
           roles: result.data.roles,
-          status: true
+          imagem: "http://localhost:3002/" + result.data.imagem,
+          redirect: false
         });
         localStorage.setItem("accessToken", result.data.accessToken);
-
-        var resposta = result.data.roles.includes("3_ROLE_ADMIN");
-        if (resposta === true) {
-          history.push('management')
-        } else {
-          history.push('requestForm')
+        if (result.data.primeiro_acesso === 1) {
+          history.push("/firstAccess")
+        }
+        else if (result.data.roles) {
+          var resposta = result.data.roles.includes("2_ROLE_ADMIN");
+          if (resposta === true) {
+            history.push("user/" + result.data.nif)
+          } else {
+            history.push("user/" + result.data.nif)
+          }
         }
       }
     });
@@ -47,16 +53,14 @@ export default function Login() {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
-        validateStatus: () => true
       })
       .then((response) => {
         if (response.data.roles) {
-          var resposta = response.data.roles.includes("3_ROLE_ADMIN");
-
+          var resposta = response.data.roles.includes("2_ROLE_ADMIN");
           if (resposta === true) {
-            history.push('management')
+            history.push("management")
           } else {
-            history.push('requestForm')
+            history.push("requestForm")
           }
         }
       }

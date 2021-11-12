@@ -9,8 +9,8 @@ export default function DetPedido() {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3002/detPedido/" + id, {
-                headers: {
+            .get("http://localhost:3002/requestDetails/" + id, {
+                headers: {  
                     accessToken: localStorage.getItem("accessToken"),
                 },
             }).then((result) => {

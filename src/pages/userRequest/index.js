@@ -5,9 +5,9 @@ import { Button, Card, Table } from "react-bootstrap";
 
 import "../../styles/usersRequest.scss";
 
-import Header from '../../../src/components/header';
-import Menu from '../../../src/components/hamburgerButton';
-import SideBar from '../../../src/components/formSideBar';
+import Header from "../../../src/components/header";
+import Menu from "../../../src/components/hamburgerButton";
+import SideBar from "../../../src/components/formSideBar";
 
 const UserRequest = (props) => {
   const history = useHistory();
@@ -19,27 +19,18 @@ const UserRequest = (props) => {
     message: "",
   });
 
+  var [avaliados, setAvaliados] = useState();
+
   useEffect(() => {
     axios
-        .get(`http://localhost:3002/pedido/nif/${nif}`, {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-            },
+      .get(`http://localhost:3002/request/nif/${nif}/rated=0`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
       })
       .then((result) => {
         console.log(result);
         if (result.data.length > 0) {
-          result.data.map((data) => {
-            if (data.avaliacao_pedido === "Ainda não avaliado.") {
-              data.avaliacao_pedido =
-                "Ainda Não avaliado! | Criado em:" + data.criado;
-              data.avaliado = false;
-            } else {
-              data.avaliacao_pedido += " | Atualizado em:" + data.atualizado;
-              data.avaliado = true;
-            }
-            return null;
-          });
           setPedidos({
             list: result.data,
             status: true,
@@ -52,28 +43,69 @@ const UserRequest = (props) => {
       });
   }, []);
 
+  const getAvaliados = (id) => {
+    axios
+      .get(`http://localhost:3002/request/nif/${nif}/rated=${id}`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        if (result.data.length > 0) {
+          setPedidos({
+            list: result.data,
+            status: true,
+          });
+          console.log(result.data);
+          if (id === 1) {
+            setAvaliados(true);
+          } else {
+            setAvaliados(false);
+          }
+        } else {
+          setPedidos({
+            message: "Sem registros...",
+            ativos: true,
+          });
+        }
+      });
+  };
+
   return (
     <>
       <Menu />
-      <Header />
-      <SideBar image={props.image} name={props.name} admin={true}/>
-      
-      <div className="container-management">
-        <div className="management">
-          <h1 className="userRequest">Solicitação de usuário</h1>
-        </div>
-      </div>
+      <Header nif={props.nif} />
+      <SideBar image={props.image} name={props.name} admin={true} />
 
       <div className="container-management">
+        <h1 className="title-usersR">Solicitações do usuário</h1>
         <>
+          <div className="avaliacao-usersR">
+            {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
+          </div>
           <div className="request">
+            <div className="btns-usersR">
+              <button className="btn-usersR" onClick={() => getAvaliados(0)}>
+                Não avaliados
+              </button>
+              <button className="btn-usersR" onClick={() => getAvaliados(1)}>
+                Avaliados
+              </button>
+            </div>
             {pedidos.status ? (
               <>
-                <Table striped bordered hover size="sm">
+                <Table
+                  className="table-usersR"
+                  striped
+                  bordered
+                  hover
+                  size="sm"
+                >
                   <thead>
                     <tr>
                       <th>Pedido</th>
-                      <th>Centro de custos</th>
+                      {avaliados ? <th>Atualizado</th> : <th>Realizado</th>}
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -85,34 +117,42 @@ const UserRequest = (props) => {
                             <Card.Text>{data.titulo_pedido}</Card.Text>
                           </td>
                           <td>
-                            <Card.Text>{data.centro_custos}</Card.Text>
-                          </td>
-                          <td>
-                            <Card.Text>{data.avaliacao_pedido}</Card.Text>
-                          </td>
-                          <td>
-                            <Button
-                              className="detailsForm"
-                              variant="secondary"
-                              onClick={() => {
-                                history.push("/requestList/" + data.id_pedido);
-                              }}
-                            >
-                              detalhes
-                            </Button>
-                            {data.avaliado ? (
-                              <></>
+                            {avaliados ? (
+                              <Card.Text>{data.updatedAt}</Card.Text>
                             ) : (
+                              <Card.Text>{data.createdAt}</Card.Text>
+                            )}
+                          </td>
+                          <td>
+                            <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
+                          </td>
+                          <td>
+                            <div className="avaliations">
                               <Button
-                                className="detailsForm"
+                                className="usersR-avaliation"
                                 variant="secondary"
                                 onClick={() => {
-                                  history.push("/review/" + data.id_pedido);
+                                  history.push(
+                                    "/requestList/" + data.id_pedido
+                                  );
                                 }}
                               >
-                                Avaliar
+                                detalhes
                               </Button>
-                            )}
+                              {avaliados ? (
+                                <></>
+                              ) : (
+                                <Button
+                                  className="usersR-avaliation"
+                                  variant="secondary"
+                                  onClick={() => {
+                                    history.push("/review/" + data.id_pedido);
+                                  }}
+                                >
+                                  Avaliar
+                                </Button>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       </tbody>
@@ -125,15 +165,17 @@ const UserRequest = (props) => {
                 <h1>{pedidos.message}</h1>
               </>
             )}
-            <Button
-              className="GoBack"
-              onClick={() => {
-                history.push("/userInfo");
-              }}
-            >
-              {" "}
-              Voltar{" "}
-            </Button>
+            <div className="backUsersR">
+              <Button
+                className="back-usersR"
+                onClick={() => {
+                  history.push(`/management`);
+                }}
+              >
+                {" "}
+                Voltar{" "}
+              </Button>
+            </div>
           </div>
         </>
       </div>

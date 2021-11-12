@@ -1,25 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router"
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
-
-import { Button } from "react-bootstrap";
-
-import SideBar from '../../components/formSideBar';
-import Header from '../../components/header';
-import Menu from '../../components/hamburgerButton';
+import ProfileContainer from "../../components/profileContainer";
+import '../../styles/editUser.scss';
 
 
 function EditUser(props) {
 
-  const { nif } = useParams();
+  const { id } = useParams();
 
   const [image, setImage] = useState({ raw: "", preview: "" });
 
   const [nameUser, setNameUser] = useState("");
 
-  const [nifUser, setNifUser] = useState("");
+  const [setChangePass] = useState();
 
   const [emailUser, setEmailUser] = useState("");
 
@@ -50,7 +46,7 @@ function EditUser(props) {
   else if (deptoUser === "6") {
     id_depto = "Qualificação Profissional Presencial"
   }
-  else if (deptoUser === "7") {
+  else if (deptoUser === "7"){
     id_depto = "Aperfeiç./Especializ. Profis. Presencial"
   }
 
@@ -64,22 +60,6 @@ function EditUser(props) {
   };
 
   const history = useHistory();
-
-  const resetaSenha = () => {
-    axios.put("http://localhost:3002/resetarSenha/" + nif, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken")
-      },
-    }).then((result) => {
-      if(result.data.error){
-        console.log(result.data.error)
-      }
-      else{
-        console.log(result.data.message)
-      }
-    })
-  }
-  
 
   const handleUpload = (e) => {
     e.preventDefault();
@@ -121,7 +101,7 @@ function EditUser(props) {
     }
 
     axios
-      .put(`http://localhost:3002/usuario/` + nif, formData, {
+      .put("http://localhost:3002/myUser", formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -132,7 +112,7 @@ function EditUser(props) {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/usuario/nif/` + nif, {
+    axios.get(`http://localhost:3002/user/` + id, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -150,17 +130,12 @@ function EditUser(props) {
 
   return (
     <div className="content">
-
-      <Menu />
-      <Header />
-      <SideBar image={props.image} name={props.name} admin={true} />
-
-
+      <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />
       <div className="container">
-        <h2 id="h2">
+        <h2 className="ui-subTitle" >
           Informações pessoais
         </h2>
-        <h3>NOME</h3>
+        <h3 className="input-title">NOME</h3>
         <form onSubmit={handleUpload}>
           <input
             className="input-box"
@@ -171,7 +146,7 @@ function EditUser(props) {
               setNameUser(e.target.value);
             }}
           />
-          <h3>EMAIL</h3>
+          <h3 className="input-title">EMAIL</h3>
           <input
             className="input-box"
             name="emailUser"
@@ -181,7 +156,7 @@ function EditUser(props) {
               setEmailUser(e.target.value);
             }}
           />
-          <h3>CFP</h3>
+          <h3 className="input-title">CFP</h3>
           <input
             className="input-box"
             name="cfpUser"
@@ -191,7 +166,7 @@ function EditUser(props) {
               setCfpUser(e.target.value);
             }}
           />
-          <h3>TELEFONE</h3>
+          <h3 className="input-title">TELEFONE</h3>
           <input
             className="input-box"
             name="telefoneUser"
@@ -201,10 +176,10 @@ function EditUser(props) {
               setTelefoneUser(e.target.value);
             }}
           />
-          <Button onClick={resetaSenha}>Resetar Senha</Button>
-          <h3>IMAGEM</h3>
+          <h3 className="input-title">IMAGEM</h3>
           <label className="customize">
             <input
+              className="input-box"
               type="file"
               name="image"
               onChange={handleChange}
@@ -213,7 +188,7 @@ function EditUser(props) {
             <FaCloudUploadAlt className="uploud" />
             Upload
           </label>
-          <h3>DEPARTAMENTO</h3>
+          <h3 className="input-title">DEPARTAMENTO</h3>
           <select
             className="select"
             id="deptoUser"
@@ -248,9 +223,13 @@ function EditUser(props) {
             </option>
           </select>
           <div className="btns">
-            <input type="submit" id="btn" value="Enviar"
+            <input
+              type="submit"
+              className="nu-send-button"
+              id="btn"
+              value="Enviar"
             />
-            <button> Voltar</button>
+            <button className="btn-back-user" onClick={() => history.push('/management')}>Voltar</button>
           </div>
         </form>
       </div>

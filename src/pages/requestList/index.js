@@ -10,7 +10,7 @@ import SideBar from '../../../src/components/formSideBar';
 
 function RequestList(props) {
 
-  const { nif } = useParams();
+  const { id } = useParams();
 
   var [pedidos, setPedidos] = useState({
     status: false,
@@ -20,21 +20,21 @@ function RequestList(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/detPedido/${nif}`, {
+      .get(`http://localhost:3002/requestDetails/${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       })
       .then((result) => {
         console.log(result);
-        if (result.data.length > 0) {
+        if (result.data) {
           setPedidos({
-            list: result.data,
+            list: [result.data],
             status: true,
           });
         } else {
           setPedidos({
-            message: result.data.message,
+            message: result.data.message
           });
         }
       });
@@ -43,64 +43,82 @@ function RequestList(props) {
   return (
     <>
       <Menu />
-      <Header />
+      <Header nif={props.nif} />
       <SideBar image={props.image} name={props.name} admin={true} />
 
       <div className="container-management">
-        <div className="management">
-          <h1 className="userRequest">Solicitação de usuário</h1>
+        <div className="titleRL">
+          <h1>Solicitação de usuário</h1>
         </div>
       </div>
 
       <div className="container-management">
         <>
-          <div className="request">
+          <div className="requestL">
             {pedidos.status ? (
               <>
-                <Table striped bordered hover size="sm">
-                  <thead>
-                    <tr>
-                      <th>Curso</th>
-                      <th>Centro de custos</th>
-                      <th>Titulo</th>
-                      <th>Página</th>
-                      <th>Cópias</th>
-                      <th>Total</th>
-                      <th>Encadernação</th>
-                      <th>Formato e Cor</th>
-                      <th>Modo de Envio</th>
-                    </tr>
-                  </thead>
+                <Table className="table-RL" striped bordered hover size="sm">
                   {pedidos.list.map((data) => (
-                    <React.Fragment key={data.id_pedido}>
+                    <React.Fragment key={data.id_pedidos}>
                       <tbody>
                         <tr>
+                          <td><strong>Curso</strong></td>
                           <td>
-                            <Card.Text>{data.curso}</Card.Text>
+                            <Card.Text>{data.det_pedidos[0].id_curso}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Centro de custos</strong></td>
                           <td>
-                            <Card.Text>{data.centro_custos}</Card.Text>
+                            <Card.Text>{data.det_pedidos[0].id_centro_custos}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Título</strong></td>
                           <td>
                             <Card.Text>{data.titulo_pedido}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Páginas</strong></td>
                           <td>
-                            <Card.Text>{data.num_paginas}</Card.Text>
+                            <Card.Text>{data.det_pedidos[0].num_paginas}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Cópias</strong></td>
                           <td>
-                            <Card.Text>{data.num_copias}</Card.Text>
+                            <Card.Text>{data.det_pedidos[0].num_copias}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Total</strong></td>
                           <td>
                             <Card.Text>{data.custo_total}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Encadernação</strong></td>
                           <td>
-                            <Card.Text>{data.acabamento}</Card.Text>
+                            <Card.Text>{data.servico_pedidos[0].servicoCA}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Formato e Cor</strong></td>
                           <td>
-                            <Card.Text>{data.tamanho}</Card.Text>
+                            <Card.Text>{data.servico_pedidos[0].servicoCT}</Card.Text>
                           </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Modo de Envio</strong></td>
                           <td>
-                            <Card.Text>{data.modo_envio}</Card.Text>
+                            <Card.Text>{data.id_modo_envio}</Card.Text>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Observações</strong></td>
+                          <td>
+                            <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
                           </td>
                         </tr>
                       </tbody>

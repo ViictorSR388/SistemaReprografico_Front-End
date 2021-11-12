@@ -1,11 +1,14 @@
 import React from 'react';
 import './repo.scss';
+import { useHistory } from 'react-router';
 
 function Repo(props) {
 
+  const history = useHistory();
+  
   return (
     <>
-      <div className="circle">
+      <div onClick = {() => {history.push(`/user/${props.nif}`)}} className="circle">
         <img src={props.image} className="repo" alt="repo" />
       </div>
     </>
