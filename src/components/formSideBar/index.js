@@ -15,10 +15,6 @@ function SideBar(props) {
         history.push("/management");
     }
 
-    const routeHistory = () => {
-        history.push("/historyAdmin");
-    }
-
     const routeMyRequests = () => {
         history.push("/myRequests");
     }
@@ -38,7 +34,6 @@ function SideBar(props) {
                  <>
                 {props.management ? <></> : <button className="buttonG" onClick={routeManagement}>Gerencia de usuários</button>}
                 {props.estatisticas ? <></> : <button className="buttonG" onClick={routeStatistics}>Estatísticas</button>}
-                {props.historico ? <></> : <button className="buttonG" onClick={routeHistory}>Histórico</button>}
                 </> : <></>}
                 <button className="buttonG" onClick={routeMyRequests}>Meus Pedidos</button>
             </div>

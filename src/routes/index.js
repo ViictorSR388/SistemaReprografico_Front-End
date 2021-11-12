@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import login from '../pages/login';
 import notAuthorized from "../NotAuthorized";
@@ -9,22 +9,19 @@ import UserInfo from '../pages/userInfo';
 import RequestForm from '../pages/requestForm';
 import Management from '../pages/management';
 import Review from '../pages/review';
-import historyDefault from '../pages/historyDefault';
-import historyAdmin from '../pages/historyAdmin';
 import Statistics from '../pages/statistics';
 import MyRequests from '../pages/myRequests';
 import DetPedido from '../pages/detPedido';
 import EditUser from '../pages/EditUser';
 import Request from '../pages/userRequest';
+import AddServiceCA from '../pages/add-services/addServiceCA';
+import AddServiceCT from '../pages/add-services/addServiceCT';
 import RequestList from "../pages/requestList";
-import { isAuthenticated } from '../auth';
-import { RemountingRoute } from './RemountingRoute';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import HistoryAdmin from '../pages/historyAdmin';
 import FirstAccess from '../pages/firstAccess';
 import { AuthContext } from "../helpers/AuthContext";
-// import { InfoContext } from '../helpers/InfosContext';
+import Services from '../pages/services';
 
 
 function Rotas() {
@@ -105,8 +102,6 @@ function Rotas() {
                 <Route path="/review/:id" component={() => (<Review image={authState.imagem} />)} />
 
 
-                <Route path='/historyDefault' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome} />)} />
-                <Route path='/historyAdmin/:id' exact component={() => (<HistoryAdmin image={authState.imagem} name={authState.nome} />)} />
                 <Route path='/statistics' exact component={() => (<Statistics image={authState.imagem} name={authState.nome} />)} />
                 <Route path='/notAuthorized' exact component={notAuthorized} />
                 <Route path='/myRequests' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome} />)} />
@@ -115,6 +110,9 @@ function Rotas() {
                 <Route path="/users-requests/:nif" exact component={() => (<Request image={authState.imagem} name={authState.nome} />)} />
                 <Route path="/requestList/:id" exact component={() => (<RequestList image={authState.imagem} name={authState.nome} />)} />
                 <Route path="/firstAccess" exact component={() => (<FirstAccess image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/services" exact component={() => (<Services image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/addServiceCA" exact component={() => (<AddServiceCA image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/addServiceCT" exact component={() => (<AddServiceCT image={authState.imagem} name={authState.nome} />)} />
               </>
             }
           </Switch>

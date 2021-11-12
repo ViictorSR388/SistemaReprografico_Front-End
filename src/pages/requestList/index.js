@@ -57,20 +57,20 @@ function RequestList(props) {
           <div className="requestL">
             {pedidos.status ? (
               <>
-                <Table striped bordered hover size="sm">
+                <Table className="table-RL" striped bordered hover size="sm">
                   {pedidos.list.map((data) => (
-                    <React.Fragment key={data.id_pedido}>
+                    <React.Fragment key={data.id_pedidos}>
                       <tbody>
                         <tr>
                           <td><strong>Curso</strong></td>
                           <td>
-                            <Card.Text>{data.det_pedidos.id_curso}</Card.Text>
+                            <Card.Text>{data.det_pedidos[0].id_curso}</Card.Text>
                           </td>
                         </tr>
                         <tr>
                           <td><strong>Centro de custos</strong></td>
                           <td>
-                            <Card.Text>{data.det_pedidos.id_centro_custos}</Card.Text>
+                            <Card.Text>{data.det_pedidos[0].id_centro_custos}</Card.Text>
                           </td>
                         </tr>
                         <tr>
@@ -82,13 +82,13 @@ function RequestList(props) {
                         <tr>
                           <td><strong>Páginas</strong></td>
                           <td>
-                            <Card.Text>{data.det_pedidos.num_paginas}</Card.Text>
+                            <Card.Text>{data.det_pedidos[0].num_paginas}</Card.Text>
                           </td>
                         </tr>
                         <tr>
                           <td><strong>Cópias</strong></td>
                           <td>
-                            <Card.Text>{data.det_pedidos.num_copias}</Card.Text>
+                            <Card.Text>{data.det_pedidos[0].num_copias}</Card.Text>
                           </td>
                         </tr>
                         <tr>
@@ -100,19 +100,25 @@ function RequestList(props) {
                         <tr>
                           <td><strong>Encadernação</strong></td>
                           <td>
-                            <Card.Text>{data.servico_pedidos.servicoCA}</Card.Text>
+                            <Card.Text>{data.servico_pedidos[0].servicoCA}</Card.Text>
                           </td>
                         </tr>
                         <tr>
                           <td><strong>Formato e Cor</strong></td>
                           <td>
-                            <Card.Text>{data.servico_pedidos.servicoCT}</Card.Text>
+                            <Card.Text>{data.servico_pedidos[0].servicoCT}</Card.Text>
                           </td>
                         </tr>
                         <tr>
                           <td><strong>Modo de Envio</strong></td>
                           <td>
                             <Card.Text>{data.id_modo_envio}</Card.Text>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><strong>Observações</strong></td>
+                          <td>
+                            <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
                           </td>
                         </tr>
                       </tbody>

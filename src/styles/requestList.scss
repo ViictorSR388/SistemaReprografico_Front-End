@@ -4,13 +4,17 @@
   margin-top: 10vh;
   background-color: $grey !important;
   width: 65vw !important;
-  height: 35rem !important;
+  height: 38rem !important;
   display: flex !important;
-
+  
+  .table {
+    height: 100% !important;
+  }
 }
 .titleRL {
   background-color: $grey-button;
   color: $white;
   text-align: center;
   width: 100%;
+
 }

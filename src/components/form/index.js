@@ -548,7 +548,7 @@ export default function RequestForm() {
                   </div>
                     {typeSend === "2" && (
                       <Form.Control
-                        className="textInput"
+                        className="sendTextInput"
                         as="textarea"
                         // disabled={true}
                         id="observacoes"

@@ -1,0 +1,59 @@
+@import '_global';
+
+.services-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  position: absolute;
+  width: 85%;
+  top: 25vh;
+  left: 15vw;
+  font-size: 2rem;
+  font-weight: 500;
+  flex-direction: row;
+
+
+  .title-services {
+    margin-bottom: 3rem;
+    font-size: 2.7rem;
+    width: 100%;
+    background-color: $grey-button;
+    color: $white;
+    text-align: center;
+  }
+
+  .table-services {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+      .column-services {
+        width: 50rem;
+      }
+    
+      .column-quant {
+
+        width: 20%;
+      }
+    
+      .column-cost {
+        width: 20%;
+      }
+  }
+
+  .btn-services {
+    background-color: $grey-button;
+    color: $white;
+    width: 30% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: auto !important;
+    margin-top: 4rem !important;
+    border-radius: 1rem;
+    transition: .5s !important;
+
+    &:hover {
+      background-color: $grey !important;
+      color: $grey-button !important;
+    }
+  }
+}
