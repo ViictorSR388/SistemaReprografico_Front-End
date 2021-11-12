@@ -394,7 +394,7 @@ export default function RequestForm() {
               )}
               {step === 2 && (
                 <Card className="card">
-                  <h3 className="cardTitle">Item</h3>
+                  <Card.Title className="cardTitle">Item</Card.Title>
                   <label className="label" htmlFor="title">Titulo</label>
                   <input
                     className="input-minor"
@@ -445,13 +445,10 @@ export default function RequestForm() {
 
               {step === 3 && (
                 <div className="card medium">
-                  <h3 className="cardTitle">Formato e Cor</h3>
+                  <Card.Title className="cardTitle">Formato e Cor</Card.Title>
                   {servicos.servicosCT.map((data) => (
                     <React.Fragment key={data.id_servico}>
                       <div className="radioName">
-                        <label className="labelName" htmlFor="type-paper">
-                          {data.descricao}
-                        </label>
                         <Form.Check
                           className="check classRadio"
                           type="radio"
@@ -462,6 +459,9 @@ export default function RequestForm() {
                             setServicoCT(data.id_servico)
                           }}
                         />
+                        <label className="labelName" htmlFor="type-paper">
+                          {data.descricao}
+                        </label>
                       </div>
                     </React.Fragment>
                   ))}
@@ -478,15 +478,11 @@ export default function RequestForm() {
                 </div>
               )}
               {step === 4 && (
-                <Card className="card">
-                  <h3 className="cardTitle">Tipos de Capa e Encadernação</h3>
-                  <div className="radioName">
+                <Card className="card medium">
+                  <Card.Title className="cardTitle">Tipos de Capa e Encadernação</Card.Title>
                     {servicos.servicosCA.map((data) => (
                       <React.Fragment key={data.id_servico}>
                         <div className="radioName">
-                          <label className="labelName" htmlFor="type-paper">
-                            {data.descricao}
-                          </label>
                           <Form.Check
                             type="radio"
                             name="typePaper"
@@ -496,10 +492,12 @@ export default function RequestForm() {
                               setServicoCA(data.id_servico)
                             }}
                           />
+                          <label className="labelName" htmlFor="type-paper">
+                            {data.descricao}
+                          </label>
                         </div>
                       </React.Fragment>
                     ))}
-                  </div>
                   <Button className="step-btn" onClick={() => {
                     setStep(5);
                   }}>
@@ -514,11 +512,8 @@ export default function RequestForm() {
               )}
               {step === 5 && (
                 <div className="card">
-                  <h3 className="cardTitle">Modo de envio</h3>
+                  <Card.Title className="cardTitle">Modo de envio</Card.Title>
                   <div className="radioName">
-                    <label className="label" htmlFor="type-paper">
-                      Envio digital
-                    </label>
                     <Form.Check
                       type="radio"
                       name="typeSend"
@@ -530,11 +525,11 @@ export default function RequestForm() {
                         setTypeSend(newValue);
                       }}
                     />
+                    <label className="labelName" htmlFor="type-paper">
+                      Envio digital
+                    </label>
                   </div>
                   <div className="radioName">
-                    <label className="label" htmlFor="type-paper">
-                      Envio presencial
-                    </label>
                     <Form.Check
                       className="classRadio"
                       type="radio"
@@ -547,6 +542,10 @@ export default function RequestForm() {
                         setTypeSend(newValue);
                       }}
                     />
+                    <label className="labelName" htmlFor="type-paper">
+                      Envio presencial
+                    </label>
+                  </div>
                     {typeSend === "2" && (
                       <Form.Control
                         className="textInput"
@@ -561,7 +560,6 @@ export default function RequestForm() {
                         }}
                       />
                     )}
-                  </div>
                   <div className="contentButton">
                     <Form.Group controlId="formFile" className="mb-3">
                       {/* <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
