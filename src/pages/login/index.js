@@ -105,7 +105,7 @@ export default function Login() {
             />
 
             <div className="link-box">
-              <p className="newPassword" onClick={() => history.push(`/forgotPassword`)}>Esqueci a senha</p>
+              <p className="newPassword" onClick={() => history.push(`/forgotPassword`)}>Esqueceu a senha?</p>
             </div>
 
             <input
