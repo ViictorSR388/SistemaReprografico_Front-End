@@ -250,7 +250,6 @@ function Management(props) {
             </div>
           </div>
         </>}
-
     </>
   );
 }

@@ -1,24 +1,93 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/statistics.scss';
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
+import axios from 'axios';
 
 import Header from "../../components/header";
 import SideBar from "../../components/formSideBar";
 import MenuG from "../../components/hamburgerButtonG";
 
-const Statistics = (props) => {
-  
+function Statistics(props) {
+  var dataAtual = new Date();
+  var mes = (dataAtual.getMonth() + 1);
+
+  const [estatisticas, setEstatisticas] = useState({
+    mes1: [],
+    mes2: [],
+    mes3: [],
+    mes4: [],
+  })
+
+  const [avaliacao1, setAvaliacao] = useState()
+
+  const BarChart = () => {
+    const state = {
+      labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+      datasets: [{
+        label: 'Cópias Mensais',
+        data: [avaliacao1],
+        backgroundColor: 
+          'rgba(6, 90, 158, 0.527)'
+        ],
+        borderColor: [
+          'rgba(11, 67, 112, 0.527)'
+        ],
+        borderWidth: 1,
+      }],
+    }
+
+    return (
+      <>
+        {/* {produtos.map(produto => <div>{produto}</div>)} */}
+        {/* {estatisticas.mes1.map((data) => (
+        ))} */}
+        <Bar data = {state} id = "monthly-copys" width = "210" height = "105" />
+      </>
+    );
+  }
+
+
+  var [loading, setLoading] = useState();
+
+  useEffect(() => {
+    setLoading(true)
+    axios.get("http://localhost:3002/estatisticas/quatroMeses", {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    })
+      .then((result) => {
+        console.log(result.data[8]);
+        if (result.data.length > 0) {
+          setEstatisticas({
+            mes1: result.data[8],
+            mes2: result.data[9],
+            mes3: result.data[10],
+            mes4: result.data[11],
+
+          })
+
+          setAvaliacao(result.data[11].avaliacao_pedido[0].qtdade_solicitada)
+        }
+        else {
+          setEstatisticas({
+            message: result.data.message
+          })
+        }
+        setLoading(false)
+      });
+  }, []);
+
   return (
     <>
       <MenuG />
       <Header nif={props.nif} />
-      <SideBar image={props.image} name={props.name} admin={true} estatisticas={true} nif={props.nif}/>
-      
+      <SideBar image={props.image} name={props.name} admin={true} nif={props.nif} />
+
       <div className="statistics-container">
         <div className="statistics-title">
           <h1>Estatísticas Gerais</h1>
         </div>
-
         <div className="statistics">
           <section className="line1">
             <div className="cards">
@@ -37,7 +106,7 @@ const Statistics = (props) => {
 
           <section className="line2">
             <div className="cards2">
-            <h4 className="statics-subtitle" >Cópias e encadernações</h4>
+              <h4 className="statics-subtitle" >Cópias e encadernações</h4>
               <PieChart2 />
             </div>
             <div className="cards2">
@@ -55,27 +124,6 @@ const Statistics = (props) => {
   );
 }
 
-const BarChart = () => {
-  const state = {
-    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-    datasets: [{
-      label: 'Cópias Mensais',
-      data: [65, 59, 80, 81, 56, 55, 40, 38, 30, 21, 14, 2],
-      backgroundColor: [
-        'rgba(6, 90, 158, 0.527)'
-      ],
-      borderColor: [
-        'rgba(11, 67, 112, 0.527)'
-      ],
-      borderWidth: 1,
-    }],
-  }
-  return (
-    <div>
-      <Bar data={state} id="monthly-copys" width="210" height="105" />
-    </div>
-  );
-}
 
 const PieChart = () => {
   const state = {

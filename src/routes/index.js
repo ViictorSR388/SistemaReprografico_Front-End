@@ -14,8 +14,7 @@ import MyRequests from '../pages/myRequests';
 import DetPedido from '../pages/detPedido';
 import EditUser from '../pages/EditUser';
 import Request from '../pages/userRequest';
-import AddServiceCA from '../pages/add-services/addServiceCA';
-import AddServiceCT from '../pages/add-services/addServiceCT';
+import AddService from '../pages/add-services';
 import RequestList from "../pages/requestList";
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -111,8 +110,7 @@ function Rotas() {
                 <Route path="/requestList/:id" exact component={() => (<RequestList image={authState.imagem} name={authState.nome} />)} />
                 <Route path="/firstAccess" exact component={() => (<FirstAccess image={authState.imagem} name={authState.nome} />)} />
                 <Route path="/services" exact component={() => (<Services image={authState.imagem} name={authState.nome} />)} />
-                <Route path="/addServiceCA" exact component={() => (<AddServiceCA image={authState.imagem} name={authState.nome} />)} />
-                <Route path="/addServiceCT" exact component={() => (<AddServiceCT image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/addService/:type" exact component={() => (<AddService image={authState.imagem} name={authState.nome} />)} />
               </>
             }
           </Switch>

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/addService.scss';
 import LoginContainer from '../../components/loginContainer';
 
-export default function CapaAcabamento() {
+export default function AddService() {
 
   var history = useHistory();
+
+  var { type } = useParams();
 
   const [descricao, setDescricao] = useState("");
   const [quantidade, setQuantidade] = useState("");
@@ -18,7 +20,7 @@ export default function CapaAcabamento() {
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.post('http://localhost:3002/service/type=ca/', data, {
+    axios.post(`http://localhost:3002/service/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
