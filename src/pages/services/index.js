@@ -1,260 +1,239 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom'
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
-import '../../styles/services.scss';
-import Header from '../../../src/components/header';
-import Menu from '../../../src/components/hamburgerButton';
-import SideBar from '../../../src/components/formSideBar';
-import { Card, Table } from 'react-bootstrap';
-import Button from '@restart/ui/esm/Button';
+import "../../styles/services.scss";
+import Header from "../../../src/components/header";
+import Menu from "../../../src/components/hamburgerButton";
+import SideBar from "../../../src/components/formSideBar";
+import { Card, Table } from "react-bootstrap";
+import Button from "@restart/ui/esm/Button";
 
 export default function Services(props) {
   var history = useHistory();
 
-  var [capaAcabamento, setCapaAcabamento] = useState({
+  const [servicos, setServicos] = useState({
+    servicosCA: [],
+    servicosCT: [],
     status: false,
-    list: [],
-    message: ""
   });
 
-  var [copiaTamanho, setCopiaTamanho] = useState({
-    status: false,
-    list: [],
-    message: ""
-  });
+  var [servicoCA, setServicoCA] = useState();
+  var [servicoCT, setServicoCT] = useState();
+  var [loading, setLoading] = useState();
+
+  var [ativos, setAtivos] = useState();
 
   useEffect(() => {
+    setLoading(true);
+    onLoad();
+    return () => {
+      setServicos({});
+    };
+  }, []);
+
+  const servicosAtivos = (id) => {
     axios
-      .get(`http://localhost:3002/service/1/type=ca`, {
+      .get("http://localhost:3002/services/enabled=" + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       })
-      .then((result) => {
-        console.log(result);
-        if (result.data) {
-          setCapaAcabamento({
-            list: [result.data],
-            status: true,
+      .then((response) => {
+        console.log(response);
+        if (id === 1) {
+          setServicos({
+            servicosCA: response.data.servicosCA,
+            servicosCT: response.data.servicosCT,
           });
+          setAtivos(true);
         } else {
-          setCapaAcabamento({
-            message: ""
+          setServicos({
+            servicosCA: response.data[0].servicosCA,
+            servicosCT: response.data[0].servicosCT,
           });
+          setAtivos(false);
         }
       });
-  }, []);
+  };
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3002/service/1/type=ct`, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
+  const onLoad = async () => {
+    var config = {
+      method: "get",
+      url: `http://localhost:3002/services/enabled=1`,
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    };
+    try {
+      const response = await axios(config);
+      if (response) {
+        setServicos({
+          servicosCA: response.data.servicosCA,
+          servicosCT: response.data.servicosCT,
+          status: true,
+        });
+        setAtivos(true);
+        setLoading(false);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const enableUser = ({ id, type, enable }) => {
+
+    var atvr = 1;
+
+    if (enable === 1) {
+      atvr = 0;
+    };
+
+    var config = {
+      method: 'put',
+      url: `http://localhost:3002/service/${id}/type=${type}/enable=${atvr}`,
+      headers: {
+        'accessToken': localStorage.getItem("accessToken"),
+      },
+    };
+
+    axios(config)
+      .then(function (response) {
+        if (atvr === 1) { servicosAtivos(0); }
+        else if (atvr === 0) { servicosAtivos(1); }
+        console.log(JSON.stringify(response.data));
       })
-      .then((result) => {
-        console.log(result);
-        if (result.data) {
-          setCopiaTamanho({
-            list: [result.data],
-            status: true,
-          });
-        } else {
-          setCopiaTamanho({
-            message: ""
-          });
-        }
+      .catch(function (error) {
+        console.log(error);
       });
-  }, []);
+  }
 
   return (
     <>
+      {loading ? (
+        <> </>
+      ) : (
+        <>
+          {" "}
+          <Menu />
+          <Header nif={props.nif} />
+          <SideBar
+            image={props.image}
+            name={props.name}
+            admin={true}
+            management={true}
+            nif={props.nif}
+          />
+          <div className="services-card">
+            <Button className="btn-boot" onClick={() => servicosAtivos(1)}>
+              Serviços Ativos
+            </Button>
+            <Button className="btn-boot" onClick={() => servicosAtivos(0)}>
+              Serviços Inativos
+            </Button>
 
-      <Menu />
-      <Header nif={props.nif} />
-      <SideBar image={props.image} name={props.name} admin={true} />
+            {ativos ? (
+              <h1 className="title-enable-disable">Serviços Ativos:</h1>
+            ) : (
+              <h1 className="title-enable-disable">Serviços Inativos:</h1>
+            )}
 
-      <div className="services-card">
+            <div className="ct-table-div">
+              <h1 className="title-services">Capa &#38; Acabamento</h1>
 
-        <div className="ct-table-div">
-          <h1 className="title-services">Copia & Tamanho</h1>
-
-          {copiaTamanho.status ? (
-            <>
-              <Table className="table-services" striped bordered hover size="sm">
-                {copiaTamanho.list.map((data) => (
-                  <React.Fragment key={data.id_services}>
-                    <tbody>
-                      <tr>
-                        <td className="column-services"><strong>DESCRIÇÃO</strong></td>
-                        <td className="column-quant"><strong>QUANTIDADE</strong></td>
-                        <td className="column-cost"><strong>CUSTO</strong></td>
-                      </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Preto & Branco - Tamanho A5</td>
+              <Table striped bordered hover size="sm">
+                <thead>
+                  <tr>
+                    <th>DESCRIÇÃO</th>
+                    <th>QUANTIDADE</th>
+                    <th>CUSTO</th>
+                    <th> </th>
+                  </tr>
+                </thead>
+                {servicos.servicosCA.map((data) => (
+                  <React.Fragment key={data.id_servico}>
+                    <tr>
+                      {/* DESCRIÇÃO */}
+                      <td>{data.descricao}</td>
+                      {/* QUANTIDADE */}
+                      <td>{data.quantidade}</td>
+                      {/* CUSTO */}
+                      <td>{data.valor_unitario}</td>
+                      {data.ativado ? (
                         <td>
-                          {/* QUANTIDADE */}
-                          975
+                          <button onClick={() => enableUser({ id: data.id_servico, type: "ca", enable: data.ativado })}>Desabilitar</button>
                         </td>
+                      ) : (
                         <td>
-                          {/* CUSTO */}
-                          0.7
+                          <button onClick={() => enableUser({ id: data.id_servico, type: "ca", enable: data.ativado })}>Habilitar</button>
                         </td>
-                      </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Preto & Branco - Tamanho A4</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          1899
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.4
-                        </td>
-                      </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Preto & Branco - Tamanho A3</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          1564
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.4
-                        </td>
-                      </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Colorida - Tamanho A4</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          4525
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.3
-                        </td>
-                      </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Petro & Branco - Reduzida</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          4525
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.3
-                        </td>
-                      </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Petro & Branco - Ampliada</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          4525
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.3
-                        </td>
-                      </tr>
-                    </tbody>
+                      )}
+                    </tr>
                   </React.Fragment>
                 ))}
               </Table>
-            </>
-          ) : (
-            <>
-              <h1>{copiaTamanho.message}</h1>
-            </>
-          )}
-          <Button className="btn-services" variant="primary" size="lg" onClick={() => { history.push("/addServiceCT") }}>
-            Adicionar Serviço
-          </Button>
-        </div>
-        {/* ~~~~~~~~~~~~~~ */}
-        <div className="ca-table-div">
-          <h1 className="title-services">Capa & Acabamento</h1>
+              <Button
+                className="btn-services"
+                variant="primary"
+                size="lg"
+                onClick={() => {
+                  history.push("/addService/ct");
+                }}
+              >
+                Adicionar Serviço
+              </Button>
+            </div>
+            {/* ~~~~~~~~~~~~~~ */}
+            <div className="ca-table-div">
+              <h1 className="title-services">Copia &#38; Tamanho</h1>
 
-          {capaAcabamento.status ? (
-            <>
-              <Table className="table-services" striped bordered hover size="sm">
-                {capaAcabamento.list.map((data) => (
-                  <React.Fragment key={data.id_services}>
-                    <tbody>
-                      <tr>
-                        <td className="column-services"><strong>DESCRIÇÃO</strong></td>
-                        <td className="column-quant"><strong>QUANTIDADE</strong></td>
-                        <td className="column-cost"><strong>CUSTO</strong></td>
-                      </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Capa em Papel 150g e 2 Grampos Laterais</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          975
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.7
-                        </td>
-                      </tr>
+              <Table striped bordered hover size="sm">
+                <thead>
+                  <tr>
+                    <th>DESCRIÇÃO</th>
+                    <th>QUANTIDADE</th>
+                    <th>CUSTO</th>
+                    <th> </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {servicos.servicosCT.map((data) => (
+                    <React.Fragment key={data.id_servico}>
                       <tr>
                         {/* DESCRIÇÃO */}
-                        <td>Capa em Papel 150g e 2 Grampos Cavalo</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          1899
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.4
-                        </td>
+                        <td>{data.descricao}</td>
+                        {/* QUANTIDADE */}
+                        <td>{data.quantidade}</td>
+                        {/* CUSTO */}
+                        <td>{data.valor_unitario}</td>
+                        {data.ativado ? (
+                          <td>
+                            <button onClick={() => enableUser({ id: data.id_servico, type: "ct", enable: data.ativado })}>Desabilitar</button>
+                          </td>
+                        ) : (
+                          <td>
+                            <button onClick={() => enableUser({ id: data.id_servico, type: "ct", enable: data.ativado })}>Habilitar</button>
+                          </td>
+                        )}
                       </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Capa em Papel 150g e Espirais de Plástico</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          1564
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.4
-                        </td>
-                      </tr>
-                      <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>Capa em PVC e Espiriais de Plástico</td>
-                        <td>
-                          {/* QUANTIDADE */}
-                          4525
-                        </td>
-                        <td>
-                          {/* CUSTO */}
-                          0.3
-                        </td>
-                      </tr>
-                    </tbody>
-                  </React.Fragment>
-                ))}
+                    </React.Fragment>
+                  ))}
+                </tbody>
               </Table>
-            </>
-          ) : (
-            <>
-              <h1>{capaAcabamento.message}</h1>
-            </>
-          )}
-          <Button className="btn-services" variant="primary" size="lg" onClick={() => { history.push("/addServiceCA") }}>
-            Adicionar Serviço
-          </Button>
-        </div>
-      </div>
+              <Button
+                className="btn-services"
+                variant="primary"
+                size="lg"
+                onClick={() => {
+                  history.push("/addService/ca");
+                }}
+              >
+                Adicionar Serviço
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
