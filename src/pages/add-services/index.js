@@ -83,7 +83,8 @@ export default function AddService() {
           <input
             className="input-service"
             name="custo"
-            type="number"
+            type="number" 
+            step="any" 
             placeholder="custo unitário do serviço"
             required
             onChange={(e) => {

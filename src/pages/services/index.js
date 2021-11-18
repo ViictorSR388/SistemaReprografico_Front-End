@@ -177,7 +177,7 @@ export default function Services(props) {
                 variant="primary"
                 size="lg"
                 onClick={() => {
-                  history.push("/addService/ct");
+                  history.push("/addService/ca");
                 }}
               >
                 Adicionar Serviço
@@ -225,7 +225,7 @@ export default function Services(props) {
                 variant="primary"
                 size="lg"
                 onClick={() => {
-                  history.push("/addService/ca");
+                  history.push("/addService/ct");
                 }}
               >
                 Adicionar Serviço

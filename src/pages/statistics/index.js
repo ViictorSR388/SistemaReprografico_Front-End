@@ -1,243 +1,138 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/statistics.scss';
-import { Pie, Bar, Doughnut } from "react-chartjs-2";
-import axios from 'axios';
 
 import Header from "../../components/header";
 import SideBar from "../../components/formSideBar";
 import MenuG from "../../components/hamburgerButtonG";
 
-function Statistics(props) {
-  var dataAtual = new Date();
-  var mes = (dataAtual.getMonth() + 1);
+import axios from 'axios';
 
-  const [estatisticas, setEstatisticas] = useState({
-    mes1: [],
-    mes2: [],
-    mes3: [],
-    mes4: [],
-  })
 
-  const [avaliacao1, setAvaliacao] = useState()
+export default function Statistics(props) {
 
-  const BarChart = () => {
-    const state = {
-      labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-      datasets: [{
-        label: 'Cópias Mensais',
-        data: [avaliacao1],
-        backgroundColor: 
-          'rgba(6, 90, 158, 0.527)'
-        ],
-        borderColor: [
-          'rgba(11, 67, 112, 0.527)'
-        ],
-        borderWidth: 1,
-      }],
+    const [fetchStatus, setFetchStatus] = useState();
+
+    const [meses, setMeses] = useState({
+        list: [],
+    });
+
+    const [unicoMes, setUnicoMes] = useState([])
+
+    const [ano, setAno] = useState();
+    const [mes, setMes] = useState();
+
+    const selectMesAno = (e) => {
+        e.preventDefault();
+
+        var anoInt = parseInt(ano)
+
+        fetchMes(anoInt, mes);
     }
 
+    const fetchMes = (ano, mes) => {
+        axios.get(`http://localhost:3002/estatisticas/mensais/${ano}/${mes}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken")
+            }
+        }).then((result) => {
+            console.log(result)
+            setUnicoMes([result.data[0]])
+        })
+    }
+
+    const fetch4 = () => {
+        axios.get("http://localhost:3002/estatisticas/quatroMeses", {
+            headers: {
+                accessToken: localStorage.getItem("accessToken")
+            }
+        }).then((result) => {
+            console.log(result.data)
+
+            setMeses({
+                list: [result.data],
+                mes1: result.data[8],
+                mes2: result.data[9],
+                mes3: result.data[10],
+                mes4: result.data[11],
+            });
+
+            setFetchStatus(true);
+        })
+    }
+
+    useEffect(() => {
+        fetch4();
+    }, [])
+
+
     return (
-      <>
-        {/* {produtos.map(produto => <div>{produto}</div>)} */}
-        {/* {estatisticas.mes1.map((data) => (
-        ))} */}
-        <Bar data = {state} id = "monthly-copys" width = "210" height = "105" />
-      </>
+        <>
+            {fetchStatus ? <>
+
+
+                MAP UNICO MES
+
+                {unicoMes.map((data) => (
+                    <>
+                    <div>{data.mes}</div>
+                    <div>{data.ano}</div>
+                    <div>Quantos pedidos foram feitos: {data.pedidos}</div>
+
+                    {data.avaliacao_pedido.map((data) => (
+                        <>
+                        {data[0].status}: {data[0].qtdade_solicitada}
+                        </>
+                    ))}
+                    </>
+                ))}
+
+                <form onSubmit={selectMesAno}>
+                    <label>ano</label>
+                    <input onChange={(e) => {setAno(e.target.value)}}></input>
+                    
+                    <label>mes</label>
+                    <input onChange={(e) => {setMes(e.target.value)}}></input>
+
+                    <button type="submit">ENTER</button>
+
+                </form>
+
+                {meses.list.map((data) => (
+                    <>
+                        <div id="mes1">{data[8].mes}</div>
+                        <hr></hr>
+                        AVALIACAO PEDIDO
+                        {data[8].avaliacao_pedido.map((data) => (
+                            <>
+                                <div>{data[0].status}:{data[0].qtdade_solicitada}</div>
+                                <div>{data[1].status}:{data[1].qtdade_solicitada}</div>
+                                <div>{data[2].status}:{data[2].qtdade_solicitada}</div>
+                            </>
+                        ))}
+                        <hr></hr>
+                        CENTRO CUSTOS
+                        {data[8].centro_custos.map((data) => (
+                            <>
+                                <div>{data[1].descricao}: {data[1].qtdade_solicitada}</div>
+                                <div>{data[2].descricao}: {data[2].qtdade_solicitada}</div>
+                            </>
+                        ))}
+                        <hr></hr>
+
+                        <div>custo total: {data[8].custo_total}</div>
+                        <hr></hr>
+                        <br></br>
+
+                        <div>{data[9].mes}</div>
+                        <br></br>
+                        <div>{data[10].mes}</div>
+                        <br></br>
+                        <div>{data[11].mes}</div>
+
+                    </>
+                ))}
+            </> : <> </>}
+
+        </>
     );
-  }
-
-
-  var [loading, setLoading] = useState();
-
-  useEffect(() => {
-    setLoading(true)
-    axios.get("http://localhost:3002/estatisticas/quatroMeses", {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    })
-      .then((result) => {
-        console.log(result.data[8]);
-        if (result.data.length > 0) {
-          setEstatisticas({
-            mes1: result.data[8],
-            mes2: result.data[9],
-            mes3: result.data[10],
-            mes4: result.data[11],
-
-          })
-
-          setAvaliacao(result.data[11].avaliacao_pedido[0].qtdade_solicitada)
-        }
-        else {
-          setEstatisticas({
-            message: result.data.message
-          })
-        }
-        setLoading(false)
-      });
-  }, []);
-
-  return (
-    <>
-      <MenuG />
-      <Header nif={props.nif} />
-      <SideBar image={props.image} name={props.name} admin={true} nif={props.nif} />
-
-      <div className="statistics-container">
-        <div className="statistics-title">
-          <h1>Estatísticas Gerais</h1>
-        </div>
-        <div className="statistics">
-          <section className="line1">
-            <div className="cards">
-              <h4 className="statics-subtitle" >Total de cópias mensais</h4>
-              <BarChart />
-            </div>
-            <div className="cards">
-              <h4 className="statics-subtitle" >Cores</h4>
-              <PieChart />
-            </div>
-            <div className="cards">
-              <h4 className="statics-subtitle" >Custos</h4>
-              <BarChart2 />
-            </div>
-          </section>
-
-          <section className="line2">
-            <div className="cards2">
-              <h4 className="statics-subtitle" >Cópias e encadernações</h4>
-              <PieChart2 />
-            </div>
-            <div className="cards2">
-              <h4 className="statics-subtitle" >Departamentos que mais solicitam</h4>
-              <DoughnutChart />
-            </div>
-            <div className="cards2">
-              <h4 className="statics-subtitle" >Cursos que mais solicitam</h4>
-              <PieChart3 />
-            </div>
-          </section>
-        </div>
-      </div>
-    </>
-  );
 }
-
-
-const PieChart = () => {
-  const state = {
-    labels: ['Cópias Coloridas', 'Cópias P&B'],
-    datasets: [{
-      data: [20, 80],
-      backgroundColor: [
-        'rgba(213, 81, 253, 0.822)',
-        'rgba(181, 72, 214, 0.904)'
-      ],
-      borderColor: [
-        'rgba(141, 141, 141, 0.562)'
-      ],
-      hoverOffset: 4,
-    }]
-  }
-  return (
-    <div>
-      <Pie data={state} id="pages-colors" width="180" height="105" />
-    </div>
-  );
-}
-
-const BarChart2 = () => {
-  const state = {
-    labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-    datasets: [{
-      label: 'Total de Custos',
-      data: [43, 71, 80, 14, 26, 55, 40, 38, 18, 21, 38, 20],
-      backgroundColor: [
-        'rgba(3, 194, 153, 0.541)'
-      ],
-      borderColor: [
-        'rgba(9, 194, 103, 0.999)'
-      ],
-      borderWidth: 1,
-    }]
-  }
-  return (
-    <div>
-      <Bar data={state} id="total-cost" width="210" height="105" />
-    </div>
-  );
-}
-
-const PieChart2 = () => {
-  const state = {
-    labels: ['Cópias', 'Encadernações'],
-    datasets: [{
-      data: [60, 40],
-      backgroundColor: [
-        'rgba(236, 217, 39, 0.986)',
-        'rgba(231, 178, 33, 0.986)'
-      ],
-      borderColor: [
-        'rgba(141, 141, 141, 0.562)'
-      ],
-      hoverOffset: 4,
-    }]
-  }
-  return (
-    <div>
-      <Pie data={state} id="copy-binding" width="180" height="105" />
-    </div>
-  );
-}
-
-const DoughnutChart = () => {
-  const state = {
-    labels: [
-      'Informática', 'Mecânica', 'Redes'
-    ],
-    datasets: [{
-      data: [300, 200, 500],
-      backgroundColor: [
-        'rgba(241, 94, 26, 0.733)',
-        'rgba(240, 150, 108, 0.829)',
-        'rgba(207, 107, 61, 0.829)'
-      ],
-      borderColor: [
-        'rgba(141, 141, 141, 0.562)'
-      ],
-      hoverOffset: 4
-    }],
-  }
-  return (
-    <div>
-      <Doughnut data={state} id="department-request" width="150" height="105" />
-    </div>
-  );
-}
-
-const PieChart3 = () => {
-  const state = {
-    labels: ['CAI', 'CT', 'FC', 'CST'],
-    datasets: [{
-      data: [30, 20, 30, 40],
-      backgroundColor: [
-        'rgba(245, 45, 128, 0.986)',
-        'rgba(253, 38, 164, 0.986)',
-        'rgba(247, 77, 176, 0.986)',
-        'rgba(255, 136, 205, 0.986)'
-      ],
-      borderColor: [
-        'rgba(141, 141, 141, 0.562)'
-      ],
-      hoverOffset: 4,
-    }]
-  }
-  return (
-    <div>
-      <Pie data={state} id="course-request" width="180" height="105" />
-    </div>
-  );
-}
-
-export default Statistics;

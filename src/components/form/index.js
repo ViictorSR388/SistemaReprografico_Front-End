@@ -48,77 +48,11 @@ export default function RequestForm() {
     centro_custos = 7;
   }
 
-  // function enableText() {
-  //   document.getElementById('graduacao').value = 'on';
-  //   let value = (document.getElementById('graduacao').value = 'on');
-  //   if (value === 'on') {
-  //     document.getElementById('posObservacao').disabled = false;
-  //   }
-  // }
-
-  // function disableText() {
-  //   document.getElementById('graduacao').value = 'off';
-  //   let value = document.getElementById('graduacao').value = 'off';
-  //   if (value === 'off') {
-  //     document.getElementById('posObservacao').disabled = true;
-  //   }
-  // }
-
   //card item
   const [title, setTitle] = useState('');
   const [pages, setPages] = useState('');
   const [copy, setCopy] = useState('');
 
-
-  //card outros detalhes
-  // const [grampear, setGrampear] = useState(0);
-  // const [frenteVerso, setFrenteVerso] = useState(0);
-  // const [frente, setFrente] = useState(0);
-  // const [cortar, setCortar] = useState(0);
-
-  // var detalhes;
-
-  // if (grampear == 1) {
-  //   detalhes = 1
-  // } else if (frenteVerso == 1) {
-  //   detalhes = 2
-  // } else if (frente == 1) {
-  //   detalhes = 3
-  // } else if (cortar == 1) {
-  //   detalhes = 4
-  // }
-
-
-  //card suporte
-  // const [zipDrive, setZipDrive] = useState(0);
-  // const [papel, setPapel] = useState(0);
-  // const [cd, setCd] = useState(0);
-  // const [email, setEmail] = useState(0);
-  // const [outros, setOutros] = useState(0);
-  // const [outrosObservacao, setOutrosObservacao] = useState("");
-
-  // var suporte;
-
-  // if (zipDrive == 1) {
-  //   suporte = 1
-  // } else if (papel == 1) {
-  //   suporte = 2
-  // } else if (cd == 1) {
-  //   suporte = 3
-  // } else if (email == 1) {
-  //   suporte = 4
-  // } else if (outros == 1) {
-  //   suporte = 5
-  // }
-
-  // var coffee = document.forms[0];
-  //   var txt = "";
-  //   var i;
-  //   for (i = 0; i < coffee.length; i++) {
-  //     if (coffee[i].checked) {
-  //       txt = txt + coffee[i].value + " ";
-  //     }
-  //   }
 
   // modo de envio
   const [typeSend, setTypeSend] = useState(0);
@@ -178,45 +112,11 @@ export default function RequestForm() {
     handleSubmission();
   };
 
-  var total = pages * copy;
-
-  // const FormPost = () => {
-  //   const data = {
-  //     curso: curso,
-  //     // detalheGraduacao,
-
-  //     centro_custos: centro_custos,
-
-  //     titulo_pedido: title,
-  //     num_paginas: pages,
-  //     num_copias: copy,
-
-  //     acabamento: acabamento,
-  //     tipos_capa: capa,
-
-  //     // outros detalhes
-
-  //     tamanho_pagina: formato,
-  //     tipos_copia: cor,
-
-  //     // suporte
-
-  //     modo_envio: modo_envio,
-  //     observacoes: observacao_envio,
-  //   };
-  //   axios.post('http://localhost:3002/pedido', data, {
-  //     headers: {
-  //       accessToken: localStorage.getItem("accessToken"),
-  //     }
-  //   }).then((result) => {
-  //     console.log(result);
-  //   })
+  // const nextStep = (e) => {
+  //   e.preventDefault();
   // }
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   FormPost();
-  // };
+  var total = pages * copy;
 
   const [step, setStep] = useState(1);
 
@@ -282,6 +182,7 @@ export default function RequestForm() {
                           const newValue = e.target.value;
                           setCourse(newValue);
                         }}
+                        required 
                       />
                       <Form.Check.Label htmlFor="cai" className="radio-label">
                         CT-DS
@@ -299,6 +200,7 @@ export default function RequestForm() {
                           const newValue = e.target.value;
                           setCourse(newValue);
                         }}
+                        required
                       />
                       <Form.Check.Label htmlFor="ct">CT-MP</Form.Check.Label>
                     </div>
@@ -314,6 +216,7 @@ export default function RequestForm() {
                           const newValue = e.target.value;
                           setCourse(newValue);
                         }}
+                        required
                       />
                       <Form.Check.Label htmlFor="fc">CST-MP</Form.Check.Label>
                     </div>
@@ -329,6 +232,7 @@ export default function RequestForm() {
                           const newValue = e.target.value;
                           setCourse(newValue);
                         }}
+                        required
                       />
                       <Form.Check.Label className="input-pos" htmlFor="pos">
                         Pós Graduação
@@ -346,6 +250,7 @@ export default function RequestForm() {
                       onChange={(e) => {
                         setPosGraduacao(e.target.value);
                       }}
+                      required
                     />
                   )}
 
@@ -358,6 +263,7 @@ export default function RequestForm() {
                       onChange={(e) => {
                         setCc(e.target.value);
                       }}
+                      required
                     >
                       <option value="0" name="nothing" id="nothing" selected={cc === "0"} >
                         Nenhuma Selecionada
@@ -405,6 +311,7 @@ export default function RequestForm() {
                     onChange={(e) => {
                       setTitle(e.target.value);
                     }}
+                    required
                   />
                   <label className="label" htmlFor="page-request">Páginas</label>
                   <input
@@ -415,6 +322,7 @@ export default function RequestForm() {
                     onChange={(e) => {
                       setPages(e.target.value);
                     }}
+                    required
                   />
                   <label className="label" htmlFor="copy">Cópias</label>
                   <input
@@ -425,12 +333,13 @@ export default function RequestForm() {
                     onChange={(e) => {
                       setCopy(e.target.value);
                     }}
+                    required
                   />
                   <label className="label" htmlFor="total">Total de Paginas</label>
                   <span className="total-pages" name="total">
                     {total}
                   </span>
-                  <Button className="step-btn" onClick={() => {
+                  <Button className="step-btn"  onClick={() => {
                     setStep(3);
                   }}>
                     Próximo
@@ -458,6 +367,7 @@ export default function RequestForm() {
                           onChange={() => {
                             setServicoCT(data.id_servico)
                           }}
+                          required
                         />
                         <label className="labelName" htmlFor="type-paper">
                           {data.descricao}
@@ -491,6 +401,7 @@ export default function RequestForm() {
                             onChange={() => {
                               setServicoCA(data.id_servico)
                             }}
+                            required
                           />
                           <label className="labelName" htmlFor="type-paper">
                             {data.descricao}
@@ -524,6 +435,7 @@ export default function RequestForm() {
                         const newValue = e.target.value;
                         setTypeSend(newValue);
                       }}
+                      required
                     />
                     <label className="labelName" htmlFor="type-paper">
                       Envio digital
@@ -541,6 +453,7 @@ export default function RequestForm() {
                         const newValue = e.target.value;
                         setTypeSend(newValue);
                       }}
+                      required
                     />
                     <label className="labelName" htmlFor="type-paper">
                       Envio presencial
@@ -558,6 +471,7 @@ export default function RequestForm() {
                         onChange={(e) => {
                           setObservacao(e.target.value);
                         }}
+                        required
                       />
                     )}
                   <div className="contentButton">
