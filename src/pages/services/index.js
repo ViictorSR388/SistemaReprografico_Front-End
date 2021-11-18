@@ -124,7 +124,7 @@ export default function Services(props) {
             management={true}
             nif={props.nif}
           />
-          <div className="services-card">
+          <div className="container-Services">
             <Button className="btn-boot" onClick={() => servicosAtivos(1)}>
               Serviços Ativos
             </Button>
@@ -132,12 +132,15 @@ export default function Services(props) {
               Serviços Inativos
             </Button>
 
+          </div>
+          <div className="servicesAcoes">
             {ativos ? (
-              <h1 className="title-enable-disable">Serviços Ativos:</h1>
+              <h1 className="title-services">Serviços Ativos:</h1>
             ) : (
-              <h1 className="title-enable-disable">Serviços Inativos:</h1>
+              <h1 className="title-services">Serviços Inativos:</h1>
             )}
-
+          </div>
+          <div className="services-card">
             <div className="ct-table-div">
               <h1 className="title-services">Capa &#38; Acabamento</h1>
 
@@ -152,23 +155,25 @@ export default function Services(props) {
                 </thead>
                 {servicos.servicosCA.map((data) => (
                   <React.Fragment key={data.id_servico}>
-                    <tr>
-                      {/* DESCRIÇÃO */}
-                      <td>{data.descricao}</td>
-                      {/* QUANTIDADE */}
-                      <td>{data.quantidade}</td>
-                      {/* CUSTO */}
-                      <td>{data.valor_unitario}</td>
-                      {data.ativado ? (
-                        <td>
-                          <button onClick={() => enableUser({ id: data.id_servico, type: "ca", enable: data.ativado })}>Desabilitar</button>
-                        </td>
-                      ) : (
-                        <td>
-                          <button onClick={() => enableUser({ id: data.id_servico, type: "ca", enable: data.ativado })}>Habilitar</button>
-                        </td>
-                      )}
-                    </tr>
+                    <tbody>
+                      <tr>
+                        {/* DESCRIÇÃO */}
+                        <td>{data.descricao}</td>
+                        {/* QUANTIDADE */}
+                        <td>{data.quantidade}</td>
+                        {/* CUSTO */}
+                        <td>{data.valor_unitario}</td>
+                        {data.ativado ? (
+                          <td>
+                            <Button className="btn-disable" onClick={() => enableUser({ id: data.id_servico, type: "ca", enable: data.ativado })}>Desabilitar</Button>
+                          </td>
+                        ) : (
+                          <td>
+                            <Button className="btn-enable" onClick={() => enableUser({ id: data.id_servico, type: "ca", enable: data.ativado })}>Habilitar</Button>
+                          </td>
+                        )}
+                      </tr>
+                    </tbody>
                   </React.Fragment>
                 ))}
               </Table>
@@ -183,7 +188,6 @@ export default function Services(props) {
                 Adicionar Serviço
               </Button>
             </div>
-            {/* ~~~~~~~~~~~~~~ */}
             <div className="ca-table-div">
               <h1 className="title-services">Copia &#38; Tamanho</h1>
 
@@ -208,11 +212,11 @@ export default function Services(props) {
                         <td>{data.valor_unitario}</td>
                         {data.ativado ? (
                           <td>
-                            <button onClick={() => enableUser({ id: data.id_servico, type: "ct", enable: data.ativado })}>Desabilitar</button>
+                            <Button className="btn-disable" onClick={() => enableUser({ id: data.id_servico, type: "ct", enable: data.ativado })}>Desabilitar</Button>
                           </td>
                         ) : (
                           <td>
-                            <button onClick={() => enableUser({ id: data.id_servico, type: "ct", enable: data.ativado })}>Habilitar</button>
+                            <Button className="btn-enable" onClick={() => enableUser({ id: data.id_servico, type: "ct", enable: data.ativado })}>Habilitar</Button>
                           </td>
                         )}
                       </tr>

@@ -1,17 +1,56 @@
-@import '_global';
+@import "_global";
+
+.container-Services {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+  position: absolute;
+  top: 15vh;
+  left: 35vw;
+
+  .btn-boot {
+    justify-content: space-between !important;
+    width: 80% !important;
+    display: flex !important;
+    margin: 0 2rem !important;
+    padding: 1rem !important;
+    font-size: 2rem !important;
+    flex-direction: column !important;
+  }
+}
+.servicesAcoes {
+  display: flex;
+  margin: 3rem 0;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 40%;
+  top: 20vh;
+  left: 34vw;
+  flex-direction: column;
+
+  .title-services {
+    display: flex;
+    width: 45%;
+    justify-content: center;
+    background-color: $grey-button;
+    color: $white;
+    padding: 0.8rem;
+    font-size: 2.7rem;
+  }
+}
 
 .services-card {
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
   position: absolute;
-  width: 100%;
-  top: 25vh;
-  left: 15vw;
+  width: 78%;
+  top: 33vh;
+  left: 20vw;
   font-size: 2rem;
   font-weight: 500;
-  flex-direction: row;
-
+  flex-direction: row-reverse;
 
   .title-services {
     margin-bottom: 3rem;
@@ -22,34 +61,31 @@
     text-align: center;
   }
 
-  .table-services {
+  .btn-disable {
     display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-      .column-services {
-        width: 50rem;
-      }
-    
-      .column-quant {
+    margin: 0 2rem !important;
+    padding: 0.5rem !important;
+    flex-direction: column !important;
+  }
 
-        width: 20%;
-      }
-    
-      .column-cost {
-        width: 20%;
-      }
+  .btn-enable {
+    display: flex !important;
+    margin: 0 2rem !important;
+    padding: 0.5rem !important;
+    flex-direction: column !important;
   }
 
   .btn-services {
     background-color: $grey-button;
     color: $white;
-    width: 30% !important;
+    width: 50% !important;
     display: flex !important;
     justify-content: center !important;
     margin: auto !important;
     margin-top: 4rem !important;
     border-radius: 1rem;
-    transition: .5s !important;
+    transition: 0.5s !important;
+    margin-bottom: 10rem !important;
 
     &:hover {
       background-color: $grey !important;
