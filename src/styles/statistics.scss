@@ -1,0 +1,76 @@
+@import "_global";
+
+.statistics-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  width: 50%;
+  top: 15%;
+  left: 28%;
+  font-size: 2rem;
+
+  .select-a-date {
+      text-align: center;
+  }
+
+  .statistics-title {
+    background-color: $grey-button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    height: 3rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2.5rem;
+
+    .month-form {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-bottom: 3rem;
+    }
+
+    .button-form {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      margin-bottom: 5rem;
+
+      .send-date {
+        color: $white;
+        background-color: $red;
+        height: 3rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.5s;
+        width: 25%;
+        border-radius: 5rem;
+
+        &:hover {
+          color: black;
+          background-color: #ba181b;
+        }
+      }
+    }
+
+  }
+  .title-tables {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: $grey-button;
+    color: $white;
+    padding: 0.8rem;
+    font-size: 2rem;
+  }
+}
