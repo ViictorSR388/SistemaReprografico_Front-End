@@ -148,8 +148,9 @@ export default function Statistics(props) {
                 </div>
 
                 <div className="tables">
-                    <div className="tabela-pedidos">
-                    {fetchMesStatus ? <h1 className="title-tables">Pedidos</h1> : <h1 className="select-a-date">Selecione uma Data</h1>}
+                    <div className="first-line-div">
+                    <div className="first-line-tables">
+                    {fetchMesStatus ? <h1 className="title-tables">Pedidos</h1> : <></>}
                         <Table striped bordered hover size="sm">
                             {unicoMes.map((data) => (
                                 <React.Fragment>
@@ -199,7 +200,7 @@ export default function Statistics(props) {
                             ))}
                         </Table>
                     </div>
-                    <div className="tabela-gerais">
+                    <div className="first-line-tables">
                     {fetchMesStatus ? <h1 className="title-tables">Estatisticas Gerais</h1> : <></>}
                         <Table className="table-statistics" striped bordered hover size="sm"> 
                             {unicoMes.map((data) => (
@@ -252,7 +253,7 @@ export default function Statistics(props) {
                             ))}
                         </Table>
                     </div>
-                    <div className="tabela-centro-custos">
+                    <div className="first-line-tables">
                     {fetchMesStatus ? <h1 className="title-tables">Solicitações por Departamento</h1> : <></>}
                         <Table striped bordered hover size="sm">
                             {unicoMes.map((data) => (
@@ -331,7 +332,9 @@ export default function Statistics(props) {
                             ))}
                         </Table>
                     </div>
-                    <div className="tabela-cursos">
+                    </div>
+                    <div className="second-line-div">
+                    <div className="second-line-tables">
                     {fetchMesStatus ? <h1 className="title-tables">Solicitações por Cursos</h1> : <></>}
                         <Table className="" striped bordered hover size="sm">
                             {unicoMes.map((data) => (
@@ -378,7 +381,7 @@ export default function Statistics(props) {
                             ))}
                         </Table>
                     </div>
-                    <div className="tabela-capa-acabamento">
+                    <div className="second-line-tables">
                     {fetchMesStatus ? <h1 className="title-tables">Solicitações por Capa & Acabamento</h1> : <></>}
                         <Table className="" striped bordered hover size="sm">
                             {unicoMes.map((data) => (
@@ -425,7 +428,7 @@ export default function Statistics(props) {
                             ))}
                         </Table>
                     </div>
-                    <div className="tabela-copia-tamanho">
+                    <div className="second-line-tables">
                     {fetchMesStatus ? <h1 className="title-tables">Solicitações por Copia & Tamanho</h1> : <></>}
                         <Table className="" striped bordered hover size="sm">
                             {unicoMes.map((data) => (
@@ -488,6 +491,8 @@ export default function Statistics(props) {
                             ))}
                         </Table>
                     </div>
+                    </div>
+                    {fetchMesStatus ? <></> : <h1 className="select-a-date">Selecione uma Data</h1>}
                 </div>
             </div>
         </>

@@ -6,13 +6,13 @@
   align-items: center;
   flex-direction: column;
   position: absolute;
-  width: 50%;
-  top: 15%;
-  left: 28%;
+  width: 60%;
+  top: 14%;
+  left: 25%;
   font-size: 2rem;
 
   .select-a-date {
-      text-align: center;
+    text-align: center;
   }
 
   .statistics-title {
@@ -64,13 +64,36 @@
     }
 
   }
-  .title-tables {
-    display: flex;
+
+  .tables {
     width: 100%;
-    justify-content: center;
-    background-color: $grey-button;
-    color: $white;
-    padding: 0.8rem;
-    font-size: 2rem;
+    
+    .first-line-div {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+  
+      // .first-line-tables {
+      //   width: 100%;
+      // }
+    }
+    .second-line-div {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+  
+      // .second-line-tables {
+      //   width: 100%;
+      // }
+    }
+    .title-tables {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      background-color: $grey-button;
+      color: $white;
+      padding: 0.8rem;
+      font-size: 2rem;
+    }
   }
 }
