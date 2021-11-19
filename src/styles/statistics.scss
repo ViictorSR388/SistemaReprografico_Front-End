@@ -21,9 +21,8 @@
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 2rem;
-    height: 3rem;
-    width: 100%;
+    height: 4rem;
+    width: 68%;
     text-align: center;
   }
 
@@ -38,6 +37,19 @@
       justify-content: space-around;
       width: 100%;
       margin-bottom: 3rem;
+    }
+
+    .input-ano {
+      font-size: 1.8rem;
+      height: 3rem;
+      border: solid 1px $grey-button;
+      padding: 0.5rem;
+    }
+
+    .input-mes {
+      font-size: 1.8rem;
+      border: solid 1px $grey-button;
+      padding: 0.5rem;
     }
 
     .button-form {
@@ -62,17 +74,16 @@
         }
       }
     }
-
   }
 
   .tables {
     width: 100%;
-    
+
     .first-line-div {
       display: flex;
       justify-content: space-between;
       width: 100%;
-  
+
       // .first-line-tables {
       //   width: 100%;
       // }
@@ -81,7 +92,7 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
-  
+
       // .second-line-tables {
       //   width: 100%;
       // }

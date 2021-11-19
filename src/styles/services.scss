@@ -16,6 +16,13 @@
     padding: 1rem !important;
     font-size: 2rem !important;
     flex-direction: column !important;
+    transition: .5s !important;
+    background-color: $grey;
+
+    &:hover {
+      background-color: $grey-button !important;
+      color: $white !important;
+    }
   }
 }
 .servicesAcoes {

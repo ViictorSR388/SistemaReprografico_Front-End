@@ -77,7 +77,7 @@ export default function Statistics(props) {
         <>
             <Header />
             <MenuG />
-            <SideBar />
+            <SideBar image={props.image} name={props.name} admin={true} management={true} nif={props.nif} />
 
             <div className="statistics-container">
                 <div className="statistics-title">
