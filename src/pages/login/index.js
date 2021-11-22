@@ -77,7 +77,7 @@ export default function Login() {
     <>
       <div className="content">
         <LoginContainer />
-        <div className="container">
+        <div className="container-login">
           <h2 id="h2" className="login-subTitle">Login</h2>
 
           <form onSubmit={onSubmit}>

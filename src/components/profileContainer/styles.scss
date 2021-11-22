@@ -2,13 +2,13 @@
 
 .left-container {
     background-color: $red;
-    position: relative;
-    width: 50vw;
+    position: fixed;
+    width: 25vw;
     height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; 
 }
 
 .icon-container {

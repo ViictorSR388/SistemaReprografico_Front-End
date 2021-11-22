@@ -1,5 +1,10 @@
 @import '_global';
 
+.container {
+    position: relative;
+    left: 25rem
+}
+
 .btns-request{
     display: flex;
     justify-content: center;

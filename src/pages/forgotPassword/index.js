@@ -49,7 +49,7 @@ export default function ForgotPassword() {
   return (
     <div className="content">
       <LoginContainer />
-      <div className="container">
+      <div className="container-login">
         <h2 id="h2" className="fp-subTitle">Insira o seu e-mail</h2>
 
         <form onSubmit={onSubmit}>

@@ -72,7 +72,7 @@ export default function NewPassword() {
   return (
     <div className="content">
       <LoginContainer />
-      <div className="container">
+      <div className="container-login">
         <h2 id="h2" className="np-subTitle">Digite a sua nova senha</h2>
 
         <form onSubmit={onSubmit}>

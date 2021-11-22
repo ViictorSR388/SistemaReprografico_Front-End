@@ -6,7 +6,7 @@
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  top: 20rem;
+  top: 15rem;
   left: 50rem;
   
   .title-repro {
@@ -59,7 +59,6 @@
       justify-content: start;
       align-items: center;
       text-align: center;
-      height: 60vh;
       width: 50vw;
       margin: 0 1rem;
       border-radius: 5px;
@@ -107,6 +106,20 @@
         border: transparent !important;
         font-size: 1.5rem;
         margin-top: 2vh !important;
+        margin-bottom: 1rem !important;
+
+        &:hover {
+            background-color: #04345c;
+        }
+      }
+
+      .step-btn-back {
+        width: 20vw;
+        background-color: $blue;
+        border: transparent !important;
+        font-size: 1.5rem;
+        margin-top: 2vh !important;
+        margin-bottom: 2rem;
 
         &:hover {
             background-color: #04345c;

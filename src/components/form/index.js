@@ -344,7 +344,7 @@ export default function RequestForm() {
                   }}>
                     Próximo
                   </Button>
-                  <Button className="step-btn" onClick={() => {
+                  <Button className="step-btn-back" onClick={() => {
                     setStep(1);
                   }}>
                     Anterior
@@ -380,7 +380,7 @@ export default function RequestForm() {
                   }}>
                     Próximo
                   </Button>
-                  <Button className="step-btn" onClick={(e) => {
+                  <Button className="step-btn-back" onClick={(e) => {
                     setStep(2);
                   }}>
                     Anterior
@@ -414,7 +414,7 @@ export default function RequestForm() {
                   }}>
                     Próximo
                   </Button>
-                  <Button className="step-btn" onClick={() => {
+                  <Button className="step-btn-back" onClick={() => {
                     setStep(3);
                   }}>
                     Anterior

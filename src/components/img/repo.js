@@ -9,7 +9,7 @@ function Repo(props) {
   return (
     <>
       <div onClick = {() => {history.push(`/user/${props.nif}`)}} className="circle">
-        <img src={props.image} className="repo" alt="repo" />
+        <img src={props.image} className="repo" alt="imagem do usuário" />
       </div>
     </>
   );

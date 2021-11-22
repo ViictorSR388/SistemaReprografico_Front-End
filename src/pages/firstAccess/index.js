@@ -37,7 +37,7 @@ function FirstAccess() {
         <>
             <div className="content">
                 <LoginContainer />
-                <div className="container">
+                <div className="container-login">
                     <h2 className="title-first">
                         Insira sua senha
                     </h2>

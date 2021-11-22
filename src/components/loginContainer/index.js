@@ -5,7 +5,7 @@ import './styles.scss';
 
 const LoginContainer = () => {
     return(
-        <div className="left-container" >
+        <div className="left-container-login" >
             <div className="icon-container" >
                 <img className="iconImg" src="assets/img/repo.png" alt="Ícone de uma impressora" title="icon" />
             </div>
