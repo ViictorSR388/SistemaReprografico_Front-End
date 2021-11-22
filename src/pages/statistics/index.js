@@ -56,7 +56,6 @@ export default function Statistics(props) {
             })
             .then((result) => {
                 console.log(result.data);
-
                 setMeses({
                     list: [result.data],
                     mes1: result.data[8],
@@ -75,7 +74,7 @@ export default function Statistics(props) {
 
     var [loading, setLoading] = useState(false);
     var [admin, setAdmin] = useState(false);
-    var requestForm = true;
+    var estatisticas = true;
 
     useEffect(() => {
         setLoading(true)
@@ -101,9 +100,9 @@ export default function Statistics(props) {
         <>
             {loading ? <>Loading...</> :
                 <>
-                    <Header />
+                    <Header nif={props.nif} />
                     <MenuG />
-                    <SideBar image={props.image} name={props.name} admin={admin} requestForm={requestForm} nif={props.nif} />
+                    <SideBar image={props.image} name={props.name} admin={true} estatisticas={estatisticas} nif={props.nif} />
 
                     <div className="statistics-container">
                         <div className="statistics-title">

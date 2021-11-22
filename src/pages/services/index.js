@@ -4,10 +4,10 @@ import axios from "axios";
 
 import "../../styles/services.scss";
 import Header from "../../../src/components/header";
-import Menu from "../../../src/components/hamburgerButton";
 import SideBar from "../../../src/components/formSideBar";
 import { Card, Table } from "react-bootstrap";
 import Button from "@restart/ui/esm/Button";
+import MenuG from "../../components/hamburgerButtonG";
 
 export default function Services(props) {
   var history = useHistory();
@@ -18,8 +18,8 @@ export default function Services(props) {
     status: false,
   });
 
-  var [servicoCA, setServicoCA] = useState();
-  var [servicoCT, setServicoCT] = useState();
+  // var [servicoCA, setServicoCA] = useState();
+  // var [servicoCT, setServicoCT] = useState();
   var [loading, setLoading] = useState();
 
   var [ativos, setAtivos] = useState();
@@ -108,6 +108,29 @@ export default function Services(props) {
       });
   }
 
+  var [admin, setAdmin] = useState(false);
+  var services = true;
+
+  useEffect(() => {
+    setLoading(true)
+    axios
+      .get("http://localhost:3002/auth", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        var resposta = result.data.roles.includes("2_ROLE_ADMIN");
+        if (resposta === true) {
+          setAdmin(true)
+        }
+        else {
+          setAdmin(false)
+        }
+        setLoading(false)
+      })
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -115,15 +138,10 @@ export default function Services(props) {
       ) : (
         <>
           {" "}
-          <Menu />
-          <Header nif={props.nif} />
-          <SideBar
-            image={props.image}
-            name={props.name}
-            admin={true}
-            management={true}
-            nif={props.nif}
-          />
+          <MenuG />
+          <Header nif={props.nif}/>
+          <SideBar image={props.image} name={props.name} admin={true} services={services} nif={props.nif} />
+          
           <div className="container-Services">
             <Button className="btn-boot" onClick={() => servicosAtivos(1)}>
               Serviços Ativos

@@ -476,11 +476,11 @@ export default function RequestForm() {
                     )}
                   <div className="contentButton">
                     <Form.Group controlId="formFile" className="mb-3">
-                      {/* <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
+                      <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
                     <Form.Label htmlFor="file" className="functionButton">
                       Anexar
                       <FaFileImport />
-                    </Form.Label> */}
+                    </Form.Label>
                       <Form.Control type="file" />
                     </Form.Group>
                     <input type="file" name="file" onClick={changeHandler} accept="application/pdf" />

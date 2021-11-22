@@ -101,7 +101,7 @@ function Rotas() {
                 <Route path="/review/:id" component={() => (<Review image={authState.imagem} />)} />
 
 
-                <Route path='/statistics' exact component={() => (<Statistics image={authState.imagem} name={authState.nome} />)} />
+                <Route path='/statistics' exact component={() => (<Statistics image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />
                 <Route path='/notAuthorized' exact component={notAuthorized} />
                 <Route path='/myRequests' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome} />)} />
                 <Route path='/detPedido/:id' exact component={() => (<DetPedido image={authState.imagem} name={authState.nome} />)} />
@@ -109,7 +109,7 @@ function Rotas() {
                 <Route path="/users-requests/:nif" exact component={() => (<Request image={authState.imagem} name={authState.nome} />)} />
                 <Route path="/requestList/:id" exact component={() => (<RequestList image={authState.imagem} name={authState.nome} />)} />
                 <Route path="/firstAccess" exact component={() => (<FirstAccess image={authState.imagem} name={authState.nome} />)} />
-                <Route path="/services" exact component={() => (<Services image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/services" exact component={() => (<Services image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />
                 <Route path="/addService/:type" exact component={() => (<AddService image={authState.imagem} name={authState.nome} />)} />
               </>
             }

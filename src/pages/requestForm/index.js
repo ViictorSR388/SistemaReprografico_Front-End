@@ -41,7 +41,7 @@ function RequestForm(props) {
       {loading ? <>Loading...</> :
         <>
           <MenuG />
-          <Header nif={props.nif} />
+          <Header nif={props.nif}/>
           <SideBar image={props.image} name={props.name} admin={admin} requestForm={requestForm} nif={props.nif} />
           <Form />
         </>

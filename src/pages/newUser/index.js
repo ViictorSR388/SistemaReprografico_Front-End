@@ -76,6 +76,7 @@ function NewUser(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     handleUpload();
+    history.push("/management");
     // CreateUserPost();
   }
 

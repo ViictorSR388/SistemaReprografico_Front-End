@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/management.scss';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { FaClosedCaptioning, FaSearch } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
 
 import Menu from '../../../src/components/hamburgerButtonG';
 import Header from '../../../src/components/header';
@@ -37,7 +37,7 @@ function Management(props) {
             nif: result.data.nif,
             email: result.data.email,
             nome: result.data.nome,
-            imagem: "http://localhost:3002/" + result.data.imagem,
+            imagem: "http://localhost:3002/" + result.data.image,
             cfp: result.data.cfp,
             telefone: result.data.telefone,
             depto: result.data.depto,
@@ -103,7 +103,7 @@ function Management(props) {
             nif: result.data.nif,
             email: result.data.email,
             nome: result.data.nome,
-            imagem: "http://localhost:3002/" + result.data.imagem,
+            imagem: "http://localhost:3002/" + result.data.image,
             cfp: result.data.cfp,
             telefone: result.data.telefone,
             depto: result.data.id_depto,
@@ -164,7 +164,7 @@ function Management(props) {
         <>
           <Menu />
           <Header nif={props.nif} />
-          <SideBar image={props.image} name={props.name} admin={true} management={true} nif={props.nif} />
+          <SideBar image={props.imagem} name={props.name} admin={true} management={true} nif={props.nif} />
 
           <div className="container-management">
             <div className="management">
