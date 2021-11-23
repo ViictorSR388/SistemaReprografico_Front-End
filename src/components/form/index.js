@@ -475,14 +475,15 @@ export default function RequestForm() {
                       />
                     )}
                   <div className="contentButton">
-                    <Form.Group controlId="formFile" className="mb-3">
+
+                    {/* <Form.Group controlId="formFile" className="mb-3">
                       <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
-                    <Form.Label htmlFor="file" className="functionButton">
-                      Anexar
+                    <Form.Label htmlFor="file" className="functionButton" value="Anexar">
                       <FaFileImport />
                     </Form.Label>
                       <Form.Control type="file" />
-                    </Form.Group>
+                    </Form.Group> */}
+
                     <input type="file" name="file" onClick={changeHandler} accept="application/pdf" />
                     <div className="bootstrap-buttons">
                       <Button className="functionButton" type="submit">

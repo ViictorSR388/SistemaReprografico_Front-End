@@ -9,6 +9,7 @@ function ProfileContainer(props) {
 
     return (
         <div className="left-container" >
+            {props.title ? <h2 Style="margin-bottom: 50px">{props.title}</h2> : null}
             <div className="icon-container" >
                 <div className="profile-div">
                     <Profile image={props.image} nif={props.nif} />

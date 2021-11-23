@@ -34,29 +34,22 @@ function Management(props) {
       .then((result) => {
         if (result.data.length > 0) {
           setUsers({
-            nif: result.data.nif,
-            email: result.data.email,
-            nome: result.data.nome,
-            imagem: "http://localhost:3002/" + result.data.image,
-            cfp: result.data.cfp,
-            telefone: result.data.telefone,
-            depto: result.data.depto,
             list: result.data,
             status: true
           })
           console.log(result.data)
-          if (id === 1) {
-            setAtivos(true);
-          }
-          else {
-            setAtivos(false);
-          }
         }
         else {
           setUsers({
             message: "Sem registros...",
             ativos: true
           })
+        }
+        if (id === 1) {
+          setAtivos(true);
+        }
+        else {
+          setAtivos(false);
         }
       });
   }
@@ -98,20 +91,12 @@ function Management(props) {
         },
       })
       .then((result) => {
+        console.log(result)
         if (result.data.length > 0) {
           setUsers({
-            nif: result.data.nif,
-            email: result.data.email,
-            nome: result.data.nome,
-            imagem: "http://localhost:3002/" + result.data.image,
-            cfp: result.data.cfp,
-            telefone: result.data.telefone,
-            depto: result.data.id_depto,
-
             list: result.data,
             ativos: true,
             status: true
-            
           })
         }
         else {
@@ -123,40 +108,6 @@ function Management(props) {
         setLoading(false);
       });
   }, []);
-
-  // var depto
-
-  // if (data.id_depto === "1") {
-  // depto = "Aprendizagem Industrial Presencial"
-  // }
-  // else if (data.id_depto === "2") {
-  //   depto = "Graduação Tecnológica Presencial"
-  // }
-  // else if (data.id_depto === "3") {
-  //   depto = "Pós-Graduação Presencial"
-  // }
-  // else if (data.id_depto === "4") {
-  //   depto = "Extensão Presencial"
-  // }
-  // else if (data.id_depto === "5") {
-  //   depto = "Iniciação Profissional Presencial"
-  // }
-  // else if (data.id_depto === "6") {
-  //   depto = "Qualificação Profissional Presencial"
-  // }
-  // else if (data.id_depto === "7") {
-  //   depto = "Aperfeiç./Especializ. Profis. Presencial"
-  // }
-
-  // const deleteUser = (nif) => {
-  //   axios.delete(`http://localhost:3002/user/${nif}`, {
-  //     headers: {
-  //       accessToken: localStorage.getItem("accessToken"),
-  //     },
-  //   }).then((result) => {
-  //     console.log(result);
-  //   });
-  // }
 
   return (
     <>
@@ -188,22 +139,22 @@ function Management(props) {
             </div>
 
             {ativos ? <h1 className="title-enable-disable">Usuários Ativos:</h1> : <h1 className="title-enable-disable">Usuários Inativos:</h1>}
-
+            {users.status ?
+            <>
             <div className="section">
               <Table className="tableBootstrap" striped bordered hover responsive size="sm" >
                 <thead>
                   <tr>
-                    <th> </th>
+                    <th>Imagem</th>
                     <th>Nome</th>
                     <th>Email</th>
                     <th>CPF</th>
                     <th>Telefone</th>
                     <th>Departamento</th>
+                    <th>Cargo</th>
                     <th> </th>
                   </tr>
                 </thead>
-                {users.status ?
-                  <>
                     {users.list.map((data) => (
                       <React.Fragment key={data.nif}>
                         <tbody>
@@ -213,8 +164,9 @@ function Management(props) {
                             <td>{data.email}</td>
                             <td>{data.cfp}</td>
                             <td>{data.telefone}</td>
-                            <td>{data.id_depto}</td>
-                            <div className="btns-bootM">
+                            <td>{data.depto}</td>
+                            <td>{data.roles[0].descricao}</td>
+                            <td className="btns-bootM">
                               <Button className="btn-bootM" color="primary" size="lg" onClick={() => { history.push(`/users-requests/${data.nif}`) }}>
                                 Solicitações
                               </Button>{' '}
@@ -229,20 +181,18 @@ function Management(props) {
                                   Habilitar
                                 </Button>{' '}
                               </>}
-                            </div>
-
+                            </td>
                           </tr>
                         </tbody>
                       </React.Fragment>
                     ))}
-
+                </Table>
+                </div>
                   </> :
                   <>
-                    <tr><h3>{users.message}</h3></tr  >
+                    <h3>{users.message}</h3>
                   </>
                 }
-              </Table>
-            </div>
             <div className="btn-newUser">
               <Button variant="primary" size="lg" onClick={() => { history.push("/newUser/") }}>
                 Cadastrar Usuário

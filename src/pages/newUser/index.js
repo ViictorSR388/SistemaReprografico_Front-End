@@ -1,26 +1,30 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom'
-import axios from 'axios';
-import '../../styles/newUser.scss';
+import React, { useEffect, useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import "../../styles/newUser.scss";
 import ProfileContainer from "../../components/profileContainer";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { AuthContext } from './../../helpers/AuthContext';
+import { AuthContext } from "./../../helpers/AuthContext";
 
 function NewUser(props) {
   var history = useHistory();
 
   //nome
-  const [nameUser, setNameUser] = useState('');
+  const [nameUser, setNameUser] = useState("Nome do usuário");
   //email
-  const [emailUser, setEmailUser] = useState('');
+  const [emailUser, setEmailUser] = useState("");
   //nif
-  const [nifUser, setNifUser] = useState('');
+  const [nifUser, setNifUser] = useState("");
   //cfp
-  const [cfpUser, setCfpUser] = useState('');
+  const [cfpUser, setCfpUser] = useState("");
   //telefone
-  const [telefoneUser, setTelefoneUser] = useState('');
+  const [telefoneUser, setTelefoneUser] = useState("");
   //departamento
-  const [deptoUser, setDeptoUser] = useState('');
+  const [deptoUser, setDeptoUser] = useState("");
+
+  const [admin, setAdmin] = useState(0);
+
+  const [mensagem, setMensagem] = useState("");
 
   const { setAuthState } = useContext(AuthContext);
 
@@ -40,10 +44,15 @@ function NewUser(props) {
     departamento = 6;
   } else if (deptoUser === "7") {
     departamento = 7;
+  } else if (deptoUser === "8") {
+    departamento = 8;
   }
 
   //imagem
-  const [image, setImage] = useState({ raw: "", preview: "" });
+  const [image, setImage] = useState({
+    raw: "",
+    preview: "http://localhost:3002/src/uploads/user-img/default/usuario.png",
+  });
 
   const handleChange = (e) => {
     if (e.target.files.length) {
@@ -56,54 +65,75 @@ function NewUser(props) {
 
   const handleUpload = () => {
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("image", image.raw);
     formData.append("nome", nameUser);
     formData.append("email", emailUser);
     formData.append("nif", nifUser);
     formData.append("cfp", cfpUser);
     formData.append("telefone", telefoneUser);
     formData.append("depto", departamento);
+    formData.append("admin", admin);
 
-    axios.post('http://localhost:3002/newUser', formData, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken")
-      }
-    }).then((result) => {
-      console.log(result)
-    })
+    if (departamento === undefined || departamento === 0) {
+      setMensagem("Por favor selecione um departamento!");
+    } else {
+      axios
+        .post("http://localhost:3002/newUser", formData, {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        })
+        .then((result) => {
+          setMensagem(result.data.message);
+          setTimeout(() => {
+            history.push("/management");
+          }, 1000);
+        });
+    }
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     handleUpload();
-    history.push("/management");
+
     // CreateUserPost();
-  }
+  };
 
   const [changePass, setChangePass] = useState();
 
   const voltar = () => {
     axios
-    .get("http://localhost:3002/auth", {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    }).then((result) => {
-      setAuthState({
-        nif: result.data.nif,
-        nome: result.data.nome,
-        roles: result.data.roles,
-        imagem: "http://localhost:3002/" + result.data.imagem,
-        redirect: false
+      .get("http://localhost:3002/auth", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        setAuthState({
+          nif: result.data.nif,
+          nome: result.data.nome,
+          roles: result.data.roles,
+          imagem: "http://localhost:3002/" + result.data.imagem,
+          redirect: false,
+        });
+
+        history.push("/management");
       });
-      
-      history.push("/management");
-    })
-  }
+  };
 
   return (
     <div className="content">
-      <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />
+      <ProfileContainer
+        title="Exemplo do perfil do usuário"
+        image={image.preview}
+        name={nameUser}
+        requestsNoInfo={true}
+        change={true}
+        changePassword={() => {
+          setChangePass(true);
+        }}
+        nif={props.nif}
+      />
       <div className="container">
         <h2 id="h2" className="nu-subTitle">
           Criar novo usuário
@@ -154,11 +184,41 @@ function NewUser(props) {
             name="telefoneUser"
             type="text"
             placeholder="Telefone"
-            required
+            re
             onChange={(e) => {
               setTelefoneUser(e.target.value);
             }}
           />
+          <label>
+            Criar como administrador?
+            <input
+              className="classRadio"
+              type="radio"
+              name="admin"
+              id="admin"
+              checked={admin === 1}
+              value="1"
+              onChange={() => {
+                setAdmin(1);
+              }}
+            ></input>
+          </label>
+
+          <label>
+            Criar como usuário comum?
+            <input
+              className="classRadio"
+              type="radio"
+              name="user"
+              id="user"
+              checked={admin === 0}
+              value="0"
+              onChange={() => {
+                setAdmin(0);
+              }}
+            ></input>
+          </label>
+
           <label className="customize">
             <input
               type="file"
@@ -179,31 +239,35 @@ function NewUser(props) {
               setDeptoUser(e.target.value);
             }}
           >
-            <option value="0" name="nothing" id="nothing">
-              Nenhuma Selecionada
+            <option value="0" name="null" id="null">
+              Nenhuma Opção Selecionada
             </option>
             <option value="1" name="AIP" id="AIP">
               Aprendizagem Industrial Presencial
             </option>
-            <option value="2" name="GTP" id="GTP">
+            <option value="2" name="TNMP" id="TNMP">
+              Técnico de Nível Médio Presencial
+            </option>
+            <option value="3" name="GTP" id="GTP">
               Graduação Tecnológica Presencial
             </option>
-            <option value="3" name="PGP" id="PGP">
+            <option value="4" name="PGP" id="PGP">
               Pós-Graduação Presencial
             </option>
-            <option value="4" name="EP" id="EP">
+            <option value="5" name="EP" id="EP">
               Extensão Presencial
             </option>
-            <option value="5" name="IPP" id="IPP">
+            <option value="6" name="IPP" id="IPP">
               Iniciação Profissional Presencial
             </option>
-            <option value="6" name="QPP" id="QPP">
+            <option value="7" name="QPP" id="QPP">
               Qualificação Profissional Presencial
             </option>
-            <option value="7" name="AEPP" id="AEPP">
+            <option value="8" name="AEPP" id="AEPP">
               Aperfeiç./Especializ. Profis. Presencial
             </option>
           </select>
+          <h4>{mensagem}</h4>
           <div className="btns">
             <input
               type="submit"
@@ -211,17 +275,14 @@ function NewUser(props) {
               id="btn"
               value="Enviar"
             />
-            <button 
-            className="btn-back-user" 
-            id="btn" 
-            onClick={voltar}> 
-            Voltar
+            <button className="btn-back-user" id="btn" onClick={voltar}>
+              Voltar
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-};
+}
 
 export default NewUser;

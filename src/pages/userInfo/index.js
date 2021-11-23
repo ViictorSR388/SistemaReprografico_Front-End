@@ -25,7 +25,7 @@ function UserInfo(props) {
 
   const [telefoneUser, setTelefoneUser] = useState("");
 
-  const [deptoUser, setDeptoUser] = useState("");
+  const [deptoUser, setDeptoUser] = useState("")
 
   const [edit, setEdit] = useState(false);
 
@@ -43,30 +43,30 @@ function UserInfo(props) {
 
   const { setAuthState } = useContext(AuthContext);
 
-  var id_depto = deptoUser;
+  // var id_depto = deptoUser;
 
-  //estrutura de decisão para exibir corretamente o departamento
-  if (deptoUser === "1") {
-    id_depto = "Aprendizagem Industrial Presencial"
-  }
-  else if (deptoUser === "2") {
-    id_depto = "Graduação Tecnológica Presencial"
-  }
-  else if (deptoUser === "3") {
-    id_depto = "Pós-Graduação Presencial"
-  }
-  else if (deptoUser === "4") {
-    id_depto = "Extensão Presencial"
-  }
-  else if (deptoUser === "5") {
-    id_depto = "Iniciação Profissional Presencial"
-  }
-  else if (deptoUser === "6") {
-    id_depto = "Qualificação Profissional Presencial"
-  }
-  else if (deptoUser === "7") {
-    id_depto = "Aperfeiç./Especializ. Profis. Presencial"
-  }
+  // //estrutura de decisão para exibir corretamente o departamento
+  // if (deptoUser === "1") {
+  //   id_depto = "Aprendizagem Industrial Presencial"
+  // }
+  // else if (deptoUser === "2") {
+  //   id_depto = "Graduação Tecnológica Presencial"
+  // }
+  // else if (deptoUser === "3") {
+  //   id_depto = "Pós-Graduação Presencial"
+  // }
+  // else if (deptoUser === "4") {
+  //   id_depto = "Extensão Presencial"
+  // }
+  // else if (deptoUser === "5") {
+  //   id_depto = "Iniciação Profissional Presencial"
+  // }
+  // else if (deptoUser === "6") {
+  //   id_depto = "Qualificação Profissional Presencial"
+  // }
+  // else if (deptoUser === "7") {
+  //   id_depto = "Aperfeiç./Especializ. Profis. Presencial"
+  // }
 
   const handleChange = (e) => {
     if (e.target.files.length) {
@@ -81,24 +81,24 @@ function UserInfo(props) {
 
   const handleUpload = (e) => {
     e.preventDefault();
-    var departamento;
+    // var departamento;
 
-    //estrutura de decisão para enviar o valor para o back como numero inteiro
-    if (deptoUser === "1") {
-      departamento = 1;
-    } else if (deptoUser === "2") {
-      departamento = 2;
-    } else if (deptoUser === "3") {
-      departamento = 3;
-    } else if (deptoUser === "4") {
-      departamento = 4;
-    } else if (deptoUser === "5") {
-      departamento = 5;
-    } else if (deptoUser === "6") {
-      departamento = 6;
-    } else if (deptoUser === "7") {
-      departamento = 7;
-    }
+    // //estrutura de decisão para enviar o valor para o back como numero inteiro
+    // if (deptoUser === "1") {
+    //   departamento = 1;
+    // } else if (deptoUser === "2") {
+    //   departamento = 2;
+    // } else if (deptoUser === "3") {
+    //   departamento = 3;
+    // } else if (deptoUser === "4") {
+    //   departamento = 4;
+    // } else if (deptoUser === "5") {
+    //   departamento = 5;
+    // } else if (deptoUser === "6") {
+    //   departamento = 6;
+    // } else if (deptoUser === "7") {
+    //   departamento = 7;
+    // }
 
     const formData = new FormData();
     formData.append("image", image.raw);
@@ -113,9 +113,6 @@ function UserInfo(props) {
     }
     if (telefoneUser !== "") {
       formData.append("telefone", telefoneUser);
-    }
-    if (deptoUser !== "") {
-      formData.append("depto", departamento);
     }
 
     axios
@@ -175,7 +172,7 @@ var [adm, setAdm] = useState()
         setEmailUser(result.data.email);
         setCfpUser(result.data.cfp);
         setTelefoneUser(result.data.telefone);
-        setDeptoUser(result.data.id_depto);
+        setDeptoUser(result.data.depto);
         setImage({ preview: "http://localhost:3002/" + result.data.imagem });
         // if (props.nif === result.data.nif) {
         //   setEditableAccount(true)
@@ -308,7 +305,7 @@ var [adm, setAdm] = useState()
                       <FaCloudUploadAlt className="uploud" />
                       Upload
                     </label>
-                    <h3 className="input-title">DEPARTAMENTO</h3>
+                    {/* <h3 className="input-title">DEPARTAMENTO</h3>
                     <select
                       className="select"
                       id="deptoUser"
@@ -341,7 +338,7 @@ var [adm, setAdm] = useState()
                       <option value="7" name="AEPP" id="AEPP">
                         Aperfeiç./Especializ. Profis. Presencial
                       </option>
-                    </select>
+                    </select> */}
                     <div className="btns">
                       <input type="submit" className="nu-send-button" id="btn" value="Enviar"
                       />
@@ -360,7 +357,7 @@ var [adm, setAdm] = useState()
                   <h3 className="input-title">TELEFONE</h3>
                   <h2 className="userInformation">{telefoneUser}</h2>
                   <h3 className="input-title">DEPARTAMENTO</h3>
-                  <h2 className="userInformation">{id_depto}</h2>
+                  <h2 className="userInformation">{deptoUser}</h2>
                   <div className="btns">
                     {adm || myNif === nif ? <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button> : <></>}
 

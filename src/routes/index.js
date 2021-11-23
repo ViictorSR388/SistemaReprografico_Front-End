@@ -105,7 +105,7 @@ function Rotas() {
                 <Route path='/notAuthorized' exact component={notAuthorized} />
                 <Route path='/myRequests' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome} />)} />
                 <Route path='/detPedido/:id' exact component={() => (<DetPedido image={authState.imagem} name={authState.nome} />)} />
-                <Route path="/edit-user/:id" exact component={() => (<EditUser image={authState.imagem} name={authState.nome} />)} />
+                <Route path="/edit-user/:id" exact component={() => (<EditUser image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />
                 <Route path="/users-requests/:nif" exact component={() => (<Request image={authState.imagem} name={authState.nome} />)} />
                 <Route path="/requestList/:id" exact component={() => (<RequestList image={authState.imagem} name={authState.nome} />)} />
                 <Route path="/firstAccess" exact component={() => (<FirstAccess image={authState.imagem} name={authState.nome} />)} />

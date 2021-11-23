@@ -11,6 +11,8 @@ function EditUser(props) {
 
   const { id } = useParams();
 
+  // const { nif } = useParams();
+
   const [image, setImage] = useState({ raw: "", preview: "" });
 
   const [nameUser, setNameUser] = useState("");
@@ -18,7 +20,9 @@ function EditUser(props) {
   const [setChangePass] = useState();
 
   const [emailUser, setEmailUser] = useState("");
-
+  
+  const [senhaUser, setSenhaUser] = useState("");
+  
   const [cfpUser, setCfpUser] = useState("");
 
   const [telefoneUser, setTelefoneUser] = useState("");
@@ -80,6 +84,8 @@ function EditUser(props) {
       departamento = 6;
     } else if (deptoUser === "7") {
       departamento = 7;
+    } else {
+      departamento = 0
     }
 
     const formData = new FormData();
@@ -90,35 +96,41 @@ function EditUser(props) {
     if (emailUser !== "") {
       formData.append("email", emailUser);
     }
+    if (senhaUser !== "") {
+      formData.append("senha", senhaUser);
+    }
     if (cfpUser !== "") {
       formData.append("cfp", cfpUser);
     }
     if (telefoneUser !== "") {
       formData.append("telefone", telefoneUser);
     }
-    if (deptoUser !== "") {
+    if (deptoUser !== "") { 
       formData.append("depto", departamento);
     }
 
+    formData.append("senha", "123");
+
     axios
-      .put("http://localhost:3002/myUser", formData, {
+      .put("http://localhost:3002/user/" + id, formData,{
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       })
       .then((result) => {
         console.log(result);
+        console.log("TESTE " + id);
       });
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/user/` + id, {
+    axios.get(`http://localhost:3002/user/` + id,{
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
     })
       .then((result) => {
-        console.log(result)
+        console.log(result);
         setNameUser(result.data.nome);
         setEmailUser(result.data.email);
         setCfpUser(result.data.cfp);
@@ -154,6 +166,16 @@ function EditUser(props) {
             placeholder={emailUser}
             onChange={(e) => {
               setEmailUser(e.target.value);
+            }}
+          />
+          <h3 className="input-title">SENHA</h3>
+          <input
+            className="input-box"
+            name="senhaUser"
+            type="password"
+            placeholder="Insira a Nova Senha"
+            onChange={(e) => {
+              setSenhaUser(e.target.value);
             }}
           />
           <h3 className="input-title">CFP</h3>
@@ -197,7 +219,7 @@ function EditUser(props) {
               setDeptoUser(e.target.value);
             }}
           >
-            <option value="0" name="nothing" id="nothing">
+            <option value="default" name="nothing" id="nothing">
               Nenhuma Selecionada
             </option>
             <option value="1" name="AIP" id="AIP">

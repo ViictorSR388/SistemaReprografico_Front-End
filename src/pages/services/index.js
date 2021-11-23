@@ -24,6 +24,8 @@ export default function Services(props) {
 
   var [ativos, setAtivos] = useState();
 
+  var [semRegistros, setSemRegistros] = useState();
+
   useEffect(() => {
     setLoading(true);
     onLoad();
@@ -41,17 +43,27 @@ export default function Services(props) {
       })
       .then((response) => {
         console.log(response);
-        if (id === 1) {
+
+        if (response.data.message) {
+          setSemRegistros(1);
+          if (id === 1) {
+            setAtivos(true);
+          } else {
+            setAtivos(false);
+          }
+        } else if (id === 1) {
           setServicos({
             servicosCA: response.data.servicosCA,
             servicosCT: response.data.servicosCT,
           });
+          setSemRegistros(0);
           setAtivos(true);
         } else {
           setServicos({
             servicosCA: response.data[0].servicosCA,
             servicosCT: response.data[0].servicosCT,
           });
+          setSemRegistros(0);
           setAtivos(false);
         }
       });
@@ -68,11 +80,15 @@ export default function Services(props) {
     try {
       const response = await axios(config);
       if (response) {
-        setServicos({
-          servicosCA: response.data.servicosCA,
-          servicosCT: response.data.servicosCT,
-          status: true,
-        });
+        if (response.data.message) {
+          console.log(response.data.message);
+        } else {
+          setServicos({
+            servicosCA: response.data.servicosCA,
+            servicosCT: response.data.servicosCT,
+            status: true,
+          });
+        }
         setAtivos(true);
         setLoading(false);
       }
@@ -82,37 +98,39 @@ export default function Services(props) {
   };
 
   const enableUser = ({ id, type, enable }) => {
-
     var atvr = 1;
 
     if (enable === 1) {
       atvr = 0;
-    };
+    }
 
     var config = {
-      method: 'put',
+      method: "put",
       url: `http://localhost:3002/service/${id}/type=${type}/enable=${atvr}`,
       headers: {
-        'accessToken': localStorage.getItem("accessToken"),
+        accessToken: localStorage.getItem("accessToken"),
       },
     };
 
     axios(config)
       .then(function (response) {
-        if (atvr === 1) { servicosAtivos(0); }
-        else if (atvr === 0) { servicosAtivos(1); }
+        if (atvr === 1) {
+          servicosAtivos(0);
+        } else if (atvr === 0) {
+          servicosAtivos(1);
+        }
         console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
         console.log(error);
       });
-  }
+  };
 
   var [admin, setAdmin] = useState(false);
   var services = true;
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     axios
       .get("http://localhost:3002/auth", {
         headers: {
@@ -122,13 +140,12 @@ export default function Services(props) {
       .then((result) => {
         var resposta = result.data.roles.includes("2_ROLE_ADMIN");
         if (resposta === true) {
-          setAdmin(true)
+          setAdmin(true);
+        } else {
+          setAdmin(false);
         }
-        else {
-          setAdmin(false)
-        }
-        setLoading(false)
-      })
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -139,9 +156,14 @@ export default function Services(props) {
         <>
           {" "}
           <MenuG />
-          <Header nif={props.nif}/>
-          <SideBar image={props.image} name={props.name} admin={true} services={services} nif={props.nif} />
-          
+          <Header nif={props.nif} />
+          <SideBar
+            image={props.image}
+            name={props.name}
+            admin={true}
+            services={services}
+            nif={props.nif}
+          />
           <div className="container-Services">
             <Button className="btn-boot" onClick={() => servicosAtivos(1)}>
               Serviços Ativos
@@ -149,7 +171,6 @@ export default function Services(props) {
             <Button className="btn-boot" onClick={() => servicosAtivos(0)}>
               Serviços Inativos
             </Button>
-
           </div>
           <div className="servicesAcoes">
             {ativos ? (
@@ -161,40 +182,68 @@ export default function Services(props) {
           <div className="services-card">
             <div className="ct-table-div">
               <h1 className="title-services">Capa &#38; Acabamento</h1>
-
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>DESCRIÇÃO</th>
-                    <th>QUANTIDADE</th>
-                    <th>CUSTO</th>
-                    <th> </th>
-                  </tr>
-                </thead>
-                {servicos.servicosCA.map((data) => (
-                  <React.Fragment key={data.id_servico}>
-                    <tbody>
+              {semRegistros ? (
+                <p>Sem registros...</p>
+              ) : (
+                <>
+                  <Table striped bordered hover size="sm">
+                    <thead>
                       <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>{data.descricao}</td>
-                        {/* QUANTIDADE */}
-                        <td>{data.quantidade}</td>
-                        {/* CUSTO */}
-                        <td>{data.valor_unitario}</td>
-                        {data.ativado ? (
-                          <td>
-                            <Button className="btn-disable" onClick={() => enableUser({ id: data.id_servico, type: "ca", enable: data.ativado })}>Desabilitar</Button>
-                          </td>
-                        ) : (
-                          <td>
-                            <Button className="btn-enable" onClick={() => enableUser({ id: data.id_servico, type: "ca", enable: data.ativado })}>Habilitar</Button>
-                          </td>
-                        )}
+                        <th>DESCRIÇÃO</th>
+                        <th>QUANTIDADE</th>
+                        <th>CUSTO</th>
+                        <th> </th>
                       </tr>
-                    </tbody>
-                  </React.Fragment>
-                ))}
-              </Table>
+                    </thead>
+                    {servicos.servicosCA.map((data) => (
+                      <React.Fragment key={data.id_servico}>
+                        <tbody>
+                          <tr>
+                            {/* DESCRIÇÃO */}
+                            <td>{data.descricao}</td>
+                            {/* QUANTIDADE */}
+                            <td>{data.quantidade}</td>
+                            {/* CUSTO */}
+                            <td>{data.valor_unitario}</td>
+                            {data.ativado ? (
+                              <td>
+                                <Button
+                                  className="btn-disable"
+                                  onClick={() =>
+                                    enableUser({
+                                      id: data.id_servico,
+                                      type: "ca",
+                                      enable: data.ativado,
+                                    })
+                                  }
+                                >
+                                  Desabilitar
+                                </Button>
+                              </td>
+                            ) : (
+                              <td>
+                                <Button
+                                  className="btn-enable"
+                                  onClick={() =>
+                                    enableUser({
+                                      id: data.id_servico,
+                                      type: "ca",
+                                      enable: data.ativado,
+                                    })
+                                  }
+                                >
+                                  Habilitar
+                                </Button>
+                              </td>
+                            )}
+                          </tr>
+                        </tbody>
+                      </React.Fragment>
+                    ))}
+                  </Table>
+                </>
+              )}
+
               <Button
                 className="btn-services"
                 variant="primary"
@@ -208,40 +257,67 @@ export default function Services(props) {
             </div>
             <div className="ca-table-div">
               <h1 className="title-services">Copia &#38; Tamanho</h1>
-
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>DESCRIÇÃO</th>
-                    <th>QUANTIDADE</th>
-                    <th>CUSTO</th>
-                    <th> </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {servicos.servicosCT.map((data) => (
-                    <React.Fragment key={data.id_servico}>
+              {semRegistros ? (
+                <p>Sem registros...</p>
+              ) : (
+                <>
+                  <Table striped bordered hover size="sm">
+                    <thead>
                       <tr>
-                        {/* DESCRIÇÃO */}
-                        <td>{data.descricao}</td>
-                        {/* QUANTIDADE */}
-                        <td>{data.quantidade}</td>
-                        {/* CUSTO */}
-                        <td>{data.valor_unitario}</td>
-                        {data.ativado ? (
-                          <td>
-                            <Button className="btn-disable" onClick={() => enableUser({ id: data.id_servico, type: "ct", enable: data.ativado })}>Desabilitar</Button>
-                          </td>
-                        ) : (
-                          <td>
-                            <Button className="btn-enable" onClick={() => enableUser({ id: data.id_servico, type: "ct", enable: data.ativado })}>Habilitar</Button>
-                          </td>
-                        )}
+                        <th>DESCRIÇÃO</th>
+                        <th>QUANTIDADE</th>
+                        <th>CUSTO</th>
+                        <th> </th>
                       </tr>
-                    </React.Fragment>
-                  ))}
-                </tbody>
-              </Table>
+                    </thead>
+                    <tbody>
+                      {servicos.servicosCT.map((data) => (
+                        <React.Fragment key={data.id_servico}>
+                          <tr>
+                            {/* DESCRIÇÃO */}
+                            <td>{data.descricao}</td>
+                            {/* QUANTIDADE */}
+                            <td>{data.quantidade}</td>
+                            {/* CUSTO */}
+                            <td>{data.valor_unitario}</td>
+                            {data.ativado ? (
+                              <td>
+                                <Button
+                                  className="btn-disable"
+                                  onClick={() =>
+                                    enableUser({
+                                      id: data.id_servico,
+                                      type: "ct",
+                                      enable: data.ativado,
+                                    })
+                                  }
+                                >
+                                  Desabilitar
+                                </Button>
+                              </td>
+                            ) : (
+                              <td>
+                                <Button
+                                  className="btn-enable"
+                                  onClick={() =>
+                                    enableUser({
+                                      id: data.id_servico,
+                                      type: "ct",
+                                      enable: data.ativado,
+                                    })
+                                  }
+                                >
+                                  Habilitar
+                                </Button>
+                              </td>
+                            )}
+                          </tr>
+                        </React.Fragment>
+                      ))}
+                    </tbody>
+                  </Table>
+                </>
+              )}
               <Button
                 className="btn-services"
                 variant="primary"
