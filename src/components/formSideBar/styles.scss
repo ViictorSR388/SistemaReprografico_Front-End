@@ -9,6 +9,10 @@
   flex-direction: column;
   position: fixed;
 
+  .subTitle {
+    cursor: pointer;
+  }
+
   .buttonsG {
     margin-top: 7rem;
     display: flex;
