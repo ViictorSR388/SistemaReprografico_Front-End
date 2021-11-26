@@ -49,7 +49,7 @@ function SideBar(props) {
 
     return (
         <div className="sidebarG">
-            <Repo nif={nif} name={name} image={props.image}/>
+            <Repo nif={nif} name={name} image={image}/>
 
             {console.log("NIF: " + nif + " NOME: " + name + " IMAGEM: " + image)}
             <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2>
