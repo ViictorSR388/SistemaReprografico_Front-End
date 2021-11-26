@@ -26,15 +26,14 @@ function RequestList(props) {
         },
       })
       .then((result) => {
-        console.log(result);
-        if (result.data) {
+        if (result.data.message) {
           setPedidos({
-            list: [result.data],
-            status: true,
+            message: result.data.message
           });
         } else {
           setPedidos({
-            message: result.data.message
+            list: [result.data],
+            status: true,
           });
         }
       });
@@ -92,7 +91,7 @@ function RequestList(props) {
                           </td>
                         </tr>
                         <tr>
-                          <td><strong>Total</strong></td>
+                          <td><strong>Custo total</strong></td>
                           <td>
                             <Card.Text>{data.custo_total}</Card.Text>
                           </td>
@@ -115,12 +114,18 @@ function RequestList(props) {
                             <Card.Text>{data.id_modo_envio}</Card.Text>
                           </td>
                         </tr>
-                        <tr>
-                          <td><strong>Observações</strong></td>
-                          <td>
-                            <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
-                          </td>
-                        </tr>
+
+                        {data.det_pedidos[0].observacoes === "" ? <> </> :
+                          <>
+                            <tr>
+                            <td><strong>Observações</strong></td>
+                              <td>
+                                <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
+                              </td>
+                            </tr>
+                            
+                          </>}
+
                       </tbody>
                     </React.Fragment>
                   ))}

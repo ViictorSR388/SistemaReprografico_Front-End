@@ -39,7 +39,7 @@ function FirstAccess() {
                 <LoginContainer />
                 <div className="container-login">
                     <h2 className="title-first">
-                        Insira sua senha
+                        Insira sua nova senha
                     </h2>
                     <form onSubmit={onSubmit}>
                         <input
