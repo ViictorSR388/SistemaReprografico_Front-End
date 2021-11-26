@@ -20,9 +20,9 @@ function EditUser(props) {
   const [setChangePass] = useState();
 
   const [emailUser, setEmailUser] = useState("");
-  
+
   const [senhaUser, setSenhaUser] = useState("");
-  
+
   const [cfpUser, setCfpUser] = useState("");
 
   const [telefoneUser, setTelefoneUser] = useState("");
@@ -36,21 +36,24 @@ function EditUser(props) {
     id_depto = "Aprendizagem Industrial Presencial"
   }
   else if (deptoUser === "2") {
-    id_depto = "Graduação Tecnológica Presencial"
+    id_depto = "Técnico de Nível Médio Presencial"
   }
   else if (deptoUser === "3") {
-    id_depto = "Pós-Graduação Presencial"
+    id_depto = "Graduação Tecnológica Presencial"
   }
   else if (deptoUser === "4") {
-    id_depto = "Extensão Presencial"
+    id_depto = "Pós-Graduação Presencial"
   }
   else if (deptoUser === "5") {
-    id_depto = "Iniciação Profissional Presencial"
+    id_depto = "Extensão Presencial"
   }
   else if (deptoUser === "6") {
+    id_depto = "Iniciação Profissional Presencial"
+  }
+  else if (deptoUser === "7") {
     id_depto = "Qualificação Profissional Presencial"
   }
-  else if (deptoUser === "7"){
+  else if (deptoUser === "8") {
     id_depto = "Aperfeiç./Especializ. Profis. Presencial"
   }
 
@@ -70,6 +73,7 @@ function EditUser(props) {
     var departamento;
 
     //estrutura de decisão para enviar o valor para o back como numero inteiro
+
     if (deptoUser === "1") {
       departamento = 1;
     } else if (deptoUser === "2") {
@@ -84,8 +88,8 @@ function EditUser(props) {
       departamento = 6;
     } else if (deptoUser === "7") {
       departamento = 7;
-    } else {
-      departamento = 0
+    } else if (deptoUser === "8") {
+      departamento = 8;
     }
 
     const formData = new FormData();
@@ -105,14 +109,14 @@ function EditUser(props) {
     if (telefoneUser !== "") {
       formData.append("telefone", telefoneUser);
     }
-    if (deptoUser !== "") { 
+    if (deptoUser !== "") {
       formData.append("depto", departamento);
     }
 
     formData.append("senha", "123");
 
     axios
-      .put("http://localhost:3002/user/" + id, formData,{
+      .put("http://localhost:3002/user/" + id, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -124,7 +128,7 @@ function EditUser(props) {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/user/` + id,{
+    axios.get(`http://localhost:3002/user/` + id, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -215,32 +219,36 @@ function EditUser(props) {
             className="select"
             id="deptoUser"
             name="deptoUser"
+            required
             onChange={(e) => {
               setDeptoUser(e.target.value);
             }}
           >
-            <option value="default" name="nothing" id="nothing">
-              Nenhuma Selecionada
+            <option value="0" name="null" id="null">
+              Nenhuma Opção Selecionada
             </option>
             <option value="1" name="AIP" id="AIP">
               Aprendizagem Industrial Presencial
             </option>
-            <option value="2" name="GTP" id="GTP">
+            <option value="2" name="TNMP" id="TNMP">
+              Técnico de Nível Médio Presencial
+            </option>
+            <option value="3" name="GTP" id="GTP">
               Graduação Tecnológica Presencial
             </option>
-            <option value="3" name="PGP" id="PGP">
+            <option value="4" name="PGP" id="PGP">
               Pós-Graduação Presencial
             </option>
-            <option value="4" name="EP" id="EP">
+            <option value="5" name="EP" id="EP">
               Extensão Presencial
             </option>
-            <option value="5" name="IPP" id="IPP">
+            <option value="6" name="IPP" id="IPP">
               Iniciação Profissional Presencial
             </option>
-            <option value="6" name="QPP" id="QPP">
+            <option value="7" name="QPP" id="QPP">
               Qualificação Profissional Presencial
             </option>
-            <option value="7" name="AEPP" id="AEPP">
+            <option value="8" name="AEPP" id="AEPP">
               Aperfeiç./Especializ. Profis. Presencial
             </option>
           </select>

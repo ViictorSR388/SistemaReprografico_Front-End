@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "../../styles/newUser.scss";
+import { Form } from 'react-bootstrap';
 import ProfileContainer from "../../components/profileContainer";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { AuthContext } from "./../../helpers/AuthContext";
@@ -189,9 +190,8 @@ function NewUser(props) {
               setTelefoneUser(e.target.value);
             }}
           />
-          <label>
-            Criar como administrador?
-            <input
+          <div className="radio-typeUser">
+            <Form.Check
               className="classRadio"
               type="radio"
               name="admin"
@@ -201,12 +201,14 @@ function NewUser(props) {
               onChange={() => {
                 setAdmin(1);
               }}
-            ></input>
-          </label>
+            ></Form.Check>
+            <Form.Check.Label>
+              Criar como administrador?
+            </Form.Check.Label>
+          </div>
 
-          <label>
-            Criar como usuário comum?
-            <input
+          <div className="radio-typeUser">
+            <Form.Check
               className="classRadio"
               type="radio"
               name="user"
@@ -216,8 +218,11 @@ function NewUser(props) {
               onChange={() => {
                 setAdmin(0);
               }}
-            ></input>
-          </label>
+            ></Form.Check>
+            <Form.Check.Label>
+              Criar como usuário comum?
+            </Form.Check.Label>
+          </div>
 
           <label className="customize">
             <input

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { useHistory } from 'react-router';
-import Repo from '../img/repo'
+import Repo from '../img/repo';
+import axios from 'axios';
 
 function SideBar(props) {
+    
+    const [name, setName] = useState("");
+    const [nif, setNif] = useState("");
+    const [image, setImage] = useState("");
 
     const history = useHistory();
 
@@ -27,10 +32,27 @@ function SideBar(props) {
         history.push("/services");
     }
 
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3002/myUser/" + nif, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+                validateStatus: () => true
+            }).then((result) => {
+                setName(result.data.nome)
+                setNif(result.data.nif)
+                setImage(result.data.imagem)
+            })
+    }, [])
+
     return (
         <div className="sidebarG">
-            <Repo image={props.image} nif={props.nif} />
-            <h2 className="subTitle" onClick={() => { history.push(`/user/${props.nif}`) }}>{props.name}</h2>
+            <Repo nif={nif} name={name} image={props.image}/>
+
+            {console.log("NIF: " + nif + " NOME: " + name + " IMAGEM: " + image)}
+            <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2>
             <div className="buttonsG">
 
                 {props.requestForm ? <></> : <><button className="buttonG" onClick={routeForm}>Solicitar Impressão</button></>}

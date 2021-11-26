@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaFileImport } from 'react-icons/fa';
+import { useHistory } from 'react-router';
+import { FaCloudUploadAlt, FaFileImport } from 'react-icons/fa';
 import { FaPrint } from 'react-icons/fa';
 import './styles.scss';
 import axios from 'axios';
@@ -9,6 +10,8 @@ export default function RequestForm() {
   //cursos
   const [course, setCourse] = useState(0);
   const [posGraduacao, setPosGraduacao] = useState('');
+
+  var history = useHistory();
 
   var curso;
   // var detalheGraduacao;
@@ -46,6 +49,8 @@ export default function RequestForm() {
     centro_custos = 6;
   } else if (cc === "7") {
     centro_custos = 7;
+  } else if (cc === "8") {
+    centro_custos = 8;
   }
 
   //card item
@@ -69,19 +74,40 @@ export default function RequestForm() {
     observacao_envio = observacao;
   }
 
-  const [selectedFile, setSelectedFile] = useState();
-  const [isFilePicked, setIsFilePicked] = useState(false);
-  const [isSelected, setIsSelected] = useState()
+  //Codigo do maluco
+  const [pdfFile, setPdfFile] = useState(null);
+  const [pdfFileError, setPdfFileError] = useState('');
 
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsSelected(true);
-  };
+  const fileType = ['application/pdf'];
+  const handlePdfFileChange = (e) => {
+    let selectedFile = e.target.files[0];
+    if (selectedFile) {
+      if (selectedFile && fileType.includes(selectedFile.type)) {
+        let reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+        reader.onloadend = (e) => {
+          setPdfFile(e.target.result);
+          setPdfFileError('');
+        }
+      }
+      else {
+        setPdfFile(null);
+        setPdfFileError('Por favor, selecione um PDF válido');
+      }
+    }
+    else {
+      console.log('Selecione o arquivo');
+    }
+  }
 
-  const handleSubmission = () => {
+  // const handlePdfFileSubmit = (e) => {
+  //   e.preventDefault();
+  // }
+
+  const FormPost = () => {
     const formData = new FormData();
 
-    formData.append("file", selectedFile);
+    formData.append("file", pdfFile);
     formData.append("curso", curso);
     formData.append("centro_custos", centro_custos);
 
@@ -105,11 +131,14 @@ export default function RequestForm() {
       .catch((error) => {
         console.error('Error:', error);
       });
+
+    console.log(pdfFile)
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    handleSubmission();
+    FormPost();
+    history.push("/myRequests");
   };
 
   // const nextStep = (e) => {
@@ -182,7 +211,7 @@ export default function RequestForm() {
                           const newValue = e.target.value;
                           setCourse(newValue);
                         }}
-                        required 
+                        required
                       />
                       <Form.Check.Label htmlFor="cai" className="radio-label">
                         CT-DS
@@ -244,7 +273,6 @@ export default function RequestForm() {
                       className="textInput"
                       as="textarea"
                       placeholder="Especifique a Graduação"
-                      // disabled={true}
                       name="posGraduacao"
                       id="posGraduacao"
                       onChange={(e) => {
@@ -265,28 +293,31 @@ export default function RequestForm() {
                       }}
                       required
                     >
-                      <option value="0" name="nothing" id="nothing" selected={cc === "0"} >
-                        Nenhuma Selecionada
+                      <option value="0" name="null" id="null" selected={cc === "0"}>
+                        Nenhuma Opção Selecionada
                       </option>
-                      <option value="1" name="AIP" id="AIP" selected={cc === "1"} >
+                      <option value="1" name="AIP" id="AIP" selected={cc === "1"}>
                         Aprendizagem Industrial Presencial
                       </option>
-                      <option value="2" name="GTP" id="GTP" selected={cc === "2"} >
+                      <option value="2" name="TNMP" id="TNMP" selected={cc === "2"}>
+                        Técnico de Nível Médio Presencial
+                      </option>
+                      <option value="3" name="GTP" id="GTP" selected={cc === "3"}>
                         Graduação Tecnológica Presencial
                       </option>
-                      <option value="3" name="PGP" id="PGP" selected={cc === "3"} >
+                      <option value="4" name="PGP" id="PGP" selected={cc === "4"}>
                         Pós-Graduação Presencial
                       </option>
-                      <option value="4" name="EP" id="EP" selected={cc === "4"} >
+                      <option value="5" name="EP" id="EP" selected={cc === "5"}>
                         Extensão Presencial
                       </option>
-                      <option value="5" name="IPP" id="IPP" selected={cc === "5"} >
+                      <option value="6" name="IPP" id="IPP" selected={cc === "6"}>
                         Iniciação Profissional Presencial
                       </option>
-                      <option value="6" name="QPP" id="QPP" selected={cc === "6"} >
+                      <option value="7" name="QPP" id="QPP" selected={cc === "7"}>
                         Qualificação Profissional Presencial
                       </option>
-                      <option value="7" name="AEPP" id="AEPP" selected={cc === "7"} >
+                      <option value="8" name="AEPP" id="AEPP" selected={cc === "8"}>
                         Aperfeiç./Especializ. Profis. Presencial
                       </option>
                     </Form.Select>
@@ -339,7 +370,7 @@ export default function RequestForm() {
                   <span className="total-pages" name="total">
                     {total}
                   </span>
-                  <Button className="step-btn"  onClick={() => {
+                  <Button className="step-btn" onClick={() => {
                     setStep(3);
                   }}>
                     Próximo
@@ -369,7 +400,7 @@ export default function RequestForm() {
                           }}
                           required
                         />
-                        <label className="labelName" htmlFor="type-paper">
+                        <label className="labelName" htmlFor="typePaper">
                           {data.descricao}
                         </label>
                       </div>
@@ -390,25 +421,25 @@ export default function RequestForm() {
               {step === 4 && (
                 <Card className="card medium">
                   <Card.Title className="cardTitle">Tipos de Capa e Encadernação</Card.Title>
-                    {servicos.servicosCA.map((data) => (
-                      <React.Fragment key={data.id_servico}>
-                        <div className="radioName">
-                          <Form.Check
-                            type="radio"
-                            name="typePaper"
-                            id="a3pb"
-                            // checked={typePaper === data.id_servicosCT}
-                            onChange={() => {
-                              setServicoCA(data.id_servico)
-                            }}
-                            required
-                          />
-                          <label className="labelName" htmlFor="type-paper">
-                            {data.descricao}
-                          </label>
-                        </div>
-                      </React.Fragment>
-                    ))}
+                  {servicos.servicosCA.map((data) => (
+                    <React.Fragment key={data.id_servico}>
+                      <div className="radioName">
+                        <Form.Check
+                          type="radio"
+                          name="typePaper"
+                          id="a3pb"
+                          // checked={typePaper === data.id_servicosCT}
+                          onChange={() => {
+                            setServicoCA(data.id_servico)
+                          }}
+                          required
+                        />
+                        <label className="labelName" htmlFor="typePaper">
+                          {data.descricao}
+                        </label>
+                      </div>
+                    </React.Fragment>
+                  ))}
                   <Button className="step-btn" onClick={() => {
                     setStep(5);
                   }}>
@@ -455,67 +486,53 @@ export default function RequestForm() {
                       }}
                       required
                     />
-                    <label className="labelName" htmlFor="type-paper">
+                    <label className="labelName" htmlFor="typePaper">
                       Envio presencial
                     </label>
                   </div>
-                    {typeSend === "2" && (
-                      <Form.Control
-                        className="sendTextInput"
-                        as="textarea"
-                        // disabled={true}
-                        id="observacoes"
-                        name="observacoes"
-                        placeholder="observações"
-                        value={observacao}
-                        onChange={(e) => {
-                          setObservacao(e.target.value);
-                        }}
-                        required
-                      />
-                    )}
+                  {typeSend === "2" && (
+                    <Form.Control
+                      className="sendTextInput"
+                      as="textarea"
+                      id="observacoes"
+                      name="observacoes"
+                      placeholder="observações"
+                      value={observacao}
+                      onChange={(e) => {
+                        setObservacao(e.target.value);
+                      }}
+                      required
+                    />
+                  )}
                   <div className="contentButton">
-
-                    {/* <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Control className="functionButton" type="file">Adicionar Item</Form.Control>
-                    <Form.Label htmlFor="file" className="functionButton" value="Anexar">
-                      <FaFileImport />
-                    </Form.Label>
-                      <Form.Control type="file" />
-                    </Form.Group> */}
-
-                    <input type="file" name="file" onClick={changeHandler} accept="application/pdf" />
                     <div className="bootstrap-buttons">
-                      <Button className="functionButton" type="submit">
-                        {isSelected ? (
-                          <div>
-                            <p>Filename: {selectedFile.name}</p>
-                            <p>Filetype: {selectedFile.type}</p>
-                            <p>Size in bytes: {selectedFile.size}</p>
-                            <p>
-                              lastModifiedDate:{' '}
-                              {selectedFile.lastModifiedDate.toLocaleDateString()}
-                            </p>
-                          </div>
-                        ) : (
-                          <p>Selecione um arquivo para mais detalhes</p>
-                        )}
-                        Solicitar <FaPrint />
-                      </Button>
                       <Button className="functionButton" onClick={() => {
                         setStep(4);
                       }}>
                         Anterior
+                      </Button>
+
+                      <label className="upload-form">
+                        <input
+                          type="file"
+                          name="pdfFile"
+                          onChange={handlePdfFileChange}
+                          accept="application/pdf"
+                        />
+                        <FaCloudUploadAlt />
+                        Upload PDF
+                      </label>
+                      {pdfFileError && <div className='error-msg'>{pdfFileError}</div>}
+                      
+                      <Button className="functionButton" type="submit">
+                        Solicitar <FaPrint />
                       </Button>
                     </div>
                   </div>
                 </div>
               )}
             </section>
-
-
           </div>
-
         </div>
       </Form>
     </>

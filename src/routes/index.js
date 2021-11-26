@@ -98,7 +98,7 @@ function Rotas() {
                 <Page key={props.match.params.pageid} {...props} />)
                 } /> */}
 
-                <Route path="/review/:id" component={() => (<Review image={authState.imagem} />)} />
+                <Route path="/review/:id" component={() => (<Review image={authState.imagem} nif={authState.nif} />)} />
 
 
                 <Route path='/statistics' exact component={() => (<Statistics image={authState.imagem} name={authState.nome} nif={authState.nif} />)} />

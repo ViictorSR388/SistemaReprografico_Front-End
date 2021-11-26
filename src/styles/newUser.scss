@@ -17,6 +17,13 @@
 form {
     display: flex;
     flex-direction: column;
+
+    .radio-typeUser {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        font-size: 1.8rem;
+    }
 }
 
 .input-box {
@@ -87,21 +94,6 @@ form {
         background-color: #BA181B;
     }
 }
-
-// .nu-button:nth-child(1) {
-//     background-color: $blue;
-
-//     &:hover {
-//         background-color: #04345c;
-//     }
-// }
-
-// .nu-button:nth-child(2) {
-
-//     &:hover {
-//         background-color: #BA181B;
-//     }
-// }
 
 .input-title {
     display: flex;

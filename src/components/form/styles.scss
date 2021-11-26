@@ -1,4 +1,4 @@
-@import '../../styles/global';
+@import "../../styles/global";
 
 .containerForm {
   display: flex;
@@ -7,8 +7,8 @@
   flex-direction: column;
   position: absolute;
   top: 15rem;
-  left: 50rem;
-  
+  left: 55rem;
+
   .title-repro {
     text-align: center;
     background-color: $grey-button;
@@ -26,32 +26,47 @@
     align-items: center;
     font-size: 2rem;
     height: 60rem;
-    
-  
+
     .card-wrapper {
       display: flex;
-  
+
       .cardTitle {
         font-size: 2.5rem;
         margin-bottom: 2rem;
         margin-top: 2rem;
 
-        :nth-child(2){
+        :nth-child(2) {
           margin-top: 5vh !important;
         }
       }
-      
+
       .cardTitle-CC {
         font-size: 2.5rem;
         margin-bottom: 3vh;
         margin-top: 9vh;
 
-        :nth-child(2){
+        :nth-child(2) {
           margin-top: 5vh !important;
         }
       }
     }
- 
+
+    .upload-form {
+      font-size: 1.5rem !important;
+      width: 25% !important;
+      background-color: blue !important;
+      cursor: pointer !important;
+      margin-bottom: 2rem !important;
+      color: $white !important;
+      padding: 0.5rem !important;
+      border-radius: 0.8rem !important;
+      transition: .5s !important;
+
+      &:hover {
+        background-color: #04345c !important;
+      }
+    }
+
     .card {
       display: flex;
       background-color: $grey;
@@ -63,29 +78,28 @@
       margin: 0 1rem;
       border-radius: 5px;
 
-      .radio-container{
+      .radio-container {
         display: flex;
         justify-content: space-between;
         width: 35vw;
-        
       }
       .radioName {
         margin: 0.8rem 0;
         display: flex;
       }
 
-      .select-container{
+      .select-container {
         display: flex;
         justify-content: center;
         margin-bottom: 10vh;
         width: 35vw;
-        
+
         .radioName {
           margin: 0.8rem 0;
           display: flex;
         }
       }
-      
+
       .textInput {
         margin-top: 1.5rem;
         font-size: 1.5rem;
@@ -99,30 +113,32 @@
         height: 15vh;
         width: 18vw;
       }
-      
-      .step-btn{
-        width: 20vw;
-        background-color: $blue;
+
+      .step-btn {
+        width: 20vw !important;
+        background-color: $blue !important;
         border: transparent !important;
-        font-size: 1.5rem;
+        font-size: 1.5rem !important;
         margin-top: 2vh !important;
         margin-bottom: 1rem !important;
+        transition: .5s !important;
 
         &:hover {
-            background-color: #04345c;
+          background-color: #04345c !important;
         }
       }
 
       .step-btn-back {
-        width: 20vw;
+        width: 20vw !important;
         background-color: $blue;
         border: transparent !important;
-        font-size: 1.5rem;
+        font-size: 1.5rem !important;
         margin-top: 2vh !important;
-        margin-bottom: 2rem;
+        margin-bottom: 2rem !important;
+        transition: .5s !important;
 
         &:hover {
-            background-color: #04345c;
+          background-color: #04345c !important; 
         }
       }
 
@@ -142,9 +158,25 @@
       }
 
       .bootstrap-buttons {
-        width: 35rem !important; 
+        width: 25vw !important;
         display: flex !important;
         justify-content: space-between !important;
+
+        .functionButton {
+          cursor: pointer !important;
+          border-radius: 8px !important;
+          background-color: $blue !important;
+          color: $white !important;
+          transition: 0.5s !important;
+          font-size: 1.5rem !important;
+          width: 14rem !important;
+          height: 3rem !important;
+          border: none !important;
+
+          &.functionButton:hover {
+            background-color: #04345c !important;
+          }
+        }
       }
     }
   }
@@ -157,7 +189,7 @@
   }
 }
 
-@media (min-width: 951px) and (max-width: 1400px){
+@media (min-width: 951px) and (max-width: 1400px) {
   .containerForm {
     margin: auto;
     left: 0;
@@ -205,7 +237,7 @@
           margin: 1rem 0;
         }
 
-        input[type='date'] {
+        input[type="date"] {
           transform: scale(1.4);
         }
       }
@@ -310,7 +342,7 @@
         .medium {
           height: 40rem;
 
-          input[type="text"]{
+          input[type="text"] {
             width: 30rem;
           }
         }
@@ -361,13 +393,13 @@
         width: 80%;
 
         .functionButton {
-          cursor: pointer;
-          border-radius: 8px;
-          background-color: $grey-button;
-          color: $white;
-          transition: 0.5s;
-          font-size: 2rem;
-          width: 14rem;
+          cursor: pointer !important;
+          border-radius: 8px !important;
+          background-color: $grey-button !important;
+          color: $white !important;
+          transition: 0.5s !important;
+          font-size: 2rem !important;
+          width: 14rem !important;
 
           &.functionButton:hover {
             background-color: $grey;
@@ -377,4 +409,8 @@
       }
     }
   }
+}
+
+textarea.form-control {
+  margin-bottom: 2rem !important;
 }

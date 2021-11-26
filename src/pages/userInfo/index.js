@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
 import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from 'react-router';
 // import { PassContext } from "../../helpers/changePassContext";
 import { AuthContext } from './../../helpers/AuthContext';
-
 import ProfileContainer from "../../components/profileContainer";
 
 function UserInfo(props) {
