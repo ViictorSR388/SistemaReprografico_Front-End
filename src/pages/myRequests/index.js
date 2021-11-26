@@ -96,7 +96,7 @@ const MyRequests = (props) => {
     return (
         <>
             <div className="content">
-                {loading ? <> loading... </> : <><ProfileContainer requestsNoInfo="true" image={props.image} name={props.name} changePassword={() => {
+                {loading ? <> loading... </> : <><ProfileContainer requestsNoInfo="true" change="true" image={props.image} name={props.name} changePassword={() => {
                     history.push(`/user/${props.nif}`)
                 }} />
                     <div className="container">
