@@ -10,6 +10,7 @@ export default function RequestForm() {
   //cursos
   const [course, setCourse] = useState(0);
   const [posGraduacao, setPosGraduacao] = useState('');
+  const [message, setMessage] = useState('');
 
   var history = useHistory();
 
@@ -96,7 +97,7 @@ export default function RequestForm() {
       }
     }
     else {
-      console.log('Selecione o arquivo');
+      setPdfFileError('Selecione um arquivo');
     }
   }
 
@@ -121,24 +122,35 @@ export default function RequestForm() {
     formData.append("modo_envio", modo_envio);
     formData.append("observacoes", observacao_envio);
 
-    axios.post('http://localhost:3002/request', formData, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      }
-    }).then((result) => {
-      console.log('Success:', result);
-    })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    console.log(pdfFileError)
+    if (pdfFileError === 'Selecione um arquivo') {
+      setMessage(pdfFileError)
+    }
+    else {
+      axios.post('http://localhost:3002/request', formData, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        }
+      }).then((result) => {
+        console.log(result)
+        setMessage(result.data.message)
+        if (result.data.message === "Pedido realizado com sucesso!") {
+          setTimeout(() => {
+            history.push("/myRequests")
+          }, 1500);
+        }
+      })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
 
-    console.log(pdfFile)
-  };
+      console.log(pdfFile)
+    };
+  }
 
   const onSubmit = (e) => {
     e.preventDefault();
     FormPost();
-    history.push("/myRequests");
   };
 
   // const nextStep = (e) => {
@@ -511,24 +523,27 @@ export default function RequestForm() {
                       }}>
                         Anterior
                       </Button>
+                      {typeSend === "1" && (
+                        <label className="upload-form">
+                          <input
+                            type="file"
+                            name="pdfFile"
+                            onChange={handlePdfFileChange}
+                            accept="application/pdf"
+                          />
+                          <FaCloudUploadAlt />
+                          Upload PDF
+                        </label>
+                      )}
 
-                      <label className="upload-form">
-                        <input
-                          type="file"
-                          name="pdfFile"
-                          onChange={handlePdfFileChange}
-                          accept="application/pdf"
-                        />
-                        <FaCloudUploadAlt />
-                        Upload PDF
-                      </label>
                       {pdfFileError && <div className='error-msg'>{pdfFileError}</div>}
-                      
+
                       <Button className="functionButton" type="submit">
                         Solicitar <FaPrint />
                       </Button>
                     </div>
                   </div>
+                  {message}
                 </div>
               )}
             </section>

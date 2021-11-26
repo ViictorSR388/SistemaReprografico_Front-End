@@ -18,8 +18,6 @@ function Review(props) {
 
   var [mensagem, setMensagem] = useState();
 
-  var [image, setImage] = useState();
-
   const avaliaPost = (e) => {
     e.preventDefault();
 
@@ -28,12 +26,8 @@ function Review(props) {
         accessToken: localStorage.getItem("accessToken"),
       },
     }).then((result) => {
-      if (result.data.error) {
-        setMensagem(result.data.error)
-      }
-      else {
-        setMensagem(result.data.message)
-
+      setMensagem(result.data.message)
+      if (result.data.message !== "Informe se o pedido lhe atendeu ou não, por favor!") {
         //Redireciona para página de meusPedidos em 1,5seg
         setTimeout(() => {
           history.push("/myRequests")
@@ -45,8 +39,8 @@ function Review(props) {
   return (
     <>
       <Menu />
-      <Header nif={props.nif}/>
-      <SideBar image={props.image} name={props.name} nif={props.nif}/>
+      <Header nif={props.nif} />
+      <SideBar image={props.image} name={props.name} nif={props.nif} />
 
       <div id="main-container">
 

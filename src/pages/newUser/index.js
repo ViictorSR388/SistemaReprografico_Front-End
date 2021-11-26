@@ -125,6 +125,7 @@ function NewUser(props) {
   return (
     <div className="content">
       <ProfileContainer
+        newUser={true}
         title="Exemplo do perfil do usuário"
         image={image.preview}
         name={nameUser}

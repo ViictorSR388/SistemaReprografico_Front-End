@@ -46,21 +46,21 @@ function SideBar(props) {
                 setImage(`http://localhost:3002/${result.data.imagem}`)
                 if (result.data.roles[0] === "2_ROLE_ADMIN") {
                     setAdmin(true)
-                  }
-            })
+                }
 
-        if (props.nif) {
-            setNif(props.nif)
-        }
-        if (props.image) {
-            setImage(`${props.image}`)
-        }
-        if (props.name) {
-            setName(props.name)
-        }
-        if(props.admin){
-            setAdmin(props.admin)
-        }
+                if (props.nif) {
+                    setNif(props.nif)
+                }
+                if (props.image) {
+                    setImage(`${props.image}`)
+                }
+                if (props.name) {
+                    setName(props.name)
+                }
+                if (props.admin) {
+                    setAdmin(props.admin)
+                }
+            })
     }, [props.nif, props.image, props.name, props.admin])
 
     return (
