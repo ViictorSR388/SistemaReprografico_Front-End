@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./styles.scss";
+import "../img/repo.scss"
 import { useHistory } from 'react-router';
-import Repo from '../img/repo';
 import axios from 'axios';
 
 function SideBar(props) {
@@ -35,23 +35,32 @@ function SideBar(props) {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3002/myUser/" + nif, {
+            .get("http://localhost:3002/myUser/", {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
-                validateStatus: () => true
             }).then((result) => {
                 setName(result.data.nome)
                 setNif(result.data.nif)
-                setImage(result.data.imagem)
+                setImage(`http://localhost:3002/${result.data.imagem}`)
             })
-    }, [])
+
+            if(props.nif){
+                setNif(props.nif)
+            }
+            if(props.image){
+                setImage(`${props.image}`)
+            }
+            if(props.name){
+                setName(props.name)
+            }
+    }, [props.nif, props.image, props.name])
 
     return (
         <div className="sidebarG">
-            <Repo nif={nif} name={name} image={image}/>
-
-            {console.log("NIF: " + nif + " NOME: " + name + " IMAGEM: " + image)}
+        <div onClick={() => { history.push(`/user/${nif}`) }} className="circle">
+        <img src={image} className="repo" alt="imagem do usuário" />
+      </div>
             <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2>
             <div className="buttonsG">
 
