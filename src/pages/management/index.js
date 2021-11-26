@@ -115,7 +115,7 @@ function Management(props) {
         <>
           <Menu />
           <Header nif={props.nif} />
-          <SideBar image={props.image} name={props.name} admin={true} management={true} nif={props.nif} />
+          <SideBar image={props.image} name={props.name} admin={props.admin} management={true} nif={props.nif} />
 
           <div className="container-management">
             <div className="management">

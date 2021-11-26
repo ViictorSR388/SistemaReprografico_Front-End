@@ -5,10 +5,11 @@ import { useHistory } from 'react-router';
 import axios from 'axios';
 
 function SideBar(props) {
-    
+
     const [name, setName] = useState("");
     const [nif, setNif] = useState("");
     const [image, setImage] = useState("");
+    const [admin, setAdmin] = useState();
 
     const history = useHistory();
 
@@ -43,35 +44,46 @@ function SideBar(props) {
                 setName(result.data.nome)
                 setNif(result.data.nif)
                 setImage(`http://localhost:3002/${result.data.imagem}`)
+                if (result.data.roles[0] === "2_ROLE_ADMIN") {
+                    setAdmin(true)
+                  }
             })
 
-            if(props.nif){
-                setNif(props.nif)
-            }
-            if(props.image){
-                setImage(`${props.image}`)
-            }
-            if(props.name){
-                setName(props.name)
-            }
-    }, [props.nif, props.image, props.name])
+        if (props.nif) {
+            setNif(props.nif)
+        }
+        if (props.image) {
+            setImage(`${props.image}`)
+        }
+        if (props.name) {
+            setName(props.name)
+        }
+        if(props.admin){
+            setAdmin(props.admin)
+        }
+    }, [props.nif, props.image, props.name, props.admin])
 
     return (
         <div className="sidebarG">
-        <div onClick={() => { history.push(`/user/${nif}`) }} className="circle">
-        <img src={image} className="repo" alt="imagem do usuário" />
-      </div>
+            <div onClick={() => { history.push(`/user/${nif}`) }} className="circle">
+                <img src={image} className="repo" alt="imagem do usuário" />
+            </div>
             <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2>
             <div className="buttonsG">
 
                 {props.requestForm ? <></> : <><button className="buttonG" onClick={routeForm}>Solicitar Impressão</button></>}
+                {props.requestsNoInfo ? <></> :
+                    <>
+                        <button className="buttonG" onClick={routeMyRequests}>Meus Pedidos</button>
+                    </>
+                }
                 {props.admin ?
                     <>
                         {props.management ? <></> : <button className="buttonG" onClick={routeManagement}>Gerencia de usuários</button>}
                         {props.estatisticas ? <></> : <button className="buttonG" onClick={routeStatistics}>Estatísticas</button>}
                         {props.services ? <></> : <button className="buttonG" onClick={routeServices}>Serviços</button>}
                     </> : <></>}
-                <button className="buttonG" onClick={routeMyRequests}>Meus Pedidos</button>
+
             </div>
         </div>
     );

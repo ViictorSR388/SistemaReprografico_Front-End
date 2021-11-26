@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom"
-import ProfileContainer from "../../components/profileContainer";
+import { useHistory } from "react-router-dom";
+import Header from '../../../src/components/header';
+import SideBar from '../../../src/components/formSideBar';
 import axios from 'axios'
 import { Button, Card, Table } from 'react-bootstrap';
 import '../../styles/myRequests.scss'
@@ -88,7 +89,7 @@ const MyRequests = (props) => {
                     setPedidos({
                         message: "Sem registros...",
                         ativos: true
-                    })
+                    });
                 }
             });
     }
@@ -96,13 +97,14 @@ const MyRequests = (props) => {
     return (
         <>
             <div className="content">
-                {loading ? <> loading... </> : <><ProfileContainer requestsNoInfo="true" change="true" image={props.image} name={props.name} changePassword={() => {
-                    history.push(`/user/${props.nif}`)
-                }} />
+                {loading ? <> loading... </> : <>
+                    <Header nif={props.nif} />
+                    <SideBar image={props.image} name={props.name} requestsNoInfo={true} nif={props.nif} admin={props.admin} />
+
                     <div className="container">
-                    <div className="avaliacao-request">
-                        {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
-                    </div>
+                        <div className="avaliacao-request">
+                            {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
+                        </div>
                         <div className="btns-request">
                             <button className="btn-request" onClick={() => getAvaliados(0)}>Não avaliados</button>
                             <button className="btn-request" onClick={() => getAvaliados(1)}>Avaliados</button>
@@ -156,7 +158,7 @@ const MyRequests = (props) => {
                                 </>
                             }
                         </>
-                        <Button className="back-request" onClick={() => history.push('/requestForm')}> Voltar </Button>
+                        {/**<Button className="back-request" onClick={() => history.push('/requestForm')}> Voltar </Button>**/}
                     </div>
                 </>}
             </div>

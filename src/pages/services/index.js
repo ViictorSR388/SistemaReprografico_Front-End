@@ -5,7 +5,7 @@ import axios from "axios";
 import "../../styles/services.scss";
 import Header from "../../../src/components/header";
 import SideBar from "../../../src/components/formSideBar";
-import { Card, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import Button from "@restart/ui/esm/Button";
 import MenuG from "../../components/hamburgerButtonG";
 
@@ -126,28 +126,6 @@ export default function Services(props) {
       });
   };
 
-  var [admin, setAdmin] = useState(false);
-  var services = true;
-
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get("http://localhost:3002/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((result) => {
-        var resposta = result.data.roles.includes("2_ROLE_ADMIN");
-        if (resposta === true) {
-          setAdmin(true);
-        } else {
-          setAdmin(false);
-        }
-        setLoading(false);
-      });
-  }, []);
-
   return (
     <>
       {loading ? (
@@ -160,8 +138,8 @@ export default function Services(props) {
           <SideBar
             image={props.image}
             name={props.name}
-            admin={true}
-            services={services}
+            admin={props.admin}
+            services={true}
             nif={props.nif}
           />
           <div className="container-Services">
