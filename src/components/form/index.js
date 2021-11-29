@@ -175,6 +175,7 @@ export default function RequestForm() {
 
   var [servicoCA, setServicoCA] = useState();
   var [servicoCT, setServicoCT] = useState();
+  var [messageServ, setMessageServ] = useState('');
 
   useEffect(() => {
     onLoad();
@@ -192,13 +193,21 @@ export default function RequestForm() {
       },
     };
     try {
-      const response = await axios(config)
+      const response = await axios(config);
+      console.log(response)
       if (response) {
-        setServicos({
-          servicosCA: response.data.servicosCA,
-          servicosCT: response.data.servicosCT
-        })
-        console.log((response.data));
+        if (response.data.servicosCA === undefined && response.data.servicosCT === undefined) {
+          setMessageServ(response.data.message)
+        }
+       // else if (response.data.servicosCA.length < 1 || response.data.servicosCT.lenght < 1) {
+        
+        //}
+        else{
+          setServicos({
+            servicosCA: response.data.servicosCA,
+            servicosCT: response.data.servicosCT
+          });
+        }
       }
     } catch (e) {
       console.error(e);
@@ -405,26 +414,28 @@ export default function RequestForm() {
               {step === 3 && (
                 <div className="card medium">
                   <Card.Title className="cardTitle">Formato e Cor</Card.Title>
-                  {servicos.servicosCT.map((data) => (
-                    <React.Fragment key={data.id_servico}>
-                      <div className="radioName">
-                        <Form.Check
-                          className="check classRadio"
-                          type="radio"
-                          name="typePaper"
-                          id="a3pb"
-                          // checked={typePaper === data.id_servicosCT}
-                          onChange={() => {
-                            setServicoCT(data.id_servico)
-                          }}
-                          required
-                        />
-                        <label className="labelName" htmlFor="typePaper">
-                          {data.descricao}
-                        </label>
-                      </div>
-                    </React.Fragment>
-                  ))}
+                  {messageServ !== "" ? <>{messageServ}</> : <>
+                    {servicos.servicosCT.map((data) => (
+                      <React.Fragment key={data.id_servico}>
+                        <div className="radioName">
+                          <Form.Check
+                            className="check classRadio"
+                            type="radio"
+                            name="typePaper"
+                            id="a3pb"
+                            // checked={typePaper === data.id_servicosCT}
+                            onChange={() => {
+                              setServicoCT(data.id_servico)
+                            }}
+                            required
+                          />
+                          <label className="labelName" htmlFor="typePaper">
+                            {data.descricao}
+                          </label>
+                        </div>
+                      </React.Fragment>
+                    ))}
+                  </>}
                   <Button className="step-btn" onClick={(e) => {
                     setStep(4);
                   }}>
@@ -440,25 +451,27 @@ export default function RequestForm() {
               {step === 4 && (
                 <Card className="card medium">
                   <Card.Title className="cardTitle">Tipos de Capa e Encadernação</Card.Title>
-                  {servicos.servicosCA.map((data) => (
-                    <React.Fragment key={data.id_servico}>
-                      <div className="radioName">
-                        <Form.Check
-                          type="radio"
-                          name="typePaper"
-                          id="a3pb"
-                          // checked={typePaper === data.id_servicosCT}
-                          onChange={() => {
-                            setServicoCA(data.id_servico)
-                          }}
-                          required
-                        />
-                        <label className="labelName" htmlFor="typePaper">
-                          {data.descricao}
-                        </label>
-                      </div>
-                    </React.Fragment>
-                  ))}
+                  {messageServ !== "" ? <>{messageServ}</> : <>
+                    {servicos.servicosCA.map((data) => (
+                      <React.Fragment key={data.id_servico}>
+                        <div className="radioName">
+                          <Form.Check
+                            type="radio"
+                            name="typePaper"
+                            id="a3pb"
+                            // checked={typePaper === data.id_servicosCT}
+                            onChange={() => {
+                              setServicoCA(data.id_servico)
+                            }}
+                            required
+                          />
+                          <label className="labelName" htmlFor="typePaper">
+                            {data.descricao}
+                          </label>
+                        </div>
+                      </React.Fragment>
+                    ))}
+                  </>}
                   <Button className="step-btn" onClick={() => {
                     setStep(5);
                   }}>
