@@ -21,11 +21,12 @@ Bem vindo ao nosso Trabalho de Conclusão de Curso - [TCC](https://www.significa
 - [Iniciar](#iniciar)
 - [Desenvolvedores](#devs)
 - [Back-End](#back)
-- [Licença](#licenca)
 
 <hr>
 
 ## <a name="sobre"></a> 📌 Sobre
+
+Esta aplicação é um Sistema Repografia que tem como objetivo manter controle sobre as impressões feitas por cada departamento da escola, por exemplo, o departamento financeiro solicitou uma impressão sobre determinado documento, e pedirá a solicitação para a gerência, ela irá receber uma notificação no email quando for solicitado alguma impressão, ela terá como decidir se aprova ou não.
 
 <hr>
 
@@ -59,18 +60,44 @@ O wireframe da aplicação foi desenvolvido no [Figma](https://www.figma.com/), 
 
 <table align="center">
   <thead>
-    <th><h3>IDE</h3></th>
-    <th><h3>Framework</h3></th>
-    <th><h3>Linguagem</h3></th>
-    <th><h3>Comunicação</h3></th>
-    <th><h3>Metodologia</h3></th>
+    <th>IDE</th>
+    <th>Linguagem</th>
+    <th>Framework</th>
+    <th>Comunicação</th>
+    <th>Metodologia</th>
+    <th>Organização</th>
   </thead>
   
   <tbody>
     <tr>
       <td>
         <a href="https://code.visualstudio.com/">
-          <img src="https://user-images.githubusercontent.com/71888055/143903309-41cb54ab-8c2f-4726-aa85-9ada8970954c.png" height="70" width="90">
+          <img src="https://user-images.githubusercontent.com/71888055/143903309-41cb54ab-8c2f-4726-aa85-9ada8970954c.png" height="70" width="90" />
+        </a>
+      </td>
+      <td>
+        <a href="https://www.javascript.com/">
+          <img src="https://user-images.githubusercontent.com/71888055/143905133-c5fc9b1d-b4ab-4ca0-844d-52977cc75bec.png" height="70" width="80" />
+        </a>
+      </td>
+      <td>
+        <a href="https://pt-br.reactjs.org/">
+          <img src="https://user-images.githubusercontent.com/71888055/143904388-906b9cab-64d4-4908-a44f-c83f7e4dbc91.png" height="70" width="90" />
+        </a>
+      </td>
+      <td>
+        <a href="https://www.microsoft.com/pt-br/microsoft-teams/log-in">
+          <img src="https://user-images.githubusercontent.com/71888055/143905593-393986cf-8273-4068-ac2d-53f51c925e98.png" height="70" width="90" />
+        </a>
+      </td>
+      <td>
+        <a href="https://blog.contaazul.com/metodologia-scrum">
+          <img src="https://user-images.githubusercontent.com/71888055/143917962-c5068f89-62d9-4248-910f-09fb59e49e8c.png" height="70" width="90" />
+        </a>
+      </td>
+      <td>
+        <a href="https://trello.com/">
+          <img src="https://user-images.githubusercontent.com/71888055/143919669-e1b17dcd-dc8c-4031-b0bc-dd1dc06ac03d.png" height="70" width="90" />
         </a>
       </td>
     </tr>
@@ -79,15 +106,51 @@ O wireframe da aplicação foi desenvolvido no [Figma](https://www.figma.com/), 
 
 ## <a name="dependencias"></a> Dependências
 
-- []()
-- []()
-- []()
-- []()
-- []()
+- [React-Router-Dom](https://yarnpkg.com/package/react-router-dom)
+- [React-Bootstrap](https://yarnpkg.com/package/bootstrap)
+- [React-Icons](https://yarnpkg.com/package/react-icons)
+- [Node-Sass](https://yarnpkg.com/package/node-sass)
+- [Axios](https://yarnpkg.com/package/axios)
+
+<table align="center">
+  <thead>
+    <th>React Router Dom</th>
+    <th>React Bootstrap</th>
+    <th>React Icons</th>
+    <th>Node Sass</th>
+    <th>Axios</th>
+  </thead>
+  
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143927451-a4457f9c-6446-494c-8ca8-62f5d93543f2.png" height="80" width="130" />
+      </td>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143927412-3d6a6062-694e-4d53-b67a-b8cfd38fd009.png" height="70" width="120" />
+      </td>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143928084-45c38a86-6ee6-47ea-a0ec-df60423bdd5b.png" height="70" width="90" />
+      </td>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143927518-65527671-a623-43e6-a0a2-82406614acbf.png" height="70" width="90" />
+      </td>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143927493-894f97d7-c35c-465e-bc78-afebcd8f48fe.jpg" height="70" width="90" />
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <hr>
 
 ## <a name="iniciar"></a> 📌 Iniciar
+
+Para iniciar aplicação na sua máquina local, baixe este repositório, abra o projeto no Visual Studio Code e coloque o seguinte comando no terminal:
+
+`` yarn ``
+
+Para instalar todas as dependências do projeto.
 
 <hr>
 
@@ -110,5 +173,3 @@ Aqui está o link para o repositório da [Squad de Back-End](https://github.com/
 
 ### Link do projeto hospedado:
 - [Sistema Reprográfico]()
-
-## <a name="licenca"></a> 📌 Licença
