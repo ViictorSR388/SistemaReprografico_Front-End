@@ -75,31 +75,38 @@ export default function RequestForm() {
     observacao_envio = observacao;
   }
 
-  //Codigo do maluco
   const [pdfFile, setPdfFile] = useState(null);
   const [pdfFileError, setPdfFileError] = useState('');
 
-  const fileType = ['application/pdf'];
-  const handlePdfFileChange = (e) => {
-    let selectedFile = e.target.files[0];
-    if (selectedFile) {
-      if (selectedFile && fileType.includes(selectedFile.type)) {
-        let reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onloadend = (e) => {
-          setPdfFile(e.target.result);
-          setPdfFileError('');
-        }
-      }
-      else {
-        setPdfFile(null);
-        setPdfFileError('Por favor, selecione um PDF válido');
-      }
+  const handleChange = (e) => {
+    if (e.target.files.length) {
+      setPdfFile({
+        raw: e.target.files[0],
+      });
     }
-    else {
-      setPdfFileError('Selecione um arquivo');
-    }
-  }
+  };
+
+  // const fileType = ['application/pdf'];
+  // const handlePdfFileChange = (e) => {
+  //   let selectedFile = e.target.files[0];
+  //   if (selectedFile) {
+  //     if (selectedFile && fileType.includes(selectedFile.type)) {
+  //       let reader = new FileReader();
+  //       reader.readAsDataURL(selectedFile);
+  //       reader.onloadend = (e) => {
+  //         setPdfFile(e.target.result);
+  //         setPdfFileError('');
+  //       }
+  //     }
+  //     else {
+  //       setPdfFile(null);
+  //       setPdfFileError('Por favor, selecione um PDF válido');
+  //     }
+  //   }
+  //   else {
+  //     setPdfFileError('Selecione um arquivo');
+  //   }
+  // }
 
   // const handlePdfFileSubmit = (e) => {
   //   e.preventDefault();
@@ -144,7 +151,7 @@ export default function RequestForm() {
           console.error('Error:', error);
         });
 
-      console.log(pdfFile)
+      console.log(handleChange)
     };
   }
 
@@ -528,7 +535,7 @@ export default function RequestForm() {
                           <input
                             type="file"
                             name="pdfFile"
-                            onChange={handlePdfFileChange}
+                            onChange={handleChange}
                             accept="application/pdf"
                           />
                           <FaCloudUploadAlt />
