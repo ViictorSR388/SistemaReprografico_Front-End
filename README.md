@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Sistema Reprográfico - Front-End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">  <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white">  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E">  <img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white">  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">  <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white">  <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white">  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">  <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">  
+</div>
 
-## Available Scripts
+## Apresentação do projeto
 
-In the project directory, you can run:
+Bem vindo ao nosso Trabalho de Conclusão de Curso - [TCC](https://www.significados.com.br/tcc/) do curso Técnico em Desenvolvimento de Sistemas da Escola SENAI Suiço Brasilera Paulo Ernesto Tolle, ministrado pelo professor Atila Olivi.
 
-### `yarn start`
+## Índice
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Sobre](#sobre)
+- [Esboço do projeto](#esboco)
+- [Imagens](#img)
+    - [Login](#login)
+    - [Home](#home)
+    - [Usuario](#usuario)
+- [Ferramentas de desenvolvimento](#ferramentas)
+    - [Dependências](#dependencias)
+- [Iniciar](#iniciar)
+- [Desenvolvedores](#devs)
+- [Back-End](#back)
+- [Licença](#licenca)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<hr>
 
-### `yarn test`
+## <a name="sobre"></a> 📌 Sobre
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<hr>
 
-### `yarn build`
+## <a name="esboco"></a> 📌 Esboço do projeto
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+O wireframe da aplicação foi desenvolvido no [Figma](https://www.figma.com/), que é uma ferramenta de UI online e gratuita feita para criar, colaborar, prototipar e inspecionar seus projetos. [Clique aqui](https://www.figma.com/proto/oDYXcKoM97KngkCjldFi5h/Prot%C3%B3tipo---Sistema-Reprogr%C3%A1fico-(vers%C3%A3o-2)?node-id=1%3A1441&scaling=scale-down&page-id=1%3A4) para visualizar a prototipagem da aplicação.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## <a name="img"></a> 📌 Imagens
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## <a name="login"></a> Login
 
-### `yarn eject`
+<div>
+  <img src="https://user-images.githubusercontent.com/71888055/143896185-3d08ca8d-fb24-44d6-ba65-09e497eebd2d.png">
+</div>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## <a name="home"></a> Home
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<div>
+  <img src="https://user-images.githubusercontent.com/71888055/143896846-041d7194-450a-4976-a730-885715976c8d.png">
+</div>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## <a name="usuario"></a> Informações de Usuário
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<div>
+  <img src="https://user-images.githubusercontent.com/71888055/143897541-0914123a-b421-471c-9ffd-63826b226ffd.png">
+</div>
 
-## Learn More
+<hr>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## <a name="ferramentas"></a> 📌 Ferramentas de desenvolvimento
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<table align="center">
+  <thead>
+    <th><h3>IDE</h3></th>
+    <th><h3>Framework</h3></th>
+    <th><h3>Linguagem</h3></th>
+    <th><h3>Comunicação</h3></th>
+    <th><h3>Metodologia</h3></th>
+  </thead>
+  
+  <tbody>
+    <tr>
+      <td>
+        <a href="https://code.visualstudio.com/">
+          <img src="https://user-images.githubusercontent.com/71888055/143903309-41cb54ab-8c2f-4726-aa85-9ada8970954c.png" height="70" width="90">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-### Code Splitting
+## <a name="dependencias"></a> Dependências
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- []()
+- []()
+- []()
+- []()
+- []()
 
-### Analyzing the Bundle Size
+<hr>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## <a name="iniciar"></a> 📌 Iniciar
 
-### Making a Progressive Web App
+<hr>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## <a name="back"></a> 📌 Back-End 👨‍💻
 
-### Advanced Configuration
+Aqui está o link para o repositório da [Squad de Back-End](https://github.com/Squad-Back-End/reprography-nodejs) lá vc encontrará todas as informações necessárias para aplicação funcionar corretamente em sua máquina, leia o Markdown com atenção e siga os passos descritos.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<hr>
 
-### Deployment
+### <a name="devs"></a> 📌 Desenvolvido por:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- 👨‍💻 [Allan Santos](https://github.com/Dev-allanSantos)
+- 👨‍💻 [Antonio Augusto](https://github.com/Antonio1711)
+- 👨‍💻 [Athilas Silva](https://github.com/Athilas-Silva)
+- 👩‍💻 [Larissa Santos](https://github.com/larizwn)
+- 👨‍💻 [Lucas Galdino](https://github.com/LucasGaldinno)
+- 👨‍💻 [Victor Eduardo](https://github.com/ViictorSR388)
 
-### `yarn build` fails to minify
+<hr>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Link do projeto hospedado:
+- [Sistema Reprográfico]()
+
+## <a name="licenca"></a> 📌 Licença
