@@ -4,7 +4,7 @@ import axios from 'axios';
 import LoginContainer from "../../components/loginContainer";
 import '../../styles/firstAccess.scss';
 
-function FirstAccess() {
+function FirstAccess(props) {
     var history = useHistory();
     //nome
     const [senha, setSenha] = useState('');
@@ -22,7 +22,7 @@ function FirstAccess() {
             setMessage(result.data.message)
             setTimeout(() => {
                 if (result.data.status === "ok") {
-                    history.push("/requestForm")
+                    history.push(`/user/${props.nif}`)
                 }
             }, 1000);
         })

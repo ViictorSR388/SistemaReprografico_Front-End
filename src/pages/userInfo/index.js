@@ -194,6 +194,7 @@ var [adm, setAdm] = useState()
         accessToken: localStorage.getItem("accessToken"),
       },
     }).then((result) => {
+      
       setAuthState({
         nif: result.data.nif,
         nome: result.data.nome,

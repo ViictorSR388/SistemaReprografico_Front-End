@@ -75,7 +75,9 @@ export default function RequestForm() {
     observacao_envio = observacao;
   }
 
-  const [pdfFile, setPdfFile] = useState(null);
+  const [pdfFile, setPdfFile] = useState({
+    raw: ""
+  });
   const [pdfFileError, setPdfFileError] = useState('');
 
   const handleChange = (e) => {
@@ -86,36 +88,10 @@ export default function RequestForm() {
     }
   };
 
-  // const fileType = ['application/pdf'];
-  // const handlePdfFileChange = (e) => {
-  //   let selectedFile = e.target.files[0];
-  //   if (selectedFile) {
-  //     if (selectedFile && fileType.includes(selectedFile.type)) {
-  //       let reader = new FileReader();
-  //       reader.readAsDataURL(selectedFile);
-  //       reader.onloadend = (e) => {
-  //         setPdfFile(e.target.result);
-  //         setPdfFileError('');
-  //       }
-  //     }
-  //     else {
-  //       setPdfFile(null);
-  //       setPdfFileError('Por favor, selecione um PDF válido');
-  //     }
-  //   }
-  //   else {
-  //     setPdfFileError('Selecione um arquivo');
-  //   }
-  // }
-
-  // const handlePdfFileSubmit = (e) => {
-  //   e.preventDefault();
-  // }
-
   const FormPost = () => {
     const formData = new FormData();
 
-    formData.append("file", pdfFile);
+    formData.append("file", pdfFile.raw);
     formData.append("curso", curso);
     formData.append("centro_custos", centro_custos);
 
@@ -423,9 +399,10 @@ export default function RequestForm() {
                             type="radio"
                             name="typePaper"
                             id="a3pb"
-                            // checked={typePaper === data.id_servicosCT}
-                            onChange={() => {
-                              setServicoCT(data.id_servico)
+                            value={data.id_servico}
+                            checked={servicoCT === `${data.id_servico}`}
+                            onChange={(e) => {
+                              setServicoCT(e.target.value)
                             }}
                             required
                           />
@@ -455,13 +432,15 @@ export default function RequestForm() {
                     {servicos.servicosCA.map((data) => (
                       <React.Fragment key={data.id_servico}>
                         <div className="radioName">
-                          <Form.Check
+                            <Form.Check
+                            className="check classRadio"
                             type="radio"
                             name="typePaper"
                             id="a3pb"
-                            // checked={typePaper === data.id_servicosCT}
-                            onChange={() => {
-                              setServicoCA(data.id_servico)
+                            value={data.id_servico}
+                            checked={servicoCA === `${data.id_servico}`}
+                            onChange={(e) => {
+                              setServicoCA(e.target.value)
                             }}
                             required
                           />

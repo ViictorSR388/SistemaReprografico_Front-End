@@ -40,7 +40,7 @@ function Review(props) {
     <>
       <Menu />
       <Header nif={props.nif} />
-      <SideBar image={props.image} name={props.name} nif={props.nif} />
+      <SideBar image={props.image} admin={props.admin} name={props.name}  nif={props.nif} />
 
       <div id="main-container">
 
