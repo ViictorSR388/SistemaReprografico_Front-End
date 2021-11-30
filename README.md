@@ -1,70 +1,175 @@
-# Getting Started with Create React App
+# Sistema Reprográfico - Front-End
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">  <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white">  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E">  <img src="https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white">  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB">  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">  <img src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white">  <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white">  <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white">  <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">  
+</div>
 
-## Available Scripts
+## Apresentação do projeto
 
-In the project directory, you can run:
+Bem vindo ao nosso Trabalho de Conclusão de Curso - [TCC](https://www.significados.com.br/tcc/) do curso Técnico em Desenvolvimento de Sistemas da Escola SENAI Suiço Brasilera Paulo Ernesto Tolle, ministrado pelo professor Atila Olivi.
 
-### `yarn start`
+## Índice
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Sobre](#sobre)
+- [Esboço do projeto](#esboco)
+- [Imagens](#img)
+    - [Login](#login)
+    - [Home](#home)
+    - [Usuario](#usuario)
+- [Ferramentas de desenvolvimento](#ferramentas)
+    - [Dependências](#dependencias)
+- [Iniciar](#iniciar)
+- [Desenvolvedores](#devs)
+- [Back-End](#back)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<hr>
 
-### `yarn test`
+## <a name="sobre"></a> 📌 Sobre
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Esta aplicação é um Sistema Repografia que tem como objetivo manter controle sobre as impressões feitas por cada departamento da escola, por exemplo, o departamento financeiro solicitou uma impressão sobre determinado documento, e pedirá a solicitação para a gerência, ela irá receber uma notificação no email quando for solicitado alguma impressão, ela terá como decidir se aprova ou não.
 
-### `yarn build`
+<hr>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## <a name="esboco"></a> 📌 Esboço do projeto
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+O wireframe da aplicação foi desenvolvido no [Figma](https://www.figma.com/), que é uma ferramenta de UI online e gratuita feita para criar, colaborar, prototipar e inspecionar seus projetos. [Clique aqui](https://www.figma.com/proto/oDYXcKoM97KngkCjldFi5h/Prot%C3%B3tipo---Sistema-Reprogr%C3%A1fico-(vers%C3%A3o-2)?node-id=1%3A1441&scaling=scale-down&page-id=1%3A4) para visualizar a prototipagem da aplicação.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## <a name="img"></a> 📌 Imagens
 
-### `yarn eject`
+## <a name="login"></a> Login
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+<div>
+  <img src="https://user-images.githubusercontent.com/71888055/143896185-3d08ca8d-fb24-44d6-ba65-09e497eebd2d.png">
+</div>
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## <a name="home"></a> Home
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<div>
+  <img src="https://user-images.githubusercontent.com/71888055/143896846-041d7194-450a-4976-a730-885715976c8d.png">
+</div>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## <a name="usuario"></a> Informações de Usuário
 
-## Learn More
+<div>
+  <img src="https://user-images.githubusercontent.com/71888055/143897541-0914123a-b421-471c-9ffd-63826b226ffd.png">
+</div>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<hr>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## <a name="ferramentas"></a> 📌 Ferramentas de desenvolvimento
 
-### Code Splitting
+<table align="center">
+  <thead>
+    <th>IDE</th>
+    <th>Linguagem</th>
+    <th>Framework</th>
+    <th>Comunicação</th>
+    <th>Metodologia</th>
+    <th>Organização</th>
+  </thead>
+  
+  <tbody>
+    <tr>
+      <td>
+        <a href="https://code.visualstudio.com/">
+          <img src="https://user-images.githubusercontent.com/71888055/143903309-41cb54ab-8c2f-4726-aa85-9ada8970954c.png" height="70" width="90" />
+        </a>
+      </td>
+      <td>
+        <a href="https://www.javascript.com/">
+          <img src="https://user-images.githubusercontent.com/71888055/143905133-c5fc9b1d-b4ab-4ca0-844d-52977cc75bec.png" height="70" width="80" />
+        </a>
+      </td>
+      <td>
+        <a href="https://pt-br.reactjs.org/">
+          <img src="https://user-images.githubusercontent.com/71888055/143904388-906b9cab-64d4-4908-a44f-c83f7e4dbc91.png" height="70" width="90" />
+        </a>
+      </td>
+      <td>
+        <a href="https://www.microsoft.com/pt-br/microsoft-teams/log-in">
+          <img src="https://user-images.githubusercontent.com/71888055/143905593-393986cf-8273-4068-ac2d-53f51c925e98.png" height="70" width="90" />
+        </a>
+      </td>
+      <td>
+        <a href="https://blog.contaazul.com/metodologia-scrum">
+          <img src="https://user-images.githubusercontent.com/71888055/143917962-c5068f89-62d9-4248-910f-09fb59e49e8c.png" height="70" width="90" />
+        </a>
+      </td>
+      <td>
+        <a href="https://trello.com/">
+          <img src="https://user-images.githubusercontent.com/71888055/143919669-e1b17dcd-dc8c-4031-b0bc-dd1dc06ac03d.png" height="70" width="90" />
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## <a name="dependencias"></a> Dependências
 
-### Analyzing the Bundle Size
+- [React-Router-Dom](https://yarnpkg.com/package/react-router-dom)
+- [React-Bootstrap](https://yarnpkg.com/package/bootstrap)
+- [React-Icons](https://yarnpkg.com/package/react-icons)
+- [Node-Sass](https://yarnpkg.com/package/node-sass)
+- [Axios](https://yarnpkg.com/package/axios)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<table align="center">
+  <thead>
+    <th>React Router Dom</th>
+    <th>React Bootstrap</th>
+    <th>React Icons</th>
+    <th>Node Sass</th>
+    <th>Axios</th>
+  </thead>
+  
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143927451-a4457f9c-6446-494c-8ca8-62f5d93543f2.png" height="80" width="130" />
+      </td>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143927412-3d6a6062-694e-4d53-b67a-b8cfd38fd009.png" height="70" width="120" />
+      </td>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143928084-45c38a86-6ee6-47ea-a0ec-df60423bdd5b.png" height="70" width="90" />
+      </td>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143927518-65527671-a623-43e6-a0a2-82406614acbf.png" height="70" width="90" />
+      </td>
+      <td>
+        <img src="https://user-images.githubusercontent.com/71888039/143927493-894f97d7-c35c-465e-bc78-afebcd8f48fe.jpg" height="70" width="90" />
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-### Making a Progressive Web App
+<hr>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## <a name="iniciar"></a> 📌 Iniciar
 
-### Advanced Configuration
+Para iniciar aplicação na sua máquina local, baixe este repositório, abra o projeto no Visual Studio Code e coloque o seguinte comando no terminal:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+`` yarn ``
 
-### Deployment
+Para instalar todas as dependências do projeto.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<hr>
 
-### `yarn build` fails to minify
+## <a name="back"></a> 📌 Back-End 👨‍💻
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Aqui está o link para o repositório da [Squad de Back-End](https://github.com/Squad-Back-End/reprography-nodejs) lá vc encontrará todas as informações necessárias para aplicação funcionar corretamente em sua máquina, leia o Markdown com atenção e siga os passos descritos.
+
+<hr>
+
+### <a name="devs"></a> 📌 Desenvolvido por:
+
+- 👨‍💻 [Allan Santos](https://github.com/Dev-allanSantos)
+- 👨‍💻 [Antonio Augusto](https://github.com/Antonio1711)
+- 👨‍💻 [Athilas Silva](https://github.com/Athilas-Silva)
+- 👩‍💻 [Larissa Santos](https://github.com/larizwn)
+- 👨‍💻 [Lucas Galdino](https://github.com/LucasGaldinno)
+- 👨‍💻 [Victor Eduardo](https://github.com/ViictorSR388)
+
+<hr>
+
+### Link do projeto hospedado:
+- [Sistema Reprográfico]()
