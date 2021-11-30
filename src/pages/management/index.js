@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 
-import Menu from '../../../src/components/hamburgerButtonG';
+import Menu from '../../../src/components/hamburgerButton';
 import Header from '../../../src/components/header';
 import SideBar from '../../../src/components/formSideBar';
 import { Table } from 'react-bootstrap';
@@ -144,7 +144,7 @@ function Management(props) {
       <>
         {loading ? <> Loading... </> :
           <>
-            <Menu />
+            <Menu admin={props.admin}/>
             <Header nif={props.nif} />
             <SideBar image={props.image} name={props.name} admin={props.admin} management={true} nif={props.nif} />
 

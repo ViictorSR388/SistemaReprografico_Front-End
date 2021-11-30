@@ -1,6 +1,6 @@
 @import '../../styles/global';
 
-.navbar {
+.navbarH {
   display: none;
 }
 
@@ -10,7 +10,7 @@
 
 @media (max-width: 1380px) {
 
-  .navbar {
+  .navbarH {
     background-color: $red;
     height: 8rem;
     display: flex;
@@ -39,6 +39,7 @@
   .nav-menu.active {
     left: 0;
     transition: 350ms;
+    z-index: 1;
   }
 
   .nav-text {

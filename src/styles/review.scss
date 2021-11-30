@@ -22,7 +22,7 @@ div#main-container {
 
   position: absolute;
   z-index: 10;
-  top: 7.5%;
+  top: 17%;
   left: 22.5%;
 }
 
@@ -39,7 +39,7 @@ div#main-container {
 }
 
 #review-title {
-  background-color: #000000b0;
+  background-color: $grey-button;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +71,7 @@ h3 {
   width: 100%;
   max-width: 80rem;
   height: 4.5rem;
-  background-color: #00000075;
+  background-color: $grey-button;
 }
 
 .radio {
@@ -118,7 +118,7 @@ textarea {
 }
 
 button#review-button {
-  background: #4f4f4f;
+  background: $grey-button;
   width: 13rem;
   height: 3rem;
   color: aliceblue;
@@ -167,7 +167,7 @@ div#button-review {
   }
 
   #review-title {
-    background-color: #000000b0;
+    background-color: $grey-button;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -198,7 +198,7 @@ div#button-review {
     width: 100%;
     max-width: 80rem;
     height: 4rem;
-    background-color: #00000075;
+    background-color: $grey-button;
   }
 
   .radio {

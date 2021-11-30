@@ -27,7 +27,7 @@ function Review(props) {
       },
     }).then((result) => {
       setMensagem(result.data.message)
-      if (result.data.message !== "Informe se o pedido lhe atendeu ou não, por favor!") {
+      if (result.data.status !== "error") {
         //Redireciona para página de meusPedidos em 1,5seg
         setTimeout(() => {
           history.push("/myRequests")
@@ -64,8 +64,6 @@ function Review(props) {
                   }}
                 />
               </div>
-
-
 
               <div className="radio">
                 <label htmlFor="superou">Não Atendeu</label>

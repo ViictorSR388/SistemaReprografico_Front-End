@@ -43,7 +43,7 @@ function RequestList(props) {
     <>
       <Menu />
       <Header nif={props.nif} />
-      <SideBar image={props.image} name={props.name} admin={true} />
+      <SideBar image={props.image} name={props.name} admin={props.admin} />
 
       <div className="container-management">
         <div className="titleRL">

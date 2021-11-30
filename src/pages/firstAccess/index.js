@@ -24,6 +24,10 @@ function FirstAccess(props) {
                 if (result.data.status === "ok") {
                     history.push(`/user/${props.nif}`)
                 }
+                else{
+                    localStorage.removeItem("accessToken");
+                    history.push("/")
+                }
             }, 1000);
         })
     };

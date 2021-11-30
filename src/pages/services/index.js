@@ -7,7 +7,7 @@ import Header from "../../../src/components/header";
 import SideBar from "../../../src/components/formSideBar";
 import { Table } from "react-bootstrap";
 import Button from "@restart/ui/esm/Button";
-import MenuG from "../../components/hamburgerButtonG";
+import MenuG from "../../components/hamburgerButton";
 
 export default function Services(props) {
   var history = useHistory();
@@ -182,7 +182,7 @@ export default function Services(props) {
                             {/* QUANTIDADE */}
                             <td>{data.quantidade}</td>
                             {/* CUSTO */}
-                            <td>{data.valor_unitario}</td>
+                            <td>R${data.valor_unitario}</td>
                             {data.ativado ? (
                               <td>
                                 <Button
@@ -257,7 +257,7 @@ export default function Services(props) {
                             {/* QUANTIDADE */}
                             <td>{data.quantidade}</td>
                             {/* CUSTO */}
-                            <td>{data.valor_unitario}</td>
+                            <td>R${data.valor_unitario}</td>
                             {data.ativado ? (
                               <td>
                                 <Button

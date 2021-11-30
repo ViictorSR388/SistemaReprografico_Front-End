@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
-import { FaCloudUploadAlt, FaFileImport } from 'react-icons/fa';
-import { FaPrint } from 'react-icons/fa';
-import './styles.scss';
-import axios from 'axios';
-import { Button, Card, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import { FaCloudUploadAlt, FaFileImport } from "react-icons/fa";
+import { FaPrint } from "react-icons/fa";
+import "./styles.scss";
+import axios from "axios";
+import { Button, Card, Form } from "react-bootstrap";
 
 export default function RequestForm() {
   //cursos
   const [course, setCourse] = useState(0);
-  const [posGraduacao, setPosGraduacao] = useState('');
-  const [message, setMessage] = useState('');
+  const [posGraduacao, setPosGraduacao] = useState("");
+  const [message, setMessage] = useState("");
 
   var history = useHistory();
 
@@ -32,7 +32,7 @@ export default function RequestForm() {
   }
 
   // centro de custos
-  const [cc, setCc] = useState('');
+  const [cc, setCc] = useState("");
 
   var centro_custos;
 
@@ -55,30 +55,29 @@ export default function RequestForm() {
   }
 
   //card item
-  const [title, setTitle] = useState('');
-  const [pages, setPages] = useState('');
-  const [copy, setCopy] = useState('');
-
+  const [title, setTitle] = useState("");
+  const [pages, setPages] = useState("");
+  const [copy, setCopy] = useState("");
 
   // modo de envio
   const [typeSend, setTypeSend] = useState(0);
-  const [observacao, setObservacao] = useState('');
+  const [observacao, setObservacao] = useState("");
 
   var modo_envio;
   var observacao_envio;
 
   if (typeSend === "1") {
     modo_envio = 1;
-    observacao_envio = '';
+    observacao_envio = "";
   } else if (typeSend === "2") {
     modo_envio = 2;
     observacao_envio = observacao;
   }
 
   const [pdfFile, setPdfFile] = useState({
-    raw: ""
+    raw: "",
   });
-  const [pdfFileError, setPdfFileError] = useState('');
+  const [pdfFileError, setPdfFileError] = useState("");
 
   const handleChange = (e) => {
     if (e.target.files.length) {
@@ -105,31 +104,25 @@ export default function RequestForm() {
     formData.append("modo_envio", modo_envio);
     formData.append("observacoes", observacao_envio);
 
-    console.log(pdfFileError)
-    if (pdfFileError === 'Selecione um arquivo') {
-      setMessage(pdfFileError)
-    }
-    else {
-      axios.post('http://localhost:3002/request', formData, {
+    axios
+      .post("http://localhost:3002/request", formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
-        }
-      }).then((result) => {
-        console.log(result)
-        setMessage(result.data.message)
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        setMessage(result.data.message);
         if (result.data.message === "Pedido realizado com sucesso!") {
           setTimeout(() => {
-            history.push("/myRequests")
+            history.push("/myRequests");
           }, 1500);
         }
       })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-
-      console.log(handleChange)
-    };
-  }
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -147,48 +140,51 @@ export default function RequestForm() {
   const [servicos, setServicos] = useState({
     servicosCA: [],
     servicosCT: [],
-  })
+  });
 
   var [servicoCA, setServicoCA] = useState();
   var [servicoCT, setServicoCT] = useState();
-  var [messageServ, setMessageServ] = useState('');
+  var [messageServ, setMessageServ] = useState("");
 
   useEffect(() => {
     onLoad();
     return () => {
       setServicos({});
     };
-  }, [])
+  }, []);
 
   const onLoad = async () => {
     var config = {
-      method: 'get',
+      method: "get",
       url: `http://localhost:3002/services/enabled=1`,
       headers: {
-        'accessToken': localStorage.getItem("accessToken"),
+        accessToken: localStorage.getItem("accessToken"),
       },
     };
     try {
       const response = await axios(config);
-      console.log(response)
+      console.log(response);
       if (response) {
-        if (response.data.servicosCA === undefined && response.data.servicosCT === undefined) {
-          setMessageServ(response.data.message)
+        if (
+          response.data.servicosCA === undefined &&
+          response.data.servicosCT === undefined
+        ) {
+          setMessageServ(response.data.message);
         }
-       // else if (response.data.servicosCA.length < 1 || response.data.servicosCT.lenght < 1) {
-        
+        // else if (response.data.servicosCA.length < 1 || response.data.servicosCT.lenght < 1) {
+
         //}
-        else{
+        else {
           setServicos({
             servicosCA: response.data.servicosCA,
-            servicosCT: response.data.servicosCT
+            servicosCT: response.data.servicosCT,
           });
         }
       }
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   return (
     <>
@@ -272,7 +268,7 @@ export default function RequestForm() {
                       </Form.Check.Label>
                     </div>
                   </div>
-                  {course === '4' && (
+                  {course === "4" && (
                     <Form.Control
                       className="textInput"
                       as="textarea"
@@ -286,7 +282,13 @@ export default function RequestForm() {
                     />
                   )}
 
-                  <Card.Title className="cardTitle-CC" id="centro_custos" htmlFor="cost">Centro de custos</Card.Title>
+                  <Card.Title
+                    className="cardTitle-CC"
+                    id="centro_custos"
+                    htmlFor="cost"
+                  >
+                    Centro de custos
+                  </Card.Title>
                   <div className="select-container">
                     <Form.Select
                       className="select"
@@ -297,38 +299,81 @@ export default function RequestForm() {
                       }}
                       required
                     >
-                      <option value="0" name="null" id="null" selected={cc === "0"}>
+                      <option
+                        value="0"
+                        name="null"
+                        id="null"
+                        selected={cc === "0"}
+                      >
                         Nenhuma Opção Selecionada
                       </option>
-                      <option value="1" name="AIP" id="AIP" selected={cc === "1"}>
+                      <option
+                        value="1"
+                        name="AIP"
+                        id="AIP"
+                        selected={cc === "1"}
+                      >
                         Aprendizagem Industrial Presencial
                       </option>
-                      <option value="2" name="TNMP" id="TNMP" selected={cc === "2"}>
+                      <option
+                        value="2"
+                        name="TNMP"
+                        id="TNMP"
+                        selected={cc === "2"}
+                      >
                         Técnico de Nível Médio Presencial
                       </option>
-                      <option value="3" name="GTP" id="GTP" selected={cc === "3"}>
+                      <option
+                        value="3"
+                        name="GTP"
+                        id="GTP"
+                        selected={cc === "3"}
+                      >
                         Graduação Tecnológica Presencial
                       </option>
-                      <option value="4" name="PGP" id="PGP" selected={cc === "4"}>
+                      <option
+                        value="4"
+                        name="PGP"
+                        id="PGP"
+                        selected={cc === "4"}
+                      >
                         Pós-Graduação Presencial
                       </option>
                       <option value="5" name="EP" id="EP" selected={cc === "5"}>
                         Extensão Presencial
                       </option>
-                      <option value="6" name="IPP" id="IPP" selected={cc === "6"}>
+                      <option
+                        value="6"
+                        name="IPP"
+                        id="IPP"
+                        selected={cc === "6"}
+                      >
                         Iniciação Profissional Presencial
                       </option>
-                      <option value="7" name="QPP" id="QPP" selected={cc === "7"}>
+                      <option
+                        value="7"
+                        name="QPP"
+                        id="QPP"
+                        selected={cc === "7"}
+                      >
                         Qualificação Profissional Presencial
                       </option>
-                      <option value="8" name="AEPP" id="AEPP" selected={cc === "8"}>
+                      <option
+                        value="8"
+                        name="AEPP"
+                        id="AEPP"
+                        selected={cc === "8"}
+                      >
                         Aperfeiç./Especializ. Profis. Presencial
                       </option>
                     </Form.Select>
                   </div>
-                  <Button className="step-btn" onClick={() => {
-                    setStep(2);
-                  }}>
+                  <Button
+                    className="step-btn"
+                    onClick={() => {
+                      setStep(2);
+                    }}
+                  >
                     Próximo
                   </Button>
                 </Card>
@@ -336,7 +381,9 @@ export default function RequestForm() {
               {step === 2 && (
                 <Card className="card">
                   <Card.Title className="cardTitle">Item</Card.Title>
-                  <label className="label" htmlFor="title">Titulo</label>
+                  <label className="label" htmlFor="title">
+                    Titulo
+                  </label>
                   <input
                     className="input-minor"
                     type="text"
@@ -348,7 +395,9 @@ export default function RequestForm() {
                     }}
                     required
                   />
-                  <label className="label" htmlFor="page-request">Páginas</label>
+                  <label className="label" htmlFor="page-request">
+                    Páginas
+                  </label>
                   <input
                     type="number"
                     name="pages"
@@ -359,7 +408,9 @@ export default function RequestForm() {
                     }}
                     required
                   />
-                  <label className="label" htmlFor="copy">Cópias</label>
+                  <label className="label" htmlFor="copy">
+                    Cópias
+                  </label>
                   <input
                     type="number"
                     name="copy"
@@ -370,18 +421,26 @@ export default function RequestForm() {
                     }}
                     required
                   />
-                  <label className="label" htmlFor="total">Total de Paginas</label>
+                  <label className="label" htmlFor="total">
+                    Total de Paginas
+                  </label>
                   <span className="total-pages" name="total">
                     {total}
                   </span>
-                  <Button className="step-btn" onClick={() => {
-                    setStep(3);
-                  }}>
+                  <Button
+                    className="step-btn"
+                    onClick={() => {
+                      setStep(3);
+                    }}
+                  >
                     Próximo
                   </Button>
-                  <Button className="step-btn-back" onClick={() => {
-                    setStep(1);
-                  }}>
+                  <Button
+                    className="step-btn-back"
+                    onClick={() => {
+                      setStep(1);
+                    }}
+                  >
                     Anterior
                   </Button>
                 </Card>
@@ -390,75 +449,97 @@ export default function RequestForm() {
               {step === 3 && (
                 <div className="card medium">
                   <Card.Title className="cardTitle">Formato e Cor</Card.Title>
-                  {messageServ !== "" ? <>{messageServ}</> : <>
-                    {servicos.servicosCT.map((data) => (
-                      <React.Fragment key={data.id_servico}>
-                        <div className="radioName">
-                          <Form.Check
-                            className="check classRadio"
-                            type="radio"
-                            name="typePaper"
-                            id="a3pb"
-                            value={data.id_servico}
-                            checked={servicoCT === `${data.id_servico}`}
-                            onChange={(e) => {
-                              setServicoCT(e.target.value)
-                            }}
-                            required
-                          />
-                          <label className="labelName" htmlFor="typePaper">
-                            {data.descricao}
-                          </label>
-                        </div>
-                      </React.Fragment>
-                    ))}
-                  </>}
-                  <Button className="step-btn" onClick={(e) => {
-                    setStep(4);
-                  }}>
+                  {messageServ !== "" ? (
+                    <>{messageServ}</>
+                  ) : (
+                    <>
+                      {servicos.servicosCT.map((data) => (
+                        <React.Fragment key={data.id_servico}>
+                          <div className="radioName">
+                            <Form.Check
+                              className="check classRadio"
+                              type="radio"
+                              name="typePaper"
+                              id="a3pb"
+                              value={data.id_servico}
+                              checked={servicoCT === `${data.id_servico}`}
+                              onChange={(e) => {
+                                setServicoCT(e.target.value);
+                              }}
+                              required
+                            />
+                            <label className="labelName" htmlFor="typePaper">
+                              {data.descricao}
+                            </label>
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </>
+                  )}
+                  <Button
+                    className="step-btn"
+                    onClick={(e) => {
+                      setStep(4);
+                    }}
+                  >
                     Próximo
                   </Button>
-                  <Button className="step-btn-back" onClick={(e) => {
-                    setStep(2);
-                  }}>
+                  <Button
+                    className="step-btn-back"
+                    onClick={(e) => {
+                      setStep(2);
+                    }}
+                  >
                     Anterior
                   </Button>
                 </div>
               )}
               {step === 4 && (
                 <Card className="card medium">
-                  <Card.Title className="cardTitle">Tipos de Capa e Encadernação</Card.Title>
-                  {messageServ !== "" ? <>{messageServ}</> : <>
-                    {servicos.servicosCA.map((data) => (
-                      <React.Fragment key={data.id_servico}>
-                        <div className="radioName">
+                  <Card.Title className="cardTitle">
+                    Tipos de Capa e Encadernação
+                  </Card.Title>
+                  {messageServ !== "" ? (
+                    <>{messageServ}</>
+                  ) : (
+                    <>
+                      {servicos.servicosCA.map((data) => (
+                        <React.Fragment key={data.id_servico}>
+                          <div className="radioName">
                             <Form.Check
-                            className="check classRadio"
-                            type="radio"
-                            name="typePaper"
-                            id="a3pb"
-                            value={data.id_servico}
-                            checked={servicoCA === `${data.id_servico}`}
-                            onChange={(e) => {
-                              setServicoCA(e.target.value)
-                            }}
-                            required
-                          />
-                          <label className="labelName" htmlFor="typePaper">
-                            {data.descricao}
-                          </label>
-                        </div>
-                      </React.Fragment>
-                    ))}
-                  </>}
-                  <Button className="step-btn" onClick={() => {
-                    setStep(5);
-                  }}>
+                              className="check classRadio"
+                              type="radio"
+                              name="typePaper"
+                              id="a3pb"
+                              value={data.id_servico}
+                              checked={servicoCA === `${data.id_servico}`}
+                              onChange={(e) => {
+                                setServicoCA(e.target.value);
+                              }}
+                              required
+                            />
+                            <label className="labelName" htmlFor="typePaper">
+                              {data.descricao}
+                            </label>
+                          </div>
+                        </React.Fragment>
+                      ))}
+                    </>
+                  )}
+                  <Button
+                    className="step-btn"
+                    onClick={() => {
+                      setStep(5);
+                    }}
+                  >
                     Próximo
                   </Button>
-                  <Button className="step-btn-back" onClick={() => {
-                    setStep(3);
-                  }}>
+                  <Button
+                    className="step-btn-back"
+                    onClick={() => {
+                      setStep(3);
+                    }}
+                  >
                     Anterior
                   </Button>
                 </Card>
@@ -517,9 +598,12 @@ export default function RequestForm() {
                   )}
                   <div className="contentButton">
                     <div className="bootstrap-buttons">
-                      <Button className="functionButton" onClick={() => {
-                        setStep(4);
-                      }}>
+                      <Button
+                        className="functionButton"
+                        onClick={() => {
+                          setStep(4);
+                        }}
+                      >
                         Anterior
                       </Button>
                       {typeSend === "1" && (
@@ -529,13 +613,16 @@ export default function RequestForm() {
                             name="pdfFile"
                             onChange={handleChange}
                             accept="application/pdf"
+                            required
                           />
                           <FaCloudUploadAlt />
                           Upload PDF
                         </label>
                       )}
 
-                      {pdfFileError && <div className='error-msg'>{pdfFileError}</div>}
+                      {pdfFileError && (
+                        <div className="error-msg">{pdfFileError}</div>
+                      )}
 
                       <Button className="functionButton" type="submit">
                         Solicitar <FaPrint />

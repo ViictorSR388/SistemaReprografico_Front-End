@@ -4,7 +4,7 @@ import { Table, Card } from "react-bootstrap";
 
 import Header from "../../components/header";
 import SideBar from "../../components/formSideBar";
-import MenuG from "../../components/hamburgerButtonG";
+import MenuG from "../../components/hamburgerButton";
 
 import axios from "axios";
 

@@ -1,19 +1,17 @@
-import React, { useCallback, useContext, useState, useEffect } from 'react';
-import '../../styles/login.scss';
+import React, { useContext, useState, useEffect } from "react";
+import "../../styles/login.scss";
 import axios from "axios";
-import { useHistory, useParams } from "react-router";
-import { AuthContext } from './../../helpers/AuthContext';
+import { useHistory } from "react-router";
+import { AuthContext } from "./../../helpers/AuthContext";
 
-import LoginContainer from '../../components/loginContainer'
+import LoginContainer from "../../components/loginContainer";
 
 export default function Login() {
   const [emailOrNif, setEmailOrNif] = useState("");
   const [senha, setSenha] = useState("");
   const { setAuthState } = useContext(AuthContext);
 
-  const nif = useParams();
-
-  const [mensagem, setMensagem] = useState("")
+  const [mensagem, setMensagem] = useState("");
 
   let history = useHistory();
 
@@ -21,26 +19,30 @@ export default function Login() {
     const data = { emailOrNif: emailOrNif, senha: senha };
     axios.post("http://localhost:3002/login", data).then((result) => {
       if (result.data.status === "error") {
-        setMensagem(result.data.message)
-      }
-      else {
+        setMensagem(result.data.message);
+      } else {
         setAuthState({
           nif: result.data.nif,
           nome: result.data.nome,
           roles: result.data.roles,
           imagem: "http://localhost:3002/" + result.data.imagem,
-          redirect: false
+          redirect: false,
         });
         localStorage.setItem("accessToken", result.data.accessToken);
         if (result.data.primeiro_acesso === 1) {
-          history.push("/firstAccess")
-        }
-        else if (result.data.roles) {
+          history.push("/firstAccess");
+        } else if (result.data.roles) {
           var resposta = result.data.roles.includes("2_ROLE_ADMIN");
           if (resposta === true) {
-            history.push("user/" + result.data.nif)
+            history.push("user/" + result.data.nif);
+            setAuthState({
+              admin: true,
+            });
           } else {
-            history.push("user/" + result.data.nif)
+            history.push("user/" + result.data.nif);
+            setAuthState({
+              admin: false,
+            });
           }
         }
       }
@@ -58,27 +60,33 @@ export default function Login() {
         if (response.data.roles) {
           var resposta = response.data.roles.includes("2_ROLE_ADMIN");
           if (resposta === true) {
-            history.push("management")
+            history.push("management");
+            setAuthState({
+              admin: true,
+            });
           } else {
-            history.push("requestForm")
+            history.push("requestForm");
+            setAuthState({
+              admin: false,
+            });
           }
         }
-      }
-      )
+      });
   }, []);
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     LoginPost();
-  }
-
+  };
 
   return (
     <>
       <div className="content">
         <LoginContainer />
         <div className="container-login">
-          <h2 id="h2" className="login-subTitle">Login</h2>
+          <h2 id="h2" className="login-subTitle">
+            Login
+          </h2>
 
           <form onSubmit={onSubmit}>
             <input
@@ -105,7 +113,12 @@ export default function Login() {
             />
 
             <div className="link-box">
-              <p className="newPassword" onClick={() => history.push(`/forgotPassword`)}>Esqueceu a senha?</p>
+              <p
+                className="newPassword"
+                onClick={() => history.push(`/forgotPassword`)}
+              >
+                Esqueceu a senha?
+              </p>
             </div>
 
             <input
@@ -113,7 +126,8 @@ export default function Login() {
               className="login-button"
               name="login-button"
               type="submit"
-              value="Entrar" />
+              value="Entrar"
+            />
           </form>
           <h4>{mensagem}</h4>
         </div>
