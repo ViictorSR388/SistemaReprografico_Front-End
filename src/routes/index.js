@@ -30,7 +30,8 @@ function Rotas() {
     nome: "",
     imagem: "",
     Roles: [],
-    redirect: false
+    redirect: false,
+    admin: false
   });
   
 
@@ -62,6 +63,9 @@ function Rotas() {
           });
           if (response.data.roles[0] === "2_ROLE_ADMIN") {
             setAdministrator(true)
+            setAuthState({
+              admin: true
+            })
           }
           setAuthState({ redirect: false })
         }
@@ -95,8 +99,6 @@ function Rotas() {
                 } /> */}
 
                 <Route path="/review/:id" component={() => (<Review image={authState.imagem} nif={authState.nif} />)} />
-
-
                 <Route path='/statistics' exact component={() => (<Statistics image={authState.imagem} name={authState.nome} nif={authState.nif} admin={administrator} />)} />
                 <Route path='/notAuthorized' exact component={notAuthorized} />
                 <Route path='/myRequests' exact component={() => (<MyRequests image={authState.imagem} name={authState.nome} nif={authState.nif} admin={administrator} />)} />

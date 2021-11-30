@@ -192,10 +192,10 @@ export default function RequestForm() {
         if (response.data.servicosCA === undefined && response.data.servicosCT === undefined) {
           setMessageServ(response.data.message)
         }
-       // else if (response.data.servicosCA.length < 1 || response.data.servicosCT.lenght < 1) {
-        
+        // else if (response.data.servicosCA.length < 1 || response.data.servicosCT.lenght < 1) {
+
         //}
-        else{
+        else {
           setServicos({
             servicosCA: response.data.servicosCA,
             servicosCT: response.data.servicosCT
