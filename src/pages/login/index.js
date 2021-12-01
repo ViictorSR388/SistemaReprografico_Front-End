@@ -63,34 +63,32 @@ export default function Login() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((response) => {
-        if (response.data.roles) {
-          var resposta = response.data.roles.includes("2_ROLE_ADMIN");
-          // if(response.data.primeiro_acesso === 1){
-          //   setAuthState({
-          //     firstAcess: true,
-          //   });
-          //   history.push("/firstAccess")
-          // }
-          // else 
-          if (resposta === true) {
-            history.push("management");
-            setAuthState({
-              admin: true, firstAccess: false
-            });
-          } else {
-            history.push("requestForm");
-            setAuthState({
-              admin: false, firstAccess: false
-            });
-          }
+    .get("http://localhost:3002/myUser", {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    })
+    .then((response) => {
+      if (response.data.roles) {
+        if(response.data.primeiro_acesso === 1){
+          setAuthState({
+            firstAccess: true,
+          });
+          history.push("/firstAccess")
         }
-      });
+        else if (response.data.roles[0].descricao === "admin") {
+          history.push("/management");
+          setAuthState({
+            admin: true
+          });
+        } else {
+          history.push("/requestForm");
+          setAuthState({
+            admin: false
+          });
+        }
+      }
+    });
   }, []);
 
   const onSubmit = (e) => {
