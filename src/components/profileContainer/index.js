@@ -49,12 +49,16 @@ function ProfileContainer(props) {
             <div className="profile-links" >
                 {props.change ? <></> :
                     <> 
-                    {props.admin ? <button className="button-edit" onClick={props.edit}> 
+                    {props.admin ?
+                    <>
+                        <button className="button-edit" onClick={props.edit}> 
                             Editar Perfil
-                        </button> : <> </>}
+                        </button> 
                         <button className="button-edit" onClick={props.changePassword}>
                             Alterar Senha
                         </button>
+                        </>
+                        : <></>}
                     </>
                 }
             </div>

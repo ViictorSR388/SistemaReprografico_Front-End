@@ -27,7 +27,7 @@ function UserInfo(props) {
 
   const [edit, setEdit] = useState(false);
 
-  const [changePass, setChangePass] = useState();
+  const [changePass, setChangePass] = useState(false);
 
   const [pastPassword, setPastPassword] = useState();
 
@@ -249,27 +249,26 @@ function UserInfo(props) {
                 {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
                 {adm || myNif === nif ? (
                   <ProfileContainer
-                    edit={() => {
-                      setEdit(true);
-                    }}
-                    admin={true}
                     image={image.preview}
                     name={nameUser}
+                    nif={props.nif}
+                    change={false}
+                    admin={true}
+                    edit={() => {
+                      setEdit(true);
+                      setChangePass(false);
+                    }}
                     changePassword={() => {
                       setChangePass(true);
+                      setEdit(false)
                     }}
-                    nif={props.nif}
                   />
                 ) : (
                   <ProfileContainer
                     image={image.preview}
                     name={nameUser}
-                    requestsNoInfo={true}
-                    change={true}
-                    changePassword={() => {
-                      setChangePass(true);
-                    }}
                     nif={props.nif}
+                    change={true}
                   />
                 )}
 
