@@ -8,11 +8,11 @@ import { AuthContext } from "./../../helpers/AuthContext";
 
 function FirstAccess(props) {
     var history = useHistory();
-    
+
     const [nif, setNif] = useState();
 
     const [senha, setSenha] = useState('');
-
+    //email
     const [confirmSenha, setConfirmSenha] = useState('');
 
     const [message, setMessage] = useState();
@@ -27,13 +27,14 @@ function FirstAccess(props) {
         }).then((result) => {
             setMessage(result.data.message)
             if (result.data.status === "ok") {
-                setTimeout(async() => { 
-                    await setAuthState({
-                        firstAccess: false
+                setTimeout(() => { 
+                    setAuthState({
+                        firstAccess: true
                     })
-                    history.push(`/user/${nif}`)
-                    return;
                 }, 1000);
+                setTimeout(() => {
+                    history.push(`/user/${nif}`)
+                }, 1100)
             } else {
                 localStorage.removeItem("accessToken");
                 history.push("/")
@@ -62,9 +63,8 @@ function FirstAccess(props) {
                 if (props.nif) {
                     setNif(props.nif)
                 }
-            })
-    }, [props.nif])
-
+    })
+}, [props.nif])
 
     return (
         <>
