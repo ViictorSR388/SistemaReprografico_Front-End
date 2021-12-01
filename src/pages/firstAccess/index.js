@@ -25,17 +25,16 @@ function FirstAccess(props) {
         }).then((result) => {
             setMessage(result.data.message)
             if (result.data.status === "ok") {
-                setTimeout(() => {
-                    setAuthState({
-                        firstAccess: false
-                    })
+                setAuthState({
+                    firstAccess: false
+                })
+                setTimeout(() => { 
                     history.push(`/user/${props.nif}`)
                 }, 1000);
             } else {
                 localStorage.removeItem("accessToken");
                 history.push("/")
             }
-            
         })
     };
 
