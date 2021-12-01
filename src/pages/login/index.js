@@ -73,6 +73,7 @@ export default function Login() {
         if(response.data.primeiro_acesso === 1){
           setAuthState({
             firstAccess: true,
+            nif: response.data.nif
           });
           history.push("/firstAccess")
         }

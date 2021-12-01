@@ -59,6 +59,7 @@ function Rotas() {
         }
         else {
           setAuthState({
+            redirect: false,
             status: true,
             nif: response.data.nif,
             email: response.data.email,
@@ -66,6 +67,7 @@ function Rotas() {
             imagem: "http://localhost:3002/" + response.data.imagem,
             firstAccess: false
           });
+          setFirstAccess(0);
           if (response.data.roles[0].descricao === "admin") {
             setAuthState({
               admin: true,
@@ -77,7 +79,6 @@ function Rotas() {
             });
             setAdministrator(0);
           }
-          setAuthState({ redirect: false });
         }
       });
   }, []);
