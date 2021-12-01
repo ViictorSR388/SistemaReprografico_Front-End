@@ -73,13 +73,14 @@ export default function Login() {
         if(response.data.primeiro_acesso === 1){
           setAuthState({
             firstAccess: true,
+            nif: response.data.nif
           });
           history.push("/firstAccess")
         }
         else if (response.data.roles[0].descricao === "admin") {
           history.push("/management");
           setAuthState({
-            admin: true
+            admin: true,
           });
         } else {
           history.push("/requestForm");

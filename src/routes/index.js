@@ -33,8 +33,8 @@ function Rotas() {
     firstAccess: false
   });
 
-  const [administrator, setAdministrator] = useState(0);
-  const [firstAccess, setFirstAccess] = useState(1);
+  const [administrator, setAdministrator] = useState();
+  const [firstAccess, setFirstAccess] = useState();
 
   // const [loading, setLoading] = useState(false);
 
@@ -53,25 +53,21 @@ function Rotas() {
           response.data.error
         ) {
           setAuthState({ redirect: true });
-        } 
+        } else if(response.data.primeiro_acesso === 1) {
+          setAuthState({ firstAccess: true, nif: response.data.nif })
+          setFirstAccess(1);
+        }
         else {
           setAuthState({
+            redirect: false ,
             status: true,
-            redirect: false,
             nif: response.data.nif,
             email: response.data.email,
             nome: response.data.nome,
             imagem: "http://localhost:3002/" + response.data.imagem,
+            firstAccess: false
           });
-
-          if(response.data.primeiro_acesso === 1) {
-            setAuthState({ firstAccess: true, nif: response.data.nif })
-            setFirstAccess(1);
-          } else{
-            setAuthState({ firstAccess: false, nif: response.data.nif })
-            setFirstAccess(0);
-          }
-
+          setFirstAccess(0);
           if (response.data.roles[0].descricao === "admin") {
             setAuthState({
               admin: true,
@@ -81,6 +77,7 @@ function Rotas() {
             setAuthState({
               admin: false,
             });
+            setAdministrator(0);
           }
         }
       });
@@ -88,6 +85,7 @@ function Rotas() {
 
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
+      <>
         {/* {loading ? <>Loading...</> : <> */}
         <Router>
           <Switch>
@@ -100,7 +98,7 @@ function Rotas() {
               </>
             ) : (
               <>
-              {authState.firstAccess || firstAccess === 1 ?  <> 
+              {authState.firstAccess || firstAccess === 1 ? <> 
               <Route
                   path="/firstAccess"
                   exact
@@ -280,6 +278,7 @@ function Rotas() {
           </Switch>
         </Router>
         {/* </>} */}
+      </>
     </AuthContext.Provider>
   );
 }
