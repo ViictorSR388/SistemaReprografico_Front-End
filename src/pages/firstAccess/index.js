@@ -32,7 +32,7 @@ function FirstAccess(props) {
                 }, 1000);
                 setTimeout(() => {
                     history.push(`/user/${props.nif}`)
-                }, 1500)
+                }, 1050)
             } else {
                 localStorage.removeItem("accessToken");
                 history.push("/")
