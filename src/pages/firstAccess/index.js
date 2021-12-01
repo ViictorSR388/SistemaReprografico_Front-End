@@ -30,6 +30,7 @@ function FirstAccess(props) {
                         firstAccess: false
                     })
                     history.push(`/user/${props.nif}`)
+                    return;
                 }, 1000);
             } else {
                 localStorage.removeItem("accessToken");
