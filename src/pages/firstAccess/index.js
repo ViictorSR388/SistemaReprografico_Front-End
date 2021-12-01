@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import LoginContainer from "../../components/loginContainer";
@@ -8,9 +8,11 @@ import { AuthContext } from "./../../helpers/AuthContext";
 
 function FirstAccess(props) {
     var history = useHistory();
-    //nome
+    
+    const [nif, setNif] = useState();
+
     const [senha, setSenha] = useState('');
-    //email
+
     const [confirmSenha, setConfirmSenha] = useState('');
 
     const [message, setMessage] = useState();
@@ -29,7 +31,7 @@ function FirstAccess(props) {
                     await setAuthState({
                         firstAccess: false
                     })
-                    history.push(`/user/${props.nif}`)
+                    history.push(`/user/${nif}`)
                     return;
                 }, 1000);
             } else {
@@ -48,6 +50,21 @@ function FirstAccess(props) {
         localStorage.removeItem("accessToken");
         history.push('/')
     }; 
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3002/myUser/", {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            }).then((result) => {
+                setNif(result.data.nif)
+                if (props.nif) {
+                    setNif(props.nif)
+                }
+            })
+    }, [props.nif])
+
 
     return (
         <>

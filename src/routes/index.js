@@ -66,6 +66,7 @@ function Rotas() {
             imagem: "http://localhost:3002/" + response.data.imagem,
             firstAccess: false
           });
+          setFirstAccess(0);
           if (response.data.roles[0].descricao === "admin") {
             setAuthState({
               admin: true,
