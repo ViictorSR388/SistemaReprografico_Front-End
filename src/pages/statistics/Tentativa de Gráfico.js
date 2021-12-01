@@ -12,7 +12,7 @@ import axios from 'axios';
 export default function Statistics(props) {
     var dataAtual = new Date();
     var mesAtual = (dataAtual.getMonth() + 1);
-  
+
 
     const [fetchStatus, setFetchStatus] = useState();
 

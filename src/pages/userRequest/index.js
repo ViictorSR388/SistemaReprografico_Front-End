@@ -74,7 +74,7 @@ const UserRequest = (props) => {
 
   return (
     <>
-      <Menu />
+      <Menu admin={props.admin}/>
       <Header nif={props.nif} />
       <SideBar image={props.image} name={props.name} admin={true} />
 
@@ -139,7 +139,7 @@ const UserRequest = (props) => {
                               >
                                 detalhes
                               </Button>
-                              {avaliados ? (
+                              {/* {avaliados ? (
                                 <></>
                               ) : (
                                 <Button
@@ -151,7 +151,7 @@ const UserRequest = (props) => {
                                 >
                                   Avaliar
                                 </Button>
-                              )}
+                              )} */}
                             </div>
                           </td>
                         </tr>

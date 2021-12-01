@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../../styles/review.scss';
 import Header from '../../components/header';
@@ -27,7 +27,7 @@ function Review(props) {
       },
     }).then((result) => {
       setMensagem(result.data.message)
-      if (result.data.message !== "Informe se o pedido lhe atendeu ou não, por favor!") {
+      if (result.data.status !== "error") {
         //Redireciona para página de meusPedidos em 1,5seg
         setTimeout(() => {
           history.push("/myRequests")
@@ -40,7 +40,7 @@ function Review(props) {
     <>
       <Menu />
       <Header nif={props.nif} />
-      <SideBar image={props.image} name={props.name} nif={props.nif} />
+      <SideBar image={props.image} admin={props.admin} name={props.name}  nif={props.nif} />
 
       <div id="main-container">
 
@@ -64,8 +64,6 @@ function Review(props) {
                   }}
                 />
               </div>
-
-
 
               <div className="radio">
                 <label htmlFor="superou">Não Atendeu</label>

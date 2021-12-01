@@ -20,7 +20,7 @@ export default function DetPedido() {
                 }
                 else { setMessage(result.data.message) }
             })
-        }, [])
+        }, [id])
 
         return (
             <>

@@ -26,7 +26,7 @@ Bem vindo ao nosso Trabalho de Conclusão de Curso - [TCC](https://www.significa
 
 ## <a name="sobre"></a> 📌 Sobre
 
-Esta aplicação é um Sistema Repografia que tem como objetivo manter controle sobre as impressões feitas por cada departamento da escola, por exemplo, o departamento financeiro solicitou uma impressão sobre determinado documento, e pedirá a solicitação para a gerência, ela irá receber uma notificação no email quando for solicitado alguma impressão, ela terá como decidir se aprova ou não.
+Esta aplicação é um Sistema Repográfico que tem como objetivo manter controle sobre as impressões feitas por cada funcionário da escola, por exemplo: O "fulano" do departamento de Aprendizagem Industrial Presencial solicitou uma impressão cujo o tamanho é A4, a cor é preto e branco, a capa em PVC e espirais de plástico como encadernação, então o sistema irá registrar, enviar o email para a gráfica e exibirá os custos e as demais estatísticas para a gerência.
 
 <hr>
 

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import LoginContainer from "../../components/loginContainer";
+import { FaSignOutAlt } from 'react-icons/fa';
 import '../../styles/firstAccess.scss';
+import { AuthContext } from "./../../helpers/AuthContext";
 
-function FirstAccess() {
+function FirstAccess(props) {
     var history = useHistory();
     //nome
     const [senha, setSenha] = useState('');
@@ -13,6 +15,8 @@ function FirstAccess() {
 
     const [message, setMessage] = useState();
 
+    const { setAuthState } = useContext(AuthContext);
+
     const atualizarSenha = () => {
         axios.put('http://localhost:3002/myUser/firstAccess', { senha: senha, confirmSenha: confirmSenha }, {
             headers: {
@@ -20,11 +24,18 @@ function FirstAccess() {
             }
         }).then((result) => {
             setMessage(result.data.message)
-            setTimeout(() => {
-                if (result.data.status === "ok") {
-                    history.push("/requestForm")
-                }
-            }, 1000);
+            if (result.data.status === "ok") {
+                setTimeout(() => {
+                    setAuthState({
+                        firstAccess: false
+                    })
+                    history.push(`/user/${props.nif}`)
+                }, 1000);
+            } else {
+                localStorage.removeItem("accessToken");
+                history.push("/")
+            }
+            
         })
     };
 
@@ -33,11 +44,17 @@ function FirstAccess() {
         atualizarSenha();
     }
 
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        history.push('/')
+    }; 
+
     return (
         <>
             <div className="content">
                 <LoginContainer />
                 <div className="container-login">
+                <FaSignOutAlt className="icon-firstAccess" onClick={logout} />
                     <h2 className="title-first">
                         Insira sua nova senha
                     </h2>

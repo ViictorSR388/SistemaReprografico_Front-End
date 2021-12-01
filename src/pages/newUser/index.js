@@ -85,10 +85,15 @@ function NewUser(props) {
           },
         })
         .then((result) => {
-          setMensagem(result.data.message);
-          setTimeout(() => {
-            history.push("/management");
-          }, 1000);
+          if(result.data.status === "error"){
+            setMensagem(result.data.message);
+          }
+          else{
+            setMensagem(result.data.message);
+            setTimeout(() => {
+              history.push("/management");
+            }, 1500);
+          }
         });
     }
   };

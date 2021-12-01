@@ -6,7 +6,7 @@
 }
 
 .container{
-    width: 50vw;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,18 +25,20 @@ input[type="file"]{
 
 .customize{
     background-color: $blue;
+
+    width: 100%;
     color: $white;
     font-weight: bold;
     font-size: 1.4rem;
-    border-radius: 8px;
+    border-radius: 16px;
     border: 0;
     padding: 0.6rem 12.5rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    margin: 1.6rem;
     transition: .5s;
     text-align: center;
+    margin-bottom: 2rem;
     
     &:hover{
         background-color: $red;

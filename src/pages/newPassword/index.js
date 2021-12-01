@@ -67,7 +67,7 @@ export default function NewPassword() {
     })
   },
     // Importante para não virar um Loop
-    []);
+    [pathName]);
 
   return (
     <div className="content">

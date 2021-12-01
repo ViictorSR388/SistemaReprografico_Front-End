@@ -1,20 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
+import  managerData  from './managerData';
+import userData  from './userData'
 import { IconContext } from 'react-icons';
+import axios from 'axios'
 import './styles.scss';
 
-function Menu() {
+function Menu(props) {
   const [sidebar, setSidebar] = useState(false);
-
+  const [admin, setAdmin] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+
+  useEffect(() => {
+    axios
+        .get("http://localhost:3002/myUser/", {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        }).then((result) => {
+            if (result.data.roles[0].descricao === "admin") {
+                setAdmin(true)
+            }
+            else{
+                setAdmin(false)
+            }
+            if(props.admin){
+                setAdmin(props.admin)
+            }
+
+        })
+}, [props.admin])
+
 
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <div className="navbar">
+        <div className="navbarH">
           <Link to="#" className="menu-bars">
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
@@ -26,22 +49,34 @@ function Menu() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            <img className="logo" src="assets/img/logo.jpg" alt="logo"/>
-            {SidebarData.map((item, index) => {
-              return (
-                <li key={index} className={item.cName}>
-                  <Link to={item.path}>
-                    {item.icon}
-                    <span>{item.title}</span>
-                  </Link>
-                </li>
-              );
-            })}
+            <img className="logo" src="assets/img/logo.jpg" alt="logo" />
+            {admin ?
+              <> {managerData.map((item, index) => {
+                return (
+                  <li key={index} className={item.cName}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                );
+              })}
+              </>
+              :
+              <> {userData.map((item, index) => {
+                return (
+                  <li key={index} className={item.cName}>
+                    <Link to={item.path}>
+                      {item.icon}
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                );
+              })}</>}
           </ul>
         </nav>
       </IconContext.Provider>
     </>
   );
 }
-
 export default Menu;

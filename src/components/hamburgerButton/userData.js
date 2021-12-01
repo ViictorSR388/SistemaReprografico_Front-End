@@ -6,7 +6,7 @@ import { FaBookReader } from 'react-icons/fa';
 import { FaWrench } from 'react-icons/fa';
 import { FaChartLine } from 'react-icons/fa';
 
-export const SidebarData = [
+const userData = [
   {
     title: 'Usuário',
     path: `user/`,
@@ -20,21 +20,9 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Gerência de usuários',
-    path: '/management',
-    icon: <FaWrench />,
-    cName: 'nav-text'
-  },
-  {
     title: 'Minhas Requisições',
     path: '/myRequests',
     icon: <FaBookReader />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Estatística',
-    path: '/statistics',
-    icon: <FaChartLine />,
     cName: 'nav-text'
   },
   {
@@ -44,3 +32,5 @@ export const SidebarData = [
     cName: 'nav-text'
   }
 ];
+
+export default userData;

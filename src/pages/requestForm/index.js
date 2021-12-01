@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuG from '../../components/hamburgerButtonG';
+import Menu from '../../components/hamburgerButton';
 
 import Header from '../../components/header';
 import SideBar from '../../components/formSideBar';
@@ -10,7 +10,7 @@ function RequestForm(props) {
 
   return (
         <>
-          <MenuG />
+          <Menu admin={props.admin}/>
           <Header nif={props.nif}/>
           <SideBar image={props.image} name={props.name} admin={props.admin} requestForm={true} nif={props.nif} />
           <Form />

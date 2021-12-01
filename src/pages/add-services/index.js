@@ -13,6 +13,7 @@ export default function AddService() {
   const [descricao, setDescricao] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [custo, setCusto] = useState("");
+  const [message, setMessage] = useState();
 
   const AddService = () => {
     const data = {
@@ -26,6 +27,15 @@ export default function AddService() {
       }
     }).then((result) => {
       console.log(result);
+      if(result.data.status === "error"){
+        setMessage(result.data.message)
+      }
+      else{
+        setMessage(result.data.message)
+        setTimeout(() => {
+          history.push("/services")
+        }, 1500);
+      }
     })
   }
 
@@ -91,6 +101,7 @@ export default function AddService() {
               setCusto(e.target.value);
             }}
           />
+          <h3>{message}</h3>
             <input
               type="submit"
               className="nu-send-button"

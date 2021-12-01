@@ -9,7 +9,7 @@ function SideBar(props) {
     const [name, setName] = useState("");
     const [nif, setNif] = useState("");
     const [image, setImage] = useState("");
-    const [admin, setAdmin] = useState();
+    const [admin, setAdmin] = useState(false);
 
     const history = useHistory();
 
@@ -44,8 +44,11 @@ function SideBar(props) {
                 setName(result.data.nome)
                 setNif(result.data.nif)
                 setImage(`http://localhost:3002/${result.data.imagem}`)
-                if (result.data.roles[0] === "2_ROLE_ADMIN") {
+                if (result.data.roles[0].descricao === "admin") {
                     setAdmin(true)
+                }
+                else{
+                    setAdmin(false)
                 }
 
                 if (props.nif) {
@@ -57,9 +60,10 @@ function SideBar(props) {
                 if (props.name) {
                     setName(props.name)
                 }
-                if (props.admin) {
+                if(props.admin){
                     setAdmin(props.admin)
                 }
+
             })
     }, [props.nif, props.image, props.name, props.admin])
 
@@ -77,12 +81,15 @@ function SideBar(props) {
                         <button className="buttonG" onClick={routeMyRequests}>Meus Pedidos</button>
                     </>
                 }
-                {props.admin ?
+                {admin ?
                     <>
+                    
                         {props.management ? <></> : <button className="buttonG" onClick={routeManagement}>Gerencia de usuários</button>}
                         {props.estatisticas ? <></> : <button className="buttonG" onClick={routeStatistics}>Estatísticas</button>}
                         {props.services ? <></> : <button className="buttonG" onClick={routeServices}>Serviços</button>}
-                    </> : <></>}
+                    </> : 
+                    <>
+                    </>}
 
             </div>
         </div>

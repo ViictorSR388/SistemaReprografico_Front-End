@@ -1,15 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { useHistory } from 'react-router';
+import { useHistory } from "react-router";
 // import { PassContext } from "../../helpers/changePassContext";
-import { AuthContext } from './../../helpers/AuthContext';
+import { AuthContext } from "./../../helpers/AuthContext";
 import ProfileContainer from "../../components/profileContainer";
 
 function UserInfo(props) {
-
   var { id } = useParams();
 
   const [image, setImage] = useState({ raw: "", preview: "" });
@@ -24,7 +23,7 @@ function UserInfo(props) {
 
   const [telefoneUser, setTelefoneUser] = useState("");
 
-  const [deptoUser, setDeptoUser] = useState("")
+  const [deptoUser, setDeptoUser] = useState("");
 
   const [edit, setEdit] = useState(false);
 
@@ -32,7 +31,9 @@ function UserInfo(props) {
 
   const [pastPassword, setPastPassword] = useState();
 
-  const [newPassword, setNewPassowrd] = useState();
+  const [newPassword, setNewPassword] = useState();
+  
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState();
 
   const [message, setMessage] = useState();
 
@@ -128,28 +129,39 @@ function UserInfo(props) {
   const passwordPost = (e) => {
     e.preventDefault();
 
-    axios.put("http://localhost:3002/mudarSenha", { senhaAntiga: pastPassword, senhaNova: newPassword }, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    }).then((result) => {
-      if (result.data.error) {
-        setMessage(result.data.error)
-      }
-      else {
-        setMessage(result.data.message)
-      }
-    })
-  }
+    axios
+      .put(
+        "http://localhost:3002/myUser/changePassword",
+        { senhaAntiga: pastPassword, senhaNova: newPassword, confirmSenhaNova: newPasswordConfirm },
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      )
+      .then((result) => {
+        console.log(result)
+        if (result.data.status === "error") {
+          setMessage(result.data.message);
+        } else {
+          setMessage(result.data.message);
+          setTimeout(() => {
+            setChangePass(false);
+          }, 1500);
+          
+        }
+      });
+  };
 
-var [myNif, setMyNif] = useState()
-var [adm, setAdm] = useState()
+  var [myNif, setMyNif] = useState();
+  var [adm, setAdm] = useState();
+
   useEffect(() => {
     onLoad();
     setAdm(props.admin);
     return () => {
-    setAdm({})
-    }
+      setAdm({});
+    };
   }, [props.admin]);
 
   const onLoad = () => {
@@ -157,16 +169,15 @@ var [adm, setAdm] = useState()
       .get("http://localhost:3002/user/" + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
-        },  
-        validateStatus: () => true
+        },
+        validateStatus: () => true,
       })
       .then((result) => {
-
-        if(result.status === 404){
-          setNotFound(true)
+        if (result.status === 404) {
+          setNotFound(true);
         }
 
-        setNif(result.data.nif)
+        setNif(result.data.nif);
         setNameUser(result.data.nome);
         setEmailUser(result.data.email);
         setCfpUser(result.data.cfp);
@@ -177,134 +188,216 @@ var [adm, setAdm] = useState()
         //   setEditableAccount(true)
         // }
         setLoading(false);
+      });
+    axios
+      .get("http://localhost:3002/auth", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
       })
-      axios.get("http://localhost:3002/auth", {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    }).then((result) => {
-      setMyNif(result.data.nif);
-    })
-  }
-
+      .then((result) => {
+        setMyNif(result.data.nif);
+      });
+  };
+//Importante para mandar pelo useContext se o usuário é administrador ou não
+// e assim enviar para o header o valor para o props.admin trazendo as informações
+// corretas no header para cada tipo de usuári (Esta terefa seria feita na página de login)
+// mas como vocês estão redirecionando para página de perfil de usuário assim que faz login,
+// temos que verificar se o usuário é admin pq vamos renderizar o header logo em seguida.
   const voltar = () => {
     axios
-    .get("http://localhost:3002/auth", {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    }).then((result) => {
-      setAuthState({
-        nif: result.data.nif,
-        nome: result.data.nome,
-        roles: result.data.roles,
-        imagem: "http://localhost:3002/" + result.data.imagem,
-        redirect: false
+      .get("http://localhost:3002/myUser", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((response) => {
+        if (response.data.roles) {
+          console.log(response.data.primeiro_acesso)
+          if(response.data.primeiro_acesso === 1){
+            setAuthState({
+              firstAccess: true,
+            });
+            history.push("/firstAccess")
+          }
+          else if (response.data.roles[0].descricao === "admin") {
+            history.push("/management");
+            setAuthState({
+              admin: true
+            });
+          } else {
+            history.push("/requestForm");
+            setAuthState({
+              admin: false
+            });
+          }
+        }
       });
-      
-      history.push("/requestForm");
-    })
-  }
+  };
 
   return (
     <>
-      {loading ? <> Loading ... </> :
-      <>
-      {notFound ? <> Usuário não encontrado </> : <> 
-        <div className="content">
-          {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
-          {myNif === nif ? <ProfileContainer image={image.preview} name={nameUser} changePassword={() => { setChangePass(true) }} nif={props.nif} /> : <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />}
-
-          <div className="container">
-
-            {changePass ? <>         <h2 id="h2" className="ui-subTitle">
-              Alterar senha
-            </h2>
-              <form onSubmit={passwordPost}>
-                <div>
-                  <h2 id="h2" className="ui-subTitle">
-                    Senha antiga
-                  </h2>
-                  <input required type="password" className="input-box" placeholder="Insira sua senha antiga"
-                    onChange={(e) => {
-                      setPastPassword(e.target.value);
+      {loading ? (
+        <> Loading ... </>
+      ) : (
+        <>
+          {notFound ? (
+            <> Usuário não encontrado </>
+          ) : (
+            <>
+              <div className="content">
+                {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
+                {adm || myNif === nif ? (
+                  <ProfileContainer
+                    edit={() => {
+                      setEdit(true);
                     }}
-                  ></input>
-                </div>
-                <div>
-                  <h2 id="h2" className="ui-subTitle">
-                    Nova senha
-                  </h2>
-                  <input required type="password" className="input-box" placeholder="Insira a nova senha"
-                    onChange={(e) => {
-                      setNewPassowrd(e.target.value);
+                    admin={true}
+                    image={image.preview}
+                    name={nameUser}
+                    changePassword={() => {
+                      setChangePass(true);
                     }}
-                  ></input>
-                </div>
-                <button className="nu-send-button" type="submit">Enviar</button>
-              </form>
-              <button className="nu-back-button" onClick={() => { setChangePass(false) }}>Voltar</button>
-              <h4>{message}</h4>
-            </> : <>
-              <h2 id="h2" className="ui-subTitle">
-                Informações pessoais
-              </h2>
-              {edit ? (
-                <>
-                  {" "}
-                  <form onSubmit={handleUpload}>
-                    <h3 className="input-title">NOME</h3>
-                    <input
-                      className="input-box"
-                      name="nameUser"
-                      type="text"
-                      placeholder={nameUser}
-                      onChange={(e) => {
-                        setNameUser(e.target.value);
-                      }}
-                    />
-                    <h3 className="input-title">EMAIL</h3>
-                    <input
-                      className="input-box"
-                      name="emailUser"
-                      type="email"
-                      placeholder={emailUser}
-                      onChange={(e) => {
-                        setEmailUser(e.target.value);
-                      }}
-                    />
-                    <h3 className="input-title">CFP</h3>
-                    <input
-                      className="input-box"
-                      name="cfpUser"
-                      type="text"
-                      placeholder={cfpUser}
-                      onChange={(e) => {
-                        setCfpUser(e.target.value);
-                      }}
-                    />
-                    <h3 className="input-title">TELEFONE</h3>
-                    <input
-                      className="input-box"
-                      name="telefoneUser"
-                      type="text"
-                      placeholder={telefoneUser}
-                      onChange={(e) => {
-                        setTelefoneUser(e.target.value);
-                      }}
-                    />
-                    <h3 className="input-title">IMAGEM</h3>
-                    <label className="customize">
-                      <input
-                        type="file"
-                        name="image"
-                        onChange={handleChange}
-                        accept="image/*"
-                      />
-                      <FaCloudUploadAlt className="uploud" />
-                      Upload
-                    </label>
-                    {/* <h3 className="input-title">DEPARTAMENTO</h3>
+                    nif={props.nif}
+                  />
+                ) : (
+                  <ProfileContainer
+                    image={image.preview}
+                    name={nameUser}
+                    requestsNoInfo={true}
+                    change={true}
+                    changePassword={() => {
+                      setChangePass(true);
+                    }}
+                    nif={props.nif}
+                  />
+                )}
+
+                <div className="container">
+                  {changePass ? (
+                    <>
+                      {" "}
+                      <h2 id="h2" className="ui-subTitle">
+                        Alterar senha
+                      </h2>
+                      <form onSubmit={passwordPost}>
+                        <div>
+                          <h2 id="h2" className="ui-subTitle">
+                            Senha antiga
+                          </h2>
+                          <input
+                            required
+                            type="password"
+                            className="input-box"
+                            placeholder="Insira sua senha antiga"
+                            onChange={(e) => {
+                              setPastPassword(e.target.value);
+                            }}
+                          ></input>
+                        </div>
+                        <div>
+                          <h2 id="h2" className="ui-subTitle">
+                            Nova senha
+                          </h2>
+                          <input
+                            required
+                            type="password"
+                            className="input-box"
+                            placeholder="Insira a nova senha"
+                            onChange={(e) => {
+                              setNewPassword(e.target.value);
+                            }}
+                          ></input>
+                        </div>
+                        <div>
+                          <h2 id="h2" className="ui-subTitle">
+                            Confirmar nova senha
+                          </h2>
+                          <input
+                            required
+                            type="password"
+                            className="input-box"
+                            placeholder="Insira a nova senha"
+                            onChange={(e) => {
+                              setNewPasswordConfirm(e.target.value);
+                            }}
+                          ></input>
+                        </div>
+                        <button className="nu-send-button" type="submit">
+                          Enviar
+                        </button>
+                      </form>
+                      <button
+                        className="nu-back-button"
+                        onClick={() => {
+                          setChangePass(false);
+                        }}
+                      >
+                        Voltar
+                      </button>
+                      <h4>{message}</h4>
+                    </>
+                  ) : (
+                    <>
+                      <h2 id="h2" className="ui-subTitle">
+                        Informações pessoais
+                      </h2>
+                      {edit ? (
+                        <>
+                          {" "}
+                          <form onSubmit={handleUpload}>
+                            <h3 className="input-title">NOME</h3>
+                            <input
+                              className="input-box"
+                              name="nameUser"
+                              type="text"
+                              placeholder={nameUser}
+                              onChange={(e) => {
+                                setNameUser(e.target.value);
+                              }}
+                            />
+                            <h3 className="input-title">EMAIL</h3>
+                            <input
+                              className="input-box"
+                              name="emailUser"
+                              type="email"
+                              placeholder={emailUser}
+                              onChange={(e) => {
+                                setEmailUser(e.target.value);
+                              }}
+                            />
+                            <h3 className="input-title">CFP</h3>
+                            <input
+                              className="input-box"
+                              name="cfpUser"
+                              type="text"
+                              placeholder={cfpUser}
+                              onChange={(e) => {
+                                setCfpUser(e.target.value);
+                              }}
+                            />
+                            <h3 className="input-title">TELEFONE</h3>
+                            <input
+                              className="input-box"
+                              name="telefoneUser"
+                              type="text"
+                              placeholder={telefoneUser}
+                              onChange={(e) => {
+                                setTelefoneUser(e.target.value);
+                              }}
+                            />
+                            <h3 className="input-title">IMAGEM</h3>
+                            <label className="customize">
+                              <input
+                                type="file"
+                                name="image"
+                                onChange={handleChange}
+                                accept="image/*"
+                              />
+                              <FaCloudUploadAlt className="uploud" />
+                              Upload
+                            </label>
+                            {/* <h3 className="input-title">DEPARTAMENTO</h3>
                     <select
                       className="select"
                       id="deptoUser"
@@ -338,39 +431,61 @@ var [adm, setAdm] = useState()
                         Aperfeiç./Especializ. Profis. Presencial
                       </option>
                     </select> */}
-                    <div className="btns">
-                      <input type="submit" className="nu-send-button" id="btn" value="Enviar"
-                      />
-                      <button className="nu-back-button"id="btn" onClick={() => { setEdit(false) }}> Voltar</button>
-                    </div>
-                  </form>
-                </>
-              ) : (
-                <>
-                  <h3 className="input-title">NIF</h3>
-                  <h2 className="userInformation">{nif}</h2>
-                  <h3 className="input-title">EMAIL</h3>
-                  <h2 className="userInformation">{emailUser}</h2>
-                  <h3 className="input-title">CFP</h3>
-                  <h2 className="userInformation">{cfpUser}</h2>
-                  <h3 className="input-title">TELEFONE</h3>
-                  <h2 className="userInformation">{telefoneUser}</h2>
-                  <h3 className="input-title">DEPARTAMENTO</h3>
-                  <h2 className="userInformation">{deptoUser}</h2>
-                  <div className="btns">
-                    {adm || myNif === nif ? <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button> : <></>}
+                            <div className="btns">
+                              <input
+                                type="submit"
+                                className="nu-send-button"
+                                id="btn"
+                                value="Enviar"
+                              />
+                              <button
+                                className="nu-back-button"
+                                id="btn"
+                                onClick={() => {
+                                  setEdit(false);
+                                }}
+                              >
+                                {" "}
+                                Voltar
+                              </button>
+                            </div>
+                          </form>
+                        </>
+                      ) : (
+                        <>
+                          <h3 className="input-title">NIF</h3>
+                          <h2 className="userInformation">{nif}</h2>
+                          <h3 className="input-title">EMAIL</h3>
+                          <h2 className="userInformation">{emailUser}</h2>
+                          <h3 className="input-title">CFP</h3>
+                          <h2 className="userInformation">{cfpUser}</h2>
+                          <h3 className="input-title">TELEFONE</h3>
+                          <h2 className="userInformation">{telefoneUser}</h2>
+                          <h3 className="input-title">DEPARTAMENTO</h3>
+                          <h2 className="userInformation">{deptoUser}</h2>
+                          <div className="btns">
+                            {/* {adm || myNif === nif ? <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button> : <></>} */}
 
-                    <button className="btn-back-user" id="btn" onClick={voltar}> Voltar</button>
-                  </div>
-                </>
-              )}</>}
-
-          </div>
-          {/* </PassContext.Provider> */}
-        </div>
-      </>}
-      </>
-      }
+                            <button
+                              className="btn-back-user"
+                              id="btn"
+                              onClick={voltar}
+                            >
+                              {" "}
+                              Voltar
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
+                {/* </PassContext.Provider> */}
+              </div>
+            </>
+          )}
+        </>
+      )}
     </>
   );
 }

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router"
+import { useParams } from "react-router";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { useHistory } from 'react-router';
+import { useHistory } from "react-router";
+import { Form } from 'react-bootstrap';
 import ProfileContainer from "../../components/profileContainer";
-import '../../styles/editUser.scss';
-
+import "../../styles/editUser.scss";
 
 function EditUser(props) {
-
   const { id } = useParams();
 
   // const { nif } = useParams();
@@ -21,40 +20,39 @@ function EditUser(props) {
 
   const [emailUser, setEmailUser] = useState("");
 
+  const [adminUser, setAdminUser] = useState({
+    list: []
+  });
+
   const [senhaUser, setSenhaUser] = useState("");
 
   const [cfpUser, setCfpUser] = useState("");
 
   const [telefoneUser, setTelefoneUser] = useState("");
 
-  const [deptoUser, setDeptoUser] = useState("");
+  const [deptoUser, setDeptoUser] = useState("0");
+
+  const [admin, setAdmin] = useState(0);
 
   var id_depto = deptoUser;
 
   //estrutura de decisão para exibir corretamente o departamento
   if (deptoUser === "1") {
-    id_depto = "Aprendizagem Industrial Presencial"
-  }
-  else if (deptoUser === "2") {
-    id_depto = "Técnico de Nível Médio Presencial"
-  }
-  else if (deptoUser === "3") {
-    id_depto = "Graduação Tecnológica Presencial"
-  }
-  else if (deptoUser === "4") {
-    id_depto = "Pós-Graduação Presencial"
-  }
-  else if (deptoUser === "5") {
-    id_depto = "Extensão Presencial"
-  }
-  else if (deptoUser === "6") {
-    id_depto = "Iniciação Profissional Presencial"
-  }
-  else if (deptoUser === "7") {
-    id_depto = "Qualificação Profissional Presencial"
-  }
-  else if (deptoUser === "8") {
-    id_depto = "Aperfeiç./Especializ. Profis. Presencial"
+    id_depto = "Aprendizagem Industrial Presencial";
+  } else if (deptoUser === "2") {
+    id_depto = "Técnico de Nível Médio Presencial";
+  } else if (deptoUser === "3") {
+    id_depto = "Graduação Tecnológica Presencial";
+  } else if (deptoUser === "4") {
+    id_depto = "Pós-Graduação Presencial";
+  } else if (deptoUser === "5") {
+    id_depto = "Extensão Presencial";
+  } else if (deptoUser === "6") {
+    id_depto = "Iniciação Profissional Presencial";
+  } else if (deptoUser === "7") {
+    id_depto = "Qualificação Profissional Presencial";
+  } else if (deptoUser === "8") {
+    id_depto = "Aperfeiç./Especializ. Profis. Presencial";
   }
 
   const handleChange = (e) => {
@@ -74,7 +72,9 @@ function EditUser(props) {
 
     //estrutura de decisão para enviar o valor para o back como numero inteiro
 
-    if (deptoUser === "1") {
+    if (deptoUser === "0") {
+      departamento = "0";
+    } else if (deptoUser === "1") {
       departamento = 1;
     } else if (deptoUser === "2") {
       departamento = 2;
@@ -90,6 +90,10 @@ function EditUser(props) {
       departamento = 7;
     } else if (deptoUser === "8") {
       departamento = 8;
+    }
+
+    if (departamento === undefined) {
+      departamento = "0"
     }
 
     const formData = new FormData();
@@ -112,8 +116,8 @@ function EditUser(props) {
     if (deptoUser !== "") {
       formData.append("depto", departamento);
     }
+    formData.append("admin", admin);
 
-    formData.append("senha", "123");
 
     axios
       .put("http://localhost:3002/user/" + id, formData, {
@@ -123,18 +127,21 @@ function EditUser(props) {
       })
       .then((result) => {
         console.log(result);
-        console.log("TESTE " + id);
       });
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/user/` + id, {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    })
+    axios
+      .get(`http://localhost:3002/user/` + id, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
       .then((result) => {
         console.log(result);
+        setAdminUser({
+          list: result.data.roles
+        });
         setNameUser(result.data.nome);
         setEmailUser(result.data.email);
         setCfpUser(result.data.cfp);
@@ -146,11 +153,18 @@ function EditUser(props) {
 
   return (
     <div className="content">
-      <ProfileContainer image={image.preview} name={nameUser} requestsNoInfo={true} change={true} changePassword={() => { setChangePass(true) }} nif={props.nif} />
+      <ProfileContainer
+        image={image.preview}
+        name={nameUser}
+        requestsNoInfo={true}
+        change={true}
+        changePassword={() => {
+          setChangePass(true);
+        }}
+        nif={props.nif}
+      />
       <div className="container">
-        <h2 className="ui-subTitle" >
-          Informações pessoais
-        </h2>
+        <h2 className="ui-subTitle">Informações pessoais</h2>
         <h3 className="input-title">NOME</h3>
         <form onSubmit={handleUpload}>
           <input
@@ -219,7 +233,7 @@ function EditUser(props) {
             className="select"
             id="deptoUser"
             name="deptoUser"
-            required
+            defaultValue="0"
             onChange={(e) => {
               setDeptoUser(e.target.value);
             }}
@@ -252,18 +266,63 @@ function EditUser(props) {
               Aperfeiç./Especializ. Profis. Presencial
             </option>
           </select>
-          <div className="btns">
+
+          {adminUser.list.map((data) => (
+            <>
+              {data.descricao === "user" ?
+              <>
+                    <input
+                      className="check classRadio"
+                      type="radio"
+                      name="admin"
+                      id="admin"
+                      checked={admin === "1"}
+                      onChange={() => {
+                        setAdmin("1")
+                        console.log(admin)
+                      }}
+                      />
+                    <label className="labelName" htmlFor="">
+                      <h2>Alterar para usuário administrador?</h2>
+                    </label>  
+                    </>
+                :
+          <>
             <input
-              type="submit"
-              className="nu-send-button"
-              id="btn"
-              value="Enviar"
+              className="check classRadio"
+              type="radio"
+              name="admin"
+              id="admin2"
+              checked={admin === "0"}
+              onChange={() => {
+                setAdmin("0")
+                console.log(admin)
+              }}
             />
-            <button className="btn-back-user" onClick={() => history.push('/management')}>Voltar</button>
-          </div>
-        </form>
-      </div>
+            <label className="labelName" htmlFor="">
+              <h2>Alterar para usuário comum?</h2>
+            </label>
+          </>
+              }
+        </>
+          ))}
+        <div className="btns">
+          <input
+            type="submit"
+            className="nu-send-button"
+            id="btn"
+            value="Enviar"
+          />
+          <button
+            className="btn-back-user"
+            onClick={() => history.push("/management")}
+          >
+            Voltar
+          </button>
+        </div>
+      </form>
     </div>
+    </div >
   );
 }
 
