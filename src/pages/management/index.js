@@ -21,7 +21,7 @@ function Management(props) {
   });
 
   var [ativos, setAtivos] = useState();
-  var [loading, setLoading] = useState();
+  // var [loading, setLoading] = useState();
 
 
   const usuariosAtivos = (id) => {

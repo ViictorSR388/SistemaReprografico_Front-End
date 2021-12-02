@@ -17,10 +17,9 @@ const MyRequests = (props) => {
     });
 
     var [avaliados, setAvaliados] = useState();
-    var [loading, setLoading] = useState();
+    // var [loading, setLoading] = useState();
 
     useEffect(() => {
-        setLoading(true)
         axios.get("http://localhost:3002/myRequests/rated=0", {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -38,7 +37,6 @@ const MyRequests = (props) => {
                         message: result.data.message
                     })
                 }
-                setLoading(false)
             });
     }, []);
 
@@ -97,7 +95,8 @@ const MyRequests = (props) => {
     return (
         <>
             <div className="content">
-                {loading ? <> loading... </> : <>
+                {/* {loading ? <> loading... </> :  */}
+                <>
                     <Header nif={props.nif} />
                     <SideBar image={props.image} name={props.name} requestsNoInfo={true} nif={props.nif} admin={props.admin} />
 
@@ -160,7 +159,8 @@ const MyRequests = (props) => {
                         </>
                         {/**<Button className="back-request" onClick={() => history.push('/requestForm')}> Voltar </Button>**/}
                     </div>
-                </>}
+                </>
+                {/* } */}
             </div>
         </>
     )
