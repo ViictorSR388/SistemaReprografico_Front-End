@@ -21,7 +21,7 @@ function Management(props) {
   });
 
   var [ativos, setAtivos] = useState();
-  var [loading, setLoading] = useState(true);
+  var [loading, setLoading] = useState();
 
 
   const usuariosAtivos = (id) => {
@@ -105,7 +105,6 @@ function Management(props) {
             ativos: true
           })
         }
-        setLoading(false);
       });
   }, []);
 
@@ -142,7 +141,7 @@ function Management(props) {
 
     return (
       <>
-        {loading ? <> Loading... </> :
+        {/* {loading ? <> Loading... </> : */}
           <>
             <Menu admin={props.admin}/>
             <Header nif={props.nif} />
@@ -232,7 +231,8 @@ function Management(props) {
                 </Button>{' '}
               </div>
             </div>
-          </>}
+          </>
+          {/* } */}
       </>
     );
   }
