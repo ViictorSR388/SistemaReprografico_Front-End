@@ -165,7 +165,7 @@ Aqui está o link para o repositório da [Squad de Back-End](https://github.com/
 - 👨‍💻 [Allan Santos](https://github.com/Dev-allanSantos)
 - 👨‍💻 [Antonio Augusto](https://github.com/Antonio1711)
 - 👨‍💻 [Athilas Silva](https://github.com/Athilas-Silva)
-- 👩‍💻 [Larissa Santos](https://github.com/larizwn)
+- 👩‍💻 [Larissa Almeida](https://github.com/larizwn)
 - 👨‍💻 [Lucas Galdino](https://github.com/LucasGaldinno)
 - 👨‍💻 [Victor Eduardo](https://github.com/ViictorSR388)
 
