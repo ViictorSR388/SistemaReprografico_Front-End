@@ -35,7 +35,9 @@ function FirstAccess(props) {
                 }, 1100)
             } else {
                 localStorage.removeItem("accessToken");
-                history.push("/")
+                setTimeout(() => {
+                    history.push(`/`)
+                }, 1100)
             }
         })
     };
