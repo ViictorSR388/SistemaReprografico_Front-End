@@ -209,7 +209,7 @@ function Rotas() {
                       )}
                     />
                     <Route
-                      path="/edit-user/:id"
+                      path="/user/edit/:nif"
                       exact
                       component={() => (
                         <EditUser

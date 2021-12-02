@@ -45,21 +45,24 @@ function ProfileContainer(props) {
                     </div>
                 </div>
             </div>
-            {props.newUser ? <h2 className="subTitle">{name}</h2> : <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2> }
+            {props.newUser ? <h2 className="subTitle">{name}</h2> : <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2>}
             <div className="profile-links" >
-                {props.change ? <></> :
-                    <> 
+                {props.change ? <>
+                    <button className="button-edit" onClick={props.edit}>
+                        Editar Perfil
+                    </button>
+                    <button className="button-edit" onClick={props.changePassword}>
+                        Alterar Senha
+                    </button>
+                </> : <>
                     {props.admin ?
-                    <>
-                        <button className="button-edit" onClick={props.edit}> 
-                            Editar Perfil
-                        </button> 
-                        <button className="button-edit" onClick={props.changePassword}>
-                            Alterar Senha
-                        </button>
+                        <>
+                            <button className="button-edit" onClick={props.edit}>
+                                Editar Perfil
+                            </button>
                         </>
                         : <></>}
-                    </>
+                </>
                 }
             </div>
         </div>
