@@ -20,7 +20,7 @@ function Menu(props) {
                 accessToken: localStorage.getItem("accessToken"),
             },
         }).then((result) => {
-            if (result.data.roles[0].descricao === "admin") {
+            if (result.data.roles && result.data.roles[0].descricao === "admin") {
                 setAdmin(true)
             }
             else{

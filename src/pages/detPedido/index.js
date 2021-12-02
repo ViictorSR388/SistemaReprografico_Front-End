@@ -15,8 +15,8 @@ export default function DetPedido() {
                 },
             }).then((result) => {
                 console.log(result)
-                if(result.data.error){
-                    setMessage(result.data.error)
+                if(result.data.status === "error"){
+                    setMessage(result.data.message)
                 }
                 else { setMessage(result.data.message) }
             })

@@ -26,15 +26,17 @@ function RequestList(props) {
         },
       })
       .then((result) => {
-        if (result.data.message) {
-          setPedidos({
-            message: result.data.message
-          });
-        } else {
-          setPedidos({
-            list: [result.data],
-            status: true,
-          });
+        if(!result.data.error){
+          if (result.data.message) {
+            setPedidos({
+              message: result.data.message
+            });
+          } else {
+            setPedidos({
+              list: [result.data],
+              status: true,
+            });
+          }
         }
       });
   }, [id]);

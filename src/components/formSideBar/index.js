@@ -41,29 +41,30 @@ function SideBar(props) {
                     accessToken: localStorage.getItem("accessToken"),
                 },
             }).then((result) => {
-                setName(result.data.nome)
-                setNif(result.data.nif)
-                setImage(`http://localhost:3002/${result.data.imagem}`)
-                if (result.data.roles[0].descricao === "admin") {
-                    setAdmin(true)
+                if(result.data.roles) {
+                    setName(result.data.nome)
+                    setNif(result.data.nif)
+                    setImage(`http://localhost:3002/${result.data.imagem}`)
+                    if (result.data.roles[0].descricao === "admin") {
+                        setAdmin(true)
+                    }
+                    else{
+                        setAdmin(false)
+                    }
+    
+                    if (props.nif) {
+                        setNif(props.nif)
+                    }
+                    if (props.image) {
+                        setImage(`${props.image}`)
+                    }
+                    if (props.name) {
+                        setName(props.name)
+                    }
+                    if(props.admin){
+                        setAdmin(props.admin)
+                    }
                 }
-                else{
-                    setAdmin(false)
-                }
-
-                if (props.nif) {
-                    setNif(props.nif)
-                }
-                if (props.image) {
-                    setImage(`${props.image}`)
-                }
-                if (props.name) {
-                    setName(props.name)
-                }
-                if(props.admin){
-                    setAdmin(props.admin)
-                }
-
             })
     }, [props.nif, props.image, props.name, props.admin])
 

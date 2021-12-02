@@ -68,7 +68,7 @@ function Rotas() {
             firstAccess: false
           });
           setFirstAccess(0);
-          if (response.data.roles[0].descricao === "admin") {
+          if (response.data.roles && response.data.roles[0].descricao === "admin") {
             setAuthState({
               admin: true,
             });
