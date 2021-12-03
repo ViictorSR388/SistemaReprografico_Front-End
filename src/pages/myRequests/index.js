@@ -120,7 +120,8 @@ const MyRequests = (props) => {
                  getAvaliados(1);
                 setTimeout(() => {
                     setPedidos({message: `Pedido "${name}" movido para seção Não avaliados!`})
-                }, 500);
+                }, 100);
+
             }
             else {
                 Toast.fire({
