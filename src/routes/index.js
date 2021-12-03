@@ -257,6 +257,18 @@ function Rotas() {
                       )}
                     />
                     <Route
+                      path="/edit-services/:type/:id"
+                      exact
+                      component={() => (
+                        <AddService
+                          image={authState.imagem}
+                          name={authState.nome}
+                          nif={authState.nif}
+                          admin={authState.admin}
+                        />
+                      )}
+                    />
+                    <Route
                       path="/statistics"
                       exact
                       component={() => (

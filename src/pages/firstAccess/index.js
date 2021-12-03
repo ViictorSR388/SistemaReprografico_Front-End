@@ -25,7 +25,7 @@ function FirstAccess(props) {
         }).then((result) => {
             setMessage(result.data.message)
             if (result.data.status === "ok") {
-                setTimeout(() => { 
+                setTimeout(() => {
                     setAuthState({
                         firstAccess: false
                     })
@@ -50,15 +50,14 @@ function FirstAccess(props) {
     const logout = () => {
         localStorage.removeItem("accessToken");
         history.push('/')
-    }; 
+    };
 
     return (
         <>
             <div className="content">
                 <LoginContainer />
                 <div className="container-login">
-                <FaSignOutAlt className="icon-firstAccess" onClick={logout} />
-                    <h2 className="title-first">
+                    <h2 className="title-firstAccess">
                         Insira sua nova senha
                     </h2>
                     <form onSubmit={onSubmit}>
@@ -91,6 +90,9 @@ function FirstAccess(props) {
                             />
                         </div>
                     </form>
+                    <div className="exit-access">
+                        <FaSignOutAlt className="exit-firstAccess" onClick={logout} />
+                    </div>
                 </div>
             </div>
         </>

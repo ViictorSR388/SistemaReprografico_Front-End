@@ -26,7 +26,7 @@ function RequestList(props) {
         },
       })
       .then((result) => {
-        if(!result.data.error){
+        if (!result.data.error) {
           if (result.data.message) {
             setPedidos({
               message: result.data.message
@@ -62,10 +62,10 @@ function RequestList(props) {
                   {pedidos.list.map((data) => (
                     <React.Fragment key={data.id_pedidos}>
                       <tbody>
-                      <tr>
+                        <tr>
                           <td><strong>O pedido foi solicitado:</strong></td>
                           <td>
-                            {data.realizado_qtdade < 2 ? <Card.Text>{data.realizado_qtdade} vez</Card.Text>: <Card.Text>{data.realizado_qtdade} vezes</Card.Text>}
+                            {data.realizado_qtdade < 2 ? <Card.Text>{data.realizado_qtdade} vez</Card.Text> : <Card.Text>{data.realizado_qtdade} vezes</Card.Text>}
                           </td>
                         </tr>
                         <tr>
@@ -124,12 +124,18 @@ function RequestList(props) {
                         </tr>
 
                         {data.det_pedidos[0].observacoes === "" ? <></> :
-                            <tr>
+                          <tr>
                             <td><strong>Observações</strong></td>
-                              <td>
-                                <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
-                              </td>
-                            </tr>}
+                            <td>
+                              <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
+                            </td>
+                          </tr>}
+                        {data.det_pedidos[0].anexo_path !== "" ? <><tr>
+                          <td><strong>Anexo</strong></td>
+                          <td>
+                            <Card.Text>Contém anexo</Card.Text>
+                          </td>
+                        </tr></> : <></>}
                       </tbody>
                     </React.Fragment>
                   ))}
