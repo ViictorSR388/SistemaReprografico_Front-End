@@ -54,10 +54,17 @@ function Menu(props) {
               <> {managerData.map((item, index) => {
                 return (
                   <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
+                    {item.path === '/' ?
+                      <Link to={item.path} onClick={(e) => e.target.value = localStorage.removeItem("accessToken")} >
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                      :
+                      <Link to={item.path}>
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                    }
                   </li>
                 );
               })}
@@ -66,10 +73,17 @@ function Menu(props) {
               <> {userData.map((item, index) => {
                 return (
                   <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
+                    {item.path === '/' ?
+                      <Link to={item.path} onClick={(e) => e.target.value = localStorage.removeItem("accessToken")} >
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                      :
+                      <Link to={item.path}>
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                    }
                   </li>
                 );
               })}</>}
