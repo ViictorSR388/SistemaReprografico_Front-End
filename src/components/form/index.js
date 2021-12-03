@@ -402,7 +402,7 @@ export default function RequestForm() {
                     required
                   />
                   <label className="label" htmlFor="page-request">
-                    Páginas
+                    Número de Páginas
                   </label>
                   <input
                     type="number"
@@ -415,7 +415,7 @@ export default function RequestForm() {
                     required
                   />
                   <label className="label" htmlFor="copy">
-                    Cópias
+                    Número de Cópias
                   </label>
                   <input
                     type="number"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/addService.scss';
@@ -8,29 +8,29 @@ export default function AddService() {
 
   var history = useHistory();
 
-  var { type } = useParams();
+  var { type, id } = useParams();
 
   const [descricao, setDescricao] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [custo, setCusto] = useState("");
   const [message, setMessage] = useState();
 
-  const AddService = () => {
+  const EditService = () => {
     const data = {
       descricao: descricao,
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.post(`http://localhost:3002/service/type=${type}`, data, {
+    axios.put(`http://localhost:3002/service/${id}/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
     }).then((result) => {
       console.log(result);
-      if(result.data.status === "error"){
+      if (result.data.status === "error") {
         setMessage(result.data.message)
       }
-      else{
+      else {
         setMessage(result.data.message)
         setTimeout(() => {
           history.push("/services")
@@ -46,7 +46,7 @@ export default function AddService() {
           accessToken: localStorage.getItem("accessToken"),
         },
         // setAuthState({
-        }).then((result) => {
+      }).then((result) => {
         //   nif: result.data.nif,
         //   nome: result.data.nome,
         //   roles: result.data.roles,
@@ -54,14 +54,35 @@ export default function AddService() {
         //   redirect: false
         // });
 
+        // ativado: 1
+        // descricao: "Capa em papel 150g e espirais de plástico"
+        // id_servico: 3
+        // quantidade: 100
+        // valor_unitario: 0.5
+
         history.push("/services");
       })
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    AddService();
+    EditService()
   }
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3002/service/${id}/type=${type}`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        setDescricao(result.data.descricao)
+        setQuantidade(result.data.quantidade)
+        setCusto(result.data.valor_unitario)
+        console.log(result);
+      });
+  }, []);
 
   return (
     <>
@@ -69,24 +90,14 @@ export default function AddService() {
       <div className="finishing">
         <form onSubmit={onSubmit}>
           <h2 id="h2" className="service-subTitle">
-            Adicionar Serviço
+            Editar Serviço
           </h2>
-          <input
-            className="input-service"
-            name="descricao"
-            type="text"
-            placeholder="descrição de capa e acabamento"
-            required
-            onChange={(e) => {
-              setDescricao(e.target.value);
-            }}
-          />
+          <h2 className="title">{descricao}</h2>
           <input
             className="input-service"
             name="quantidade"
             type="number"
-            placeholder="quantidade do serviço"
-            required
+            placeholder={quantidade}
             onChange={(e) => {
               setQuantidade(e.target.value);
             }}
@@ -94,26 +105,28 @@ export default function AddService() {
           <input
             className="input-service"
             name="custo"
-            type="number" 
-            step="any" 
-            placeholder="custo unitário do serviço"
-            required
+            type="number"
+            step="any"
+            placeholder={custo}
             onChange={(e) => {
               setCusto(e.target.value);
             }}
           />
           <h3>{message}</h3>
+          <div className="btns-edit-services">
             <input
               type="submit"
               className="nu-send-button"
               id="btn"
-              value="Adicionar"
+              value="Editar"
             />
+            <button
+              className="btn-back-user"
+              id="btn"
+              onClick={voltar}>Voltar
+            </button>
+          </div>
         </form>
-        <button
-          className="btn-back-user"
-          id="btn"
-          onClick={voltar}>Voltar</button>
       </div>
     </>
   );

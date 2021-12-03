@@ -7,7 +7,7 @@ import Header from "../../../src/components/header";
 import SideBar from "../../../src/components/formSideBar";
 import { Table } from "react-bootstrap";
 import Button from "@restart/ui/esm/Button";
-import MenuG from "../../components/hamburgerButton";
+import Menu from "../../components/hamburgerButton";
 
 export default function Services(props) {
   var history = useHistory();
@@ -133,7 +133,7 @@ export default function Services(props) {
       ) : (
         <>
           {" "}
-          <MenuG />
+          <Menu />
           <Header nif={props.nif} />
           <SideBar
             image={props.image}
@@ -184,20 +184,32 @@ export default function Services(props) {
                             {/* CUSTO */}
                             <td>{"R$ " + data.valor_unitario}</td>
                             {data.ativado ? (
-                              <td>
-                                <Button
-                                  className="btn-disable"
-                                  onClick={() =>
-                                    enableUser({
-                                      id: data.id_servico,
-                                      type: "ca",
-                                      enable: data.ativado,
-                                    })
-                                  }
-                                >
-                                  Desabilitar
-                                </Button>
-                              </td>
+                              <tr>
+                                <td>
+                                  <Button
+                                    className="btn-edit"
+                                    onClick={() => {
+                                      history.push(`/edit-services/${data.id_servico}/ca`);
+                                    }}
+                                  >
+                                    Editar
+                                  </Button>
+                                </td>
+                                <td>
+                                  <Button
+                                    className="btn-disable"
+                                    onClick={() =>
+                                      enableUser({
+                                        id: data.id_servico,
+                                        type: "ca",
+                                        enable: data.ativado,
+                                      })
+                                    }
+                                  >
+                                    Desabilitar
+                                  </Button>
+                                </td>
+                              </tr>
                             ) : (
                               <td>
                                 <Button
@@ -259,20 +271,32 @@ export default function Services(props) {
                             {/* CUSTO */}
                             <td>{"R$ " + data.valor_unitario}</td>
                             {data.ativado ? (
-                              <td>
-                                <Button
-                                  className="btn-disable"
-                                  onClick={() =>
-                                    enableUser({
-                                      id: data.id_servico,
-                                      type: "ct",
-                                      enable: data.ativado,
-                                    })
-                                  }
-                                >
-                                  Desabilitar
-                                </Button>
-                              </td>
+                              <tbody>
+                                <td>
+                                  <Button
+                                      className="btn-edit"
+                                      onClick={() => {
+                                        history.push(`/edit-services/${data.id_servico}/ct`);
+                                      }}
+                                    >
+                                      Editar
+                                    </Button>
+                                </td>
+                                <td>
+                                  <Button
+                                    className="btn-disable"
+                                    onClick={() =>
+                                      enableUser({
+                                        id: data.id_servico,
+                                        type: "ct",
+                                        enable: data.ativado,
+                                      })
+                                    }
+                                  >
+                                    Desabilitar
+                                  </Button>
+                                </td>
+                              </tbody>
                             ) : (
                               <td>
                                 <Button

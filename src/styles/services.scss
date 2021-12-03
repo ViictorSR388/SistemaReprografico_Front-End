@@ -70,9 +70,18 @@
 
   .btn-disable {
     display: flex !important;
-    margin: 0 2rem !important;
+    margin: 0 0.5rem !important;
     padding: 0.5rem !important;
     flex-direction: column !important;
+  }
+
+  .btn-edit {
+    display: flex !important;
+    background-color: $grey-button;
+    color: $grey !important;
+    margin: 0 2rem !important;
+    font-size: 1.6rem !important;
+    padding: 0.5rem !important;
   }
 
   .btn-enable {

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Header from '../../../src/components/header';
 import SideBar from '../../../src/components/formSideBar';
-import axios from 'axios'
+import Menu from '../../../src/components/hamburgerButton';
+import axios from 'axios';
 import { Button, Card, Table } from 'react-bootstrap';
 import '../../styles/myRequests.scss'
 
@@ -94,6 +95,7 @@ const MyRequests = (props) => {
 
     return (
         <>
+          <Menu />
             <div className="content">
                 {/* {loading ? <> loading... </> :  */}
                 <>
