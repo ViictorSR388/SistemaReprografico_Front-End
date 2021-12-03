@@ -6,7 +6,6 @@ import axios from 'axios'
 import { Button, Card, Table } from 'react-bootstrap';
 import '../../styles/myRequests.scss'
 import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 
 const MyRequests = (props) => {
 
@@ -120,8 +119,10 @@ const MyRequests = (props) => {
                  getAvaliados(1);
                 setTimeout(() => {
                     setPedidos({message: `Pedido "${name}" movido para seção Não avaliados!`})
-                }, 100);
-
+                }, 50);
+                setTimeout(() => {
+                    getAvaliados(1);
+                }, 2000);
             }
             else {
                 Toast.fire({

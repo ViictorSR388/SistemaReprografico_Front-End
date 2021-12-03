@@ -43,28 +43,20 @@ export default function Services(props) {
       })
       .then((response) => {
         console.log(response);
+        if (id === 1) {
+          setAtivos(true);
+        } else {
+          setAtivos(false);
+        }
 
         if (response.data.message) {
           setSemRegistros(1);
-          if (id === 1) {
-            setAtivos(true);
-          } else {
-            setAtivos(false);
-          }
-        } else if (id === 1) {
+        } else {
           setServicos({
             servicosCA: response.data.servicosCA,
             servicosCT: response.data.servicosCT,
           });
           setSemRegistros(0);
-          setAtivos(true);
-        } else {
-          setServicos({
-            servicosCA: response.data[0].servicosCA,
-            servicosCT: response.data[0].servicosCT,
-          });
-          setSemRegistros(0);
-          setAtivos(false);
         }
       });
   };
