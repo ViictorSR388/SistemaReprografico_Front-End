@@ -107,6 +107,7 @@ const UserRequest = (props) => {
                       <th>Pedido</th>
                       {avaliados ? <th>Atualizado</th> : <th>Realizado</th>}
                       <th>Status</th>
+                      <th>Solicitado</th>
                     </tr>
                   </thead>
                   {pedidos.list.map((data) => (
@@ -125,6 +126,9 @@ const UserRequest = (props) => {
                           </td>
                           <td>
                             <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
+                          </td>
+                          <td>
+                          {data.realizado_qtdade < 2 ? (<Card.Text>{data.realizado_qtdade} vez</Card.Text>):(<Card.Text>{data.realizado_qtdade} vezes</Card.Text>)}
                           </td>
                           <td>
                             <div className="avaliations">

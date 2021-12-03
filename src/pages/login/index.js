@@ -27,6 +27,7 @@ export default function Login() {
           roles: result.data.roles,
           imagem: "http://localhost:3002/" + result.data.imagem,
           redirect: false,
+          naoAutorizado: false
         });
         localStorage.setItem("accessToken", result.data.accessToken);
         if (result.data.roles) {
@@ -40,13 +41,13 @@ export default function Login() {
           }
           else if (resposta === true && result.data.primeiro_acesso === 0) {
             setAuthState({
-              admin: true, firstAccess: false
+              admin: true, firstAccess: false,
             });
             history.push("user/" + result.data.nif);
           } 
           else if(resposta === true && result.data.primeiro_acesso === 1 ) {
             setAuthState({
-              admin: true, firstAccess: true, nif: result.data.nif
+              admin: true, firstAccess: true, nif: result.data.nif,
             });
             history.push("/firstAccess")
           }

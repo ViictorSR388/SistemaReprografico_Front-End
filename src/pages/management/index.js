@@ -13,6 +13,8 @@ import { Button } from 'react-bootstrap';
 function Management(props, { data }) {
   var history = useHistory();
 
+  var [myNif, setMyNif] = useState();
+
   //lista
   var [users, setUsers] = useState({
     status: false,
@@ -37,7 +39,6 @@ function Management(props, { data }) {
             list: result.data,
             status: true
           })
-          console.log(result.data)
         }
         else {
           setUsers({
@@ -75,7 +76,6 @@ function Management(props, { data }) {
       .then(function (response) {
         if (id === 1) { usuariosAtivos(0); }
         else if (id === 0) { usuariosAtivos(1); }
-        console.log(JSON.stringify(response.data));
       })
       .catch(function (error) {
         console.log(error);
@@ -91,7 +91,6 @@ function Management(props, { data }) {
         },
       })
       .then((result) => {
-        console.log(result)
         if (result.data.length > 0) {
           setUsers({
             list: result.data,
@@ -104,6 +103,19 @@ function Management(props, { data }) {
             message: "Sem registros...",
             ativos: true
           })
+        }
+      });
+
+    axios
+      .get("http://localhost:3002/auth", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        setMyNif(result.data.nif);
+        if (props.nif) {
+          setMyNif(props.nif);
         }
       });
   }, []);
@@ -160,25 +172,27 @@ function Management(props, { data }) {
           {ativos ? <h1 className="title-enable-disable">Usuários Ativos:</h1> : <h1 className="title-enable-disable">Usuários Inativos:</h1>}
           {users.status ?
             <>
-                <div className="section">
-                  <Table className="tableBootstrap" striped bordered hover responsive size="sm" >
-                    <thead>
-                      <tr>
-                        <th>Imagem</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>CPF</th>
-                        <th>Telefone</th>
-                        <th>Departamento</th>
-                        <th>Cargo</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    {users.list.map((data) => (
-                      <React.Fragment key={data.nif}>
-                        <tbody>
-                          <tr>
+              <div className="section">
+                <Table className="tableBootstrap" striped bordered hover responsive size="sm" >
+                  <thead>
+                    <tr>
+                      <th>Imagem</th>
+                      <th>Nome</th>
+                      <th>Email</th>
+                      <th>CPF</th>
+                      <th>Telefone</th>
+                      <th>Departamento</th>
+                      <th>Cargo</th>
+                      <th> </th>
+                    </tr>
+                  </thead>
+                  {users.list.map((data) => (
+                    <React.Fragment key={data.nif}>
+                      <tbody>
+                        <tr>
+                          {data.nif === myNif ? <></> : <>
                             <td onClick={() => { history.push(`/user/${data.nif}`) }}><img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" /></td>
+
                             <td>{data.nome}</td>
                             <td>{data.email}</td>
                             <td>{data.cfp}</td>
@@ -189,7 +203,7 @@ function Management(props, { data }) {
                               <Button className="btn-bootM" color="primary" size="lg" onClick={() => { history.push(`/users-requests/${data.nif}`) }}>
                                 Solicitações
                               </Button>{' '}
-                              <Button className="btn-bootM" color="primary" size="lg" onClick={() => { history.push(`/edit-user/${data.nif}`) }}>
+                              <Button className="btn-bootM" color="primary" size="lg" onClick={() => { history.push(`/user/edit/${data.nif}`) }}>
                                 Editar
                               </Button>{' '}
                               {data.ativado ? <>
@@ -201,12 +215,14 @@ function Management(props, { data }) {
                                 </Button>{' '}
                               </>}
                             </td>
-                          </tr>
-                        </tbody>
-                      </React.Fragment>
-                    ))}
-                  </Table>
-                </div>
+                          </>}
+
+                        </tr>
+                      </tbody>
+                    </React.Fragment>
+                  ))}
+                </Table>
+              </div>
             </> :
             <>
               <h3>{users.message}</h3>

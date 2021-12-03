@@ -7,8 +7,8 @@ import { Form } from 'react-bootstrap';
 import ProfileContainer from "../../components/profileContainer";
 import "../../styles/editUser.scss";
 
-function EditUser(props) {
-  const { id } = useParams();
+function EditUser() {
+  const { nif } = useParams();
 
   // const { nif } = useParams();
 
@@ -120,7 +120,7 @@ function EditUser(props) {
 
 
     axios
-      .put("http://localhost:3002/user/" + id, formData, {
+      .put("http://localhost:3002/user/" + nif, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -132,7 +132,7 @@ function EditUser(props) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/user/` + id, {
+      .get(`http://localhost:3002/user/` + nif, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -156,12 +156,7 @@ function EditUser(props) {
       <ProfileContainer
         image={image.preview}
         name={nameUser}
-        requestsNoInfo={true}
-        change={true}
-        changePassword={() => {
-          setChangePass(true);
-        }}
-        nif={props.nif}
+        nif={nif}
       />
       <div className="container">
         <h2 className="ui-subTitle">Informações pessoais</h2>

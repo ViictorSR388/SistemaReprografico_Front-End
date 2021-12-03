@@ -197,6 +197,9 @@ function UserInfo(props) {
       })
       .then((result) => {
         setMyNif(result.data.nif);
+        if(props.nif){
+          setMyNif(props.nif);
+        }
       });
   };
 //Importante para mandar pelo useContext se o usuário é administrador ou não
@@ -247,13 +250,27 @@ function UserInfo(props) {
             <>
               <div className="content">
                 {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
-                {adm || myNif === nif ? (
+                {adm && myNif !== nif ? 
+                <>
+                <ProfileContainer
+                    image={image.preview}
+                    name={nameUser}
+                    nif={nif}
+                    change={false}
+                    admin={true}
+                    edit={() => {
+                      history.push(`edit/${nif}`)
+                    }}
+    
+                  />
+                </>: 
+                <>
+                 {myNif === nif ? (
                   <ProfileContainer
                     image={image.preview}
                     name={nameUser}
-                    nif={props.nif}
-                    change={false}
-                    admin={true}
+                    nif={nif}
+                    change={true}
                     edit={() => {
                       setEdit(true);
                       setChangePass(false);
@@ -267,10 +284,11 @@ function UserInfo(props) {
                   <ProfileContainer
                     image={image.preview}
                     name={nameUser}
-                    nif={props.nif}
-                    change={true}
+                    nif={nif}
                   />
                 )}
+                </>}
+               
 
                 <div className="container">
                   {changePass ? (

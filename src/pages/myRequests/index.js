@@ -6,6 +6,7 @@ import Menu from '../../../src/components/hamburgerButton';
 import axios from 'axios';
 import { Button, Card, Table } from 'react-bootstrap';
 import '../../styles/myRequests.scss'
+import Swal from 'sweetalert2'
 
 const MyRequests = (props) => {
 
@@ -93,6 +94,46 @@ const MyRequests = (props) => {
             });
     }
 
+    const solicitarNovamente = async (id, name) => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        await axios.get(`http://localhost:3002/requestAgain/${id}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        }).then((result) => {
+            if (result && result.data.status !== "error") {
+                Toast.fire({
+                    icon: 'success',
+                    title: `Pedido "${name}" solicitado novamente com sucesso!`
+                })
+                 getAvaliados(1);
+                setTimeout(() => {
+                    setPedidos({message: `Pedido "${name}" movido para seção Não avaliados!`})
+                }, 50);
+                setTimeout(() => {
+                    getAvaliados(1);
+                }, 2000);
+            }
+            else {
+                Toast.fire({
+                    icon: 'error',
+                    title: result.data.message
+                })
+            }
+        })
+    }
+
     return (
         <>
           <Menu />
@@ -119,6 +160,7 @@ const MyRequests = (props) => {
                                                 <th>Pedido</th>
                                                 {avaliados ? <th>Atualizado</th> : <th>Realizado</th>}
                                                 <th>Status</th>
+                                                <th>Solicitado</th>
                                                 <th>⠀⠀⠀⠀⠀⠀⠀⠀⠀</th>
                                             </tr>
                                         </thead>
@@ -136,8 +178,12 @@ const MyRequests = (props) => {
                                                             <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
                                                         </td>
                                                         <td>
+                                                            {data.realizado_qtdade < 2 ?  <Card.Text>{data.realizado_qtdade} vez</Card.Text>:<Card.Text>{data.realizado_qtdade} vezes</Card.Text>}
+                                                        </td>
+                                                        <td>
                                                             <div className="details-btns">
                                                                 {avaliados ? <>
+                                                                    <Button className="detailsForm" variant="secondary" onClick={() => solicitarNovamente(data.id_pedido, data.titulo_pedido)}>Solicitar novamente</Button>
                                                                     <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
                                                                 </> :
                                                                     <>

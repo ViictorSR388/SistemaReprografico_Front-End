@@ -82,7 +82,7 @@ export default function AddService() {
         setCusto(result.data.valor_unitario)
         console.log(result);
       });
-  }, []);
+  }, [id, type]);
 
   return (
     <>
