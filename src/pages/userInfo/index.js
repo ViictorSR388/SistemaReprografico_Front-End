@@ -176,18 +176,22 @@ function UserInfo(props) {
         if (result.status === 404) {
           setNotFound(true);
         }
-
-        setNif(result.data.nif);
-        setNameUser(result.data.nome);
-        setEmailUser(result.data.email);
-        setCfpUser(result.data.cfp);
-        setTelefoneUser(result.data.telefone);
-        setDeptoUser(result.data.depto);
-        setImage({ preview: "http://localhost:3002/" + result.data.imagem });
-        // if (props.nif === result.data.nif) {
-        //   setEditableAccount(true)
-        // }
-        setLoading(false);
+        else if(result.data.status === "error"){
+          history.push("/notFound")
+        }
+        else{
+          setNif(result.data.nif);
+          setNameUser(result.data.nome);
+          setEmailUser(result.data.email);
+          setCfpUser(result.data.cfp);
+          setTelefoneUser(result.data.telefone);
+          setDeptoUser(result.data.depto);
+          setImage({ preview: "http://localhost:3002/" + result.data.imagem });
+          // if (props.nif === result.data.nif) {
+          //   setEditableAccount(true)
+          // }
+          setLoading(false);
+        }
       });
     axios
       .get("http://localhost:3002/auth", {
@@ -216,7 +220,6 @@ function UserInfo(props) {
       })
       .then((response) => {
         if (response.data.roles) {
-          console.log(response.data.primeiro_acesso)
           if(response.data.primeiro_acesso === 1){
             setAuthState({
               firstAccess: true,
@@ -243,10 +246,6 @@ function UserInfo(props) {
       {loading ? (
         <> Loading ... </>
       ) : (
-        <>
-          {notFound ? (
-            <> Usuário não encontrado </>
-          ) : (
             <>
               <div className="content">
                 {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
@@ -502,8 +501,6 @@ function UserInfo(props) {
             </>
           )}
         </>
-      )}
-    </>
   );
 }
 

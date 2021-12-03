@@ -194,7 +194,7 @@ export default function Statistics(props) {
                                                             <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+                                                    {/* <tr>
                                                         <td>
                                                             <strong>Total de Pedidos</strong>
                                                         </td>
@@ -205,7 +205,7 @@ export default function Statistics(props) {
                                                                     data[2].qtdade_solicitada}
                                                             </Card.Text>
                                                         </td>
-                                                    </tr>
+                                                    </tr> */}
                                                 </>
                                             ))}
                                         </tbody>

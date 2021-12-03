@@ -79,7 +79,7 @@ const UserRequest = (props) => {
       <SideBar image={props.image} name={props.name} admin={true} />
 
       <div className="container-management">
-        <h1 className="title-usersR">Solicitações do usuário</h1>
+        <h1 className="title-usersR">Solicitações do usuário com NIF {nif}</h1>
         <>
           <div className="avaliacao-usersR">
             {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}

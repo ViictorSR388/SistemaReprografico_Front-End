@@ -130,7 +130,8 @@ function RequestList(props) {
                               <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
                             </td>
                           </tr>}
-                        {data.det_pedidos[0].anexo_path !== "" ? <><tr>
+                        {data.det_pedidos[0].anexo_path !== "" ? <>
+                        <tr>
                           <td><strong>Anexo</strong></td>
                           <td>
                             <Card.Text>Contém anexo</Card.Text>

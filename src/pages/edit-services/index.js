@@ -39,31 +39,6 @@ export default function AddService() {
     })
   }
 
-  const voltar = () => {
-    axios
-      .get("http://localhost:3002/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-        // setAuthState({
-      }).then((result) => {
-        //   nif: result.data.nif,
-        //   nome: result.data.nome,
-        //   roles: result.data.roles,
-        //   imagem: "http://localhost:3002/" + result.data.imagem,
-        //   redirect: false
-        // });
-
-        // ativado: 1
-        // descricao: "Capa em papel 150g e espirais de plástico"
-        // id_servico: 3
-        // quantidade: 100
-        // valor_unitario: 0.5
-
-        history.push("/services");
-      })
-  }
-
   const onSubmit = (e) => {
     e.preventDefault();
     EditService()
@@ -123,7 +98,7 @@ export default function AddService() {
             <button
               className="btn-back-user"
               id="btn"
-              onClick={voltar}>Voltar
+              onClick={() => history.push("/services")}>Voltar
             </button>
           </div>
         </form>
