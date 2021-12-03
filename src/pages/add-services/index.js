@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/addService.scss';
-import LoginContainer from '../../components/loginContainer'
+import LoginContainer from '../../components/loginContainer';
 
 export default function AddService() {
 
@@ -62,6 +62,7 @@ export default function AddService() {
     e.preventDefault();
     AddService();
   }
+
   return (
     <>
       <LoginContainer />

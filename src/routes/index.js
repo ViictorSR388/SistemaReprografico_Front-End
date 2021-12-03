@@ -15,6 +15,7 @@ import DetPedido from "../pages/detPedido";
 import EditUser from "../pages/EditUser";
 import Request from "../pages/userRequest";
 import AddService from "../pages/add-services";
+import EditService from "../pages/edit-services";
 import RequestList from "../pages/requestList";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -249,6 +250,18 @@ function Rotas() {
                       exact
                       component={() => (
                         <AddService
+                          image={authState.imagem}
+                          name={authState.nome}
+                          nif={authState.nif}
+                          admin={authState.admin}
+                        />
+                      )}
+                    />
+                    <Route
+                      path="/edit-services/:id/:type"
+                      exact
+                      component={() => (
+                        <EditService
                           image={authState.imagem}
                           name={authState.nome}
                           nif={authState.nif}

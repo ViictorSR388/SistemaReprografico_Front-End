@@ -3,8 +3,6 @@ import { FaUserAlt } from 'react-icons/fa';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { FaTelegram } from 'react-icons/fa';
 import { FaBookReader } from 'react-icons/fa';
-import { FaWrench } from 'react-icons/fa';
-import { FaChartLine } from 'react-icons/fa';
 
 const userData = [
   {
