@@ -62,6 +62,12 @@ function RequestList(props) {
                   {pedidos.list.map((data) => (
                     <React.Fragment key={data.id_pedidos}>
                       <tbody>
+                      <tr>
+                          <td><strong>O pedido foi solicitado:</strong></td>
+                          <td>
+                            {data.realizado_qtdade < 2 ? <Card.Text>{data.realizado_qtdade} vez</Card.Text>: <Card.Text>{data.realizado_qtdade} vezes</Card.Text>}
+                          </td>
+                        </tr>
                         <tr>
                           <td><strong>Curso</strong></td>
                           <td>
@@ -117,17 +123,13 @@ function RequestList(props) {
                           </td>
                         </tr>
 
-                        {data.det_pedidos[0].observacoes === "" ? <> </> :
-                          <>
+                        {data.det_pedidos[0].observacoes === "" ? <></> :
                             <tr>
                             <td><strong>Observações</strong></td>
                               <td>
                                 <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
                               </td>
-                            </tr>
-                            
-                          </>}
-
+                            </tr>}
                       </tbody>
                     </React.Fragment>
                   ))}
