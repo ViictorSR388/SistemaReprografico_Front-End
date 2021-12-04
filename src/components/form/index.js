@@ -475,7 +475,7 @@ export default function RequestForm() {
                                 }}
                                 required
                               />
-                              <label className="labelName" htmlFor="typePaper">
+                              <label className="labelName-CT" htmlFor="typePaper">
                                 {data.descricao}
                               </label>
                             </div>
@@ -525,7 +525,7 @@ export default function RequestForm() {
                                 }}
                                 required
                               />
-                              <label className="labelName" htmlFor="typePaper">
+                              <label className="labelName-CA" htmlFor="typePaper">
                                 {data.descricao}
                               </label>
                             </div>
@@ -554,7 +554,7 @@ export default function RequestForm() {
                 {step === 5 && (
                   <div className="card">
                     <Card.Title className="cardTitle">Modo de envio</Card.Title>
-                    <div className="radioName">
+                    <div className="radioName-Send">
                       <Form.Check
                         type="radio"
                         name="typeSend"
@@ -567,11 +567,11 @@ export default function RequestForm() {
                         }}
                         required
                       />
-                      <label className="labelName" htmlFor="type-paper">
+                      <label className="labelName-Send" htmlFor="type-paper">
                         Envio digital
                       </label>
                     </div>
-                    <div className="radioName">
+                    <div className="radioName-Send">
                       <Form.Check
                         className="classRadio"
                         type="radio"
@@ -585,7 +585,7 @@ export default function RequestForm() {
                         }}
                         required
                       />
-                      <label className="labelName" htmlFor="typePaper">
+                      <label className="labelName-Send" htmlFor="typePaper">
                         Envio presencial
                       </label>
                     </div>

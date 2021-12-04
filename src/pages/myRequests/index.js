@@ -4,7 +4,7 @@ import Header from '../../../src/components/header';
 import SideBar from '../../../src/components/formSideBar';
 import Menu from '../../../src/components/hamburgerButton';
 import axios from 'axios';
-import { Button, Card, Table } from 'react-bootstrap';
+import { Button, Card, Table, Toast } from 'react-bootstrap';
 import '../../styles/myRequests.scss';
 import Swal from 'sweetalert2';
 import Loading from '../../../src/components/loading';

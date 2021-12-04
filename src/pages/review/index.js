@@ -4,6 +4,7 @@ import '../../styles/review.scss';
 import Header from '../../components/header';
 import Menu from '../../components/hamburgerButton';
 import SideBar from '../../components/formSideBar';
+import { Form } from 'react-bootstrap';
 import axios from 'axios';
 import Loading from '../../../src/components/loading';
 
@@ -64,8 +65,8 @@ function Review(props) {
               <div id="review-content">
                 <div id="feedback-radio">
                   <div className="radio">
-                    <label htmlFor="nao-atendeu">Atendeu</label>
-                    <input
+                    <label className="title-review" htmlFor="nao-atendeu">Atendeu</label>
+                    <Form.Check
                       type="radio"
                       name="radio-option"
                       id="nao-atendeu"
@@ -78,8 +79,8 @@ function Review(props) {
                   </div>
 
                   <div className="radio">
-                    <label htmlFor="superou">Não Atendeu</label>
-                    <input
+                    <label className="title-review" htmlFor="superou">Não Atendeu</label>
+                    <Form.Check
                       type="radio"
                       name="radio-option"
                       id="superou"
