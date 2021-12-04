@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router";
 import LoginContainer from '../../components/loginContainer';
 import '../../styles/forgotPassword.scss';
@@ -8,7 +8,7 @@ export default function ForgotPassword() {
 
   //Input de email, também usamos esse valor para definir a mensagem personalizada.
   const [email, setEmail] = useState("");
-  
+
   //UseState() => Mensagem que será definida quando a requisição for enviada (começa com o valor abaixo...)
   const [mensagem, setMensagem] = useState("Um link será enviado ao seu e-mail para a recuperação de senha")
 

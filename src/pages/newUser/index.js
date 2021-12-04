@@ -141,16 +141,17 @@ function NewUser(props) {
         }}
         nif={props.nif}
       />
-      <div className="container">
+      <div className="container-newUser">
         <h2 id="h2" className="nu-subTitle">
           Criar novo usuário
         </h2>
         <form onSubmit={onSubmit}>
+          <h4>Onde houver "*" o preenchimento é obrigatório</h4>
           <input
             className="input-box"
             name="nameUser"
             type="text"
-            placeholder="Nome"
+            placeholder="Nome*"
             required
             onChange={(e) => {
               setNameUser(e.target.value);
@@ -160,7 +161,7 @@ function NewUser(props) {
             className="input-box"
             name="emailUser"
             type="email"
-            placeholder="E-mail"
+            placeholder="E-mail*"
             required
             onChange={(e) => {
               setEmailUser(e.target.value);
@@ -170,7 +171,7 @@ function NewUser(props) {
             className="input-box"
             name="nifUser"
             type="text"
-            placeholder="NIF"
+            placeholder="NIF*"
             required
             onChange={(e) => {
               setNifUser(e.target.value);
@@ -180,7 +181,7 @@ function NewUser(props) {
             className="input-box"
             name="cfpUser"
             type="text"
-            placeholder="CFP"
+            placeholder="CFP*"
             required
             onChange={(e) => {
               setCfpUser(e.target.value);
@@ -251,7 +252,7 @@ function NewUser(props) {
             }}
           >
             <option value="0" name="null" id="null">
-              Nenhuma Opção Selecionada
+              Nenhuma Opção Selecionada*
             </option>
             <option value="1" name="AIP" id="AIP">
               Aprendizagem Industrial Presencial

@@ -5,6 +5,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from "react-router";
 import { Form } from 'react-bootstrap';
 import ProfileContainer from "../../components/profileContainer";
+import Loading from "../../components/loading";
 import "../../styles/editUser.scss";
 
 function EditUser() {
@@ -151,172 +152,185 @@ function EditUser() {
       });
   }, []);
 
+  var [loading, setLoading] = useState(Loading);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1300);
+  }, [])
+
   return (
     <div className="content">
-      <ProfileContainer
-        image={image.preview}
-        name={nameUser}
-        nif={nif}
-      />
-      <div className="container">
-        <h2 className="ui-subTitle">Informações pessoais</h2>
-        <h3 className="input-title">NOME</h3>
-        <form onSubmit={handleUpload}>
-          <input
-            className="input-box"
-            name="nameUser"
-            type="text"
-            placeholder={nameUser}
-            onChange={(e) => {
-              setNameUser(e.target.value);
-            }}
+      {loading ? <> <Loading /> </> :
+        <>
+          <ProfileContainer
+            image={image.preview}
+            name={nameUser}
+            nif={nif}
           />
-          <h3 className="input-title">EMAIL</h3>
-          <input
-            className="input-box"
-            name="emailUser"
-            type="email"
-            placeholder={emailUser}
-            onChange={(e) => {
-              setEmailUser(e.target.value);
-            }}
-          />
-          <h3 className="input-title">SENHA</h3>
-          <input
-            className="input-box"
-            name="senhaUser"
-            type="password"
-            placeholder="Insira a Nova Senha"
-            onChange={(e) => {
-              setSenhaUser(e.target.value);
-            }}
-          />
-          <h3 className="input-title">CFP</h3>
-          <input
-            className="input-box"
-            name="cfpUser"
-            type="text"
-            placeholder={cfpUser}
-            onChange={(e) => {
-              setCfpUser(e.target.value);
-            }}
-          />
-          <h3 className="input-title">TELEFONE</h3>
-          <input
-            className="input-box"
-            name="telefoneUser"
-            type="text"
-            placeholder={telefoneUser}
-            onChange={(e) => {
-              setTelefoneUser(e.target.value);
-            }}
-          />
-          <h3 className="input-title">IMAGEM</h3>
-          <label className="customize">
-            <input
-              className="input-box"
-              type="file"
-              name="image"
-              onChange={handleChange}
-              accept="image/*"
-            />
-            <FaCloudUploadAlt className="uploud" />
-            Upload
-          </label>
-          <h3 className="input-title">DEPARTAMENTO</h3>
-          <select
-            className="select"
-            id="deptoUser"
-            name="deptoUser"
-            defaultValue="0"
-            onChange={(e) => {
-              setDeptoUser(e.target.value);
-            }}
-          >
-            <option value="0" name="null" id="null">
-              Nenhuma Opção Selecionada
-            </option>
-            <option value="1" name="AIP" id="AIP">
-              Aprendizagem Industrial Presencial
-            </option>
-            <option value="2" name="TNMP" id="TNMP">
-              Técnico de Nível Médio Presencial
-            </option>
-            <option value="3" name="GTP" id="GTP">
-              Graduação Tecnológica Presencial
-            </option>
-            <option value="4" name="PGP" id="PGP">
-              Pós-Graduação Presencial
-            </option>
-            <option value="5" name="EP" id="EP">
-              Extensão Presencial
-            </option>
-            <option value="6" name="IPP" id="IPP">
-              Iniciação Profissional Presencial
-            </option>
-            <option value="7" name="QPP" id="QPP">
-              Qualificação Profissional Presencial
-            </option>
-            <option value="8" name="AEPP" id="AEPP">
-              Aperfeiç./Especializ. Profis. Presencial
-            </option>
-          </select>
+          <div className="container-editUser">
+            <h2 className="ui-subTitle">Informações pessoais</h2>
+            <h3 className="input-title">NOME</h3>
+            <form onSubmit={handleUpload}>
+              <input
+                className="input-box"
+                name="nameUser"
+                type="text"
+                placeholder={nameUser}
+                onChange={(e) => {
+                  setNameUser(e.target.value);
+                }}
+              />
+              <h3 className="input-title">EMAIL</h3>
+              <input
+                className="input-box"
+                name="emailUser"
+                type="email"
+                placeholder={emailUser}
+                onChange={(e) => {
+                  setEmailUser(e.target.value);
+                }}
+              />
+              <h3 className="input-title">SENHA</h3>
+              <input
+                className="input-box"
+                name="senhaUser"
+                type="password"
+                placeholder="Insira a Nova Senha"
+                onChange={(e) => {
+                  setSenhaUser(e.target.value);
+                }}
+              />
+              <h3 className="input-title">CFP</h3>
+              <input
+                className="input-box"
+                name="cfpUser"
+                type="text"
+                placeholder={cfpUser}
+                onChange={(e) => {
+                  setCfpUser(e.target.value);
+                }}
+              />
+              <h3 className="input-title">TELEFONE</h3>
+              <input
+                className="input-box"
+                name="telefoneUser"
+                type="text"
+                placeholder={telefoneUser}
+                onChange={(e) => {
+                  setTelefoneUser(e.target.value);
+                }}
+              />
+              <h3 className="input-title">IMAGEM</h3>
+              <label className="customize">
+                <input
+                  className="input-box"
+                  type="file"
+                  name="image"
+                  onChange={handleChange}
+                  accept="image/*"
+                />
+                <FaCloudUploadAlt className="uploud" />
+                Upload
+              </label>
+              <h3 className="input-title">DEPARTAMENTO</h3>
+              <select
+                className="select"
+                id="deptoUser"
+                name="deptoUser"
+                defaultValue="0"
+                onChange={(e) => {
+                  setDeptoUser(e.target.value);
+                }}
+              >
+                <option value="0" name="null" id="null">
+                  Nenhuma Opção Selecionada
+                </option>
+                <option value="1" name="AIP" id="AIP">
+                  Aprendizagem Industrial Presencial
+                </option>
+                <option value="2" name="TNMP" id="TNMP">
+                  Técnico de Nível Médio Presencial
+                </option>
+                <option value="3" name="GTP" id="GTP">
+                  Graduação Tecnológica Presencial
+                </option>
+                <option value="4" name="PGP" id="PGP">
+                  Pós-Graduação Presencial
+                </option>
+                <option value="5" name="EP" id="EP">
+                  Extensão Presencial
+                </option>
+                <option value="6" name="IPP" id="IPP">
+                  Iniciação Profissional Presencial
+                </option>
+                <option value="7" name="QPP" id="QPP">
+                  Qualificação Profissional Presencial
+                </option>
+                <option value="8" name="AEPP" id="AEPP">
+                  Aperfeiç./Especializ. Profis. Presencial
+                </option>
+              </select>
 
-          {adminUser.list.map((data) => (
-            <>
-              {data.descricao === "user" ?
-              <>
-                    <input
-                      className="check classRadio"
-                      type="radio"
-                      name="admin"
-                      id="admin"
-                      checked={admin === "1"}
-                      onChange={() => {
-                        setAdmin("1")
-                        console.log(admin)
-                      }}
+              {adminUser.list.map((data) => (
+                <>
+                  {data.descricao === "user" ?
+                    <>
+                      <input
+                        className="check classRadio"
+                        type="radio"
+                        name="admin"
+                        id="admin"
+                        checked={admin === "1"}
+                        onChange={() => {
+                          setAdmin("1")
+                          console.log(admin)
+                        }}
                       />
-                    <label className="labelName" htmlFor="">
-                      <h2>Alterar para usuário administrador?</h2>
-                    </label>  
+                      <label className="labelName" htmlFor="">
+                        <h2>Alterar para usuário administrador?</h2>
+                      </label>
                     </>
-                :
-          <>
-            <input
-              className="check classRadio"
-              type="radio"
-              name="admin"
-              id="admin2"
-              checked={admin === "0"}
-              onChange={() => {
-                setAdmin("0")
-                console.log(admin)
-              }}
-            />
-            <label className="labelName" htmlFor="">
-              <h2>Alterar para usuário comum?</h2>
-            </label>
-          </>
-              }
+                    :
+                    <>
+                      <input
+                        className="check classRadio"
+                        type="radio"
+                        name="admin"
+                        id="admin2"
+                        checked={admin === "0"}
+                        onChange={() => {
+                          setAdmin("0")
+                          console.log(admin)
+                        }}
+                      />
+                      <label className="labelName" htmlFor="">
+                        <h2>Alterar para usuário comum?</h2>
+                      </label>
+                    </>
+                  }
+                </>
+              ))}
+              <div className="btns">
+                <input
+                  type="submit"
+                  className="nu-send-button"
+                  id="btn"
+                  value="Enviar"
+                />
+                <button
+                  className="btn-back-user"
+                  onClick={() => history.push("/management")}
+                >
+                  Voltar
+                </button>
+              </div>
+            </form>
+          </div>
         </>
-          ))}
-        <div className="btns">
-          <input
-            type="submit"
-            className="nu-send-button"
-            id="btn"
-            value="Enviar"
-          />
-          <button
-            className="btn-back-user"
-            onClick={() => history.push("/management")}
-          >
-            Voltar
-          </button>
-        </div>
-      </form>
-    </div>
+      }
     </div >
   );
 }

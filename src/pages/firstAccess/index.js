@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import LoginContainer from "../../components/loginContainer";
@@ -33,7 +33,7 @@ function FirstAccess(props) {
                 setTimeout(() => {
                     history.push(`/user/${props.nif}`)
                 }, 1200)
-            } 
+            }
         })
     };
 
@@ -76,7 +76,7 @@ function FirstAccess(props) {
                                 setConfirmSenha(e.target.value);
                             }}
                         />
-                        
+
                         <div className="btns">
                             <input
                                 className="env-first"

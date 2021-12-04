@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/addService.scss';
 import LoginContainer from '../../components/loginContainer';
+import Loading from '../../../src/components/loading';
 
 export default function AddService() {
 
@@ -34,7 +35,7 @@ export default function AddService() {
         setMessage(result.data.message)
         setTimeout(() => {
           history.push("/services")
-        }, 1500);
+        }, 150);
       }
     })
   }
@@ -84,50 +85,63 @@ export default function AddService() {
       });
   }, [id, type]);
 
+  var [loading, setLoading] = useState(Loading);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1300);
+  }, [])
+
   return (
     <>
-      <LoginContainer />
-      <div className="finishing">
-        <form onSubmit={onSubmit}>
-          <h2 id="h2" className="service-subTitle">
-            Editar Serviço
-          </h2>
-          <h2 className="title">{descricao}</h2>
-          <input
-            className="input-service"
-            name="quantidade"
-            type="number"
-            placeholder={quantidade}
-            onChange={(e) => {
-              setQuantidade(e.target.value);
-            }}
-          />
-          <input
-            className="input-service"
-            name="custo"
-            type="number"
-            step="any"
-            placeholder={custo}
-            onChange={(e) => {
-              setCusto(e.target.value);
-            }}
-          />
-          <h3>{message}</h3>
-          <div className="btns-edit-services">
-            <input
-              type="submit"
-              className="nu-send-button"
-              id="btn"
-              value="Editar"
-            />
-            <button
-              className="btn-back-user"
-              id="btn"
-              onClick={voltar}>Voltar
-            </button>
+      {loading ? <> <Loading /> </> :
+        <>
+          <LoginContainer />
+          <div className="finishing">
+            <form onSubmit={onSubmit}>
+              <h2 id="h2" className="service-subTitle">
+                Editar Serviço
+              </h2>
+              <h2 className="title">{descricao}</h2>
+              <input
+                className="input-service"
+                name="quantidade"
+                type="number"
+                placeholder={quantidade}
+                onChange={(e) => {
+                  setQuantidade(e.target.value);
+                }}
+              />
+              <input
+                className="input-service"
+                name="custo"
+                type="number"
+                step="any"
+                placeholder={custo}
+                onChange={(e) => {
+                  setCusto(e.target.value);
+                }}
+              />
+              <h3>{message}</h3>
+              <div className="btns-edit-services">
+                <input
+                  type="submit"
+                  className="nu-send-button"
+                  id="btn"
+                  value="Editar"
+                />
+                <button
+                  className="btn-back-user"
+                  id="btn"
+                  onClick={voltar}>Voltar
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
+        </>
+      }
     </>
   );
 }

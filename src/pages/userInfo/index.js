@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 // import { PassContext } from "../../helpers/changePassContext";
 import { AuthContext } from "./../../helpers/AuthContext";
 import ProfileContainer from "../../components/profileContainer";
+import Loading from '../../../src/components/loading';
 
 function UserInfo(props) {
   var { id } = useParams();
@@ -36,8 +37,6 @@ function UserInfo(props) {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState();
 
   const [message, setMessage] = useState();
-
-  const [loading, setLoading] = useState(false);
 
   const [notFound, setNotFound] = useState(false);
 
@@ -187,7 +186,6 @@ function UserInfo(props) {
         // if (props.nif === result.data.nif) {
         //   setEditableAccount(true)
         // }
-        setLoading(false);
       });
     axios
       .get("http://localhost:3002/auth", {
@@ -238,10 +236,19 @@ function UserInfo(props) {
       });
   };
 
+  var [loading, setLoading] = useState(Loading);
+
+  useEffect(() => {
+      setLoading(true);
+      setTimeout(() => {
+          setLoading(false);
+      }, 1300);
+  }, [])
+
   return (
     <>
       {loading ? (
-        <> Loading ... </>
+        <> <Loading /> </>
       ) : (
         <>
           {notFound ? (
@@ -290,7 +297,7 @@ function UserInfo(props) {
                 </>}
                
 
-                <div className="container">
+                <div className="container-userInfo">
                   {changePass ? (
                     <>
                       {" "}

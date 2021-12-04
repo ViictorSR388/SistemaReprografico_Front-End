@@ -11,10 +11,10 @@ import Management from "../pages/management";
 import Review from "../pages/review";
 import Statistics from "../pages/statistics";
 import MyRequests from "../pages/myRequests";
-import DetPedido from "../pages/detPedido";
 import EditUser from "../pages/EditUser";
 import Request from "../pages/userRequest";
 import AddService from "../pages/add-services";
+import EditServices from "../pages/edit-services";
 import RequestList from "../pages/requestList";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -166,18 +166,6 @@ function Rotas() {
                   )}
                 />
                 <Route
-                  path="/detPedido/:id"
-                  exact
-                  component={() => (
-                    <DetPedido
-                      image={authState.imagem}
-                      name={authState.nome}
-                      nif={authState.nif}
-                      admin={authState.admin}
-                    />
-                  )}
-                />
-                <Route
                   path="/requestList/:id"
                   exact
                   component={() => (
@@ -256,6 +244,18 @@ function Rotas() {
                       exact
                       component={() => (
                         <AddService
+                          image={authState.imagem}
+                          name={authState.nome}
+                          nif={authState.nif}
+                          admin={authState.admin}
+                        />
+                      )}
+                    />
+                    <Route
+                      path="/edit-services/:id/:type"
+                      exact
+                      component={() => (
+                        <EditServices
                           image={authState.imagem}
                           name={authState.nome}
                           nif={authState.nif}

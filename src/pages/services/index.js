@@ -8,6 +8,7 @@ import SideBar from "../../../src/components/formSideBar";
 import { Table } from "react-bootstrap";
 import Button from "@restart/ui/esm/Button";
 import Menu from "../../components/hamburgerButton";
+import Loading from '../../../src/components/loading';
 
 export default function Services(props) {
   var history = useHistory();
@@ -20,7 +21,6 @@ export default function Services(props) {
 
   // var [servicoCA, setServicoCA] = useState();
   // var [servicoCT, setServicoCT] = useState();
-  var [loading, setLoading] = useState();
 
   var [ativos, setAtivos] = useState();
 
@@ -82,7 +82,6 @@ export default function Services(props) {
           });
         }
         setAtivos(true);
-        setLoading(false);
       }
     } catch (e) {
       console.error(e);
@@ -118,13 +117,19 @@ export default function Services(props) {
       });
   };
 
+  var [loading, setLoading] = useState(Loading);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1300);
+  }, [])
+
   return (
     <>
-      {loading ? (
-        <> </>
-      ) : (
+      {loading ? <> <Loading /> </> :
         <>
-          {" "}
           <Menu />
           <Header nif={props.nif} />
           <SideBar
@@ -325,7 +330,7 @@ export default function Services(props) {
             </div>
           </div>
         </>
-      )}
+      }
     </>
   );
 }

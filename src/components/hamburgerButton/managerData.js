@@ -2,7 +2,8 @@ import React from 'react';
 import { FaUserAlt } from 'react-icons/fa';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { FaTelegram } from 'react-icons/fa';
-import { FaBookReader } from 'react-icons/fa';
+import { FaUserCog } from 'react-icons/fa';
+import { FaPaste } from 'react-icons/fa';
 import { FaWrench } from 'react-icons/fa';
 import { FaChartLine } from 'react-icons/fa';
 
@@ -28,7 +29,13 @@ const managerData = [
   {
     title: 'Minhas Requisições',
     path: '/myRequests',
-    icon: <FaBookReader />,
+    icon: <FaPaste />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Serviços',
+    path: '/services',
+    icon: <FaUserCog />,
     cName: 'nav-text'
   },
   {

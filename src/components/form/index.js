@@ -12,6 +12,7 @@ export default function RequestForm() {
   const [posGraduacao, setPosGraduacao] = useState("");
   const [message, setMessage] = useState("");
 
+
   var history = useHistory();
 
   var curso;
@@ -105,28 +106,28 @@ export default function RequestForm() {
     formData.append("observacoes", observacao_envio);
 
 
-    if(centro_custos === undefined){
+    if (centro_custos === undefined) {
       setMessage("Por favor selecione um centro de custos!")
     }
-    else{
+    else {
       axios
-      .post("http://localhost:3002/request", formData, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((result) => {
-        console.log(result);
-        setMessage(result.data.message);
-        if (result.data.message === "Pedido realizado com sucesso!") {
-          setTimeout(() => {
-            history.push("/myRequests");
-          }, 1500);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .post("http://localhost:3002/request", formData, {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        })
+        .then((result) => {
+          console.log(result);
+          setMessage(result.data.message);
+          if (result.data.message === "Pedido realizado com sucesso!") {
+            setTimeout(() => {
+              history.push("/myRequests");
+            }, 1500);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
 
@@ -194,454 +195,454 @@ export default function RequestForm() {
 
   return (
     <>
-      <Form onSubmit={onSubmit}>
-        <div className="containerForm">
-          <div className="title-repro">
-            <h1>Solicitação de reprografia</h1>
-          </div>
-          <div className="containerWrapper">
-            <section className="card-wrapper">
-              {step === 1 && (
-                <Card className="card">
-                  <Card.Title className="cardTitle">Curso</Card.Title>
-                  <div className="radio-container">
-                    <div className="radioName">
-                      <Form.Check
-                        className="classRadio"
-                        type="radio"
-                        name="course"
-                        id="curso"
-                        checked={course === "1"}
-                        value="1"
+        <Form onSubmit={onSubmit}>
+          <div className="containerForm">
+            <div className="title-repro">
+              <h1>Solicitação de reprografia</h1>
+            </div>
+            <div className="containerWrapper">
+              <section className="card-wrapper">
+                {step === 1 && (
+                  <Card className="card">
+                    <Card.Title className="cardTitle">Curso</Card.Title>
+                    <div className="radio-container">
+                      <div className="radioName">
+                        <Form.Check
+                          className="classRadio"
+                          type="radio"
+                          name="course"
+                          id="curso"
+                          checked={course === "1"}
+                          value="1"
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            setCourse(newValue);
+                          }}
+                          required
+                        />
+                        <Form.Check.Label htmlFor="cai" className="radio-label">
+                          CT-DS
+                        </Form.Check.Label>
+                      </div>
+                      <div className="radioName">
+                        <Form.Check
+                          className="classRadio"
+                          type="radio"
+                          name="course"
+                          id="curso"
+                          checked={course === "2"}
+                          value="2"
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            setCourse(newValue);
+                          }}
+                          required
+                        />
+                        <Form.Check.Label htmlFor="ct">CT-MP</Form.Check.Label>
+                      </div>
+                      <div className="radioName">
+                        <Form.Check
+                          className="classRadio"
+                          type="radio"
+                          name="course"
+                          id="curso"
+                          checked={course === "3"}
+                          value="3"
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            setCourse(newValue);
+                          }}
+                          required
+                        />
+                        <Form.Check.Label htmlFor="fc">CST-MP</Form.Check.Label>
+                      </div>
+                      <div className="radioName">
+                        <Form.Check
+                          className="classRadio"
+                          type="radio"
+                          name="course"
+                          id="graduacao"
+                          checked={course === "4"}
+                          value="4"
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            setCourse(newValue);
+                          }}
+                          required
+                        />
+                        <Form.Check.Label className="input-pos" htmlFor="pos">
+                          Pós Graduação
+                        </Form.Check.Label>
+                      </div>
+                    </div>
+                    {course === "4" && (
+                      <Form.Control
+                        className="textInput"
+                        as="textarea"
+                        placeholder="Especifique a Graduação"
+                        name="posGraduacao"
+                        id="posGraduacao"
                         onChange={(e) => {
-                          const newValue = e.target.value;
-                          setCourse(newValue);
+                          setPosGraduacao(e.target.value);
                         }}
                         required
                       />
-                      <Form.Check.Label htmlFor="cai" className="radio-label">
-                        CT-DS
-                      </Form.Check.Label>
-                    </div>
-                    <div className="radioName">
-                      <Form.Check
-                        className="classRadio"
-                        type="radio"
-                        name="course"
-                        id="curso"
-                        checked={course === "2"}
-                        value="2"
-                        onChange={(e) => {
-                          const newValue = e.target.value;
-                          setCourse(newValue);
-                        }}
-                        required
-                      />
-                      <Form.Check.Label htmlFor="ct">CT-MP</Form.Check.Label>
-                    </div>
-                    <div className="radioName">
-                      <Form.Check
-                        className="classRadio"
-                        type="radio"
-                        name="course"
-                        id="curso"
-                        checked={course === "3"}
-                        value="3"
-                        onChange={(e) => {
-                          const newValue = e.target.value;
-                          setCourse(newValue);
-                        }}
-                        required
-                      />
-                      <Form.Check.Label htmlFor="fc">CST-MP</Form.Check.Label>
-                    </div>
-                    <div className="radioName">
-                      <Form.Check
-                        className="classRadio"
-                        type="radio"
-                        name="course"
-                        id="graduacao"
-                        checked={course === "4"}
-                        value="4"
-                        onChange={(e) => {
-                          const newValue = e.target.value;
-                          setCourse(newValue);
-                        }}
-                        required
-                      />
-                      <Form.Check.Label className="input-pos" htmlFor="pos">
-                        Pós Graduação
-                      </Form.Check.Label>
-                    </div>
-                  </div>
-                  {course === "4" && (
-                    <Form.Control
-                      className="textInput"
-                      as="textarea"
-                      placeholder="Especifique a Graduação"
-                      name="posGraduacao"
-                      id="posGraduacao"
-                      onChange={(e) => {
-                        setPosGraduacao(e.target.value);
-                      }}
-                      required
-                    />
-                  )}
+                    )}
 
-                  <Card.Title
-                    className="cardTitle-CC"
-                    id="centro_custos"
-                    htmlFor="cost"
-                  >
-                    Centro de custos
-                  </Card.Title>
-                  <div className="select-container">
-                    <Form.Select
-                      className="select"
-                      id="cc"
-                      name="cc"
-                      onChange={(e) => {
-                        setCc(e.target.value);
-                      }}
-                      required
+                    <Card.Title
+                      className="cardTitle-CC"
+                      id="centro_custos"
+                      htmlFor="cost"
                     >
-                      <option
-                        value="0"
-                        name="null"
-                        id="null"
-                        selected={cc === "0"}
-                      >
-                        Nenhuma Opção Selecionada
-                      </option>
-                      <option
-                        value="1"
-                        name="AIP"
-                        id="AIP"
-                        selected={cc === "1"}
-                      >
-                        Aprendizagem Industrial Presencial
-                      </option>
-                      <option
-                        value="2"
-                        name="TNMP"
-                        id="TNMP"
-                        selected={cc === "2"}
-                      >
-                        Técnico de Nível Médio Presencial
-                      </option>
-                      <option
-                        value="3"
-                        name="GTP"
-                        id="GTP"
-                        selected={cc === "3"}
-                      >
-                        Graduação Tecnológica Presencial
-                      </option>
-                      <option
-                        value="4"
-                        name="PGP"
-                        id="PGP"
-                        selected={cc === "4"}
-                      >
-                        Pós-Graduação Presencial
-                      </option>
-                      <option value="5" name="EP" id="EP" selected={cc === "5"}>
-                        Extensão Presencial
-                      </option>
-                      <option
-                        value="6"
-                        name="IPP"
-                        id="IPP"
-                        selected={cc === "6"}
-                      >
-                        Iniciação Profissional Presencial
-                      </option>
-                      <option
-                        value="7"
-                        name="QPP"
-                        id="QPP"
-                        selected={cc === "7"}
-                      >
-                        Qualificação Profissional Presencial
-                      </option>
-                      <option
-                        value="8"
-                        name="AEPP"
-                        id="AEPP"
-                        selected={cc === "8"}
-                      >
-                        Aperfeiç./Especializ. Profis. Presencial
-                      </option>
-                    </Form.Select>
-                  </div>
-                  <Button
-                    className="step-btn"
-                    onClick={() => {
-                      setStep(2);
-                    }}
-                  >
-                    Próximo
-                  </Button>
-                </Card>
-              )}
-              {step === 2 && (
-                <Card className="card">
-                  <Card.Title className="cardTitle">Item</Card.Title>
-                  <label className="label" htmlFor="title">
-                    Titulo
-                  </label>
-                  <input
-                    className="input-minor"
-                    type="text"
-                    name="title"
-                    id=""
-                    value={title}
-                    onChange={(e) => {
-                      setTitle(e.target.value);
-                    }}
-                    required
-                  />
-                  <label className="label" htmlFor="page-request">
-                    Número de Páginas
-                  </label>
-                  <input
-                    type="number"
-                    name="pages"
-                    id="pages"
-                    value={pages}
-                    onChange={(e) => {
-                      setPages(e.target.value);
-                    }}
-                    required
-                  />
-                  <label className="label" htmlFor="copy">
-                    Número de Cópias
-                  </label>
-                  <input
-                    type="number"
-                    name="copy"
-                    id="copy"
-                    value={copy}
-                    onChange={(e) => {
-                      setCopy(e.target.value);
-                    }}
-                    required
-                  />
-                  <label className="label" htmlFor="total">
-                    Total de Paginas
-                  </label>
-                  <span className="total-pages" name="total">
-                    {total}
-                  </span>
-                  <Button
-                    className="step-btn"
-                    onClick={() => {
-                      setStep(3);
-                    }}
-                  >
-                    Próximo
-                  </Button>
-                  <Button
-                    className="step-btn-back"
-                    onClick={() => {
-                      setStep(1);
-                    }}
-                  >
-                    Anterior
-                  </Button>
-                </Card>
-              )}
-
-              {step === 3 && (
-                <div className="card medium">
-                  <Card.Title className="cardTitle">Formato e Cor</Card.Title>
-                  {messageServ !== "" ? (
-                    <>{messageServ}</>
-                  ) : (
-                    <>
-                      {servicos.servicosCT.map((data) => (
-                        <React.Fragment key={data.id_servico}>
-                          <div className="radioName">
-                            <Form.Check
-                              className="check classRadio"
-                              type="radio"
-                              name="typePaper"
-                              id="a3pb"
-                              value={data.id_servico}
-                              checked={servicoCT === `${data.id_servico}`}
-                              onChange={(e) => {
-                                setServicoCT(e.target.value);
-                              }}
-                              required
-                            />
-                            <label className="labelName" htmlFor="typePaper">
-                              {data.descricao}
-                            </label>
-                          </div>
-                        </React.Fragment>
-                      ))}
-                    </>
-                  )}
-                  <Button
-                    className="step-btn"
-                    onClick={(e) => {
-                      setStep(4);
-                    }}
-                  >
-                    Próximo
-                  </Button>
-                  <Button
-                    className="step-btn-back"
-                    onClick={(e) => {
-                      setStep(2);
-                    }}
-                  >
-                    Anterior
-                  </Button>
-                </div>
-              )}
-              {step === 4 && (
-                <Card className="card medium">
-                  <Card.Title className="cardTitle">
-                    Tipos de Capa e Encadernação
-                  </Card.Title>
-                  {messageServ !== "" ? (
-                    <>{messageServ}</>
-                  ) : (
-                    <>
-                      {servicos.servicosCA.map((data) => (
-                        <React.Fragment key={data.id_servico}>
-                          <div className="radioName">
-                            <Form.Check
-                              className="check classRadio"
-                              type="radio"
-                              name="typePaper"
-                              id="a3pb"
-                              value={data.id_servico}
-                              checked={servicoCA === `${data.id_servico}`}
-                              onChange={(e) => {
-                                setServicoCA(e.target.value);
-                              }}
-                              required
-                            />
-                            <label className="labelName" htmlFor="typePaper">
-                              {data.descricao}
-                            </label>
-                          </div>
-                        </React.Fragment>
-                      ))}
-                    </>
-                  )}
-                  <Button
-                    className="step-btn"
-                    onClick={() => {
-                      setStep(5);
-                    }}
-                  >
-                    Próximo
-                  </Button>
-                  <Button
-                    className="step-btn-back"
-                    onClick={() => {
-                      setStep(3);
-                    }}
-                  >
-                    Anterior
-                  </Button>
-                </Card>
-              )}
-              {step === 5 && (
-                <div className="card">
-                  <Card.Title className="cardTitle">Modo de envio</Card.Title>
-                  <div className="radioName">
-                    <Form.Check
-                      type="radio"
-                      name="typeSend"
-                      id="digital"
-                      checked={typeSend === "1"}
-                      value="1"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setTypeSend(newValue);
-                      }}
-                      required
-                    />
-                    <label className="labelName" htmlFor="type-paper">
-                      Envio digital
-                    </label>
-                  </div>
-                  <div className="radioName">
-                    <Form.Check
-                      className="classRadio"
-                      type="radio"
-                      name="typeSend"
-                      id="presencial"
-                      checked={typeSend === "2"}
-                      value="2"
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        setTypeSend(newValue);
-                      }}
-                      required
-                    />
-                    <label className="labelName" htmlFor="typePaper">
-                      Envio presencial
-                    </label>
-                  </div>
-                  {typeSend === "2" && (
-                    <Form.Control
-                      className="sendTextInput"
-                      as="textarea"
-                      id="observacoes"
-                      name="observacoes"
-                      placeholder="observações"
-                      value={observacao}
-                      onChange={(e) => {
-                        setObservacao(e.target.value);
-                      }}
-                      required
-                    />
-                  )}
-                  <div className="contentButton">
-                    <div className="bootstrap-buttons">
-                      <Button
-                        className="functionButton"
-                        onClick={() => {
-                          setStep(4);
+                      Centro de custos
+                    </Card.Title>
+                    <div className="select-container">
+                      <Form.Select
+                        className="select"
+                        id="cc"
+                        name="cc"
+                        onChange={(e) => {
+                          setCc(e.target.value);
                         }}
+                        required
                       >
-                        Anterior
-                      </Button>
-                      {typeSend === "1" && (
-                        <label className="upload-form">
-                          <input
-                            type="file"
-                            name="pdfFile"
-                            onChange={handleChange}
-                            accept="application/pdf"
-                            required
-                          />
-                          <FaCloudUploadAlt />
-                          Upload PDF
-                        </label>
-                      )}
-
-                      {pdfFileError && (
-                        <div className="error-msg">{pdfFileError}</div>
-                      )}
-
-                      <Button className="functionButton" type="submit">
-                        Solicitar <FaPrint />
-                      </Button>
+                        <option
+                          value="0"
+                          name="null"
+                          id="null"
+                          selected={cc === "0"}
+                        >
+                          Nenhuma Opção Selecionada
+                        </option>
+                        <option
+                          value="1"
+                          name="AIP"
+                          id="AIP"
+                          selected={cc === "1"}
+                        >
+                          Aprendizagem Industrial Presencial
+                        </option>
+                        <option
+                          value="2"
+                          name="TNMP"
+                          id="TNMP"
+                          selected={cc === "2"}
+                        >
+                          Técnico de Nível Médio Presencial
+                        </option>
+                        <option
+                          value="3"
+                          name="GTP"
+                          id="GTP"
+                          selected={cc === "3"}
+                        >
+                          Graduação Tecnológica Presencial
+                        </option>
+                        <option
+                          value="4"
+                          name="PGP"
+                          id="PGP"
+                          selected={cc === "4"}
+                        >
+                          Pós-Graduação Presencial
+                        </option>
+                        <option value="5" name="EP" id="EP" selected={cc === "5"}>
+                          Extensão Presencial
+                        </option>
+                        <option
+                          value="6"
+                          name="IPP"
+                          id="IPP"
+                          selected={cc === "6"}
+                        >
+                          Iniciação Profissional Presencial
+                        </option>
+                        <option
+                          value="7"
+                          name="QPP"
+                          id="QPP"
+                          selected={cc === "7"}
+                        >
+                          Qualificação Profissional Presencial
+                        </option>
+                        <option
+                          value="8"
+                          name="AEPP"
+                          id="AEPP"
+                          selected={cc === "8"}
+                        >
+                          Aperfeiç./Especializ. Profis. Presencial
+                        </option>
+                      </Form.Select>
                     </div>
+                    <Button
+                      className="step-btn"
+                      onClick={() => {
+                        setStep(2);
+                      }}
+                    >
+                      Próximo
+                    </Button>
+                  </Card>
+                )}
+                {step === 2 && (
+                  <Card className="card">
+                    <Card.Title className="cardTitle">Item</Card.Title>
+                    <label className="label" htmlFor="title">
+                      Titulo
+                    </label>
+                    <input
+                      className="input-minor"
+                      type="text"
+                      name="title"
+                      id=""
+                      value={title}
+                      onChange={(e) => {
+                        setTitle(e.target.value);
+                      }}
+                      required
+                    />
+                    <label className="label" htmlFor="page-request">
+                      Número de Páginas
+                    </label>
+                    <input
+                      type="number"
+                      name="pages"
+                      id="pages"
+                      value={pages}
+                      onChange={(e) => {
+                        setPages(e.target.value);
+                      }}
+                      required
+                    />
+                    <label className="label" htmlFor="copy">
+                      Número de Cópias
+                    </label>
+                    <input
+                      type="number"
+                      name="copy"
+                      id="copy"
+                      value={copy}
+                      onChange={(e) => {
+                        setCopy(e.target.value);
+                      }}
+                      required
+                    />
+                    <label className="label" htmlFor="total">
+                      Total de Paginas
+                    </label>
+                    <span className="total-pages" name="total">
+                      {total}
+                    </span>
+                    <Button
+                      className="step-btn"
+                      onClick={() => {
+                        setStep(3);
+                      }}
+                    >
+                      Próximo
+                    </Button>
+                    <Button
+                      className="step-btn-back"
+                      onClick={() => {
+                        setStep(1);
+                      }}
+                    >
+                      Anterior
+                    </Button>
+                  </Card>
+                )}
+
+                {step === 3 && (
+                  <div className="card medium">
+                    <Card.Title className="cardTitle">Formato e Cor</Card.Title>
+                    {messageServ !== "" ? (
+                      <>{messageServ}</>
+                    ) : (
+                      <>
+                        {servicos.servicosCT.map((data) => (
+                          <React.Fragment key={data.id_servico}>
+                            <div className="radioName">
+                              <Form.Check
+                                className="check classRadio"
+                                type="radio"
+                                name="typePaper"
+                                id="a3pb"
+                                value={data.id_servico}
+                                checked={servicoCT === `${data.id_servico}`}
+                                onChange={(e) => {
+                                  setServicoCT(e.target.value);
+                                }}
+                                required
+                              />
+                              <label className="labelName" htmlFor="typePaper">
+                                {data.descricao}
+                              </label>
+                            </div>
+                          </React.Fragment>
+                        ))}
+                      </>
+                    )}
+                    <Button
+                      className="step-btn"
+                      onClick={(e) => {
+                        setStep(4);
+                      }}
+                    >
+                      Próximo
+                    </Button>
+                    <Button
+                      className="step-btn-back"
+                      onClick={(e) => {
+                        setStep(2);
+                      }}
+                    >
+                      Anterior
+                    </Button>
                   </div>
-                  {message}
-                </div>
-              )}
-            </section>
+                )}
+                {step === 4 && (
+                  <Card className="card medium">
+                    <Card.Title className="cardTitle">
+                      Tipos de Capa e Encadernação
+                    </Card.Title>
+                    {messageServ !== "" ? (
+                      <>{messageServ}</>
+                    ) : (
+                      <>
+                        {servicos.servicosCA.map((data) => (
+                          <React.Fragment key={data.id_servico}>
+                            <div className="radioName">
+                              <Form.Check
+                                className="check classRadio"
+                                type="radio"
+                                name="typePaper"
+                                id="a3pb"
+                                value={data.id_servico}
+                                checked={servicoCA === `${data.id_servico}`}
+                                onChange={(e) => {
+                                  setServicoCA(e.target.value);
+                                }}
+                                required
+                              />
+                              <label className="labelName" htmlFor="typePaper">
+                                {data.descricao}
+                              </label>
+                            </div>
+                          </React.Fragment>
+                        ))}
+                      </>
+                    )}
+                    <Button
+                      className="step-btn"
+                      onClick={() => {
+                        setStep(5);
+                      }}
+                    >
+                      Próximo
+                    </Button>
+                    <Button
+                      className="step-btn-back"
+                      onClick={() => {
+                        setStep(3);
+                      }}
+                    >
+                      Anterior
+                    </Button>
+                  </Card>
+                )}
+                {step === 5 && (
+                  <div className="card">
+                    <Card.Title className="cardTitle">Modo de envio</Card.Title>
+                    <div className="radioName">
+                      <Form.Check
+                        type="radio"
+                        name="typeSend"
+                        id="digital"
+                        checked={typeSend === "1"}
+                        value="1"
+                        onChange={(e) => {
+                          const newValue = e.target.value;
+                          setTypeSend(newValue);
+                        }}
+                        required
+                      />
+                      <label className="labelName" htmlFor="type-paper">
+                        Envio digital
+                      </label>
+                    </div>
+                    <div className="radioName">
+                      <Form.Check
+                        className="classRadio"
+                        type="radio"
+                        name="typeSend"
+                        id="presencial"
+                        checked={typeSend === "2"}
+                        value="2"
+                        onChange={(e) => {
+                          const newValue = e.target.value;
+                          setTypeSend(newValue);
+                        }}
+                        required
+                      />
+                      <label className="labelName" htmlFor="typePaper">
+                        Envio presencial
+                      </label>
+                    </div>
+                    {typeSend === "2" && (
+                      <Form.Control
+                        className="sendTextInput"
+                        as="textarea"
+                        id="observacoes"
+                        name="observacoes"
+                        placeholder="observações"
+                        value={observacao}
+                        onChange={(e) => {
+                          setObservacao(e.target.value);
+                        }}
+                        required
+                      />
+                    )}
+                    <div className="contentButton">
+                      <div className="bootstrap-buttons">
+                        <Button
+                          className="functionButton"
+                          onClick={() => {
+                            setStep(4);
+                          }}
+                        >
+                          Anterior
+                        </Button>
+                        {typeSend === "1" && (
+                          <label className="upload-form">
+                            <input
+                              type="file"
+                              name="pdfFile"
+                              onChange={handleChange}
+                              accept="application/pdf"
+                              required
+                            />
+                            <FaCloudUploadAlt />
+                            Upload PDF
+                          </label>
+                        )}
+
+                        {pdfFileError && (
+                          <div className="error-msg">{pdfFileError}</div>
+                        )}
+
+                        <Button className="functionButton" type="submit">
+                          Solicitar <FaPrint />
+                        </Button>
+                      </div>
+                    </div>
+                    {message}
+                  </div>
+                )}
+              </section>
+            </div>
           </div>
-        </div>
-      </Form>
+        </Form>
     </>
   );
 }
