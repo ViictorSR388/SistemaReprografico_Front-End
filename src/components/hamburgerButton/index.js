@@ -106,6 +106,7 @@ function Menu(props) {
                           {item.icon}
                           <span>{item.title}</span>
                         </Link>
+
                     }
                   </li>
                 );

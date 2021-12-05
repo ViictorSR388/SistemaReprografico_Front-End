@@ -61,6 +61,7 @@ function Rotas() {
         }
         else {
           setAuthState({
+
             redirect: false,
             status: true,
             nif: response.data.nif,
@@ -70,6 +71,7 @@ function Rotas() {
             firstAccess: false,
             naoAutorizado: true
           });
+
           setNaoAutorizado(1)
           setFirstAccess(0);
           if (response.data.roles && response.data.roles[0].descricao === "admin") {

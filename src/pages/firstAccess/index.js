@@ -8,7 +8,9 @@ import { AuthContext } from "./../../helpers/AuthContext";
 
 function FirstAccess(props) {
     var history = useHistory();
-    //nome
+
+    const [nif, setNif] = useState();
+
     const [senha, setSenha] = useState('');
     //email
     const [confirmSenha, setConfirmSenha] = useState('');
@@ -27,10 +29,11 @@ function FirstAccess(props) {
             if (result.data.status === "ok") {
                 setTimeout(() => {
                     setAuthState({
-                        firstAccess: false
+                        firstAccess: true
                     })
                 }, 1000);
                 setTimeout(() => {
+
                     history.push(`/user/${props.nif}`)
                 }, 1200)
             }
@@ -46,6 +49,20 @@ function FirstAccess(props) {
         localStorage.removeItem("accessToken");
         history.push('/')
     };
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3002/myUser/", {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            }).then((result) => {
+                setNif(result.data.nif)
+                if (props.nif) {
+                    setNif(props.nif)
+                }
+    })
+}, [props.nif])
 
     return (
         <>
