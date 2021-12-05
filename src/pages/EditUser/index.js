@@ -9,15 +9,12 @@ import Loading from "../../components/loading";
 import "../../styles/editUser.scss";
 
 function EditUser() {
-  const { nif } = useParams();
 
-  // const { nif } = useParams();
+  const { nif } = useParams();
 
   const [image, setImage] = useState({ raw: "", preview: "" });
 
   const [nameUser, setNameUser] = useState("");
-
-  const [setChangePass] = useState();
 
   const [emailUser, setEmailUser] = useState("");
 
@@ -35,9 +32,12 @@ function EditUser() {
 
   const [admin, setAdmin] = useState(0);
 
+  const [mensagem, setMensagem] = useState("");
+
   var id_depto = deptoUser;
 
   //estrutura de decisão para exibir corretamente o departamento
+
   if (deptoUser === "1") {
     id_depto = "Aprendizagem Industrial Presencial";
   } else if (deptoUser === "2") {
@@ -70,8 +70,6 @@ function EditUser() {
   const handleUpload = (e) => {
     e.preventDefault();
     var departamento;
-
-    //estrutura de decisão para enviar o valor para o back como numero inteiro
 
     if (deptoUser === "0") {
       departamento = "0";
@@ -125,9 +123,16 @@ function EditUser() {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
-      })
-      .then((result) => {
-        console.log(result);
+      }).then((result) => {
+        if(result.data.status === "error"){
+          setMensagem(result.data.message);
+        }
+        else{
+          setMensagem(result.data.message);
+          setTimeout(() => {
+            history.push("/management");
+          }, 1500);
+        }
       });
   };
 
@@ -159,13 +164,14 @@ function EditUser() {
     setTimeout(() => {
       setLoading(false);
     }, 1300);
-  }, [])
+  }, []);
 
   return (
     <div className="content">
       {loading ? <> <Loading /> </> :
         <>
           <ProfileContainer
+            title="Exemplo do perfil do usuário"
             image={image.preview}
             name={nameUser}
             nif={nif}
@@ -278,8 +284,8 @@ function EditUser() {
                 <>
                   {data.descricao === "user" ?
                     <>
-                      <input
-                        className="check classRadio"
+                      <Form.Check
+                        className="radioOpcoes"
                         type="radio"
                         name="admin"
                         id="admin"
@@ -289,14 +295,12 @@ function EditUser() {
                           console.log(admin)
                         }}
                       />
-                      <label className="labelName" htmlFor="">
-                        <h2>Alterar para usuário administrador?</h2>
-                      </label>
+                      <h2 className="opcoes">Alterar para usuário administrador?</h2>
                     </>
                     :
                     <>
-                      <input
-                        className="check classRadio"
+                      <Form.Check
+                        className="radioOpcoes"
                         type="radio"
                         name="admin"
                         id="admin2"
@@ -306,13 +310,12 @@ function EditUser() {
                           console.log(admin)
                         }}
                       />
-                      <label className="labelName" htmlFor="">
-                        <h2>Alterar para usuário comum?</h2>
-                      </label>
+                      <h2 className="opcoes">Alterar para usuário comum?</h2>
                     </>
                   }
                 </>
               ))}
+              <h4 className="mensagem-edit">{mensagem}</h4>
               <div className="btns">
                 <input
                   type="submit"

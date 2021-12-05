@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "../../styles/newUser.scss";
 import { Form } from 'react-bootstrap';
 import ProfileContainer from "../../components/profileContainer";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { AuthContext } from "./../../helpers/AuthContext";
 
 function NewUser(props) {
   var history = useHistory();
@@ -26,8 +25,6 @@ function NewUser(props) {
   const [admin, setAdmin] = useState(0);
 
   const [mensagem, setMensagem] = useState("");
-
-  const { setAuthState } = useContext(AuthContext);
 
   var departamento;
 
@@ -101,30 +98,6 @@ function NewUser(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     handleUpload();
-
-    // CreateUserPost();
-  };
-
-  const [changePass, setChangePass] = useState();
-
-  const voltar = () => {
-    axios
-      .get("http://localhost:3002/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((result) => {
-        setAuthState({
-          nif: result.data.nif,
-          nome: result.data.nome,
-          roles: result.data.roles,
-          imagem: "http://localhost:3002/" + result.data.imagem,
-          redirect: false,
-        });
-
-        history.push("/management");
-      });
   };
 
   return (
@@ -135,10 +108,6 @@ function NewUser(props) {
         image={image.preview}
         name={nameUser}
         requestsNoInfo={true}
-        change={true}
-        changePassword={() => {
-          setChangePass(true);
-        }}
         nif={props.nif}
       />
       <div className="container-newUser">
@@ -287,7 +256,7 @@ function NewUser(props) {
               id="btn"
               value="Enviar"
             />
-            <button className="btn-back-user" id="btn" onClick={voltar}>
+            <button className="btn-back-user" id="btn" onClick={() => history.push("/management")}>
               Voltar
             </button>
           </div>

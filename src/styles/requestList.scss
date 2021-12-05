@@ -1,15 +1,15 @@
 @import "_global";
 
+:root {
+  --bs-body-line-height: 1.4 !important;
+}
+
 .requestL {
   margin-top: 10vh;
   background-color: $grey !important;
   width: 65vw !important;
   height: 38rem !important;
   display: flex !important;
-  
-  .table {
-    height: 100% !important;
-  }
 }
 .titleRL {
   background-color: $grey-button;
