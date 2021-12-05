@@ -100,6 +100,18 @@
         }
       }
 
+      /* Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    
+      /* Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+
       .textInput {
         margin-top: 1.5rem;
         font-size: 1.5rem;
@@ -181,6 +193,35 @@
     }
   }
 }
+
+.labelName-CT {
+  // display: flex;
+  // justify-content: flex-start;
+  // margin-left: 1rem;
+  width: 30rem;
+}
+
+.labelName-CA {
+  // display: flex;
+  // justify-content: flex-start;
+  // margin-left: 1rem;
+  width: 40rem;
+}
+
+.radioName-Send {
+  display: flex;
+  justify-content: center;
+  width: 50rem;
+  margin-bottom: 1rem;
+}
+
+.labelName-Send {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 2rem;
+  width: 20rem;
+}
+
 
 @media (max-width: 1919px) {
   .containerForm {
@@ -409,6 +450,12 @@
       }
     }
   }
+}
+
+textarea.form-control {
+  margin-bottom: 2rem !important;
+  background-color: $grey;
+  color: $grey-button;
 }
 
 textarea.form-control {

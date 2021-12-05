@@ -70,9 +70,25 @@
 
   .btn-disable {
     display: flex !important;
-    margin: 0 2rem !important;
+    margin: 0 0.5rem !important;
     padding: 0.5rem !important;
     flex-direction: column !important;
+    transition: .5s !important;
+  }
+
+  .btn-edit {
+    display: flex !important;
+    background-color: $grey-button;
+    color: $white !important;
+    margin: 0 2rem !important;
+    font-size: 1.6rem !important;
+    padding: 0.5rem !important;
+    transition: .5s !important;
+
+    &:hover {
+      background-color: $grey !important;
+      color: $grey-button !important;
+    }
   }
 
   .btn-enable {
@@ -80,6 +96,7 @@
     margin: 0 2rem !important;
     padding: 0.5rem !important;
     flex-direction: column !important;
+    transition: .5s !important;
   }
 
   .btn-services {
@@ -91,7 +108,7 @@
     margin: auto !important;
     margin-top: 4rem !important;
     border-radius: 1rem;
-    transition: 0.5s !important;
+    transition: .5s !important;
     margin-bottom: 10rem !important;
 
     &:hover {

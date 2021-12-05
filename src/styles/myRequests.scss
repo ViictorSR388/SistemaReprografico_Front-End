@@ -6,25 +6,44 @@
     left: 45rem;
 }
 
+.text-request {
+    text-align: center;
+}
+
+.teste {
+    color: $red;
+}
+
 .btns-request{
-    display: flex;
-    justify-content: center;
-    width: 30rem;
-    margin-bottom: 3rem;
+    display: flex !important;
+    margin: auto !important;
+    justify-content: center !important;
+    width: 45rem !important;
+    margin-bottom: 3rem !important;
 
     .btn-request {
-        height: 5rem;
-        width: 100%;
-        font-size: 1.6rem;
+        height: 5rem !important;
+        width: 100% !important;
+        font-size: 1.6rem !important;
+        border: none !important;
+        background-color: $grey !important;
+        color: #000 !important;
+        transition: .5s !important;
+
+        &:hover {
+            background-color: $grey-button !important;
+            color: $white !important;
+        }
 
         &:first-child{
-            margin-right: 1rem;
+            margin-right: 5rem !important;
         }
     }
 }
 
 .avaliacao-request {
     font-size: 2.5rem;
+    text-align: center;
     margin: 2rem auto;
     font-weight: bold;
 }

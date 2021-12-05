@@ -6,6 +6,8 @@ import { AuthContext } from "./../../helpers/AuthContext";
 
 import LoginContainer from "../../components/loginContainer";
 
+import Loading from '../../../src/components/loading';
+
 export default function Login() {
   const [emailOrNif, setEmailOrNif] = useState("");
   const [senha, setSenha] = useState("");
@@ -27,12 +29,13 @@ export default function Login() {
           roles: result.data.roles,
           imagem: "http://localhost:3002/" + result.data.imagem,
           redirect: false,
+          naoAutorizado: false
         });
         localStorage.setItem("accessToken", result.data.accessToken);
         if (result.data.roles) {
           var resposta = result.data.roles.includes("2_ROLE_ADMIN");
 
-          if(resposta === false && result.data.primeiro_acesso === 1){
+          if (resposta === false && result.data.primeiro_acesso === 1) {
             setAuthState({
               admin: false, firstAccess: true, nif: result.data.nif,
             });
@@ -40,13 +43,13 @@ export default function Login() {
           }
           else if (resposta === true && result.data.primeiro_acesso === 0) {
             setAuthState({
-              admin: true, firstAccess: false
+              admin: true, firstAccess: false,
             });
             history.push("user/" + result.data.nif);
-          } 
-          else if(resposta === true && result.data.primeiro_acesso === 1 ) {
+          }
+          else if (resposta === true && result.data.primeiro_acesso === 1) {
             setAuthState({
-              admin: true, firstAccess: true, nif: result.data.nif
+              admin: true, firstAccess: true, nif: result.data.nif,
             });
             history.push("/firstAccess")
           }
@@ -63,33 +66,33 @@ export default function Login() {
 
   useEffect(() => {
     axios
-    .get("http://localhost:3002/myUser", {
-      headers: {
-        accessToken: localStorage.getItem("accessToken"),
-      },
-    })
-    .then((response) => {
-      if (response.data.roles) {
-        if(response.data.primeiro_acesso === 1){
-          setAuthState({
-            firstAccess: true,
-            nif: response.data.nif
-          });
-          history.push("/firstAccess")
+      .get("http://localhost:3002/myUser", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((response) => {
+        if (response.data.roles) {
+          if (response.data.primeiro_acesso === 1) {
+            setAuthState({
+              firstAccess: true,
+              nif: response.data.nif
+            });
+            history.push("/firstAccess")
+          }
+          else if (response.data.roles[0].descricao === "admin") {
+            history.push("/management");
+            setAuthState({
+              admin: true
+            });
+          } else {
+            history.push("/requestForm");
+            setAuthState({
+              admin: false
+            });
+          }
         }
-        else if (response.data.roles[0].descricao === "admin") {
-          history.push("/management");
-          setAuthState({
-            admin: true,
-          });
-        } else {
-          history.push("/requestForm");
-          setAuthState({
-            admin: false
-          });
-        }
-      }
-    });
+      });
   }, []);
 
   const onSubmit = (e) => {
@@ -97,58 +100,71 @@ export default function Login() {
     LoginPost();
   };
 
+  var [loading, setLoading] = useState(Loading);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1300);
+  }, [])
+
   return (
     <>
       <div className="content">
-        <LoginContainer />
-        <div className="container-login">
-          <h2 id="h2" className="login-subTitle">
-            Login
-          </h2>
+        {loading ? <> <Loading /> </> :
+          <>
+            <LoginContainer />
+            <div className="container-login">
+              <h2 id="h2" className="login-subTitle">
+                Login
+              </h2>
 
-          <form onSubmit={onSubmit}>
-            <input
-              id="email"
-              className="login-input-box"
-              type="text"
-              name="email"
-              onChange={(e) => {
-                setEmailOrNif(e.target.value);
-              }}
-              placeholder="E-mail ou NIF"
-              required
-            />
-            <input
-              id="password"
-              className="login-input-box"
-              type="password"
-              name="senha"
-              onChange={(e) => {
-                setSenha(e.target.value);
-              }}
-              placeholder="Senha"
-              required
-            />
+              <form onSubmit={onSubmit}>
+                <input
+                  id="email"
+                  className="login-input-box"
+                  type="text"
+                  name="email"
+                  onChange={(e) => {
+                    setEmailOrNif(e.target.value);
+                  }}
+                  placeholder="E-mail ou NIF"
+                  required
+                />
+                <input
+                  id="password"
+                  className="login-input-box"
+                  type="password"
+                  name="senha"
+                  onChange={(e) => {
+                    setSenha(e.target.value);
+                  }}
+                  placeholder="Senha"
+                  required
+                />
 
-            <div className="link-box">
-              <p
-                className="newPassword"
-                onClick={() => history.push(`/forgotPassword`)}
-              >
-                Esqueceu a senha?
-              </p>
+                <div className="link-box">
+                  <p
+                    className="newPassword"
+                    onClick={() => history.push(`/forgotPassword`)}
+                  >
+                    Esqueceu a senha?
+                  </p>
+                </div>
+
+                <input
+                  id="login-button"
+                  className="login-button"
+                  name="login-button"
+                  type="submit"
+                  value="Entrar"
+                />
+              </form>
+              <h4>{mensagem}</h4>
             </div>
-
-            <input
-              id="login-button"
-              className="login-button"
-              name="login-button"
-              type="submit"
-              value="Entrar"
-            />
-          </form>
-          <h4>{mensagem}</h4>
-        </div>
+          </>
+        }
       </div>
     </>
   );

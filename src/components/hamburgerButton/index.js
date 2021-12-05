@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import  managerData  from './managerData';
-import userData  from './userData'
+import managerData from './managerData';
+import userData from './userData'
 import { IconContext } from 'react-icons';
 import axios from 'axios'
 import './styles.scss';
@@ -11,27 +11,30 @@ import './styles.scss';
 function Menu(props) {
   const [sidebar, setSidebar] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [nif, setNif] = useState("");
   const showSidebar = () => setSidebar(!sidebar);
 
   useEffect(() => {
     axios
-        .get("http://localhost:3002/myUser/", {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-            },
-        }).then((result) => {
-            if (result.data.roles[0].descricao === "admin") {
-                setAdmin(true)
-            }
-            else{
-                setAdmin(false)
-            }
-            if(props.admin){
-                setAdmin(props.admin)
-            }
+      .get("http://localhost:3002/myUser/", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      }).then((result) => {
+        if (result.data.roles[0].descricao === "admin") {
+          setAdmin(true)
+        }
+        else {
+          setAdmin(false)
+        }
+        if (props.admin) {
+          setAdmin(props.admin)
+        }
 
-        })
-}, [props.admin])
+        setNif(result.data.nif)
+
+      })
+  }, [props.admin])
 
 
   return (
@@ -64,6 +67,16 @@ function Menu(props) {
                         {item.icon}
                         <span>{item.title}</span>
                       </Link>
+                        && item.path === 'user/' ?
+                        <Link to={item.path + nif}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                        :
+                        <Link to={item.path}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
                     }
                   </li>
                 );
@@ -83,6 +96,17 @@ function Menu(props) {
                         {item.icon}
                         <span>{item.title}</span>
                       </Link>
+                        && item.path === 'user/' ?
+                        <Link to={item.path + nif}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                        :
+                        <Link to={item.path}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+
                     }
                   </li>
                 );

@@ -3,26 +3,26 @@ import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/addService.scss';
 import LoginContainer from '../../components/loginContainer';
-import Loading from '../../components/loading';
+import Loading from '../../../src/components/loading';
 
 export default function AddService() {
 
   var history = useHistory();
 
-  var { type } = useParams();
+  var { type, id } = useParams();
 
   const [descricao, setDescricao] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [custo, setCusto] = useState("");
   const [message, setMessage] = useState();
 
-  const AddService = () => {
+  const EditService = () => {
     const data = {
       descricao: descricao,
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.post(`http://localhost:3002/service/type=${type}`, data, {
+    axios.put(`http://localhost:3002/service/${id}/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
@@ -35,7 +35,7 @@ export default function AddService() {
         setMessage(result.data.message)
         setTimeout(() => {
           history.push("/services")
-        }, 1500);
+        }, 150);
       }
     })
   }
@@ -55,14 +55,35 @@ export default function AddService() {
         //   redirect: false
         // });
 
+        // ativado: 1
+        // descricao: "Capa em papel 150g e espirais de plástico"
+        // id_servico: 3
+        // quantidade: 100
+        // valor_unitario: 0.5
+
         history.push("/services");
       })
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    AddService();
+    EditService()
   }
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3002/service/${id}/type=${type}`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        setDescricao(result.data.descricao)
+        setQuantidade(result.data.quantidade)
+        setCusto(result.data.valor_unitario)
+        console.log(result);
+      });
+  }, [id, type]);
 
   var [loading, setLoading] = useState(Loading);
 
@@ -81,24 +102,14 @@ export default function AddService() {
           <div className="finishing">
             <form onSubmit={onSubmit}>
               <h2 id="h2" className="service-subTitle">
-                Adicionar Serviço
+                Editar Serviço
               </h2>
-              <input
-                className="input-service"
-                name="descricao"
-                type="text"
-                placeholder="descrição de capa e acabamento"
-                required
-                onChange={(e) => {
-                  setDescricao(e.target.value);
-                }}
-              />
+              <h2 className="title">{descricao}</h2>
               <input
                 className="input-service"
                 name="quantidade"
                 type="number"
-                placeholder="quantidade do serviço"
-                required
+                placeholder={quantidade}
                 onChange={(e) => {
                   setQuantidade(e.target.value);
                 }}
@@ -108,24 +119,26 @@ export default function AddService() {
                 name="custo"
                 type="number"
                 step="any"
-                placeholder="custo unitário do serviço"
-                required
+                placeholder={custo}
                 onChange={(e) => {
                   setCusto(e.target.value);
                 }}
               />
               <h3>{message}</h3>
-              <input
-                type="submit"
-                className="nu-send-button"
-                id="btn"
-                value="Adicionar"
-              />
+              <div className="btns-edit-services">
+                <input
+                  type="submit"
+                  className="nu-send-button"
+                  id="btn"
+                  value="Editar"
+                />
+                <button
+                  className="btn-back-user"
+                  id="btn"
+                  onClick={voltar}>Voltar
+                </button>
+              </div>
             </form>
-            <button
-              className="btn-back-user"
-              id="btn"
-              onClick={voltar}>Voltar</button>
           </div>
         </>
       }

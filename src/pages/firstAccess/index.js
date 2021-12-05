@@ -27,17 +27,15 @@ function FirstAccess(props) {
         }).then((result) => {
             setMessage(result.data.message)
             if (result.data.status === "ok") {
-                setTimeout(() => { 
+                setTimeout(() => {
                     setAuthState({
                         firstAccess: true
                     })
                 }, 1000);
                 setTimeout(() => {
-                    history.push(`/user/${nif}`)
-                }, 1100)
-            } else {
-                localStorage.removeItem("accessToken");
-                history.push("/")
+
+                    history.push(`/user/${props.nif}`)
+                }, 1200)
             }
         })
     };
@@ -50,7 +48,7 @@ function FirstAccess(props) {
     const logout = () => {
         localStorage.removeItem("accessToken");
         history.push('/')
-    }; 
+    };
 
     useEffect(() => {
         axios
@@ -71,8 +69,7 @@ function FirstAccess(props) {
             <div className="content">
                 <LoginContainer />
                 <div className="container-login">
-                <FaSignOutAlt className="icon-firstAccess" onClick={logout} />
-                    <h2 className="title-first">
+                    <h2 className="title-firstAccess">
                         Insira sua nova senha
                     </h2>
                     <form onSubmit={onSubmit}>
@@ -96,7 +93,7 @@ function FirstAccess(props) {
                                 setConfirmSenha(e.target.value);
                             }}
                         />
-                        <h4>{message}</h4>
+
                         <div className="btns">
                             <input
                                 className="env-first"
@@ -105,6 +102,10 @@ function FirstAccess(props) {
                             />
                         </div>
                     </form>
+                    <h4>{message}</h4>
+                    <div className="exit-access">
+                        <FaSignOutAlt className="exit-firstAccess" onClick={logout} />
+                    </div>
                 </div>
             </div>
         </>

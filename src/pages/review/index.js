@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../../styles/review.scss';
 import Header from '../../components/header';
 import Menu from '../../components/hamburgerButton';
 import SideBar from '../../components/formSideBar';
+import { Form } from 'react-bootstrap';
 import axios from 'axios';
+import Loading from '../../../src/components/loading';
 
 function Review(props) {
 
@@ -36,63 +38,76 @@ function Review(props) {
     })
   }
 
+  var [loading, setLoading] = useState(Loading);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1300);
+  }, [])
+
   return (
     <>
-      <Menu />
-      <Header nif={props.nif} />
-      <SideBar image={props.image} admin={props.admin} name={props.name}  nif={props.nif} />
+      {loading ? <> <Loading /> </> :
+        <>
+          <Menu />
+          <Header nif={props.nif} />
+          <SideBar image={props.image} admin={props.admin} name={props.name} nif={props.nif} />
 
-      <div id="main-container">
+          <div id="main-container">
 
-        <form id="review-container" onSubmit={avaliaPost}>
-          <div id="review-title">
-            <h3>Avaliação de Reprografia</h3>
-          </div>
-
-          <div id="review-content">
-            <div id="feedback-radio">
-              <div className="radio">
-                <label htmlFor="nao-atendeu">Atendeu</label>
-                <input
-                  type="radio"
-                  name="radio-option"
-                  id="nao-atendeu"
-                  className="checkbox-avaliacao"
-                  checked={atendInput === 1}
-                  onChange={() => {
-                    setAtendInput(1)
-                  }}
-                />
+            <form id="review-container" onSubmit={avaliaPost}>
+              <div id="review-title">
+                <h3>Avaliação de Reprografia</h3>
               </div>
 
-              <div className="radio">
-                <label htmlFor="superou">Não Atendeu</label>
-                <input
-                  type="radio"
-                  name="radio-option"
-                  id="superou"
-                  className="checkbox-avaliacao"
-                  checked={atendInput === 2}
-                  onChange={() => {
-                    setAtendInput(2)
-                  }}
+              <div id="review-content">
+                <div id="feedback-radio">
+                  <div className="radio">
+                    <label className="title-review" htmlFor="nao-atendeu">Atendeu</label>
+                    <Form.Check
+                      type="radio"
+                      name="radio-option"
+                      id="nao-atendeu"
+                      className="checkbox-avaliacao"
+                      checked={atendInput === 1}
+                      onChange={() => {
+                        setAtendInput(1)
+                      }}
+                    />
+                  </div>
 
-                />
+                  <div className="radio">
+                    <label className="title-review" htmlFor="superou">Não Atendeu</label>
+                    <Form.Check
+                      type="radio"
+                      name="radio-option"
+                      id="superou"
+                      className="checkbox-avaliacao"
+                      checked={atendInput === 2}
+                      onChange={() => {
+                        setAtendInput(2)
+                      }}
+
+                    />
+                  </div>
+                </div>
+
+                <div id="feedback-text">
+                  <textarea placeholder=" digite seu feedback" onChange={(e) => {
+                    setFeedBack(e.target.value);
+                  }}></textarea>
+                </div>
               </div>
-            </div>
-
-            <div id="feedback-text">
-              <textarea placeholder=" digite seu feedback" onChange={(e) => {
-                setFeedBack(e.target.value);
-              }}></textarea>
-            </div>
+              <div id="button-review">
+                <button id="review-button" type="submit"> Enviar Avaliação</button>
+              </div>
+              <h4>{mensagem}</h4>
+            </form>
           </div>
-          <div id="button-review">
-            <button id="review-button" type="submit"> Enviar Avaliação</button>
-          </div>
-          <h4>{mensagem}</h4>
-        </form>
-      </div>
+        </>
+      }
     </>
   );
 }

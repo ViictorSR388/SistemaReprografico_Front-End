@@ -149,6 +149,7 @@
         color: $white !important;
         margin-right: 1rem !important;
         background-color: none !important;
+        transition: .5s !important;
 
         &:hover {
           background-color: $grey !important;
@@ -168,6 +169,7 @@
       background-color: $grey-button !important;
       font-size: 1.6rem !important;
       margin-bottom: 1rem !important;
+      transition: .5s !important;
 
       &:hover {
         background-color: $grey !important;
@@ -185,6 +187,7 @@
     font-size: 1.6rem !important;
     border: transparent !important;
     margin-bottom: 1rem !important;
+    transition: .5s !important;
 
     &:hover {
       background-color: $grey !important;
@@ -196,6 +199,7 @@
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
+    cursor: pointer;
   }
 
   // .edit-user-managent{
@@ -204,7 +208,7 @@
   //   color: $white !important;
   // }
 
-  .btn-newUser {
+  .btnD-newUser {
     margin-left: 54vw;
 
     button {
@@ -216,12 +220,18 @@
       cursor: pointer;
       border-radius: 8px;
       transition: 0.5s;
+      border: none;
     }
 
     button:hover {
-      background-color: $blue-hover;
+      background-color: $grey !important;
+      color: #000;
     }
   }
+}
+
+.search-management {
+  margin-right: 1rem;
 }
 
 .btn-enable {
@@ -232,6 +242,7 @@
   color: $white !important;
   margin-right: 1rem !important;
   background-color: none !important;
+  transition: .5s !important;
 
   &:hover {
     background-color: #04345c !important;
@@ -247,6 +258,7 @@
   color: $white !important;
   margin-right: 1rem !important;
   background-color: none !important;
+  transition: .5s !important;
 
   &:hover {
     background-color: #ba181b !important;
