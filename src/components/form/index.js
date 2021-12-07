@@ -139,10 +139,6 @@ export default function RequestForm() {
     FormPost();
   };
 
-  // const nextStep = (e) => {
-  //   e.preventDefault();
-  // }
-
   var total = pages * copy;
 
   const [step, setStep] = useState(1);
@@ -181,9 +177,7 @@ export default function RequestForm() {
         ) {
           setMessageServ(response.data.message);
         }
-        // else if (response.data.servicosCA.length < 1 || response.data.servicosCT.lenght < 1) {
 
-        //}
         else {
           setServicos({
             servicosCA: response.data.servicosCA,

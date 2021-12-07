@@ -159,19 +159,6 @@ const UserRequest = (props) => {
                                   >
                                     detalhes
                                   </Button>
-                                  {/* {avaliados ? (
-                                <></>
-                              ) : (
-                                <Button
-                                  className="usersR-avaliation"
-                                  variant="secondary"
-                                  onClick={() => {
-                                    history.push("/review/" + data.id_pedido);
-                                  }}
-                                >
-                                  Avaliar
-                                </Button>
-                              )} */}
                                 </div>
                               </td>
                             </tr>

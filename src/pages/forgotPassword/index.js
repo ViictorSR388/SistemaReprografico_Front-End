@@ -74,7 +74,7 @@ export default function ForgotPassword() {
               id="forgot-password-button"
               className="fp-button"
               name="forgot-password-button"
-              onClick={ForgotPasswordPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
+              onClick={ForgotPasswordPost} 
               value="Enviar"
             />
               <button className="fp-button" onClick={() => history.push(`/`)}>Voltar</button>

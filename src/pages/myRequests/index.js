@@ -197,7 +197,6 @@ const MyRequests = (props) => {
                                     </>
                                 }
                             </>
-                            {/**<Button className="back-request" onClick={() => history.push('/requestForm')}> Voltar </Button>**/}
                         </div>
                     </>
                 }
