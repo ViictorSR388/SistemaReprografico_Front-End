@@ -38,8 +38,6 @@ function Rotas() {
   const [firstAccess, setFirstAccess] = useState(0);
   const [naoAutorizado, setNaoAutorizado] = useState(0);
 
-  // const [loading, setLoading] = useState(false);
-
   const port = process.env.REACT_APP_PORT || 3002;
   
   const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
@@ -96,7 +94,6 @@ function Rotas() {
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <>
-        {/* {loading ? <>Loading...</> : <> */}
         <Router>
           <Switch>
             <Route path="/" exact component={login} />
@@ -289,7 +286,6 @@ function Rotas() {
             )}
           </Switch>
         </Router>
-        {/* </>} */}
       </>
     </AuthContext.Provider>
   );

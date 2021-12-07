@@ -19,8 +19,6 @@ function UserInfo(props) {
 
   const [emailUser, setEmailUser] = useState("");
 
-  const [cfpUser, setCfpUser] = useState("");
-
   const [telefoneUser, setTelefoneUser] = useState("");
 
   const [deptoUser, setDeptoUser] = useState("");
@@ -68,9 +66,6 @@ function UserInfo(props) {
     }
     if (emailUser !== "") {
       formData.append("email", emailUser);
-    }
-    if (cfpUser !== "") {
-      formData.append("cfp", cfpUser);
     }
     if (telefoneUser !== "") {
       formData.append("telefone", telefoneUser);
@@ -147,7 +142,6 @@ function UserInfo(props) {
         setNif(result.data.nif);
         setNameUser(result.data.nome);
         setEmailUser(result.data.email);
-        setCfpUser(result.data.cfp);
         setTelefoneUser(result.data.telefone);
         setDeptoUser(result.data.depto);
         setImage({ preview: `${reprografia_url}/` + result.data.imagem });
@@ -354,16 +348,6 @@ function UserInfo(props) {
                                 setEmailUser(e.target.value);
                               }}
                             />
-                            <h3 className="input-title">CFP</h3>
-                            <input
-                              className="input-box"
-                              name="cfpUser"
-                              type="text"
-                              placeholder={cfpUser}
-                              onChange={(e) => {
-                                setCfpUser(e.target.value);
-                              }}
-                            />
                             <h3 className="input-title">TELEFONE</h3>
                             <input
                               className="input-box"
@@ -412,8 +396,6 @@ function UserInfo(props) {
                           <h2 className="userInformation">{nif}</h2>
                           <h3 className="input-title">EMAIL</h3>
                           <h2 className="userInformation">{emailUser}</h2>
-                          <h3 className="input-title">CFP</h3>
-                          <h2 className="userInformation">{cfpUser}</h2>
                           <h3 className="input-title">TELEFONE</h3>
                           <h2 className="userInformation">{telefoneUser}</h2>
                           <h3 className="input-title">DEPARTAMENTO</h3>

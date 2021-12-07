@@ -50,15 +50,7 @@ export default function AddService() {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
-        // setAuthState({
       }).then((result) => {
-        //   nif: result.data.nif,
-        //   nome: result.data.nome,
-        //   roles: result.data.roles,
-        //   imagem: "http://localhost:3002/" + result.data.imagem,
-        //   redirect: false
-        // });
-
         history.push("/services");
       })
   }
