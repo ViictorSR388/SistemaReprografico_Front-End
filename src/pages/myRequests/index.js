@@ -4,7 +4,7 @@ import Header from '../../../src/components/header';
 import SideBar from '../../../src/components/formSideBar';
 import Menu from '../../../src/components/hamburgerButton';
 import axios from 'axios';
-import { Button, Card, Table, Toast } from 'react-bootstrap';
+import { Button, Card, Table } from 'react-bootstrap';
 import '../../styles/myRequests.scss';
 import Swal from 'sweetalert2';
 import Loading from '../../../src/components/loading';
@@ -21,8 +21,12 @@ const MyRequests = (props) => {
 
     var [avaliados, setAvaliados] = useState();
 
+    const port = process.env.REACT_APP_PORT || 3002;
+  
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
     useEffect(() => {
-        axios.get("http://localhost:3002/myRequests/rated=0", {
+        axios.get(`${reprografia_url}/myRequests/rated=0`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -44,7 +48,7 @@ const MyRequests = (props) => {
 
     const getAvaliados = (id) => {
         axios
-            .get("http://localhost:3002/myRequests/rated=" + id, {
+            .get(`${reprografia_url}/myRequests/rated=` + id, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -86,7 +90,7 @@ const MyRequests = (props) => {
             }
         })
 
-        await axios.get(`http://localhost:3002/requestAgain/${id}`, {
+        await axios.get(`${reprografia_url}/requestAgain/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

@@ -12,6 +12,9 @@ export default function RequestForm() {
   const [posGraduacao, setPosGraduacao] = useState("");
   const [message, setMessage] = useState("");
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   var history = useHistory();
 
@@ -111,7 +114,7 @@ export default function RequestForm() {
     }
     else {
       axios
-        .post("http://localhost:3002/request", formData, {
+        .post(`${reprografia_url}/request`, formData, {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },
@@ -163,7 +166,7 @@ export default function RequestForm() {
   const onLoad = async () => {
     var config = {
       method: "get",
-      url: `http://localhost:3002/services/enabled=1`,
+      url: `${reprografia_url}/services/enabled=1`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },

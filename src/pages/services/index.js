@@ -19,12 +19,13 @@ export default function Services(props) {
     status: false,
   });
 
-  // var [servicoCA, setServicoCA] = useState();
-  // var [servicoCT, setServicoCT] = useState();
-
   var [ativos, setAtivos] = useState();
 
   var [semRegistros, setSemRegistros] = useState();
+
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   useEffect(() => {
     setLoading(true);
@@ -36,7 +37,7 @@ export default function Services(props) {
 
   const servicosAtivos = (id) => {
     axios
-      .get("http://localhost:3002/services/enabled=" + id, {
+      .get(`${reprografia_url}/services/enabled=` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -64,7 +65,7 @@ export default function Services(props) {
   const onLoad = async () => {
     var config = {
       method: "get",
-      url: `http://localhost:3002/services/enabled=1`,
+      url: `${reprografia_url}/services/enabled=1`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -97,7 +98,7 @@ export default function Services(props) {
 
     var config = {
       method: "put",
-      url: `http://localhost:3002/service/${id}/type=${type}/enable=${atvr}`,
+      url: `${reprografia_url}/service/${id}/type=${type}/enable=${atvr}`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },

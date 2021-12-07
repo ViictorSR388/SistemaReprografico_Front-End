@@ -14,6 +14,10 @@ const UserRequest = (props) => {
   const history = useHistory();
   const { nif } = useParams();
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   var [pedidos, setPedidos] = useState({
     status: false,
     list: [],
@@ -24,7 +28,7 @@ const UserRequest = (props) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/request/nif/${nif}/rated=0`, {
+      .get(`${reprografia_url}/request/nif/${nif}/rated=0`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -46,7 +50,7 @@ const UserRequest = (props) => {
 
   const getAvaliados = (id) => {
     axios
-      .get(`http://localhost:3002/request/nif/${nif}/rated=${id}`, {
+      .get(`${reprografia_url}/request/nif/${nif}/rated=${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },

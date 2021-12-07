@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "../../styles/newUser.scss";
@@ -7,6 +7,7 @@ import ProfileContainer from "../../components/profileContainer";
 import { FaCloudUploadAlt } from "react-icons/fa";
 
 function NewUser(props) {
+
   var history = useHistory();
 
   //nome
@@ -25,6 +26,10 @@ function NewUser(props) {
   const [admin, setAdmin] = useState(0);
 
   const [mensagem, setMensagem] = useState("");
+
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   var departamento;
 
@@ -49,7 +54,7 @@ function NewUser(props) {
   //imagem
   const [image, setImage] = useState({
     raw: "",
-    preview: "http://localhost:3002/src/uploads/user-img/default/usuario.png",
+    preview: `${reprografia_url}/src/uploads/user-img/default/usuario.png`,
   });
 
   const handleChange = (e) => {
@@ -76,7 +81,7 @@ function NewUser(props) {
       setMensagem("Por favor selecione um departamento!");
     } else {
       axios
-        .post("http://localhost:3002/newUser", formData, {
+        .post(`${reprografia_url}/newUser`, formData, {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },

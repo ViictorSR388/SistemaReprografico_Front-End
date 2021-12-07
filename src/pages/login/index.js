@@ -15,11 +15,15 @@ export default function Login() {
 
   const [mensagem, setMensagem] = useState("");
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   let history = useHistory();
 
   const LoginPost = () => {
     const data = { emailOrNif: emailOrNif, senha: senha };
-    axios.post("http://localhost:3002/login", data).then((result) => {
+    axios.post(`${reprografia_url}/login`, data).then((result) => {
       if (result.data.status === "error") {
         setMensagem(result.data.message);
       } else {
@@ -27,7 +31,7 @@ export default function Login() {
           nif: result.data.nif,
           nome: result.data.nome,
           roles: result.data.roles,
-          imagem: "http://localhost:3002/" + result.data.imagem,
+          imagem: `${reprografia_url}/` + result.data.imagem,
           redirect: false,
           naoAutorizado: false
         });
@@ -66,7 +70,7 @@ export default function Login() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/myUser", {
+      .get(`${reprografia_url}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },

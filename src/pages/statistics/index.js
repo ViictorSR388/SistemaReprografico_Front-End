@@ -17,18 +17,19 @@ export default function Statistics(props) {
     const mesesArray = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
     const [fetchMesStatus, setFetchMesStatus] = useState();
-    const [fetchMesesStatus, setFetchMesesStatus] = useState();
 
-    const [meses, setMeses] = useState({
-        list: [],
-    });
     const [message, setMessage] = useState();
 
     const [unicoMes, setUnicoMes] = useState([]);
+
     const [firstRequest, setFirstRequest] = useState(false);
 
     const [ano, setAno] = useState();
     const [mes, setMes] = useState();
+
+    const port = process.env.REACT_APP_PORT || 3002;
+  
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
     const selectMesAno = (e) => {
         e.preventDefault();
@@ -47,7 +48,7 @@ export default function Statistics(props) {
         }
         else {
             axios
-                .get(`http://localhost:3002/estatisticas/mensais/${ano}/${mes}`, {
+                .get(`${reprografia_url}/estatisticas/mensais/${ano}/${mes}`, {
                     headers: {
                         accessToken: localStorage.getItem("accessToken"),
                     },
@@ -65,7 +66,7 @@ export default function Statistics(props) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3002/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
+            .get(`${reprografia_url}/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },

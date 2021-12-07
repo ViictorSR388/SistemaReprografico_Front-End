@@ -12,11 +12,13 @@ function Menu(props) {
   const [sidebar, setSidebar] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [nif, setNif] = useState("");
+  const port = process.env.REACT_APP_PORT || 3002;
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
   const showSidebar = () => setSidebar(!sidebar);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/myUser/", {
+      .get(`${reprografia_url}/myUser/`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
