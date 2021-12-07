@@ -4,7 +4,6 @@ import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from "react-router";
-// import { PassContext } from "../../helpers/changePassContext";
 import { AuthContext } from "./../../helpers/AuthContext";
 import ProfileContainer from "../../components/profileContainer";
 import Loading from '../../../src/components/loading';
@@ -42,6 +41,10 @@ function UserInfo(props) {
 
   const { setAuthState } = useContext(AuthContext);
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   const [mensagem, setMensagem] = useState("");
 
   const handleChange = (e) => {
@@ -74,15 +77,15 @@ function UserInfo(props) {
     }
 
     axios
-      .put("http://localhost:3002/myUser", formData, {
+      .put(`${reprografia_url}/myUser`, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        if(result.data.status === "error"){
+        if (result.data.status === "error") {
           setMensagem(result.data.message);
         }
-        else{
+        else {
           setMensagem(result.data.message);
           setTimeout(() => {
             history.push("/management");
@@ -96,7 +99,7 @@ function UserInfo(props) {
 
     axios
       .put(
-        "http://localhost:3002/myUser/changePassword",
+        `${reprografia_url}/myUser/changePassword`,
         { senhaAntiga: pastPassword, senhaNova: newPassword, confirmSenhaNova: newPasswordConfirm },
         {
           headers: {
@@ -130,7 +133,7 @@ function UserInfo(props) {
 
   const onLoad = () => {
     axios
-      .get("http://localhost:3002/user/" + id, {
+      .get(`${reprografia_url}/user/` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -147,10 +150,10 @@ function UserInfo(props) {
         setCfpUser(result.data.cfp);
         setTelefoneUser(result.data.telefone);
         setDeptoUser(result.data.depto);
-        setImage({ preview: "http://localhost:3002/" + result.data.imagem });
+        setImage({ preview: `${reprografia_url}/` + result.data.imagem });
       });
     axios
-      .get("http://localhost:3002/auth", {
+      .get(`${reprografia_url}/auth`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -169,7 +172,7 @@ function UserInfo(props) {
   // temos que verificar se o usuário é admin pq vamos renderizar o header logo em seguida.
   const voltar = () => {
     axios
-      .get("http://localhost:3002/myUser", {
+      .get(`${reprografia_url}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },

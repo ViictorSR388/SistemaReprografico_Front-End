@@ -17,18 +17,19 @@ export default function Statistics(props) {
     const mesesArray = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
     const [fetchMesStatus, setFetchMesStatus] = useState();
-    const [fetchMesesStatus, setFetchMesesStatus] = useState();
 
-    const [meses, setMeses] = useState({
-        list: [],
-    });
     const [message, setMessage] = useState();
 
     const [unicoMes, setUnicoMes] = useState([]);
+
     const [firstRequest, setFirstRequest] = useState(false);
 
     const [ano, setAno] = useState();
     const [mes, setMes] = useState();
+
+    const port = process.env.REACT_APP_PORT || 3002;
+
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
     const selectMesAno = (e) => {
         e.preventDefault();
@@ -47,7 +48,7 @@ export default function Statistics(props) {
         }
         else {
             axios
-                .get(`http://localhost:3002/estatisticas/mensais/${ano}/${mes}`, {
+                .get(`${reprografia_url}/estatisticas/mensais/${ano}/${mes}`, {
                     headers: {
                         accessToken: localStorage.getItem("accessToken"),
                     },
@@ -65,7 +66,7 @@ export default function Statistics(props) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3002/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
+            .get(`${reprografia_url}/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -172,10 +173,6 @@ export default function Statistics(props) {
                                     <div className="first-line-div">
                                         <div className="first-line-tables">
                                             {fetchMesStatus ? <h1 className="title-tables">Pedidos</h1> : <></>}
-
-
-
-
                                             <Table striped bordered hover size="sm">
                                                 <tbody>
                                                     {data.avaliacao_pedido.map((data) => (
@@ -274,7 +271,166 @@ export default function Statistics(props) {
                                                 ))}
                                             </Table>
                                         </div>
-                                        <div className="first-line-tables">
+                                        <div className="second-line-tables">
+                                            {fetchMesStatus ? <h1 className="title-tables">Solicitações por Capa & Acabamento</h1> : <></>}
+                                            <Table className="" striped bordered hover size="sm">
+                                                {unicoMes.map((data) => (
+                                                    <React.Fragment>
+                                                        <tbody>
+                                                            {data.servico_capaAcabamento.map((data) => (
+                                                                <>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[1].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[2].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[3].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[4].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[4].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                </>
+                                                            ))}
+                                                        </tbody>
+                                                    </React.Fragment>
+                                                ))}
+                                            </Table>
+                                        </div>
+                                    </div>
+                                    <div className="second-line-div">
+                                    <div className="first-line-tables">
+                                            {fetchMesStatus ? <h1 className="title-tables">Solicitações por Cursos</h1> : <></>}
+                                            <Table className="" striped bordered hover size="sm">
+                                                {unicoMes.map((data) => (
+                                                    <React.Fragment>
+                                                        <tbody>
+                                                            {data.curso.map((data) => (
+                                                                <>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[1].descricao}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[2].descricao}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[3].descricao}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[3].descricao}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                </>
+                                                            ))}
+                                                        </tbody>
+                                                    </React.Fragment>
+                                                ))}
+                                            </Table>
+                                        </div>
+                                        <div className="second-line-tables">
+                                            {fetchMesStatus ? <h1 className="title-tables">Solicitações por Copia & Tamanho</h1> : <></>}
+                                            <Table className="" striped bordered hover size="sm">
+                                                {unicoMes.map((data) => (
+                                                    <React.Fragment>
+                                                        <tbody>
+                                                            {data.servico_copiaTamanho.map((data) => (
+                                                                <>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[1].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[2].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[3].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[4].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[4].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[5].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[5].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <strong>{data[6].status}</strong>
+                                                                        </td>
+                                                                        <td>
+                                                                            <Card.Text>{data[6].qtdade_solicitada}</Card.Text>
+                                                                        </td>
+                                                                    </tr>
+                                                                </>
+                                                            ))}
+                                                        </tbody>
+                                                    </React.Fragment>
+                                                ))}
+                                            </Table>
+                                        </div>
+                                        <div className="second-line-tables">
                                             {fetchMesStatus ? <h1 className="title-tables">Solicitações por Departamento</h1> : <></>}
                                             <Table striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
@@ -344,166 +500,6 @@ export default function Statistics(props) {
                                                                         </td>
                                                                         <td>
                                                                             <Card.Text>{data[8].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                </>
-                                                            ))}
-                                                        </tbody>
-                                                    </React.Fragment>
-                                                ))}
-                                            </Table>
-
-                                        </div>
-                                    </div>
-                                    <div className="second-line-div">
-                                        <div className="second-line-tables">
-                                            {fetchMesStatus ? <h1 className="title-tables">Solicitações por Cursos</h1> : <></>}
-                                            <Table className="" striped bordered hover size="sm">
-                                                {unicoMes.map((data) => (
-                                                    <React.Fragment>
-                                                        <tbody>
-                                                            {data.curso.map((data) => (
-                                                                <>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[1].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[2].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                </>
-                                                            ))}
-                                                        </tbody>
-                                                    </React.Fragment>
-                                                ))}
-                                            </Table>
-                                        </div>
-                                        <div className="second-line-tables">
-                                            {fetchMesStatus ? <h1 className="title-tables">Solicitações por Capa & Acabamento</h1> : <></>}
-                                            <Table className="" striped bordered hover size="sm">
-                                                {unicoMes.map((data) => (
-                                                    <React.Fragment>
-                                                        <tbody>
-                                                            {data.servico_capaAcabamento.map((data) => (
-                                                                <>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[1].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[2].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[4].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[4].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                </>
-                                                            ))}
-                                                        </tbody>
-                                                    </React.Fragment>
-                                                ))}
-                                            </Table>
-                                        </div>
-                                        <div className="second-line-tables">
-                                            {fetchMesStatus ? <h1 className="title-tables">Solicitações por Copia & Tamanho</h1> : <></>}
-                                            <Table className="" striped bordered hover size="sm">
-                                                {unicoMes.map((data) => (
-                                                    <React.Fragment>
-                                                        <tbody>
-                                                            {data.servico_copiaTamanho.map((data) => (
-                                                                <>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[1].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[2].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[4].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[4].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[5].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[5].qtdade_solicitada}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[6].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[6].qtdade_solicitada}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                 </>

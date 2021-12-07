@@ -9,17 +9,19 @@ function ProfileContainer(props) {
     const [name, setName] = useState("");
     const [nif, setNif] = useState("");
     const [image, setImage] = useState("");
+    const port = process.env.REACT_APP_PORT || 3002;
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
     useEffect(() => {
         axios
-            .get("http://localhost:3002/myUser/", {
+            .get(`${reprografia_url}/myUser/`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
             }).then((result) => {
                 setName(result.data.nome)
                 setNif(result.data.nif)
-                setImage(`http://localhost:3002/${result.data.imagem}`)
+                setImage(`${reprografia_url}/${result.data.imagem}`)
                 if (props.nif) {
                     setNif(props.nif)
                 }

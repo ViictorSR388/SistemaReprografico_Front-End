@@ -10,7 +10,8 @@ function SideBar(props) {
     const [nif, setNif] = useState("");
     const [image, setImage] = useState("");
     const [admin, setAdmin] = useState(false);
-
+    const port = process.env.REACT_APP_PORT || 3002;
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
     const history = useHistory();
 
     const routeForm = () => {
@@ -36,7 +37,7 @@ function SideBar(props) {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3002/myUser/", {
+            .get(`${reprografia_url}/myUser/`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -44,7 +45,7 @@ function SideBar(props) {
                 if(result.data.roles) {
                     setName(result.data.nome)
                     setNif(result.data.nif)
-                    setImage(`http://localhost:3002/${result.data.imagem}`)
+                    setImage(`${reprografia_url}/${result.data.imagem}`)
                     if (result.data.roles[0].descricao === "admin") {
                         setAdmin(true)
                     }

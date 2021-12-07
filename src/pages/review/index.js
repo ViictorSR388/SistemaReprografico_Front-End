@@ -20,10 +20,14 @@ function Review(props) {
 
   var [mensagem, setMensagem] = useState();
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   const avaliaPost = (e) => {
     e.preventDefault();
 
-    axios.put("http://localhost:3002/rating/" + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
+    axios.put(`${reprografia_url}/rating/` + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },

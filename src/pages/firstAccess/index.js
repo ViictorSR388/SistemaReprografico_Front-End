@@ -19,8 +19,12 @@ function FirstAccess(props) {
 
     const { setAuthState } = useContext(AuthContext);
 
+    const port = process.env.REACT_APP_PORT || 3002;
+  
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
     const atualizarSenha = () => {
-        axios.put('http://localhost:3002/myUser/firstAccess', { senha: senha, confirmSenha: confirmSenha }, {
+        axios.put(`${reprografia_url}/myUser/firstAccess`, { senha: senha, confirmSenha: confirmSenha }, {
             headers: {
                 accessToken: localStorage.getItem("accessToken")
             }
@@ -52,7 +56,7 @@ function FirstAccess(props) {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3002/myUser/", {
+            .get(`${reprografia_url}/myUser/`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },

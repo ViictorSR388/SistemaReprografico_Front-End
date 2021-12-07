@@ -40,9 +40,13 @@ function Rotas() {
 
   // const [loading, setLoading] = useState(false);
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   useEffect(() => {
     axios
-      .get("http://localhost:3002/myUser", {
+      .get(`${reprografia_url}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -67,7 +71,7 @@ function Rotas() {
             nif: response.data.nif,
             email: response.data.email,
             nome: response.data.nome,
-            imagem: "http://localhost:3002/" + response.data.imagem,
+            imagem: `${reprografia_url}` + response.data.imagem,
             firstAccess: false,
             naoAutorizado: true
           });
@@ -154,7 +158,6 @@ function Rotas() {
                     />
                   )}
                 />
-                {/* <Route path="/notAuthorized" exact component={notAuthorized} /> */}
                 <Route
                   path="/myRequests"
                   exact

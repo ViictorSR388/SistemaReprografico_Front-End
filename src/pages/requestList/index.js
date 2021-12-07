@@ -18,9 +18,13 @@ function RequestList(props) {
     message: "",
   });
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/requestDetails/${id}`, {
+      .get(`${reprografia_url}/requestDetails/${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },

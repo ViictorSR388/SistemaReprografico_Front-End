@@ -25,10 +25,14 @@ function Management(props) {
 
   var [ativos, setAtivos] = useState();
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
 
   const usuariosAtivos = (id) => {
     axios
-      .get("http://localhost:3002/users/enabled=" + id, {
+      .get(`${reprografia_url}/users/enabled=` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -66,7 +70,7 @@ function Management(props) {
 
     var config = {
       method: 'put',
-      url: `http://localhost:3002/user/${nif}/enable=${id}`,
+      url: `${reprografia_url}/user/${nif}/enable=${id}`,
       headers: {
         'accessToken': localStorage.getItem("accessToken"),
       },
@@ -85,7 +89,7 @@ function Management(props) {
   //map
   useEffect(() => {
     axios
-      .get("http://localhost:3002/users/enabled=1", {
+      .get(`${reprografia_url}/users/enabled=1`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -107,7 +111,7 @@ function Management(props) {
       });
 
     axios
-      .get("http://localhost:3002/auth", {
+      .get(`${reprografia_url}/auth`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -174,7 +178,7 @@ function Management(props) {
                         <th>Imagem</th>
                         <th>Nome</th>
                         <th>Email</th>
-                        <th>CPF</th>
+                        <th>CFP</th>
                         <th>Telefone</th>
                         <th>Departamento</th>
                         <th>Cargo</th>
@@ -192,7 +196,7 @@ function Management(props) {
                         <tbody>
                           <tr>
                             {data.nif === myNif ? <></> : <>
-                              <td onClick={() => { history.push(`/user/${data.nif}`) }}><img className="img-user-upload" src={`http://localhost:3002/${data.imagem}`} alt="imagem do usuário" /></td>
+                              <td onClick={() => { history.push(`/user/${data.nif}`) }}><img className="img-user-upload" src={`${reprografia_url}/${data.imagem}`} alt="imagem do usuário" /></td>
                               <td>{data.nome}</td>
                               <td>{data.email}</td>
                               <td>{data.cfp}</td>

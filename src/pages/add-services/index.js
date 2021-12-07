@@ -16,13 +16,17 @@ export default function AddService() {
   const [custo, setCusto] = useState("");
   const [message, setMessage] = useState();
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   const AddService = () => {
     const data = {
       descricao: descricao,
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.post(`http://localhost:3002/service/type=${type}`, data, {
+    axios.post(`${reprografia_url}/services/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
@@ -42,7 +46,7 @@ export default function AddService() {
 
   const voltar = () => {
     axios
-      .get("http://localhost:3002/auth", {
+      .get(`${reprografia_url}/auth`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
