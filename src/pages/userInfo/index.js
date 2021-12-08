@@ -155,7 +155,7 @@ function UserInfo(props) {
     return () => {
       setAdm({});
     };
-  }, [props.admin]);
+  }, [props.admin, props.nif, id, reprografia_url]);
 
 
   //Importante para mandar pelo useContext se o usuário é administrador ou não

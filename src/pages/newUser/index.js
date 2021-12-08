@@ -28,7 +28,7 @@ function NewUser(props) {
   const [mensagem, setMensagem] = useState("");
 
   const port = process.env.REACT_APP_PORT || 3002;
-  
+
   const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   var departamento;
@@ -87,10 +87,10 @@ function NewUser(props) {
           },
         })
         .then((result) => {
-          if(result.data.status === "error"){
+          if (result.data.status === "error") {
             setMensagem(result.data.message);
           }
-          else{
+          else {
             setMensagem(result.data.message);
             setTimeout(() => {
               history.push("/management");
@@ -121,56 +121,66 @@ function NewUser(props) {
         </h2>
         <form onSubmit={onSubmit}>
           <h4>Onde houver "*" o preenchimento é obrigatório</h4>
-          <input
-            className="input-box"
-            name="nameUser"
-            type="text"
-            placeholder="Nome*"
-            required
-            onChange={(e) => {
-              setNameUser(e.target.value);
-            }}
-          />
-          <input
-            className="input-box"
-            name="emailUser"
-            type="email"
-            placeholder="E-mail*"
-            required
-            onChange={(e) => {
-              setEmailUser(e.target.value);
-            }}
-          />
-          <input
-            className="input-box"
-            name="nifUser"
-            type="text"
-            placeholder="NIF*"
-            required
-            onChange={(e) => {
-              setNifUser(e.target.value);
-            }}
-          />
-          <input
-            className="input-box"
-            name="cfpUser"
-            type="text"
-            placeholder="CFP*"
-            required
-            onChange={(e) => {
-              setCfpUser(e.target.value);
-            }}
-          />
-          <input
-            className="input-box"
-            name="telefoneUser"
-            type="text"
-            placeholder="Telefone"
-            re
-            onChange={(e) => {
-              setTelefoneUser(e.target.value);
-            }}
-          />
+          <label>*
+            <input
+              className="input-box"
+              name="nameUser"
+              type="text"
+              placeholder="Nome"
+              required
+              onChange={(e) => {
+                setNameUser(e.target.value);
+              }}
+            />
+          </label>
+          <label>*
+            <input
+              className="input-box"
+              name="emailUser"
+              type="email"
+              placeholder="E-mail"
+              required
+              onChange={(e) => {
+                setEmailUser(e.target.value);
+              }}
+            />
+          </label>
+          <label>*
+            <input
+              className="input-box"
+              name="nifUser"
+              type="text"
+              placeholder="NIF"
+              required
+              onChange={(e) => {
+                setNifUser(e.target.value);
+              }}
+            />
+          </label>
+          <label>*
+            <input
+              className="input-box"
+              name="cfpUser"
+              type="text"
+              placeholder="CFP"
+              required
+              onChange={(e) => {
+                setCfpUser(e.target.value);
+              }}
+            />
+          </label>
+          <label>
+            <input
+              className="input-box"
+              name="telefoneUser"
+              type="text"
+              placeholder="Telefone"
+              re
+              onChange={(e) => {
+                setTelefoneUser(e.target.value);
+              }}
+            />
+          </label>
           <div className="radio-typeUser">
             <Form.Check
               className="classRadio"

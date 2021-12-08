@@ -124,7 +124,7 @@ function Management(props) {
         }
         setLoading(false);
       });
-  }, []);
+  }, [props.nif, reprografia_url]);
 
   var [loading, setLoading] = useState(Loading);
 

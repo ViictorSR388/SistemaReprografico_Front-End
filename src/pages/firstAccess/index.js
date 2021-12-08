@@ -72,7 +72,7 @@ function FirstAccess(props) {
                     setNif(props.nif)
                 }
     })
-}, [props.nif])
+}, [props.nif, reprografia_url])
 
     return (
         <>
