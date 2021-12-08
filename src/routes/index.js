@@ -12,6 +12,7 @@ import Review from "../pages/review";
 import Statistics from "../pages/statistics";
 import MyRequests from "../pages/myRequests";
 import EditUser from "../pages/EditUser";
+import Feedbacks from "../pages/feedbacks";
 import Request from "../pages/userRequest";
 import AddService from "../pages/add-services";
 import EditServices from "../pages/edit-services";
@@ -172,6 +173,18 @@ function Rotas() {
                   exact
                   component={() => (
                     <RequestList
+                      image={authState.imagem}
+                      name={authState.nome}
+                      nif={authState.nif}
+                      admin={authState.admin}
+                    />
+                  )}
+                />
+                <Route
+                  path="/feedbacks/:id"
+                  exact
+                  component={() => (
+                    <Feedbacks
                       image={authState.imagem}
                       name={authState.nome}
                       nif={authState.nif}

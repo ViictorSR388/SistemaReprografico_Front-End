@@ -8,15 +8,10 @@ import "../../styles/usersRequest.scss";
 import Header from "../../../src/components/header";
 import Menu from "../../../src/components/hamburgerButton";
 import SideBar from "../../../src/components/formSideBar";
-import Loading from '../../../src/components/loading';
 
 const UserRequest = (props) => {
   const history = useHistory();
   const { nif } = useParams();
-
-  const port = process.env.REACT_APP_PORT || 3002;
-  
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   var [pedidos, setPedidos] = useState({
     status: false,
@@ -28,7 +23,7 @@ const UserRequest = (props) => {
 
   useEffect(() => {
     axios
-      .get(`${reprografia_url}/request/nif/${nif}/rated=0`, {
+      .get(`http://localhost:3002/request/nif/${nif}/rated=0`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -50,7 +45,7 @@ const UserRequest = (props) => {
 
   const getAvaliados = (id) => {
     axios
-      .get(`${reprografia_url}/request/nif/${nif}/rated=${id}`, {
+      .get(`http://localhost:3002/request/nif/${nif}/rated=${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -77,117 +72,132 @@ const UserRequest = (props) => {
       });
   };
 
-  var [loading, setLoading] = useState(Loading);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, [])
-
   return (
     <>
-      {loading ? <> <Loading /> </> :
-        <>
-          <Menu admin={props.admin} />
-          <Header nif={props.nif} />
-          <SideBar image={props.image} name={props.name} admin={true} />
+      <Menu admin={props.admin} />
+      <Header nif={props.nif} />
+      <SideBar image={props.image} name={props.name} admin={true} />
 
-          <div className="container-management">
-            <h1 className="title-usersR">Solicitações do usuário</h1>
-            <>
-              <div className="avaliacao-usersR">
-                {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
-              </div>
-              <div className="request">
-                <div className="btns-usersR">
-                  <button className="btn-usersR" onClick={() => getAvaliados(0)}>
-                    Não avaliados
-                  </button>
-                  <button className="btn-usersR" onClick={() => getAvaliados(1)}>
-                    Avaliados
-                  </button>
-                </div>
-                {pedidos.status ? (
-                  <>
-                    <Table
-                      className="table-usersR"
-                      striped
-                      bordered
-                      hover
-                      size="sm"
-                    >
-                      <thead>
+      <div className="container-management">
+        <h1 className="title-usersR">Solicitações do usuário com NIF {nif}</h1>
+        <>
+          <div className="avaliacao-usersR">
+            {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
+          </div>
+          <div className="request">
+            <div className="btns-usersR">
+              <button className="btn-usersR" onClick={() => getAvaliados(0)}>
+                Não avaliados
+              </button>
+              <button className="btn-usersR" onClick={() => getAvaliados(1)}>
+                Avaliados
+              </button>
+            </div>
+            {pedidos.status ? (
+              <>
+                <Table
+                  className="table-usersR"
+                  striped
+                  bordered
+                  hover
+                  size="sm"
+                >
+                  <thead>
+                    <tr>
+                      <th>Pedido</th>
+                      {avaliados ? <th>Atualizado</th> : <th>Realizado</th>}
+                      <th>Status</th>
+                      <th>Solicitado</th>
+                    </tr>
+                  </thead>
+                  {pedidos.list.map((data) => (
+                    <React.Fragment key={data.id_pedido}>
+                      <tbody>
                         <tr>
-                          <th>Pedido</th>
-                          {avaliados ? <th>Atualizado</th> : <th>Realizado</th>}
-                          <th>Status</th>
-                          <th>Solicitado</th>
+                          <td>
+                            <Card.Text>{data.titulo_pedido}</Card.Text>
+                          </td>
+                          <td>
+                            {avaliados ? (
+                              <Card.Text>{data.updatedAt}</Card.Text>
+                            ) : (
+                              <Card.Text>{data.createdAt}</Card.Text>
+                            )}
+                          </td>
+                          <td>
+                            <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
+                          </td>
+                          <td>
+                            {data.realizado_qtdade < 2 ? (<Card.Text>{data.realizado_qtdade} vez</Card.Text>) : (<Card.Text>{data.realizado_qtdade} vezes</Card.Text>)}
+                          </td>
+                          <td>
+                            <div className="avaliations">
+                              {avaliados ? <>
+                                <Button
+                                  className="usersR-avaliation"
+                                  variant="secondary"
+                                  onClick={() => {
+                                    history.push(
+                                      "/requestList/" + data.id_pedido
+                                    );
+                                  }}
+                                >
+                                  detalhes
+                                </Button>
+                                <Button className="usersR-avaliation" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>
+                              </> : <>
+                                <Button
+                                  className="usersR-avaliation"
+                                  variant="secondary"
+                                  onClick={() => {
+                                    history.push(
+                                      "/requestList/" + data.id_pedido
+                                    );
+                                  }}
+                                >
+                                  detalhes
+                                </Button>
+                                {data.realizado_qtdade < 2 ? <></> : <Button className="usersR-avaliation" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>}</>}
+                              {/* {avaliados ? (
+                                <></>
+                              ) : (
+                                <Button
+                                  className="usersR-avaliation"
+                                  variant="secondary"
+                                  onClick={() => {
+                                    history.push("/review/" + data.id_pedido);
+                                  }}
+                                >
+                                  Avaliar
+                                </Button>
+                              )} */}
+                            </div>
+                          </td>
                         </tr>
-                      </thead>
-                      {pedidos.list.map((data) => (
-                        <React.Fragment key={data.id_pedido}>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <Card.Text>{data.titulo_pedido}</Card.Text>
-                              </td>
-                              <td>
-                                {avaliados ? (
-                                  <Card.Text>{data.updatedAt}</Card.Text>
-                                ) : (
-                                  <Card.Text>{data.createdAt}</Card.Text>
-                                )}
-                              </td>
-                              <td>
-                                <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
-                              </td>
-                              <td>
-                                {data.realizado_qtdade < 2 ? (<Card.Text>{data.realizado_qtdade} vez</Card.Text>) : (<Card.Text>{data.realizado_qtdade} vezes</Card.Text>)}
-                              </td>
-                              <td>
-                                <div className="avaliations">
-                                  <Button
-                                    className="usersR-avaliation"
-                                    variant="secondary"
-                                    onClick={() => {
-                                      history.push(
-                                        "/requestList/" + data.id_pedido
-                                      );
-                                    }}
-                                  >
-                                    detalhes
-                                  </Button>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </React.Fragment>
-                      ))}
-                    </Table>
-                  </>
-                ) : (
-                  <>
-                    <h1>{pedidos.message}</h1>
-                  </>
-                )}
-                <div className="backUsersR">
-                  <Button
-                    className="back-usersR"
-                    onClick={() => {
-                      history.push(`/management`);
-                    }}
-                  >
-                    {" "}
-                    Voltar{" "}
-                  </Button>
-                </div>
-              </div>
-            </>
+                      </tbody>
+                    </React.Fragment>
+                  ))}
+                </Table>
+              </>
+            ) : (
+              <>
+                <h1>{pedidos.message}</h1>
+              </>
+            )}
+            <div className="backUsersR">
+              <Button
+                className="back-usersR"
+                onClick={() => {
+                  history.push(`/management`);
+                }}
+              >
+                {" "}
+                Voltar{" "}
+              </Button>
+            </div>
           </div>
         </>
-      }
+      </div>
     </>
   );
 };
