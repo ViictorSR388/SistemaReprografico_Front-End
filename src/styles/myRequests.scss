@@ -65,6 +65,10 @@
     border: none !important;
     transition: .5s !important;
 
+    &:nth-child(2){
+        margin-right: 0.5rem !important;
+    }
+
     &:first-child{
         margin-right: 0.5rem;
     }

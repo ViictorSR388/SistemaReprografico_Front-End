@@ -256,7 +256,7 @@ export default function Statistics(props) {
                                                                         <strong>Total de Custo</strong>
                                                                     </td>
                                                                     <td>
-                                                                        <Card.Text>{(Math.round((data.custo_total * 1000) / 10) / 100).toFixed(2)}</Card.Text>
+                                                                    <Card.Text>{"R$ "}{(Math.round((data.custo_total * 1000) / 10) / 100).toFixed(2)}</Card.Text>
                                                                     </td>
                                                                 </tr>
                                                             </>
