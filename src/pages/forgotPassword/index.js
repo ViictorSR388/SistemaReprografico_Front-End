@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router";
 import LoginContainer from '../../components/loginContainer';
 import '../../styles/forgotPassword.scss';
@@ -8,7 +8,7 @@ export default function ForgotPassword() {
 
   //Input de email, também usamos esse valor para definir a mensagem personalizada.
   const [email, setEmail] = useState("");
-  
+
   //UseState() => Mensagem que será definida quando a requisição for enviada (começa com o valor abaixo...)
   const [mensagem, setMensagem] = useState("Um link será enviado ao seu e-mail para a recuperação de senha")
 
@@ -17,6 +17,10 @@ export default function ForgotPassword() {
 
   //Instanciando o useHistory para utilização na navegação do site
   const history = useHistory();
+
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   const ForgotPasswordPost = () => {
     //Se o input do email estiver vázio ele seta um valor para a mensagem.
@@ -28,7 +32,7 @@ export default function ForgotPassword() {
     // o valor abaixo.
     else {
       const data = { mail: email };
-      axios.post("http://localhost:3002/forgotPassword", data).then((response) => {
+      axios.post(`${reprografia_url}/forgotPassword`, data).then((response) => {
 
         //Retorna o valor de "enviado" como TRUE => Serve para usarmos na parte do operador ternário (trocar o botão por mensagem
         // se for true, por exemplo...)
@@ -70,7 +74,7 @@ export default function ForgotPassword() {
               id="forgot-password-button"
               className="fp-button"
               name="forgot-password-button"
-              onClick={ForgotPasswordPost} // Tirar duvidas sobre esse botão de login (VERIFICAR com o back)
+              onClick={ForgotPasswordPost} 
               value="Enviar"
             />
               <button className="fp-button" onClick={() => history.push(`/`)}>Voltar</button>

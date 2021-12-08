@@ -4,9 +4,9 @@ import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from "react-router";
-// import { PassContext } from "../../helpers/changePassContext";
 import { AuthContext } from "./../../helpers/AuthContext";
 import ProfileContainer from "../../components/profileContainer";
+import Loading from '../../../src/components/loading';
 
 function UserInfo(props) {
   var { id } = useParams();
@@ -19,8 +19,6 @@ function UserInfo(props) {
 
   const [emailUser, setEmailUser] = useState("");
 
-  const [cfpUser, setCfpUser] = useState("");
-
   const [telefoneUser, setTelefoneUser] = useState("");
 
   const [deptoUser, setDeptoUser] = useState("");
@@ -32,41 +30,20 @@ function UserInfo(props) {
   const [pastPassword, setPastPassword] = useState();
 
   const [newPassword, setNewPassword] = useState();
-  
+
   const [newPasswordConfirm, setNewPasswordConfirm] = useState();
 
   const [message, setMessage] = useState();
-
-  const [loading, setLoading] = useState(false);
 
   const [notFound, setNotFound] = useState(false);
 
   const { setAuthState } = useContext(AuthContext);
 
-  // var id_depto = deptoUser;
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
-  // //estrutura de decisão para exibir corretamente o departamento
-  // if (deptoUser === "1") {
-  //   id_depto = "Aprendizagem Industrial Presencial"
-  // }
-  // else if (deptoUser === "2") {
-  //   id_depto = "Graduação Tecnológica Presencial"
-  // }
-  // else if (deptoUser === "3") {
-  //   id_depto = "Pós-Graduação Presencial"
-  // }
-  // else if (deptoUser === "4") {
-  //   id_depto = "Extensão Presencial"
-  // }
-  // else if (deptoUser === "5") {
-  //   id_depto = "Iniciação Profissional Presencial"
-  // }
-  // else if (deptoUser === "6") {
-  //   id_depto = "Qualificação Profissional Presencial"
-  // }
-  // else if (deptoUser === "7") {
-  //   id_depto = "Aperfeiç./Especializ. Profis. Presencial"
-  // }
+  const [mensagem, setMensagem] = useState("");
 
   const handleChange = (e) => {
     if (e.target.files.length) {
@@ -81,24 +58,6 @@ function UserInfo(props) {
 
   const handleUpload = (e) => {
     e.preventDefault();
-    // var departamento;
-
-    // //estrutura de decisão para enviar o valor para o back como numero inteiro
-    // if (deptoUser === "1") {
-    //   departamento = 1;
-    // } else if (deptoUser === "2") {
-    //   departamento = 2;
-    // } else if (deptoUser === "3") {
-    //   departamento = 3;
-    // } else if (deptoUser === "4") {
-    //   departamento = 4;
-    // } else if (deptoUser === "5") {
-    //   departamento = 5;
-    // } else if (deptoUser === "6") {
-    //   departamento = 6;
-    // } else if (deptoUser === "7") {
-    //   departamento = 7;
-    // }
 
     const formData = new FormData();
     formData.append("image", image.raw);
@@ -108,21 +67,25 @@ function UserInfo(props) {
     if (emailUser !== "") {
       formData.append("email", emailUser);
     }
-    if (cfpUser !== "") {
-      formData.append("cfp", cfpUser);
-    }
     if (telefoneUser !== "") {
       formData.append("telefone", telefoneUser);
     }
 
     axios
-      .put("http://localhost:3002/myUser", formData, {
+      .put(`${reprografia_url}/myUser`, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
-      })
-      .then((result) => {
-        console.log(result);
+      }).then((result) => {
+        if (result.data.status === "error") {
+          setMensagem(result.data.message);
+        }
+        else {
+          setMensagem(result.data.message);
+          setTimeout(() => {
+            history.push("/management");
+          }, 1500);
+        }
       });
   };
 
@@ -131,7 +94,7 @@ function UserInfo(props) {
 
     axios
       .put(
-        "http://localhost:3002/myUser/changePassword",
+        `${reprografia_url}/myUser/changePassword`,
         { senhaAntiga: pastPassword, senhaNova: newPassword, confirmSenhaNova: newPasswordConfirm },
         {
           headers: {
@@ -148,7 +111,6 @@ function UserInfo(props) {
           setTimeout(() => {
             setChangePass(false);
           }, 1500);
-          
         }
       });
   };
@@ -157,70 +119,60 @@ function UserInfo(props) {
   var [adm, setAdm] = useState();
 
   useEffect(() => {
-    onLoad();
+    setLoading(true);
+    axios
+    .get(`${reprografia_url}/user/` + id, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+      validateStatus: () => true,
+    })
+    .then((result) => {
+      if (result.status === 404) {
+        setNotFound(true);
+      }
+      setNif(result.data.nif);
+      setNameUser(result.data.nome);
+      setEmailUser(result.data.email);
+      setTelefoneUser(result.data.telefone);
+      setDeptoUser(result.data.depto);
+      setImage({ preview: `${reprografia_url}/` + result.data.imagem });
+    });
+  axios
+    .get(`${reprografia_url}/auth`, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    })
+    .then((result) => {
+      setMyNif(result.data.nif);
+      if (props.nif) {
+        setMyNif(props.nif);
+      }
+      setLoading(false);
+    });
     setAdm(props.admin);
     return () => {
       setAdm({});
     };
   }, [props.admin]);
 
-  const onLoad = () => {
-    axios
-      .get("http://localhost:3002/user/" + id, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-        validateStatus: () => true,
-      })
-      .then((result) => {
-        if (result.status === 404) {
-          setNotFound(true);
-        }
-        else if(result.data.status === "error"){
-          history.push("/notFound")
-        }
-        else{
-          setNif(result.data.nif);
-          setNameUser(result.data.nome);
-          setEmailUser(result.data.email);
-          setCfpUser(result.data.cfp);
-          setTelefoneUser(result.data.telefone);
-          setDeptoUser(result.data.depto);
-          setImage({ preview: "http://localhost:3002/" + result.data.imagem });
-          // if (props.nif === result.data.nif) {
-          //   setEditableAccount(true)
-          // }
-          setLoading(false);
-        }
-      });
-    axios
-      .get("http://localhost:3002/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((result) => {
-        setMyNif(result.data.nif);
-        if(props.nif){
-          setMyNif(props.nif);
-        }
-      });
-  };
-//Importante para mandar pelo useContext se o usuário é administrador ou não
-// e assim enviar para o header o valor para o props.admin trazendo as informações
-// corretas no header para cada tipo de usuári (Esta terefa seria feita na página de login)
-// mas como vocês estão redirecionando para página de perfil de usuário assim que faz login,
-// temos que verificar se o usuário é admin pq vamos renderizar o header logo em seguida.
+
+  //Importante para mandar pelo useContext se o usuário é administrador ou não
+  // e assim enviar para o header o valor para o props.admin trazendo as informações
+  // corretas no header para cada tipo de usuário (Esta terefa seria feita na página de login)
+  // mas como vocês estão redirecionando para página de perfil de usuário assim que faz login,
+  // temos que verificar se o usuário é admin pq vamos renderizar o header logo em seguida.
   const voltar = () => {
     axios
-      .get("http://localhost:3002/myUser", {
+      .get(`${reprografia_url}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       })
       .then((response) => {
         if (response.data.roles) {
-          if(response.data.primeiro_acesso === 1){
+          if (response.data.primeiro_acesso === 1) {
             setAuthState({
               firstAccess: true,
             });
@@ -241,55 +193,56 @@ function UserInfo(props) {
       });
   };
 
+  var [loading, setLoading] = useState(Loading);
+
   return (
     <>
       {loading ? (
-        <> Loading ... </>
+        <> <Loading /> </>
       ) : (
             <>
               <div className="content">
-                {/* <PassContext.Provider value={{ changePass, setChangePass }}> */}
-                {adm && myNif !== nif ? 
-                <>
-                <ProfileContainer
-                    image={image.preview}
-                    name={nameUser}
-                    nif={nif}
-                    change={false}
-                    admin={true}
-                    edit={() => {
-                      history.push(`edit/${nif}`)
-                    }}
-    
-                  />
-                </>: 
-                <>
-                 {myNif === nif ? (
-                  <ProfileContainer
-                    image={image.preview}
-                    name={nameUser}
-                    nif={nif}
-                    change={true}
-                    edit={() => {
-                      setEdit(true);
-                      setChangePass(false);
-                    }}
-                    changePassword={() => {
-                      setChangePass(true);
-                      setEdit(false)
-                    }}
-                  />
-                ) : (
-                  <ProfileContainer
-                    image={image.preview}
-                    name={nameUser}
-                    nif={nif}
-                  />
-                )}
-                </>}
-               
+                {adm && myNif !== nif ?
+                  <>
+                    <ProfileContainer
+                      image={image.preview}
+                      name={nameUser}
+                      nif={nif}
+                      change={false}
+                      admin={true}
+                      edit={() => {
+                        history.push(`edit/${nif}`)
+                      }}
 
-                <div className="container">
+                    />
+                  </> :
+                  <>
+                    {myNif === nif ? (
+                      <ProfileContainer
+                        image={image.preview}
+                        name={nameUser}
+                        nif={nif}
+                        change={true}
+                        edit={() => {
+                          setEdit(true);
+                          setChangePass(false);
+                        }}
+                        changePassword={() => {
+                          setChangePass(true);
+                          setEdit(false)
+                        }}
+                      />
+                    ) : (
+                      <ProfileContainer
+                        image={image.preview}
+                        name={nameUser}
+                        nif={nif}
+                      />
+                    )}
+                  </>}
+
+
+                <div className="container-userInfo">
                   {changePass ? (
                     <>
                       {" "}
@@ -382,16 +335,6 @@ function UserInfo(props) {
                                 setEmailUser(e.target.value);
                               }}
                             />
-                            <h3 className="input-title">CFP</h3>
-                            <input
-                              className="input-box"
-                              name="cfpUser"
-                              type="text"
-                              placeholder={cfpUser}
-                              onChange={(e) => {
-                                setCfpUser(e.target.value);
-                              }}
-                            />
                             <h3 className="input-title">TELEFONE</h3>
                             <input
                               className="input-box"
@@ -413,40 +356,7 @@ function UserInfo(props) {
                               <FaCloudUploadAlt className="uploud" />
                               Upload
                             </label>
-                            {/* <h3 className="input-title">DEPARTAMENTO</h3>
-                    <select
-                      className="select"
-                      id="deptoUser"
-                      name="deptoUser"
-                      onChange={(e) => {
-                        setDeptoUser(e.target.value);
-                      }}
-                    >
-                      <option value="0" name="nothing" id="nothing">
-                        Nenhuma Selecionada
-                      </option>
-                      <option value="1" name="AIP" id="AIP">
-                        Aprendizagem Industrial Presencial
-                      </option>
-                      <option value="2" name="GTP" id="GTP">
-                        Graduação Tecnológica Presencial
-                      </option>
-                      <option value="3" name="PGP" id="PGP">
-                        Pós-Graduação Presencial
-                      </option>
-                      <option value="4" name="EP" id="EP">
-                        Extensão Presencial
-                      </option>
-                      <option value="5" name="IPP" id="IPP">
-                        Iniciação Profissional Presencial
-                      </option>
-                      <option value="6" name="QPP" id="QPP">
-                        Qualificação Profissional Presencial
-                      </option>
-                      <option value="7" name="AEPP" id="AEPP">
-                        Aperfeiç./Especializ. Profis. Presencial
-                      </option>
-                    </select> */}
+                            <h4 className="mensagem-edit">{mensagem}</h4>
                             <div className="btns">
                               <input
                                 type="submit"
@@ -473,14 +383,11 @@ function UserInfo(props) {
                           <h2 className="userInformation">{nif}</h2>
                           <h3 className="input-title">EMAIL</h3>
                           <h2 className="userInformation">{emailUser}</h2>
-                          <h3 className="input-title">CFP</h3>
-                          <h2 className="userInformation">{cfpUser}</h2>
                           <h3 className="input-title">TELEFONE</h3>
                           <h2 className="userInformation">{telefoneUser}</h2>
                           <h3 className="input-title">DEPARTAMENTO</h3>
                           <h2 className="userInformation">{deptoUser}</h2>
                           <div className="btns">
-                            {/* {adm || myNif === nif ? <button className="btn-edit-user" id="btn" onClick={() => { setEdit(true) }}> Editar </button> : <></>} */}
 
                             <button
                               className="btn-back-user"
@@ -496,7 +403,6 @@ function UserInfo(props) {
                     </>
                   )}
                 </div>
-                {/* </PassContext.Provider> */}
               </div>
             </>
           )}

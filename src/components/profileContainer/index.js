@@ -3,23 +3,29 @@ import './styles.scss';
 import '../img/profile.scss';
 import { useHistory } from 'react-router';
 import axios from 'axios';
+import Loading from '../../../src/components/loading';
 
 function ProfileContainer(props) {
 
     const [name, setName] = useState("");
     const [nif, setNif] = useState("");
     const [image, setImage] = useState("");
+    const port = process.env.REACT_APP_PORT || 3002;
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
+    var [loading, setLoading] = useState(Loading);
 
     useEffect(() => {
+        setLoading(true)
         axios
-            .get("http://localhost:3002/myUser/", {
+            .get(`${reprografia_url}/myUser/`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
             }).then((result) => {
                 setName(result.data.nome)
                 setNif(result.data.nif)
-                setImage(`http://localhost:3002/${result.data.imagem}`)
+                setImage(`${reprografia_url}/${result.data.imagem}`)
                 if (props.nif) {
                     setNif(props.nif)
                 }
@@ -29,45 +35,48 @@ function ProfileContainer(props) {
                 if (props.name) {
                     setName(props.name)
                 }
+                setLoading(false)
             })
 
-    }, [props.nif, props.image, props.name])
+    }, [props.nif, props.image, props.name, reprografia_url])
 
     var history = useHistory();
 
     return (
-        <div className="left-container" >
-            {props.title ? <h2 Style="margin-bottom: 50px">{props.title}</h2> : null}
-            <div className="icon-container" >
-                <div className="profile-div">
-                    <div onClick={() => { history.push(`/user/${nif}`) }} className="profile-div">
-                        <img className="profile-image" src={image} id="profile-image" name="profile-image" alt="imagem de perfil" />
+        <>
+            {loading ? <Loading /> : <>         
+            <div className="left-container" >
+                {props.title ? <h2 Style="margin-bottom: 50px">{props.title}</h2> : null}
+                <div className="icon-container" >
+                    <div className="profile-div">
+                        <div onClick={() => { history.push(`/user/${nif}`) }} className="profile-div">
+                            <img className="profile-image" src={image} id="profile-image" name="profile-image" alt="imagem de perfil" />
+                        </div>
                     </div>
                 </div>
+                {props.newUser ? <h2 className="subTitle">{name}</h2> : <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2>}
+                <div className="profile-links" >
+                    {props.change ? <>
+                        <button className="button-edit" onClick={props.edit}>
+                            Editar Perfil
+                        </button>
+                        <button className="button-edit" onClick={props.changePassword}>
+                            Alterar Senha
+                        </button>
+                    </> : <>
+                        {props.admin ?
+                            <>
+                                <button className="button-edit" onClick={props.edit}>
+                                    Editar Perfil
+                                </button>
+                            </>
+                            : <></>}
+                    </>
+                    }
+                </div>
             </div>
-            {props.newUser ? <h2 className="subTitle">{name}</h2> : <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2>}
-            <h3>NIF: {nif}</h3>
-            <div className="profile-links" >
-                {props.change ? <>
-                    <button className="button-edit" onClick={props.edit}>
-                        Editar Perfil
-                    </button>
-                    <button className="button-edit" onClick={props.changePassword}>
-                        Alterar Senha
-                    </button>
-                </> : <>
-                    {props.admin ?
-                        <>
-                            <button className="button-edit" onClick={props.edit}>
-                                Editar Perfil
-                            </button>
-                        </>
-                        : <></>}
-                </>
-                }
-            </div>
-        </div>
-
+            </>}
+        </>
     );
 }
 

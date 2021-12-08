@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import LoginContainer from "../../components/loginContainer";
@@ -8,7 +8,9 @@ import { AuthContext } from "./../../helpers/AuthContext";
 
 function FirstAccess(props) {
     var history = useHistory();
-    //nome
+
+    const [nif, setNif] = useState();
+
     const [senha, setSenha] = useState('');
     //email
     const [confirmSenha, setConfirmSenha] = useState('');
@@ -17,8 +19,12 @@ function FirstAccess(props) {
 
     const { setAuthState } = useContext(AuthContext);
 
+    const port = process.env.REACT_APP_PORT || 3002;
+  
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
     const atualizarSenha = () => {
-        axios.put('http://localhost:3002/myUser/firstAccess', { senha: senha, confirmSenha: confirmSenha }, {
+        axios.put(`${reprografia_url}/myUser/firstAccess`, { senha: senha, confirmSenha: confirmSenha }, {
             headers: {
                 accessToken: localStorage.getItem("accessToken")
             }
@@ -31,6 +37,7 @@ function FirstAccess(props) {
                     })
                 }, 1000);
                 setTimeout(() => {
+
                     history.push(`/user/${props.nif}`)
                 }, 1200)
             }
@@ -52,6 +59,20 @@ function FirstAccess(props) {
         localStorage.removeItem("accessToken");
         history.push('/')
     };
+
+    useEffect(() => {
+        axios
+            .get(`${reprografia_url}/myUser/`, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            }).then((result) => {
+                setNif(result.data.nif)
+                if (props.nif) {
+                    setNif(props.nif)
+                }
+    })
+}, [props.nif])
 
     return (
         <>
@@ -82,7 +103,6 @@ function FirstAccess(props) {
                                 setConfirmSenha(e.target.value);
                             }}
                         />
-                        
                         <div className="btns">
                             <input
                                 className="env-first"

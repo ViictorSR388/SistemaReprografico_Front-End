@@ -203,7 +203,7 @@ const MyRequests = (props) => {
 
                                 </> :
                                 <>
-                                    <h1>{pedidos.message}</h1>
+                                    <h1 className="text-request">{pedidos.message}</h1>
                                 </>
                             }
                         </>

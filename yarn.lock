@@ -2444,11 +2444,14 @@
   "resolved" "https://registry.npmjs.org/address/-/address-1.1.2.tgz"
   "version" "1.1.2"
 
+<<<<<<< HEAD
 "adhere@1.x":
   "integrity" "sha512-1ItBtLjSW2yNZ6gSaHeir5X3Om77u9H2iQuGoPMMHZMGpzTARRFMqPqr5Lz4LVMFWOBZO6U4P9GG7A8+j7n1pw=="
   "resolved" "https://registry.npmjs.org/adhere/-/adhere-1.2.3.tgz"
   "version" "1.2.3"
 
+=======
+>>>>>>> 38a8280269c68d21fed1ee04044d7105a6f3b77d
 "adjust-sourcemap-loader@3.0.0":
   "integrity" "sha512-YBrGyT2/uVQ/c6Rr+t6ZJXniY03YtHGMJQYal368burRGYKqhx9qGTWqcBU5s1CwYY9E/ri63RYyG1IacMZtqw=="
   "resolved" "https://registry.npmjs.org/adjust-sourcemap-loader/-/adjust-sourcemap-loader-3.0.0.tgz"
@@ -3403,11 +3406,14 @@
     "union-value" "^1.0.0"
     "unset-value" "^1.0.0"
 
+<<<<<<< HEAD
 "cadence@1.x":
   "integrity" "sha512-9YJbhySTUaMBKz3IVcXbpw70K7swnBlD/LFY59zfwZ5U5sHXvZQUCCHSPdENdCKQ4XmN+GpFJrGF/yBZ73jMMw=="
   "resolved" "https://registry.npmjs.org/cadence/-/cadence-1.0.12.tgz"
   "version" "1.0.12"
 
+=======
+>>>>>>> 38a8280269c68d21fed1ee04044d7105a6f3b77d
 "call-bind@^1.0.0", "call-bind@^1.0.2":
   "integrity" "sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA=="
   "resolved" "https://registry.npmjs.org/call-bind/-/call-bind-1.0.2.tgz"
@@ -3577,11 +3583,14 @@
   "resolved" "https://registry.npmjs.org/char-regex/-/char-regex-1.0.2.tgz"
   "version" "1.0.2"
 
+<<<<<<< HEAD
 "chart.js@^3.5.0", "chart.js@^3.5.1":
   "integrity" "sha512-iOzzDKePL+bj+ccIsVAgWQehCXv8xOKGbaU2fO/myivH736zcx535PGJzQGanvcSGVOqX6yuLZsN3ygcQ35UgQ=="
   "resolved" "https://registry.npmjs.org/chart.js/-/chart.js-3.6.0.tgz"
   "version" "3.6.0"
 
+=======
+>>>>>>> 38a8280269c68d21fed1ee04044d7105a6f3b77d
 "check-types@^11.1.1":
   "integrity" "sha512-tzWzvgePgLORb9/3a0YenggReLKAIb2owL03H2Xdoe5pKcUyWRSEQ8xfCar8t2SIAuEDwtmx2da1YB52YuHQMQ=="
   "resolved" "https://registry.npmjs.org/check-types/-/check-types-11.1.2.tgz"
@@ -4751,6 +4760,7 @@
   "resolved" "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz"
   "version" "1.1.1"
 
+<<<<<<< HEAD
 "eject@0.0.4":
   "integrity" "sha1-utfDNSLmP+ljzLcT0MsO56l12Ps="
   "resolved" "https://registry.npmjs.org/eject/-/eject-0.0.4.tgz"
@@ -4760,6 +4770,8 @@
     "cadence" "1.x"
     "interrupt" "1.x"
 
+=======
+>>>>>>> 38a8280269c68d21fed1ee04044d7105a6f3b77d
 "ejs@^2.6.1":
   "integrity" "sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA=="
   "resolved" "https://registry.npmjs.org/ejs/-/ejs-2.7.4.tgz"
@@ -6456,6 +6468,7 @@
     "has" "^1.0.3"
     "side-channel" "^1.0.4"
 
+<<<<<<< HEAD
 "interrupt@1.x":
   "integrity" "sha1-j44NDPuhkOdGgugtjwQ5IFpnAgk="
   "resolved" "https://registry.npmjs.org/interrupt/-/interrupt-1.2.0.tgz"
@@ -6463,6 +6476,8 @@
   dependencies:
     "supersede" "1.x"
 
+=======
+>>>>>>> 38a8280269c68d21fed1ee04044d7105a6f3b77d
 "invariant@^2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
   "resolved" "https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz"
@@ -10027,11 +10042,14 @@
     "uncontrollable" "^7.2.1"
     "warning" "^4.0.3"
 
+<<<<<<< HEAD
 "react-chartjs-2@^3.0.5":
   "integrity" "sha512-4Mt0SR2aiUbWi/4762odRBYSnbNKSs4HWc0o3IW43py5bMfmfpeZU95w6mbvtuLZH/M3GsPJMU8DvDc+5U9blQ=="
   "resolved" "https://registry.npmjs.org/react-chartjs-2/-/react-chartjs-2-3.3.0.tgz"
   "version" "3.3.0"
 
+=======
+>>>>>>> 38a8280269c68d21fed1ee04044d7105a6f3b77d
 "react-dev-utils@^11.0.3":
   "integrity" "sha512-dx0LvIGHcOPtKbeiSUM4jqpBl3TcY7CDjZdfOIcKeznE7BWr9dg0iPG90G5yfVQ+p/rGNMXdbfStvzQZEVEi4A=="
   "resolved" "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-11.0.4.tgz"
@@ -10206,7 +10224,11 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
+<<<<<<< HEAD
 "react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@^17.0.2", "react@>= 16", "react@>=0.14.0", "react@>=15", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.2":
+=======
+"react@*", "react@^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@^17.0.2", "react@>= 16", "react@>=0.14.0", "react@>=15", "react@>=15.0.0", "react@>=16.14.0", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.2":
+>>>>>>> 38a8280269c68d21fed1ee04044d7105a6f3b77d
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -11533,11 +11555,14 @@
     "postcss" "^7.0.0"
     "postcss-selector-parser" "^3.0.0"
 
+<<<<<<< HEAD
 "supersede@1.x":
   "integrity" "sha512-68MKSJ+nGtjpQS7ckOvFiCydPY+2sz6iXmC3+/BkCqnaA/UtGOkcY2H5WOKZF9Xo5GUU+LK9ZfSzXVOre9H0rQ=="
   "resolved" "https://registry.npmjs.org/supersede/-/supersede-1.0.6.tgz"
   "version" "1.0.6"
 
+=======
+>>>>>>> 38a8280269c68d21fed1ee04044d7105a6f3b77d
 "supports-color@^2.0.0":
   "integrity" "sha1-U10EXOa2Nj+kARcIRimZXp3zJMc="
   "resolved" "https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz"

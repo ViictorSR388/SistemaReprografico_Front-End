@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "../../styles/newUser.scss";
 import { Form } from 'react-bootstrap';
 import ProfileContainer from "../../components/profileContainer";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { AuthContext } from "./../../helpers/AuthContext";
 
 function NewUser(props) {
+
   var history = useHistory();
 
   //nome
@@ -27,7 +27,9 @@ function NewUser(props) {
 
   const [mensagem, setMensagem] = useState("");
 
-  const { setAuthState } = useContext(AuthContext);
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   var departamento;
 
@@ -52,7 +54,7 @@ function NewUser(props) {
   //imagem
   const [image, setImage] = useState({
     raw: "",
-    preview: "http://localhost:3002/src/uploads/user-img/default/usuario.png",
+    preview: `${reprografia_url}/src/uploads/user-img/default/usuario.png`,
   });
 
   const handleChange = (e) => {
@@ -79,7 +81,7 @@ function NewUser(props) {
       setMensagem("Por favor selecione um departamento!");
     } else {
       axios
-        .post("http://localhost:3002/newUser", formData, {
+        .post(`${reprografia_url}/newUser`, formData, {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },
@@ -101,30 +103,6 @@ function NewUser(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     handleUpload();
-
-    // CreateUserPost();
-  };
-
-  const [changePass, setChangePass] = useState();
-
-  const voltar = () => {
-    axios
-      .get("http://localhost:3002/auth", {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((result) => {
-        setAuthState({
-          nif: result.data.nif,
-          nome: result.data.nome,
-          roles: result.data.roles,
-          imagem: "http://localhost:3002/" + result.data.imagem,
-          redirect: false,
-        });
-
-        history.push("/management");
-      });
   };
 
   return (
@@ -135,22 +113,19 @@ function NewUser(props) {
         image={image.preview}
         name={nameUser}
         requestsNoInfo={true}
-        change={true}
-        changePassword={() => {
-          setChangePass(true);
-        }}
         nif={props.nif}
       />
-      <div className="container">
+      <div className="container-newUser">
         <h2 id="h2" className="nu-subTitle">
           Criar novo usuário
         </h2>
         <form onSubmit={onSubmit}>
+          <h4>Onde houver "*" o preenchimento é obrigatório</h4>
           <input
             className="input-box"
             name="nameUser"
             type="text"
-            placeholder="Nome"
+            placeholder="Nome*"
             required
             onChange={(e) => {
               setNameUser(e.target.value);
@@ -160,7 +135,7 @@ function NewUser(props) {
             className="input-box"
             name="emailUser"
             type="email"
-            placeholder="E-mail"
+            placeholder="E-mail*"
             required
             onChange={(e) => {
               setEmailUser(e.target.value);
@@ -170,7 +145,7 @@ function NewUser(props) {
             className="input-box"
             name="nifUser"
             type="text"
-            placeholder="NIF"
+            placeholder="NIF*"
             required
             onChange={(e) => {
               setNifUser(e.target.value);
@@ -180,7 +155,7 @@ function NewUser(props) {
             className="input-box"
             name="cfpUser"
             type="text"
-            placeholder="CFP"
+            placeholder="CFP*"
             required
             onChange={(e) => {
               setCfpUser(e.target.value);
@@ -251,7 +226,7 @@ function NewUser(props) {
             }}
           >
             <option value="0" name="null" id="null">
-              Nenhuma Opção Selecionada
+              Nenhuma Opção Selecionada*
             </option>
             <option value="1" name="AIP" id="AIP">
               Aprendizagem Industrial Presencial
@@ -286,7 +261,7 @@ function NewUser(props) {
               id="btn"
               value="Enviar"
             />
-            <button className="btn-back-user" id="btn" onClick={voltar}>
+            <button className="btn-back-user" id="btn" onClick={() => history.push("/management")}>
               Voltar
             </button>
           </div>

@@ -1,8 +1,22 @@
-@import '_global.scss';
+@import "_global.scss";
+
+.container-editUser {
+  position: absolute;
+  top: 6rem;
+  left: 110rem;
+}
 
 .select-depto {
   font-size: 1.8rem;
   margin-bottom: 2rem;
+}
+
+.radioOpcoes {
+  align-items: center;
+}
+
+.mensagem-edit {
+  text-align: center;
 }
 
 .title-info {
@@ -15,6 +29,19 @@
   font-size: 2rem;
 }
 
+.opcoes {
+  text-align: center;
+}
+
+.radioOpcoes {
+  text-align: center !important;
+
+  .form-check-input {
+    width: 1.8rem !important;
+    height: 1.8rem !important;
+  }
+}
+
 .input-textED {
   border: 1px solid black;
   font-size: 1.6rem;
@@ -23,7 +50,8 @@
   margin: 1rem 0;
 }
 
-.btn-goBack, .btn-Edit {
+.btn-goBack,
+.btn-Edit {
   width: 100% !important;
   height: 40% !important;
   display: flex !important;

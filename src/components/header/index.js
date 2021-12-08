@@ -12,12 +12,14 @@ import Logo from '../img/logo';
 function Header (props) {
 
   const [nif, setNif] = useState("");
+  const port = process.env.REACT_APP_PORT || 3002;
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   const history = useHistory();
 
   useEffect(() => {
     axios
-        .get("http://localhost:3002/myUser/" + nif, {
+        .get(`${reprografia_url}/myUser/` + nif, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

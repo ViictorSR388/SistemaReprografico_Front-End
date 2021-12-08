@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
 import managerData from './managerData';
 import userData from './userData'
 import { IconContext } from 'react-icons';
@@ -12,37 +11,19 @@ import './styles.scss';
 function Menu(props) {
   const [sidebar, setSidebar] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [nif, setNif] = useState("");
+  const port = process.env.REACT_APP_PORT || 3002;
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
   const showSidebar = () => setSidebar(!sidebar);
 
-  const [nif, setNif] = useState("");
-
   useEffect(() => {
     axios
-      .get("http://localhost:3002/myUser/" + nif, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-        validateStatus: () => true
-      }).then((result) => {
-        setNif(result.data.nif)
-      })
-  }, [])
-
-  const history = useHistory();
-
-  const logout = () => {
-    localStorage.removeItem("accessToken");
-    history.push('/')
-  };
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3002/myUser/", {
+      .get(`${reprografia_url}/myUser/`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        if (result.data.roles && result.data.roles[0].descricao === "admin") {
+        if (result.data.roles[0].descricao === "admin") {
           setAdmin(true)
         }
         else {
@@ -51,6 +32,8 @@ function Menu(props) {
         if (props.admin) {
           setAdmin(props.admin)
         }
+
+        setNif(result.data.nif)
 
       })
   }, [props.admin])
@@ -72,21 +55,31 @@ function Menu(props) {
               </Link>
             </li>
             <img className="logo" src="assets/img/logo.jpg" alt="logo" />
-            <div className="user-access"><FaIcons.FaUserAlt onClick={() => history.push(`/user/${nif}`)}/><span>Informações do usuário</span></div>
-            <div className="form-access"><FaIcons.FaTelegram onClick={() => history.push(`/requestForm`)}/><span>Solicitação de impressão</span></div>
-            <div className="management-access"><FaIcons.FaWrench onClick={() => history.push(`/management`)}/><span>Gerência de usuário</span></div>
-            <div className="services-access"><FaIcons.FaUserCog onClick={() => history.push(`/services`)}/><span>Serviços</span></div>
-            <div className="statistics-access"><FaIcons.FaChartLine onClick={() => history.push(`/statistics`)}/><span>Estatísticas</span></div>
-            <div className="statistics-access"><FaIcons.FaPaste onClick={() => history.push(`/myRequests`)}/><span>Meus pedidos</span></div>
-            <div className="logout-access"><FaIcons.FaSignOutAlt onClick={logout} /><span>Sair</span></div>
-            {/* {admin ?
+            {admin ?
               <> {managerData.map((item, index) => {
                 return (
                   <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
+                    {item.path === '/' ?
+                      <Link to={item.path} onClick={(e) => e.target.value = localStorage.removeItem("accessToken")} >
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                      :
+                      <Link to={item.path}>
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                        && item.path === 'user/' ?
+                        <Link to={item.path + nif}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                        :
+                        <Link to={item.path}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                    }
                   </li>
                 );
               })}
@@ -95,13 +88,30 @@ function Menu(props) {
               <> {userData.map((item, index) => {
                 return (
                   <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
+                    {item.path === '/' ?
+                      <Link to={item.path} onClick={(e) => e.target.value = localStorage.removeItem("accessToken")} >
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                      :
+                      <Link to={item.path}>
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                        && item.path === 'user/' ?
+                        <Link to={item.path + nif}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                        :
+                        <Link to={item.path}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                    }
                   </li>
                 );
-              })}</>} */}
+              })}</>}
           </ul>
         </nav>
       </IconContext.Provider>

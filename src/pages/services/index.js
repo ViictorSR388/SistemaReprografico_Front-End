@@ -8,6 +8,7 @@ import SideBar from "../../../src/components/formSideBar";
 import { Table } from "react-bootstrap";
 import Button from "@restart/ui/esm/Button";
 import Menu from "../../components/hamburgerButton";
+import Loading from '../../../src/components/loading';
 
 export default function Services(props) {
   var history = useHistory();
@@ -18,16 +19,17 @@ export default function Services(props) {
     status: false,
   });
 
-  // var [servicoCA, setServicoCA] = useState();
-  // var [servicoCT, setServicoCT] = useState();
-  var [loading, setLoading] = useState();
+  var [loading, setLoading] = useState(Loading);
 
   var [ativos, setAtivos] = useState();
 
   var [semRegistros, setSemRegistros] = useState();
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   useEffect(() => {
-    setLoading(true);
     onLoad();
     return () => {
       setServicos({});
@@ -36,7 +38,7 @@ export default function Services(props) {
 
   const servicosAtivos = (id) => {
     axios
-      .get("http://localhost:3002/services/enabled=" + id, {
+      .get(`${reprografia_url}/services/enabled=` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -62,9 +64,10 @@ export default function Services(props) {
   };
 
   const onLoad = async () => {
+    setLoading(true);
     var config = {
       method: "get",
-      url: `http://localhost:3002/services/enabled=1`,
+      url: `${reprografia_url}/services/enabled=1`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -98,7 +101,7 @@ export default function Services(props) {
 
     var config = {
       method: "put",
-      url: `http://localhost:3002/service/${id}/type=${type}/enable=${atvr}`,
+      url: `${reprografia_url}/service/${id}/type=${type}/enable=${atvr}`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -120,11 +123,8 @@ export default function Services(props) {
 
   return (
     <>
-      {loading ? (
-        <> </>
-      ) : (
+      {loading ? <> <Loading /> </> :
         <>
-          {" "}
           <Menu />
           <Header nif={props.nif} />
           <SideBar
@@ -325,7 +325,7 @@ export default function Services(props) {
             </div>
           </div>
         </>
-      )}
+      }
     </>
   );
 }

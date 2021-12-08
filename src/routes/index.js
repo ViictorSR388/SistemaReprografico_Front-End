@@ -11,18 +11,17 @@ import Management from "../pages/management";
 import Review from "../pages/review";
 import Statistics from "../pages/statistics";
 import MyRequests from "../pages/myRequests";
-import DetPedido from "../pages/detPedido";
 import EditUser from "../pages/EditUser";
+import Feedbacks from "../pages/feedbacks";
 import Request from "../pages/userRequest";
 import AddService from "../pages/add-services";
-import EditService from "../pages/edit-services";
+import EditServices from "../pages/edit-services";
 import RequestList from "../pages/requestList";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FirstAccess from "../pages/firstAccess";
 import { AuthContext } from "../helpers/AuthContext";
 import Services from "../pages/services";
-import Feedbacks from "../pages/feedbacks"
 
 function Rotas() {
   const [authState, setAuthState] = useState({
@@ -32,17 +31,21 @@ function Rotas() {
     imagem: "",
     admin: false,
     redirect: false,
-    firstAccess: false
+    firstAccess: false,
+    naoAutorizado: false
   });
 
-  const [administrator, setAdministrator] = useState();
-  const [firstAccess, setFirstAccess] = useState();
+  const [administrator, setAdministrator] = useState(0);
+  const [firstAccess, setFirstAccess] = useState(0);
+  const [naoAutorizado, setNaoAutorizado] = useState(0);
 
-  // const [loading, setLoading] = useState(false);
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/myUser", {
+      .get(`${reprografia_url}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -61,14 +64,18 @@ function Rotas() {
         }
         else {
           setAuthState({
+
             redirect: false,
             status: true,
             nif: response.data.nif,
             email: response.data.email,
             nome: response.data.nome,
-            imagem: "http://localhost:3002/" + response.data.imagem,
-            firstAccess: false
+            imagem: `${reprografia_url}` + response.data.imagem,
+            firstAccess: false,
+            naoAutorizado: true
           });
+
+          setNaoAutorizado(1)
           setFirstAccess(0);
           if (response.data.roles && response.data.roles[0].descricao === "admin") {
             setAuthState({
@@ -88,7 +95,6 @@ function Rotas() {
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
       <>
-        {/* {loading ? <>Loading...</> : <> */}
         <Router>
           <Switch>
             <Route path="/" exact component={login} />
@@ -100,7 +106,9 @@ function Rotas() {
               </>
             ) : (
               <>
-                <Route
+              {authState.firstAccess || firstAccess === 1 ? <>
+              {/* {authState.naoAutorizado || naoAutorizado === 1 ? <><Route path="*" exact component={notAuthorized} /></> : <> */}
+              <Route
                   path="/firstAccess"
                   exact
                   component={() => (
@@ -112,7 +120,8 @@ function Rotas() {
                     />
                   )}
                 /> 
-              {authState.firstAccess || firstAccess === 1 ? <><Route path="*" exact component={notAuthorized} /></> : <> 
+              {/* </> } */}
+              </> : <>
                 <Route
                   path="/user/:id"
                   exact
@@ -147,7 +156,6 @@ function Rotas() {
                     />
                   )}
                 />
-                {/* <Route path="/notAuthorized" exact component={notAuthorized} /> */}
                 <Route
                   path="/myRequests"
                   exact
@@ -161,10 +169,10 @@ function Rotas() {
                   )}
                 />
                 <Route
-                  path="/detPedido/:id"
+                  path="/requestList/:id"
                   exact
                   component={() => (
-                    <DetPedido
+                    <RequestList
                       image={authState.imagem}
                       name={authState.nome}
                       nif={authState.nif}
@@ -173,10 +181,10 @@ function Rotas() {
                   )}
                 />
                 <Route
-                  path="/requestList/:id"
+                  path="/feedbacks/:id"
                   exact
                   component={() => (
-                    <RequestList
+                    <Feedbacks
                       image={authState.imagem}
                       name={authState.nome}
                       nif={authState.nif}
@@ -274,7 +282,7 @@ function Rotas() {
                       path="/edit-services/:id/:type"
                       exact
                       component={() => (
-                        <EditService
+                        <EditServices
                           image={authState.imagem}
                           name={authState.nome}
                           nif={authState.nif}
@@ -303,7 +311,6 @@ function Rotas() {
             )}
           </Switch>
         </Router>
-        {/* </>} */}
       </>
     </AuthContext.Provider>
   );

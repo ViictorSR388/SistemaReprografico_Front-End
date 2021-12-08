@@ -3,12 +3,17 @@ import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/addService.scss';
 import LoginContainer from '../../components/loginContainer';
+import Loading from '../../../src/components/loading';
 
 export default function AddService() {
 
   var history = useHistory();
 
   var { type, id } = useParams();
+
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   const [descricao, setDescricao] = useState("");
   const [quantidade, setQuantidade] = useState("");
@@ -21,7 +26,7 @@ export default function AddService() {
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.put(`http://localhost:3002/service/${id}/type=${type}`, data, {
+    axios.put(`${reprografia_url}/service/${id}/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
@@ -34,7 +39,7 @@ export default function AddService() {
         setMessage(result.data.message)
         setTimeout(() => {
           history.push("/services")
-        }, 1500);
+        }, 150);
       }
     })
   }
@@ -44,9 +49,12 @@ export default function AddService() {
     EditService()
   }
 
+  var [loading, setLoading] = useState(Loading);
+
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(`http://localhost:3002/service/${id}/type=${type}`, {
+      .get(`${reprografia_url}/service/${id}/type=${type}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -55,54 +63,59 @@ export default function AddService() {
         setDescricao(result.data.descricao)
         setQuantidade(result.data.quantidade)
         setCusto(result.data.valor_unitario)
-        console.log(result);
+        setLoading(false);
       });
-  }, [id, type]);
+  }, [id, type, reprografia_url]);
+
 
   return (
     <>
-      <LoginContainer />
-      <div className="finishing">
-        <form onSubmit={onSubmit}>
-          <h2 id="h2" className="service-subTitle">
-            Editar Serviço
-          </h2>
-          <h2 className="title">{descricao}</h2>
-          <input
-            className="input-service"
-            name="quantidade"
-            type="number"
-            placeholder={quantidade}
-            onChange={(e) => {
-              setQuantidade(e.target.value);
-            }}
-          />
-          <input
-            className="input-service"
-            name="custo"
-            type="number"
-            step="any"
-            placeholder={custo}
-            onChange={(e) => {
-              setCusto(e.target.value);
-            }}
-          />
-          <h3>{message}</h3>
-          <div className="btns-edit-services">
-            <input
-              type="submit"
-              className="nu-send-button"
-              id="btn"
-              value="Editar"
-            />
-            <button
-              className="btn-back-user"
-              id="btn"
-              onClick={() => history.push("/services")}>Voltar
-            </button>
+      {loading ? <> <Loading /> </> :
+        <>
+          <LoginContainer />
+          <div className="finishing">
+            <form onSubmit={onSubmit}>
+              <h2 id="h2" className="service-subTitle">
+                Editar Serviço
+              </h2>
+              <h2 className="title">{descricao}</h2>
+              <input
+                className="input-service"
+                name="quantidade"
+                type="number"
+                placeholder={quantidade}
+                onChange={(e) => {
+                  setQuantidade(e.target.value);
+                }}
+              />
+              <input
+                className="input-service"
+                name="custo"
+                type="number"
+                step="any"
+                placeholder={custo}
+                onChange={(e) => {
+                  setCusto(e.target.value);
+                }}
+              />
+              <h3>{message}</h3>
+              <div className="btns-edit-services">
+                <input
+                  type="submit"
+                  className="nu-send-button"
+                  id="btn"
+                  value="Editar"
+                />
+                <button
+                  className="btn-back-user"
+                  id="btn"
+                  onClick={() => history.push("/services")}>Voltar
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
+        </>
+      }
     </>
   );
 }

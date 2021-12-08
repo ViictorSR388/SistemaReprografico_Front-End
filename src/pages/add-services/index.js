@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
 import '../../styles/addService.scss';
 import LoginContainer from '../../components/loginContainer';
+import Loading from '../../components/loading';
 
 export default function AddService() {
 
@@ -15,22 +16,26 @@ export default function AddService() {
   const [custo, setCusto] = useState("");
   const [message, setMessage] = useState();
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   const AddService = () => {
     const data = {
       descricao: descricao,
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.post(`http://localhost:3002/service/type=${type}`, data, {
+    axios.post(`${reprografia_url}/service/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
     }).then((result) => {
       console.log(result);
-      if(result.data.status === "error"){
+      if (result.data.status === "error") {
         setMessage(result.data.message)
       }
-      else{
+      else {
         setMessage(result.data.message)
         setTimeout(() => {
           history.push("/services")
@@ -41,19 +46,11 @@ export default function AddService() {
 
   const voltar = () => {
     axios
-      .get("http://localhost:3002/auth", {
+      .get(`${reprografia_url}/auth`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
-        // setAuthState({
-        }).then((result) => {
-        //   nif: result.data.nif,
-        //   nome: result.data.nome,
-        //   roles: result.data.roles,
-        //   imagem: "http://localhost:3002/" + result.data.imagem,
-        //   redirect: false
-        // });
-
+      }).then((result) => {
         history.push("/services");
       })
   }
@@ -63,58 +60,71 @@ export default function AddService() {
     AddService();
   }
 
+  var [loading, setLoading] = useState(Loading);
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1300);
+  }, [])
+
   return (
     <>
-      <LoginContainer />
-      <div className="finishing">
-        <form onSubmit={onSubmit}>
-          <h2 id="h2" className="service-subTitle">
-            Adicionar Serviço
-          </h2>
-          <input
-            className="input-service"
-            name="descricao"
-            type="text"
-            placeholder="descrição de capa e acabamento"
-            required
-            onChange={(e) => {
-              setDescricao(e.target.value);
-            }}
-          />
-          <input
-            className="input-service"
-            name="quantidade"
-            type="number"
-            placeholder="quantidade do serviço"
-            required
-            onChange={(e) => {
-              setQuantidade(e.target.value);
-            }}
-          />
-          <input
-            className="input-service"
-            name="custo"
-            type="number" 
-            step="any" 
-            placeholder="custo unitário do serviço"
-            required
-            onChange={(e) => {
-              setCusto(e.target.value);
-            }}
-          />
-          <h3>{message}</h3>
-            <input
-              type="submit"
-              className="nu-send-button"
+      {loading ? <> <Loading /> </> :
+        <>
+          <LoginContainer />
+          <div className="finishing">
+            <form onSubmit={onSubmit}>
+              <h2 id="h2" className="service-subTitle">
+                Adicionar Serviço
+              </h2>
+              <input
+                className="input-service"
+                name="descricao"
+                type="text"
+                placeholder="descrição de capa e acabamento"
+                required
+                onChange={(e) => {
+                  setDescricao(e.target.value);
+                }}
+              />
+              <input
+                className="input-service"
+                name="quantidade"
+                type="number"
+                placeholder="quantidade do serviço"
+                required
+                onChange={(e) => {
+                  setQuantidade(e.target.value);
+                }}
+              />
+              <input
+                className="input-service"
+                name="custo"
+                type="number"
+                step="any"
+                placeholder="custo unitário do serviço"
+                required
+                onChange={(e) => {
+                  setCusto(e.target.value);
+                }}
+              />
+              <h3>{message}</h3>
+              <input
+                type="submit"
+                className="nu-send-button"
+                id="btn"
+                value="Adicionar"
+              />
+            </form>
+            <button
+              className="btn-back-user"
               id="btn"
-              value="Adicionar"
-            />
-        </form>
-        <button
-          className="btn-back-user"
-          id="btn"
-          onClick={voltar}>Voltar</button>
-      </div>
+              onClick={voltar}>Voltar</button>
+          </div>
+        </>
+      }
     </>
   );
 }

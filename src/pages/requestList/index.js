@@ -18,9 +18,13 @@ function RequestList(props) {
     message: "",
   });
 
+  const port = process.env.REACT_APP_PORT || 3002;
+  
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/requestDetails/${id}`, {
+      .get(`${reprografia_url}/requestDetails/${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -39,7 +43,7 @@ function RequestList(props) {
           }
         }
       });
-  }, [id]);
+  }, [id, reprografia_url]);
 
   return (
     <>
@@ -130,8 +134,7 @@ function RequestList(props) {
                               <Card.Text>{data.det_pedidos[0].observacoes}</Card.Text>
                             </td>
                           </tr>}
-                        {data.det_pedidos[0].anexo_path !== "" ? <>
-                        <tr>
+                        {data.det_pedidos[0].anexo_path !== "" ? <><tr>
                           <td><strong>Anexo</strong></td>
                           <td>
                             <Card.Text>Contém anexo</Card.Text>
