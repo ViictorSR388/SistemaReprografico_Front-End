@@ -26,7 +26,7 @@ export default function AddService() {
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.post(`${reprografia_url}/services/type=${type}`, data, {
+    axios.post(`${reprografia_url}/service/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }

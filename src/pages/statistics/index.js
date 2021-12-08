@@ -179,14 +179,6 @@ export default function Statistics(props) {
                                                         <>
                                                             <tr>
                                                                 <td>
-                                                                    <strong>Ainda Não Avaliados</strong>
-                                                                </td>
-                                                                <td>
-                                                                    <Card.Text>{data[0].qtdade_solicitada}</Card.Text>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
                                                                     <strong>Atendeu</strong>
                                                                 </td>
                                                                 <td>
@@ -203,13 +195,15 @@ export default function Statistics(props) {
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <strong>Total de Pedidos</strong>
+                                                                    <strong>Total de Pedidos Avaliados</strong>
                                                                 </td>
                                                                 <td>
                                                                     <Card.Text>
-                                                                        {data[0].qtdade_solicitada +
+                                                                        {
+                                                                        // data[0].qtdade_solicitada +
                                                                             data[1].qtdade_solicitada +
-                                                                            data[2].qtdade_solicitada}
+                                                                            data[2].qtdade_solicitada
+                                                                        }
                                                                     </Card.Text>
                                                                 </td>
                                                             </tr>

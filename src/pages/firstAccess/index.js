@@ -33,7 +33,7 @@ function FirstAccess(props) {
             if (result.data.status === "ok") {
                 setTimeout(() => {
                     setAuthState({
-                        firstAccess: true
+                        firstAccess: false
                     })
                 }, 1000);
                 setTimeout(() => {
