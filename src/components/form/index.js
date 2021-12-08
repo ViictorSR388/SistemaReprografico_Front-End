@@ -118,7 +118,7 @@ export default function RequestForm() {
       .then((result) => {
         console.log(result);
         setMessage(result.data.message);
-        if (result.data.message === "Pedido realizado com sucesso!") {
+        if (result.data.status !== "error") {
           setTimeout(() => {
             history.push("/myRequests");
           }, 1500);
