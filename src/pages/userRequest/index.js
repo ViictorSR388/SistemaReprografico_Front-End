@@ -74,7 +74,7 @@ const UserRequest = (props) => {
 
   return (
     <>
-      <Menu admin={props.admin}/>
+      <Menu admin={props.admin} />
       <Header nif={props.nif} />
       <SideBar image={props.image} name={props.name} admin={true} />
 
@@ -128,21 +128,36 @@ const UserRequest = (props) => {
                             <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
                           </td>
                           <td>
-                          {data.realizado_qtdade < 2 ? (<Card.Text>{data.realizado_qtdade} vez</Card.Text>):(<Card.Text>{data.realizado_qtdade} vezes</Card.Text>)}
+                            {data.realizado_qtdade < 2 ? (<Card.Text>{data.realizado_qtdade} vez</Card.Text>) : (<Card.Text>{data.realizado_qtdade} vezes</Card.Text>)}
                           </td>
                           <td>
                             <div className="avaliations">
-                              <Button
-                                className="usersR-avaliation"
-                                variant="secondary"
-                                onClick={() => {
-                                  history.push(
-                                    "/requestList/" + data.id_pedido
-                                  );
-                                }}
-                              >
-                                detalhes
-                              </Button>
+                              {avaliados ? <>
+                                <Button
+                                  className="usersR-avaliation"
+                                  variant="secondary"
+                                  onClick={() => {
+                                    history.push(
+                                      "/requestList/" + data.id_pedido
+                                    );
+                                  }}
+                                >
+                                  detalhes
+                                </Button>
+                                <Button className="usersR-avaliation" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>
+                              </> : <>
+                                <Button
+                                  className="usersR-avaliation"
+                                  variant="secondary"
+                                  onClick={() => {
+                                    history.push(
+                                      "/requestList/" + data.id_pedido
+                                    );
+                                  }}
+                                >
+                                  detalhes
+                                </Button>
+                                {data.realizado_qtdade < 2 ? <></> : <Button className="usersR-avaliation" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>}</>}
                               {/* {avaliados ? (
                                 <></>
                               ) : (
