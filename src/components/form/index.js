@@ -109,30 +109,31 @@ export default function RequestForm() {
     formData.append("observacoes", observacao_envio);
 
 
-    if (centro_custos === undefined) {
+    if(centro_custos === undefined){
       setMessage("Por favor selecione um centro de custos!")
     }
-    else {
+    else{
       axios
-        .post(`${reprografia_url}/request`, formData, {
-          headers: {
-            accessToken: localStorage.getItem("accessToken"),
-          },
-        })
-        .then((result) => {
-          console.log(result);
-          setMessage(result.data.message);
-          if (result.data.message === "Pedido realizado com sucesso!") {
-            setTimeout(() => {
-              history.push("/myRequests");
-            }, 1500);
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      .post(`${reprografia_url}/request`, formData, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        console.log(result);
+        setMessage(result.data.message);
+        if (result.data.status !== "error") {
+          setTimeout(() => {
+            history.push("/myRequests");
+          }, 1500);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
     }
   };
+
 
   const onSubmit = (e) => {
     e.preventDefault();

@@ -106,7 +106,7 @@ function Rotas() {
             ) : (
               <>
               {authState.firstAccess || firstAccess === 1 ? <>
-              {authState.naoAutorizado || naoAutorizado === 1 ? <><Route path="*" exact component={notAuthorized} /></> : <>
+              {/* {authState.naoAutorizado || naoAutorizado === 1 ? <><Route path="*" exact component={notAuthorized} /></> : <> */}
               <Route
                   path="/firstAccess"
                   exact
@@ -119,8 +119,8 @@ function Rotas() {
                     />
                   )}
                 /> 
-              </> }
-              </> : <> 
+              {/* </> } */}
+              </> : <>
                 <Route
                   path="/user/:id"
                   exact
