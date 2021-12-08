@@ -72,18 +72,18 @@ const MyRequests = (props) => {
             })
             .then((result) => {
                 console.log(result)
+                if (id === 1) {
+                    setAvaliados(true);
+                }
+                else {
+                    setAvaliados(false);
+                }
                 if (result.data.length > 0) {
                     setPedidos({
                         list: result.data,
                         status: true
                     })
                     console.log(result.data)
-                    if (id === 1) {
-                        setAvaliados(true);
-                    }
-                    else {
-                        setAvaliados(false);
-                    }
                 }
                 else {
                     setPedidos({
@@ -117,13 +117,13 @@ const MyRequests = (props) => {
                     icon: 'success',
                     title: `Pedido "${name}" solicitado novamente com sucesso!`
                 })
-                 getAvaliados(1);
+                getAvaliados(1);
                 setTimeout(() => {
-                    setPedidos({message: `Pedido "${name}" movido para seção Não avaliados!`})
+                    setPedidos({ message: `Pedido "${name}" movido para seção Não avaliados!` })
                 }, 50);
                 setTimeout(() => {
                     getAvaliados(1);
-                }, 2000);
+                }, 1500);
             }
             else {
                 Toast.fire({
@@ -136,7 +136,7 @@ const MyRequests = (props) => {
 
     return (
         <>
-          <Menu />
+            <Menu />
             <div className="content">
                 {/* {loading ? <> loading... </> :  */}
                 <>
@@ -178,7 +178,7 @@ const MyRequests = (props) => {
                                                             <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
                                                         </td>
                                                         <td>
-                                                            {data.realizado_qtdade < 2 ?  <Card.Text>{data.realizado_qtdade} vez</Card.Text>:<Card.Text>{data.realizado_qtdade} vezes</Card.Text>}
+                                                            {data.realizado_qtdade < 2 ? <Card.Text>{data.realizado_qtdade} vez</Card.Text> : <Card.Text>{data.realizado_qtdade} vezes</Card.Text>}
                                                         </td>
                                                         <td>
                                                             <div className="details-btns">
