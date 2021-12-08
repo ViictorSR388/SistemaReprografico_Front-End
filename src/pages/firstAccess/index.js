@@ -32,13 +32,14 @@ function FirstAccess(props) {
                 }, 1000);
                 setTimeout(() => {
                     history.push(`/user/${props.nif}`)
-                }, 1100)
-            } else {
-                localStorage.removeItem("accessToken");
-                setTimeout(() => {
-                    history.push(`/`)
-                }, 1100)
+                }, 1200)
             }
+            else if (result.data.message === "Esse não é o seu primeiro acesso!"){
+                
+                setTimeout(() => {
+                    logout();
+                }, 1000);
+            } 
         })
     };
 
@@ -81,7 +82,7 @@ function FirstAccess(props) {
                                 setConfirmSenha(e.target.value);
                             }}
                         />
-                        <h4>{message}</h4>
+                        
                         <div className="btns">
                             <input
                                 className="env-first"
@@ -90,6 +91,7 @@ function FirstAccess(props) {
                             />
                         </div>
                     </form>
+                    <h4>{message}</h4>
                     <div className="exit-access">
                         <FaSignOutAlt className="exit-firstAccess" onClick={logout} />
                     </div>

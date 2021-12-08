@@ -172,14 +172,6 @@ export default function Statistics(props) {
                                                 <>
                                                     <tr>
                                                         <td>
-                                                            <strong>Ainda Não Avaliados</strong>
-                                                        </td>
-                                                        <td>
-                                                            <Card.Text>{data[0].qtdade_solicitada}</Card.Text>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
                                                             <strong>Atendeu</strong>
                                                         </td>
                                                         <td>
