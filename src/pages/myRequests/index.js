@@ -185,11 +185,13 @@ const MyRequests = (props) => {
                                                                 {avaliados ? <>
                                                                     <Button className="detailsForm" variant="secondary" onClick={() => solicitarNovamente(data.id_pedido, data.titulo_pedido)}>Solicitar novamente</Button>
                                                                     <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
+                                                                    <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>
                                                                 </> :
                                                                     <>
                                                                         <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/review/" + data.id_pedido) }}>avaliar</Button>
                                                                         <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
-                                                                    </>}
+                                                                        {data.realizado_qtdade < 2 ? <></> : <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>}
+                                                                    </>} 
                                                             </div>
 
                                                         </td>

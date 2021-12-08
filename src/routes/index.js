@@ -22,6 +22,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import FirstAccess from "../pages/firstAccess";
 import { AuthContext } from "../helpers/AuthContext";
 import Services from "../pages/services";
+import Feedbacks from "../pages/feedbacks"
 
 function Rotas() {
   const [authState, setAuthState] = useState({
@@ -176,6 +177,18 @@ function Rotas() {
                   exact
                   component={() => (
                     <RequestList
+                      image={authState.imagem}
+                      name={authState.nome}
+                      nif={authState.nif}
+                      admin={authState.admin}
+                    />
+                  )}
+                />
+                <Route
+                  path="/feedbacks/:id"
+                  exact
+                  component={() => (
+                    <Feedbacks
                       image={authState.imagem}
                       name={authState.nome}
                       nif={authState.nif}
