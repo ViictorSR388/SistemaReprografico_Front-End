@@ -170,7 +170,7 @@ function Management(props) {
                   <Table className="tableBootstrap" striped bordered hover responsive size="sm" >
                     <thead>
                       <tr>
-                        <th>Imagem</th>
+                        <th>Perfil</th>
                         <th>Nome</th>
                         <th>Email</th>
                         <th>CFP</th>

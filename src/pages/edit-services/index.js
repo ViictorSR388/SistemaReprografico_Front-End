@@ -103,12 +103,12 @@ export default function AddService() {
               <div className="btns-edit-services">
                 <input
                   type="submit"
-                  className="nu-send-button"
+                  className="nu-send-buttonEDS"
                   id="btn"
                   value="Editar"
                 />
                 <button
-                  className="btn-back-user"
+                  className="btn-back-userEDS"
                   id="btn"
                   onClick={() => history.push("/services")}>Voltar
                 </button>

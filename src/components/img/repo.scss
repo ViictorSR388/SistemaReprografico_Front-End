@@ -17,4 +17,10 @@
   left: 0rem;
   height: 16rem;
   cursor: pointer;
+  border: 5px solid #FFF;
+  transition: .5s;
+
+  &:hover {
+    border: 5px solid $blue;
+  }
 }
