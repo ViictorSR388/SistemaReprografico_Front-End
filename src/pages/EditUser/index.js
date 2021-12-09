@@ -30,14 +30,14 @@ function EditUser() {
 
   const [deptoUser, setDeptoUser] = useState("0");
 
-  const [admin, setAdmin] = useState(0);
+  const [admin, setAdmin] = useState("");
 
   const [mensagem, setMensagem] = useState("");
 
   var id_depto = deptoUser;
 
   const port = process.env.REACT_APP_PORT || 3002;
-  
+
   const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   //estrutura de decisão para exibir corretamente o departamento
@@ -119,7 +119,9 @@ function EditUser() {
     if (deptoUser !== "") {
       formData.append("depto", departamento);
     }
-    formData.append("admin", admin);
+    if (admin !== "") {
+      formData.append("admin", admin);
+    }
 
     axios
       .put(`${reprografia_url}/user/` + nif, formData, {
@@ -127,10 +129,10 @@ function EditUser() {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        if(result.data.status === "error"){
+        if (result.data.status === "error") {
           setMensagem(result.data.message);
         }
-        else{
+        else {
           setMensagem(result.data.message);
           setTimeout(() => {
             history.push("/management");
@@ -139,7 +141,7 @@ function EditUser() {
       });
   };
   var [loading, setLoading] = useState(Loading);
-  
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -149,16 +151,18 @@ function EditUser() {
         },
       })
       .then((result) => {
-        setAdminUser({
-          list: result.data.roles
-        });
-        setNameUser(result.data.nome);
-        setEmailUser(result.data.email);
-        setCfpUser(result.data.cfp);
-        setTelefoneUser(result.data.telefone);
-        setDeptoUser(result.data.id_depto);
-        setImage({ preview: `${reprografia_url}/` + result.data.imagem });
-        setLoading(false);
+        if (!result.data.error && result.data.status !== "error") {
+          setAdminUser({
+            list: result.data.roles
+          });
+          setNameUser(result.data.nome);
+          setEmailUser(result.data.email);
+          setCfpUser(result.data.cfp);
+          setTelefoneUser(result.data.telefone);
+          setDeptoUser(result.data.id_depto);
+          setImage({ preview: `${reprografia_url}/` + result.data.imagem });
+          setLoading(false);
+        }
       });
   }, [nif, reprografia_url]);
 
@@ -169,13 +173,14 @@ function EditUser() {
       {loading ? <> <Loading /> </> :
         <>
           <ProfileContainer
-            title="Exemplo do perfil do usuário"
+            title={"Exemplo do perfil do usuário com nif: " + nif}
             image={image.preview}
             name={nameUser}
             nif={nif}
+            newUser={true}
           />
           <div className="container-editUser">
-            <h2 className="ui-subTitle">Informações pessoais</h2>
+            <h2 className="ui-subTitleEDIT">Informações pessoais</h2>
             <h3 className="input-title">NOME</h3>
             <form onSubmit={handleUpload}>
               <input
@@ -279,7 +284,7 @@ function EditUser() {
               </select>
 
               {adminUser.list.map((data) => (
-                <>
+                <React.Fragment key={null}>
                   {data.descricao === "user" ?
                     <>
                       <Form.Check
@@ -290,7 +295,6 @@ function EditUser() {
                         checked={admin === "1"}
                         onChange={() => {
                           setAdmin("1")
-                          console.log(admin)
                         }}
                       />
                       <h2 className="opcoes">Alterar para usuário administrador?</h2>
@@ -305,34 +309,31 @@ function EditUser() {
                         checked={admin === "0"}
                         onChange={() => {
                           setAdmin("0")
-                          console.log(admin)
                         }}
                       />
                       <h2 className="opcoes">Alterar para usuário comum?</h2>
                     </>
                   }
-                </>
+                </React.Fragment>
               ))}
               <h4 className="mensagem-edit">{mensagem}</h4>
-              <div className="btns">
-                <input
-                  type="submit"
-                  className="nu-send-button"
-                  id="btn"
-                  value="Enviar"
-                />
-                <button
-                  className="btn-back-user"
-                  onClick={() => history.push("/management")}
-                >
-                  Voltar
-                </button>
-              </div>
+              <input
+                type="submit"
+                className="nu-send-button"
+                id="btn"
+                value="Enviar"
+              />
             </form>
+            <button
+              className="btn-goBack"
+              onClick={() => history.goBack()}
+            >
+              Voltar
+            </button>
           </div>
         </>
       }
-    </div >
+    </div>
   );
 }
 

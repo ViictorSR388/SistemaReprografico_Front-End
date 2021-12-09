@@ -30,7 +30,6 @@ export default function Login() {
         setAuthState({
           nif: result.data.nif,
           nome: result.data.nome,
-          roles: result.data.roles,
           imagem: `${reprografia_url}/` + result.data.imagem,
           redirect: false,
           naoAutorizado: false
@@ -49,7 +48,7 @@ export default function Login() {
             setAuthState({
               admin: true, firstAccess: false,
             });
-            history.push("user/" + result.data.nif);
+            history.push("management");
           }
           else if (resposta === true && result.data.primeiro_acesso === 1) {
             setAuthState({
@@ -61,7 +60,7 @@ export default function Login() {
             setAuthState({
               admin: false, firstAccess: false
             });
-            history.push("user/" + result.data.nif);
+            history.push("requestForm");
           }
         }
       }

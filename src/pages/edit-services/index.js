@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
-import '../../styles/addService.scss';
+import '../../styles/edit-services.scss';
 import LoginContainer from '../../components/loginContainer';
 import Loading from '../../../src/components/loading';
 
@@ -31,7 +31,6 @@ export default function AddService() {
         accessToken: localStorage.getItem("accessToken"),
       }
     }).then((result) => {
-      console.log(result);
       if (result.data.status === "error") {
         setMessage(result.data.message)
       }
@@ -60,10 +59,12 @@ export default function AddService() {
         },
       })
       .then((result) => {
-        setDescricao(result.data.descricao)
-        setQuantidade(result.data.quantidade)
-        setCusto(result.data.valor_unitario)
-        setLoading(false);
+        if(!result.data.error && result.data.status !== "error"){
+          setDescricao(result.data.descricao)
+          setQuantidade(result.data.quantidade)
+          setCusto(result.data.valor_unitario)
+          setLoading(false);
+        }
       });
   }, [id, type, reprografia_url]);
 
@@ -78,9 +79,9 @@ export default function AddService() {
               <h2 id="h2" className="service-subTitle">
                 Editar Serviço
               </h2>
-              <h2 className="title">{descricao}</h2>
+              <h2 className="title-editService">{descricao}</h2>
               <input
-                className="input-service"
+                className="input-service-ED"
                 name="quantidade"
                 type="number"
                 placeholder={quantidade}
@@ -89,7 +90,7 @@ export default function AddService() {
                 }}
               />
               <input
-                className="input-service"
+                className="input-service-EDS"
                 name="custo"
                 type="number"
                 step="any"
@@ -102,12 +103,12 @@ export default function AddService() {
               <div className="btns-edit-services">
                 <input
                   type="submit"
-                  className="nu-send-button"
+                  className="nu-send-buttonEDS"
                   id="btn"
                   value="Editar"
                 />
                 <button
-                  className="btn-back-user"
+                  className="btn-back-userEDS"
                   id="btn"
                   onClick={() => history.push("/services")}>Voltar
                 </button>

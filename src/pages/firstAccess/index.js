@@ -9,7 +9,7 @@ import { AuthContext } from "./../../helpers/AuthContext";
 function FirstAccess(props) {
     var history = useHistory();
 
-    const [nif, setNif] = useState();
+    // const [nif, setNif] = useState();
 
     const [senha, setSenha] = useState('');
     //email
@@ -20,7 +20,7 @@ function FirstAccess(props) {
     const { setAuthState } = useContext(AuthContext);
 
     const port = process.env.REACT_APP_PORT || 3002;
-  
+
     const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
     const atualizarSenha = () => {
@@ -33,20 +33,18 @@ function FirstAccess(props) {
             if (result.data.status === "ok") {
                 setTimeout(() => {
                     setAuthState({
-                        firstAccess: false
+                        firstAccess: false, admin: props.admin
                     })
                 }, 1000);
                 setTimeout(() => {
-
-                    history.push(`/user/${props.nif}`)
+                    history.push(`/requestForm`)
                 }, 1200)
             }
-            else if (result.data.message === "Esse não é o seu primeiro acesso!"){
-                
+            else if (result.data.message === "Esse não é o seu primeiro acesso!") {
                 setTimeout(() => {
                     logout();
                 }, 1000);
-            } 
+            }
         })
     };
 
@@ -60,19 +58,19 @@ function FirstAccess(props) {
         history.push('/')
     };
 
-    useEffect(() => {
-        axios
-            .get(`${reprografia_url}/myUser/`, {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken"),
-                },
-            }).then((result) => {
-                setNif(result.data.nif)
-                if (props.nif) {
-                    setNif(props.nif)
-                }
-    })
-}, [props.nif, reprografia_url])
+    // useEffect(() => {
+    //     axios
+    //         .get(`${reprografia_url}/myUser/`, {
+    //             headers: {
+    //                 accessToken: localStorage.getItem("accessToken"),
+    //             },
+    //         }).then((result) => {
+    //             setNif(result.data.nif)
+    //             if (props.nif) {
+    //                 setNif(props.nif)
+    //             }
+    //         })
+    // }, [props.nif, reprografia_url])
 
     return (
         <>

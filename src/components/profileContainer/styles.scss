@@ -26,6 +26,10 @@
     flex-direction: column;
 }
 
+.profile-image {
+    border: 5px solid #FFF;
+}
+
 .subTitle {
     font-size: 2.5rem;
     color: $white;
@@ -52,6 +56,10 @@
 .button-edit:hover{
     background-color: $white;
     color: #111;
+}
+
+#propsTitle{
+    margin-bottom: 50px
 }
 
 @media (max-width: 800px) {

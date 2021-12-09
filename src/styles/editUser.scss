@@ -2,13 +2,30 @@
 
 .container-editUser {
   position: absolute;
-  top: 6rem;
+  top: 2rem;
   left: 110rem;
 }
 
 .select-depto {
   font-size: 1.8rem;
   margin-bottom: 2rem;
+}
+
+#propsTitle {
+  margin-bottom: 50px;
+  color: white;
+}
+
+.ui-subTitleEDIT {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $grey-button;
+  color: $white;
+  height: 4rem;
+  width: 40rem;
+  margin-bottom: 2.5rem;
+  font-size: 1.8rem;
 }
 
 .radioOpcoes {
@@ -50,7 +67,7 @@
   margin: 1rem 0;
 }
 
-.btn-goBack,
+
 .btn-Edit {
   width: 100% !important;
   height: 40% !important;
@@ -63,6 +80,26 @@
 }
 
 .btn-goBack {
+  width: 40rem;
+  height: 3.4rem;
+  cursor: pointer;
+  margin-top: 2rem;
+  padding: 1rem;
+  color: $white;
+  border-radius: 2rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .5s;
   background-color: $red !important;
   border: none !important;
+
+  &:hover {
+    background-color: #ba181b;
+  }
+
+  &:hover {
+    background-color: rgb(139, 10, 10) !important;
+  }
 }

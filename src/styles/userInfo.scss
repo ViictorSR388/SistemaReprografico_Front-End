@@ -55,6 +55,7 @@ input[type="file"] {
   border: 1px solid #363232;
   box-sizing: border-box;
   border-radius: 4px;
+  margin: auto;
   margin-bottom: 1.8rem;
   height: 3.5rem;
   width: 38rem;
@@ -69,7 +70,7 @@ input[type="file"] {
   background-color: $grey-button;
   color: $white;
   height: 4rem;
-  width: 38rem;
+  width: 40rem;
   margin-bottom: 2.5rem;
   font-size: 1.8rem;
 }
@@ -155,6 +156,7 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: .5s;
 
   &:hover {
     background-color: #ba181b;
@@ -171,4 +173,8 @@ input[type="file"] {
   font-size: 1.5rem;
   border: solid 1px $grey-button;
   padding: 0.5rem;
+}
+
+#btn-back-change {
+  width: 40rem;
 }
