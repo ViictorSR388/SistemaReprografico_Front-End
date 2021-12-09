@@ -111,7 +111,7 @@ function RequestList(props) {
                           <tr>
                             <td><strong>Custo total</strong></td>
                             <td>
-                              <Card.Text>{data.custo_total}</Card.Text>
+                              <Card.Text> {"R$ " + data.custo_total}</Card.Text>
                             </td>
                           </tr>
                           <tr>
