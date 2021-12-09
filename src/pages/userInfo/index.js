@@ -297,6 +297,7 @@ function UserInfo(props) {
                         </button>
                       </form>
                       <button
+                        id="btn-back-change"
                         className="btn-back-user"
                         onClick={() => {
                           setChangePass(false);
