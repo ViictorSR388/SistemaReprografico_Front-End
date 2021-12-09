@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import Logo from '../img/logo';
 
-function Header (props) {
+function Header(props) {
 
   const [nif, setNif] = useState("");
   const port = process.env.REACT_APP_PORT || 3002;
@@ -19,26 +19,26 @@ function Header (props) {
 
   useEffect(() => {
     axios
-        .get(`${reprografia_url}/myUser/` + nif, {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-            },
-            validateStatus: () => true
-        }).then((result) => {
-            setNif(result.data.nif)
-        })
-}, [])
+      .get(`${reprografia_url}/myUser/`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+        validateStatus: () => true
+      }).then((result) => {
+        setNif(result.data.nif)
+      })
+  }, [nif, reprografia_url])
 
   const logout = () => {
     localStorage.removeItem("accessToken");
     history.push('/')
-  }; 
-  
+  };
+
   return (
     <header>
       <Logo />
       <div className="icons">
-        <FaHome className="icon" onClick={() => history.push(`/requestForm`)}/>
+        <FaHome className="icon" onClick={() => history.push(`/requestForm`)} />
         <FaUserAlt className="icon" onClick={() => history.push(`/user/${nif}`)} />
         <FaSignOutAlt className="icon" onClick={logout} />
       </div>

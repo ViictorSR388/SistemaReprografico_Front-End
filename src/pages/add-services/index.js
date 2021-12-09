@@ -30,7 +30,6 @@ export default function AddService() {
         accessToken: localStorage.getItem("accessToken"),
       }
     }).then((result) => {
-      console.log(result);
       if (result.data.status === "error") {
         setMessage(result.data.message)
       }

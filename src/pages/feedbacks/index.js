@@ -33,7 +33,6 @@ function Feedback(props) {
                 },
             })
             .then((result) => {
-                console.log(result)
                 if (result.data.status === "error" || result.status === 500 || result.status === 403) {
                     Swal.fire(
                         `ERROR!`,

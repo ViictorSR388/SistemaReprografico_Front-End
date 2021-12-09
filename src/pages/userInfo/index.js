@@ -103,7 +103,6 @@ function UserInfo(props) {
         }
       )
       .then((result) => {
-        console.log(result)
         if (result.data.status === "error") {
           setMessage(result.data.message);
         } else {
