@@ -81,7 +81,7 @@ function UserInfo(props) {
         else {
           setMensagem(result.data.message);
           setTimeout(() => {
-            history.push("/management");
+            setEdit(false)
           }, 1500);
         }
       });
@@ -228,6 +228,7 @@ function UserInfo(props) {
                       setChangePass(true);
                       setEdit(false)
                     }}
+                    editMyUser={true}
                   />
                 ) : (
                   <ProfileContainer
