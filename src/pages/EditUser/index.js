@@ -175,6 +175,7 @@ function EditUser() {
             image={image.preview}
             name={nameUser}
             nif={nif}
+            newUser={true}
           />
           <div className="container-editUser">
             <h2 className="ui-subTitleEDIT">Informações pessoais</h2>
