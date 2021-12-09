@@ -44,23 +44,15 @@ export default function AddService() {
     })
   }
 
-  const voltar = () => {
-    axios
-      .get(`${reprografia_url}/auth`, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      }).then((result) => {
-        history.push("/services");
-      })
-  }
-
   const onSubmit = (e) => {
     e.preventDefault();
     EditService()
   }
 
+  var [loading, setLoading] = useState(Loading);
+
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${reprografia_url}/service/${id}/type=${type}`, {
         headers: {
@@ -71,18 +63,10 @@ export default function AddService() {
         setDescricao(result.data.descricao)
         setQuantidade(result.data.quantidade)
         setCusto(result.data.valor_unitario)
-        console.log(result);
+        setLoading(false);
       });
-  }, [id, type]);
+  }, [id, type, reprografia_url]);
 
-  var [loading, setLoading] = useState(Loading);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, [])
 
   return (
     <>
@@ -125,7 +109,7 @@ export default function AddService() {
                 <button
                   className="btn-back-user"
                   id="btn"
-                  onClick={voltar}>Voltar
+                  onClick={() => history.push("/services")}>Voltar
                 </button>
               </div>
             </form>

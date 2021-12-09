@@ -41,6 +41,12 @@ function FirstAccess(props) {
                     history.push(`/user/${props.nif}`)
                 }, 1200)
             }
+            else if (result.data.message === "Esse não é o seu primeiro acesso!"){
+                
+                setTimeout(() => {
+                    logout();
+                }, 1000);
+            } 
         })
     };
 
@@ -66,7 +72,7 @@ function FirstAccess(props) {
                     setNif(props.nif)
                 }
     })
-}, [props.nif])
+}, [props.nif, reprografia_url])
 
     return (
         <>
@@ -97,7 +103,6 @@ function FirstAccess(props) {
                                 setConfirmSenha(e.target.value);
                             }}
                         />
-
                         <div className="btns">
                             <input
                                 className="env-first"

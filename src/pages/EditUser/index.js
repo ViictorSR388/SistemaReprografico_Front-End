@@ -121,7 +121,6 @@ function EditUser() {
     }
     formData.append("admin", admin);
 
-
     axios
       .put(`${reprografia_url}/user/` + nif, formData, {
         headers: {
@@ -139,8 +138,10 @@ function EditUser() {
         }
       });
   };
-
+  var [loading, setLoading] = useState(Loading);
+  
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${reprografia_url}/user/` + nif, {
         headers: {
@@ -148,7 +149,6 @@ function EditUser() {
         },
       })
       .then((result) => {
-        console.log(result);
         setAdminUser({
           list: result.data.roles
         });
@@ -158,17 +158,11 @@ function EditUser() {
         setTelefoneUser(result.data.telefone);
         setDeptoUser(result.data.id_depto);
         setImage({ preview: `${reprografia_url}/` + result.data.imagem });
+        setLoading(false);
       });
-  }, []);
+  }, [nif, reprografia_url]);
 
-  var [loading, setLoading] = useState(Loading);
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, []);
 
   return (
     <div className="content">

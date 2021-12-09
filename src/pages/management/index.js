@@ -88,6 +88,7 @@ function Management(props) {
 
   //map
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${reprografia_url}/users/enabled=1`, {
         headers: {
@@ -121,17 +122,11 @@ function Management(props) {
         if (props.nif) {
           setMyNif(props.nif);
         }
+        setLoading(false);
       });
-  }, []);
+  }, [props.nif, reprografia_url]);
 
   var [loading, setLoading] = useState(Loading);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, [])
 
   const [searchTerm, setSearchTerm] = useState("");
 
