@@ -171,7 +171,7 @@ function EditUser() {
       {loading ? <> <Loading /> </> :
         <>
           <ProfileContainer
-            title="Exemplo do perfil do usuário"
+            title={"Exemplo do perfil do usuário com nif: " + nif}
             image={image.preview}
             name={nameUser}
             nif={nif}
@@ -282,7 +282,7 @@ function EditUser() {
               </select>
 
               {adminUser.list.map((data) => (
-                <>
+                <React.Fragment key={null}>
                   {data.descricao === "user" ?
                     <>
                       <Form.Check
@@ -293,7 +293,6 @@ function EditUser() {
                         checked={admin === "1"}
                         onChange={() => {
                           setAdmin("1")
-                          console.log(admin)
                         }}
                       />
                       <h2 className="opcoes">Alterar para usuário administrador?</h2>
@@ -308,13 +307,12 @@ function EditUser() {
                         checked={admin === "0"}
                         onChange={() => {
                           setAdmin("0")
-                          console.log(admin)
                         }}
                       />
                       <h2 className="opcoes">Alterar para usuário comum?</h2>
                     </>
                   }
-                </>
+                </React.Fragment>
               ))}
               <h4 className="mensagem-edit">{mensagem}</h4>
               <div className="btns">
@@ -335,7 +333,7 @@ function EditUser() {
           </div>
         </>
       }
-    </div >
+    </div>
   );
 }
 

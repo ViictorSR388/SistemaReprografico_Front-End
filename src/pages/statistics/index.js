@@ -54,7 +54,6 @@ export default function Statistics(props) {
                     },
                 })
                 .then((result) => {
-                    console.log(result);
                     setUnicoMes([result.data[0]]);
                     setFirstRequest(false)
                     setFetchMesStatus(true);
@@ -160,7 +159,7 @@ export default function Statistics(props) {
                         </div>
 
                         {unicoMes.map((data) => (
-                            <React.Fragment>
+                            <React.Fragment key={null}>
                                 {firstRequest ? <><h1>Informações do mês atual ({mesesArray[mesAtual - 1]}):</h1></> : <><h1 className="">{data.mes} - {data.ano}</h1></>}
                                 <div className="tables">
                                     <div className="first-line-div">
@@ -169,7 +168,7 @@ export default function Statistics(props) {
                                             <Table striped bordered hover size="sm">
                                                 <tbody>
                                                     {data.avaliacao_pedido.map((data) => (
-                                                        <>
+                                                        <React.Fragment key={null}>
                                                             <tr>
                                                                 <td>
                                                                     <strong>Atendeu</strong>
@@ -200,7 +199,7 @@ export default function Statistics(props) {
                                                                     </Card.Text>
                                                                 </td>
                                                             </tr>
-                                                        </>
+                                                        </React.Fragment>
                                                     ))}
                                                 </tbody>
                                             </Table>
@@ -209,9 +208,9 @@ export default function Statistics(props) {
                                             {fetchMesStatus ? <h1 className="title-tables">Estatisticas Gerais</h1> : <></>}
                                             <Table className="table-statistics" striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
-                                                    <React.Fragment>
+                                                    <React.Fragment key={null}>
                                                         <tbody>
-                                                            <>
+                                                            <React.Fragment key={null}>
                                                                 <tr>
                                                                     <td>
                                                                         <strong>Total de Pedidos</strong>
@@ -252,7 +251,7 @@ export default function Statistics(props) {
                                                                     <Card.Text>{"R$ "}{(Math.round((data.custo_total * 1000) / 10) / 100).toFixed(2)}</Card.Text>
                                                                     </td>
                                                                 </tr>
-                                                            </>
+                                                            </React.Fragment>
                                                         </tbody>
                                                     </React.Fragment>
                                                 ))}
@@ -262,10 +261,10 @@ export default function Statistics(props) {
                                             {fetchMesStatus ? <h1 className="title-tables">Solicitações por Capa & Acabamento</h1> : <></>}
                                             <Table className="" striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
-                                                    <React.Fragment>
+                                                    <React.Fragment key={null}>
                                                         <tbody>
                                                             {data.servico_capaAcabamento.map((data) => (
-                                                                <>
+                                                                <React.Fragment key={null}>
                                                                     <tr>
                                                                         <td>
                                                                             <strong>{data[1].status}</strong>
@@ -298,7 +297,7 @@ export default function Statistics(props) {
                                                                             <Card.Text>{data[4].qtdade_solicitada}</Card.Text>
                                                                         </td>
                                                                     </tr>
-                                                                </>
+                                                                </React.Fragment>
                                                             ))}
                                                         </tbody>
                                                     </React.Fragment>
@@ -311,10 +310,10 @@ export default function Statistics(props) {
                                             {fetchMesStatus ? <h1 className="title-tables">Solicitações por Cursos</h1> : <></>}
                                             <Table className="" striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
-                                                    <React.Fragment>
+                                                    <React.Fragment key={null}>
                                                         <tbody>
                                                             {data.curso.map((data) => (
-                                                                <>
+                                                                <React.Fragment key={null}>
                                                                     <tr>
                                                                         <td>
                                                                             <strong>{data[1].descricao}</strong>
@@ -347,7 +346,7 @@ export default function Statistics(props) {
                                                                             <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
                                                                         </td>
                                                                     </tr>
-                                                                </>
+                                                                </React.Fragment>
                                                             ))}
                                                         </tbody>
                                                     </React.Fragment>
@@ -358,10 +357,10 @@ export default function Statistics(props) {
                                             {fetchMesStatus ? <h1 className="title-tables">Solicitações por Copia & Tamanho</h1> : <></>}
                                             <Table className="" striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
-                                                    <React.Fragment>
+                                                    <React.Fragment key={null}>
                                                         <tbody>
                                                             {data.servico_copiaTamanho.map((data) => (
-                                                                <>
+                                                                <React.Fragment key={null}>
                                                                     <tr>
                                                                         <td>
                                                                             <strong>{data[1].status}</strong>
@@ -410,7 +409,7 @@ export default function Statistics(props) {
                                                                             <Card.Text>{data[6].qtdade_solicitada}</Card.Text>
                                                                         </td>
                                                                     </tr>
-                                                                </>
+                                                                </React.Fragment>
                                                             ))}
                                                         </tbody>
                                                     </React.Fragment>
@@ -421,10 +420,10 @@ export default function Statistics(props) {
                                             {fetchMesStatus ? <h1 className="title-tables">Solicitações por Departamento</h1> : <></>}
                                             <Table striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
-                                                    <React.Fragment>
+                                                    <React.Fragment key={null}>
                                                         <tbody>
                                                             {data.centro_custos.map((data) => (
-                                                                <>
+                                                                <React.Fragment key={null}>
                                                                     <tr>
                                                                         <td>
                                                                             <strong>{data[1].descricao}</strong>
@@ -489,7 +488,7 @@ export default function Statistics(props) {
                                                                             <Card.Text>{data[8].qtdade_solicitada}</Card.Text>
                                                                         </td>
                                                                     </tr>
-                                                                </>
+                                                                </React.Fragment>
                                                             ))}
                                                         </tbody>
                                                     </React.Fragment>

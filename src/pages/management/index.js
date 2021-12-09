@@ -26,7 +26,7 @@ function Management(props) {
   var [ativos, setAtivos] = useState(true);
 
   const port = process.env.REACT_APP_PORT || 3002;
-  
+
   const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
 
@@ -46,8 +46,8 @@ function Management(props) {
         }
         else {
           setUsers({
-            message: "Sem registros...",
-            ativos: true
+            message: result.data.message,
+            status: false
           })
         }
         if (id === 1) {
@@ -86,6 +86,8 @@ function Management(props) {
       });
   }
 
+  var [loading, setLoading] = useState(Loading);
+  
   //map
   useEffect(() => {
     setLoading(true);
@@ -99,14 +101,13 @@ function Management(props) {
         if (result.data.length > 0) {
           setUsers({
             list: result.data,
-            ativos: true,
             status: true
           })
         }
         else {
           setUsers({
-            message: "Sem registros...",
-            ativos: true
+            message: result.data.message,
+            status: false
           })
         }
       });
@@ -126,7 +127,6 @@ function Management(props) {
       });
   }, [props.nif, reprografia_url]);
 
-  var [loading, setLoading] = useState(Loading);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -181,16 +181,17 @@ function Management(props) {
                       </tr>
                     </thead>
                     {users.list.filter((data) => {
-                        if (searchTerm === "") {
-                          return data;
-                        } else if (data.nome.toLowerCase().includes(searchTerm.toLowerCase())) {
-                          return data;
-                        }
-                      }).map((data) => (
+                      if (searchTerm === "") {
+                        return data;
+                      } else if (data.nome.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        return data;
+                      }
+                      return null;
+                    }).map((data) => (
                       <React.Fragment key={data.nif}>
-                        <tbody>
-                          <tr>
-                            {data.nif === myNif ? <></> : <>
+                        {data.nif === myNif ? null : <>
+                          <tbody>
+                            <tr>
                               <td onClick={() => { history.push(`/user/${data.nif}`) }}><img className="img-user-upload" src={`${reprografia_url}/${data.imagem}`} alt="imagem do usuário" /></td>
                               <td>{data.nome}</td>
                               <td>{data.email}</td>
@@ -214,24 +215,24 @@ function Management(props) {
                                   </Button>{' '}
                                 </>}
                               </td>
-                            </>}
-                        </tr>
-                      </tbody>
+                            </tr>
+                          </tbody>
+                        </>}
                       </React.Fragment>
                     ))}
-                </Table>
-              </div>
+                  </Table>
+                </div>
               </> :
-          <>
-            <h3>{users.message}</h3>
-          </>
+              <>
+                <h3>{users.message}</h3>
+              </>
             }
-          <div className="btnD-newUser">
-            <Button className="btn-newUser" variant="primary" size="lg" onClick={() => { history.push("/newUser/") }}>
-              Cadastrar Usuário
-            </Button>{' '}
+            <div className="btnD-newUser">
+              <Button className="btn-newUser" variant="primary" size="lg" onClick={() => { history.push("/newUser/") }}>
+                Cadastrar Usuário
+              </Button>{' '}
+            </div>
           </div>
-        </div>
         </>
       }
     </>

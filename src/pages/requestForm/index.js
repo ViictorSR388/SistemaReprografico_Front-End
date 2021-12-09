@@ -129,7 +129,6 @@ function RequestForm(props) {
           },
         })
         .then((result) => {
-          console.log(result);
           setMessage(result.data.message);
           if (result.data.status !== "error") {
             setTimeout(() => {
@@ -180,7 +179,6 @@ function RequestForm(props) {
     };
     try {
       const response = await axios(config);
-      console.log(response);
       if (response) {
         if (
           response.data.servicosCA === undefined &&

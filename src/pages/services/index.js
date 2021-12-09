@@ -26,7 +26,7 @@ export default function Services(props) {
   var [semRegistros, setSemRegistros] = useState();
 
   const port = process.env.REACT_APP_PORT || 3002;
-  
+
   const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   useEffect(() => {
@@ -44,7 +44,6 @@ export default function Services(props) {
         },
       })
       .then((response) => {
-        console.log(response);
         if (id === 1) {
           setAtivos(true);
         } else {
@@ -76,7 +75,7 @@ export default function Services(props) {
       const response = await axios(config);
       if (response) {
         if (response.data.message) {
-          console.log(response.data.message);
+          setSemRegistros(1);
         } else {
           setServicos({
             servicosCA: response.data.servicosCA,
@@ -113,8 +112,7 @@ export default function Services(props) {
           servicosAtivos(0);
         } else if (atvr === 0) {
           servicosAtivos(1);
-        }
-        console.log(JSON.stringify(response.data));
+        };
       })
       .catch(function (error) {
         console.log(error);
@@ -165,9 +163,9 @@ export default function Services(props) {
                         <th> </th>
                       </tr>
                     </thead>
-                    {servicos.servicosCA.map((data) => (
-                      <React.Fragment key={data.id_servico}>
-                        <tbody>
+                    <tbody>
+                      {servicos.servicosCA.map((data) => (
+                        <React.Fragment key={data.id_servico}>
                           <tr>
                             {/* DESCRIÇÃO */}
                             <td>{data.descricao}</td>
@@ -176,7 +174,7 @@ export default function Services(props) {
                             {/* CUSTO */}
                             <td>{"R$ " + data.valor_unitario}</td>
                             {data.ativado ? (
-                              <tr>
+                              <>
                                 <td>
                                   <Button
                                     className="btn-edit"
@@ -201,7 +199,7 @@ export default function Services(props) {
                                     Desabilitar
                                   </Button>
                                 </td>
-                              </tr>
+                              </>
                             ) : (
                               <td>
                                 <Button
@@ -219,13 +217,12 @@ export default function Services(props) {
                               </td>
                             )}
                           </tr>
-                        </tbody>
-                      </React.Fragment>
-                    ))}
+                        </React.Fragment>
+                      ))}
+                    </tbody>
                   </Table>
                 </>
               )}
-
               <Button
                 className="btn-services"
                 variant="primary"
@@ -237,6 +234,7 @@ export default function Services(props) {
                 Adicionar Serviço
               </Button>
             </div>
+
             <div className="ca-table-div">
               <h1 className="title-services">Copia &#38; Tamanho</h1>
               {semRegistros ? (
@@ -263,16 +261,16 @@ export default function Services(props) {
                             {/* CUSTO */}
                             <td>{"R$ " + data.valor_unitario}</td>
                             {data.ativado ? (
-                              <tbody>
+                              <>
                                 <td>
                                   <Button
-                                      className="btn-edit"
-                                      onClick={() => {
-                                        history.push(`/edit-services/${data.id_servico}/ct`);
-                                      }}
-                                    >
-                                      Editar
-                                    </Button>
+                                    className="btn-edit"
+                                    onClick={() => {
+                                      history.push(`/edit-services/${data.id_servico}/ct`);
+                                    }}
+                                  >
+                                    Editar
+                                  </Button>
                                 </td>
                                 <td>
                                   <Button
@@ -288,7 +286,7 @@ export default function Services(props) {
                                     Desabilitar
                                   </Button>
                                 </td>
-                              </tbody>
+                              </>
                             ) : (
                               <td>
                                 <Button
@@ -306,6 +304,7 @@ export default function Services(props) {
                               </td>
                             )}
                           </tr>
+
                         </React.Fragment>
                       ))}
                     </tbody>

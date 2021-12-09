@@ -80,7 +80,7 @@ function ProfileContainer(props) {
         <>
             {loading ? <Loading /> : <>
                 <div className="left-container" >
-                    {props.title ? <h2 Style="margin-bottom: 50px">{props.title}</h2> : null}
+                    {props.title ? <h2 id="propsTitle">{props.title}</h2> : null}
                     <div className="icon-container" >
                         <div className="profile-div">
                             {props.newUser ?

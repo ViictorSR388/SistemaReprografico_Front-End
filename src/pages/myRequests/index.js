@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Button, Card, Table } from 'react-bootstrap';
 import '../../styles/myRequests.scss'
 import Swal from 'sweetalert2'
+import Loading from '../../../src/components/loading';
 
 const MyRequests = (props) => {
 
@@ -19,11 +20,14 @@ const MyRequests = (props) => {
     });
 
     var [avaliados, setAvaliados] = useState();
-    const port = process.env.REACT_APP_PORT || 3002;
 
+    const port = process.env.REACT_APP_PORT || 3002;
     const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
+    var [loading, setLoading] = useState(Loading);
+
     useEffect(() => {
+        setLoading(true)
         axios.get(`${reprografia_url}/myRequests/rated=0`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -41,8 +45,9 @@ const MyRequests = (props) => {
                         message: result.data.message
                     })
                 }
+                setLoading(false)
             });
-    }, []);
+    }, [reprografia_url]);
 
     const getAvaliados = (id) => {
         axios
@@ -52,7 +57,6 @@ const MyRequests = (props) => {
                 },
             })
             .then((result) => {
-                console.log(result)
                 if (id === 1) {
                     setAvaliados(true);
                 }
@@ -64,7 +68,6 @@ const MyRequests = (props) => {
                         list: result.data,
                         status: true
                     })
-                    console.log(result.data)
                 }
                 else {
                     setPedidos({
@@ -117,82 +120,84 @@ const MyRequests = (props) => {
 
     return (
         <>
-            <Menu />
-            <div className="content">
-                {/* {loading ? <> loading... </> :  */}
-                <>
-                    <Header nif={props.nif} />
-                    <SideBar image={props.image} name={props.name} requestsNoInfo={true} nif={props.nif} admin={props.admin} />
+            {loading ? <Loading /> : <>
+                <Menu />
+                <div className="content">
+                    {/* {loading ? <> loading... </> :  */}
+                    <>
+                        <Header nif={props.nif} />
+                        <SideBar image={props.image} name={props.name} requestsNoInfo={true} nif={props.nif} admin={props.admin} />
 
-                    <div className="container">
-                        <div className="avaliacao-request">
-                            {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
-                        </div>
-                        <div className="btns-request">
-                            <button className="btn-request" onClick={() => getAvaliados(0)}>Não avaliados</button>
-                            <button className="btn-request" onClick={() => getAvaliados(1)}>Avaliados</button>
-                        </div>
-                        <>
-                            {pedidos.status ?
-                                <>
-                                    <Table className="table-request" striped bordered hover size="sm">
-                                        <thead>
-                                            <tr>
-                                                <th>Pedido</th>
-                                                {avaliados ? <th>Atualizado</th> : <th>Realizado</th>}
-                                                <th>Status</th>
-                                                <th>Solicitado</th>
-                                                <th>⠀⠀⠀⠀⠀⠀⠀⠀⠀</th>
-                                            </tr>
-                                        </thead>
-                                        {pedidos.list.map((data) => (
-                                            <React.Fragment key={data.id_pedido}>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <Card.Text>{data.titulo_pedido}</Card.Text>
-                                                        </td>
-                                                        <td>
-                                                            {avaliados ? <Card.Text>{data.updatedAt}</Card.Text> : <Card.Text>{data.createdAt}</Card.Text>}
-                                                        </td>
-                                                        <td>
-                                                            <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
-                                                        </td>
-                                                        <td>
-                                                            {data.realizado_qtdade < 2 ? <Card.Text>{data.realizado_qtdade} vez</Card.Text> : <Card.Text>{data.realizado_qtdade} vezes</Card.Text>}
-                                                        </td>
-                                                        <td>
-                                                            <div className="details-btns">
-                                                                {avaliados ? <>
-                                                                    <Button className="detailsForm" variant="secondary" onClick={() => solicitarNovamente(data.id_pedido, data.titulo_pedido)}>Solicitar novamente</Button>
-                                                                    <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
-                                                                    <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>
-                                                                </> :
-                                                                    <>
-                                                                        <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/review/" + data.id_pedido) }}>avaliar</Button>
+                        <div className="container">
+                            <div className="avaliacao-request">
+                                {avaliados ? <>Já avaliados</> : <>Ainda não avaliados</>}
+                            </div>
+                            <div className="btns-request">
+                                <button className="btn-request" onClick={() => getAvaliados(0)}>Não avaliados</button>
+                                <button className="btn-request" onClick={() => getAvaliados(1)}>Avaliados</button>
+                            </div>
+                            <>
+                                {pedidos.status ?
+                                    <>
+                                        <Table className="table-request" striped bordered hover size="sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Pedido</th>
+                                                    {avaliados ? <th>Atualizado</th> : <th>Realizado</th>}
+                                                    <th>Status</th>
+                                                    <th>Solicitado</th>
+                                                    <th>⠀⠀⠀⠀⠀⠀⠀⠀⠀</th>
+                                                </tr>
+                                            </thead>
+                                            {pedidos.list.map((data) => (
+                                                <React.Fragment key={data.id_pedido}>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <Card.Text>{data.titulo_pedido}</Card.Text>
+                                                            </td>
+                                                            <td>
+                                                                {avaliados ? <Card.Text>{data.updatedAt}</Card.Text> : <Card.Text>{data.createdAt}</Card.Text>}
+                                                            </td>
+                                                            <td>
+                                                                <Card.Text>{data.id_avaliacao_pedido}</Card.Text>
+                                                            </td>
+                                                            <td>
+                                                                {data.realizado_qtdade < 2 ? <Card.Text>{data.realizado_qtdade} vez</Card.Text> : <Card.Text>{data.realizado_qtdade} vezes</Card.Text>}
+                                                            </td>
+                                                            <td>
+                                                                <div className="details-btns">
+                                                                    {avaliados ? <>
+                                                                        <Button className="detailsForm" variant="secondary" onClick={() => solicitarNovamente(data.id_pedido, data.titulo_pedido)}>Solicitar novamente</Button>
                                                                         <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
-                                                                        {data.realizado_qtdade < 2 ? <></> : <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>}
-                                                                    </>}
-                                                            </div>
+                                                                        <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>
+                                                                    </> :
+                                                                        <>
+                                                                            <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/review/" + data.id_pedido) }}>avaliar</Button>
+                                                                            <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
+                                                                            {data.realizado_qtdade < 2 ? <></> : <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>}
+                                                                        </>}
+                                                                </div>
 
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </React.Fragment>
-                                        ))}
-                                    </Table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </React.Fragment>
+                                            ))}
+                                        </Table>
 
-                                </> :
-                                <>
-                                    <h1 className="text-request">{pedidos.message}</h1>
-                                </>
-                            }
-                        </>
-                        {/**<Button className="back-request" onClick={() => history.push('/requestForm')}> Voltar </Button>**/}
-                    </div>
-                </>
-                {/* } */}
-            </div>
+                                    </> :
+                                    <>
+                                        <h1 className="text-request">{pedidos.message}</h1>
+                                    </>
+                                }
+                            </>
+                            {/**<Button className="back-request" onClick={() => history.push('/requestForm')}> Voltar </Button>**/}
+                        </div>
+                    </>
+                    {/* } */}
+                </div>
+            </>}
         </>
     )
 }

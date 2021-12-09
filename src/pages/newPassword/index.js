@@ -48,7 +48,6 @@ export default function NewPassword() {
       axios.post(`${reprografia_url}/resetPassword`, data).then((result) => {
         setEnviado(true)
         setMensagem(result.data.message)
-        console.log(result)
       })
     }
   }
