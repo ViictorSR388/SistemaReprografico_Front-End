@@ -46,6 +46,11 @@ export default function Statistics(props) {
         else if (!ano) {
             setMessage("Insira um ano para consulta!")
         }
+        //Ano de desenvolvimento da aplicação, 
+        // o admin não teria como consultar anos anteriores a este.
+        else if (ano < 2021){
+            setMessage("Insira um ano válido!")
+        }
         else {
             axios
                 .get(`${reprografia_url}/estatisticas/mensais/${ano}/${mes}`, {
@@ -54,6 +59,7 @@ export default function Statistics(props) {
                     },
                 })
                 .then((result) => {
+                    console.log(result)
                     setUnicoMes([result.data[0]]);
                     setFirstRequest(false)
                     setFetchMesStatus(true);

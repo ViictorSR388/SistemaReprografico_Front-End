@@ -30,14 +30,14 @@ function EditUser() {
 
   const [deptoUser, setDeptoUser] = useState("0");
 
-  const [admin, setAdmin] = useState(0);
+  const [admin, setAdmin] = useState("");
 
   const [mensagem, setMensagem] = useState("");
 
   var id_depto = deptoUser;
 
   const port = process.env.REACT_APP_PORT || 3002;
-  
+
   const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   //estrutura de decisão para exibir corretamente o departamento
@@ -119,7 +119,9 @@ function EditUser() {
     if (deptoUser !== "") {
       formData.append("depto", departamento);
     }
-    formData.append("admin", admin);
+    if (admin !== "") {
+      formData.append("admin", admin);
+    }
 
     axios
       .put(`${reprografia_url}/user/` + nif, formData, {
@@ -127,10 +129,10 @@ function EditUser() {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        if(result.data.status === "error"){
+        if (result.data.status === "error") {
           setMensagem(result.data.message);
         }
-        else{
+        else {
           setMensagem(result.data.message);
           setTimeout(() => {
             history.push("/management");
@@ -139,7 +141,7 @@ function EditUser() {
       });
   };
   var [loading, setLoading] = useState(Loading);
-  
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -149,7 +151,7 @@ function EditUser() {
         },
       })
       .then((result) => {
-        if(!result.data.error && result.data.status !== "error"){
+        if (!result.data.error && result.data.status !== "error") {
           setAdminUser({
             list: result.data.roles
           });
@@ -315,19 +317,19 @@ function EditUser() {
                 </React.Fragment>
               ))}
               <h4 className="mensagem-edit">{mensagem}</h4>
-                <input
-                  type="submit"
-                  className="nu-send-button"
-                  id="btn"
-                  value="Enviar"
-                />
+              <input
+                type="submit"
+                className="nu-send-button"
+                id="btn"
+                value="Enviar"
+              />
             </form>
             <button
-                  className="btn-goBack"
-                  onClick={() => history.goBack() }
-                >
-                  Voltar
-                </button>
+              className="btn-goBack"
+              onClick={() => history.goBack()}
+            >
+              Voltar
+            </button>
           </div>
         </>
       }
