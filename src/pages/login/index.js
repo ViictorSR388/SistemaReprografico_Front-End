@@ -16,7 +16,7 @@ export default function Login() {
   const [mensagem, setMensagem] = useState("");
 
   const port = process.env.REACT_APP_PORT || 3002;
-  
+
   const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   let history = useHistory();
@@ -68,9 +68,12 @@ export default function Login() {
     });
   };
 
+  var [loading, setLoading] = useState(Loading);
+
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(`${reprografia_url}`, {
+      .get(`${reprografia_url}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -96,22 +99,14 @@ export default function Login() {
             });
           }
         }
+        setLoading(false);
       });
-  }, []);
+  }, [reprografia_url, history, setAuthState]);
 
   const onSubmit = (e) => {
     e.preventDefault();
     LoginPost();
   };
-
-  var [loading, setLoading] = useState(Loading);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, [])
 
   return (
     <>

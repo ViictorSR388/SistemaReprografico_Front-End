@@ -119,46 +119,45 @@ function UserInfo(props) {
   var [adm, setAdm] = useState();
 
   useEffect(() => {
-    onLoad();
+    setLoading(true);
+    axios
+    .get(`${reprografia_url}/user/` + id, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+      validateStatus: () => true,
+    })
+    .then((result) => {
+      if (result.status === 404) {
+        setNotFound(true);
+      }
+      setNif(result.data.nif);
+      setNameUser(result.data.nome);
+      setEmailUser(result.data.email);
+      setTelefoneUser(result.data.telefone);
+      setDeptoUser(result.data.depto);
+      setImage({ preview: `${reprografia_url}/` + result.data.imagem });
+    });
+  axios
+    .get(`${reprografia_url}/auth`, {
+      headers: {
+        accessToken: localStorage.getItem("accessToken"),
+      },
+    })
+    .then((result) => {
+      setMyNif(result.data.nif);
+      if (props.nif) {
+        setMyNif(props.nif);
+      }
+      setLoading(false);
+    });
     setAdm(props.admin);
     return () => {
       setAdm({});
     };
-  }, [props.admin]);
+  }, [props.admin, props.nif, id, reprografia_url]);
 
-  const onLoad = () => {
-    axios
-      .get(`${reprografia_url}/user/` + id, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-        validateStatus: () => true,
-      })
-      .then((result) => {
-        if (result.status === 404) {
-          setNotFound(true);
-        }
 
-        setNif(result.data.nif);
-        setNameUser(result.data.nome);
-        setEmailUser(result.data.email);
-        setTelefoneUser(result.data.telefone);
-        setDeptoUser(result.data.depto);
-        setImage({ preview: `${reprografia_url}/` + result.data.imagem });
-      });
-    axios
-      .get(`${reprografia_url}/auth`, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((result) => {
-        setMyNif(result.data.nif);
-        if (props.nif) {
-          setMyNif(props.nif);
-        }
-      });
-  };
   //Importante para mandar pelo useContext se o usuário é administrador ou não
   // e assim enviar para o header o valor para o props.admin trazendo as informações
   // corretas no header para cada tipo de usuário (Esta terefa seria feita na página de login)
@@ -173,7 +172,6 @@ function UserInfo(props) {
       })
       .then((response) => {
         if (response.data.roles) {
-          console.log(response.data.primeiro_acesso)
           if (response.data.primeiro_acesso === 1) {
             setAuthState({
               firstAccess: true,
@@ -197,22 +195,11 @@ function UserInfo(props) {
 
   var [loading, setLoading] = useState(Loading);
 
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, [])
-
   return (
     <>
       {loading ? (
         <> <Loading /> </>
       ) : (
-        <>
-          {notFound ? (
-            <> Usuário não encontrado </>
-          ) : (
             <>
               <div className="content">
                 {adm && myNif !== nif ?
@@ -420,8 +407,6 @@ function UserInfo(props) {
             </>
           )}
         </>
-      )}
-    </>
   );
 }
 

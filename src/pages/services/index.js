@@ -19,6 +19,8 @@ export default function Services(props) {
     status: false,
   });
 
+  var [loading, setLoading] = useState(Loading);
+
   var [ativos, setAtivos] = useState();
 
   var [semRegistros, setSemRegistros] = useState();
@@ -28,7 +30,6 @@ export default function Services(props) {
   const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   useEffect(() => {
-    setLoading(true);
     onLoad();
     return () => {
       setServicos({});
@@ -63,6 +64,7 @@ export default function Services(props) {
   };
 
   const onLoad = async () => {
+    setLoading(true);
     var config = {
       method: "get",
       url: `${reprografia_url}/services/enabled=1`,
@@ -83,6 +85,7 @@ export default function Services(props) {
           });
         }
         setAtivos(true);
+        setLoading(false);
       }
     } catch (e) {
       console.error(e);
@@ -117,15 +120,6 @@ export default function Services(props) {
         console.log(error);
       });
   };
-
-  var [loading, setLoading] = useState(Loading);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, [])
 
   return (
     <>

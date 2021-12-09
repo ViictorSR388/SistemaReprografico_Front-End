@@ -90,7 +90,7 @@ function Rotas() {
           }
         }
       });
-  }, []);
+  }, [reprografia_url]);
 
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>

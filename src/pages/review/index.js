@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../../styles/review.scss';
 import Header from '../../components/header';
@@ -6,7 +6,6 @@ import Menu from '../../components/hamburgerButton';
 import SideBar from '../../components/formSideBar';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
-import Loading from '../../../src/components/loading';
 
 function Review(props) {
 
@@ -42,18 +41,8 @@ function Review(props) {
     })
   }
 
-  var [loading, setLoading] = useState(Loading);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1300);
-  }, [])
 
   return (
-    <>
-      {loading ? <> <Loading /> </> :
         <>
           <Menu />
           <Header nif={props.nif} />
@@ -111,8 +100,6 @@ function Review(props) {
             </form>
           </div>
         </>
-      }
-    </>
   );
 }
 

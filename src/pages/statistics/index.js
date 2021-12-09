@@ -63,8 +63,10 @@ export default function Statistics(props) {
         }
     };
 
+    var [loading, setLoading] = useState(Loading);
 
     useEffect(() => {
+        setLoading(true);
         axios
             .get(`${reprografia_url}/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
                 headers: {
@@ -76,17 +78,9 @@ export default function Statistics(props) {
                 setUnicoMes([result.data[0]]);
                 setFetchMesStatus(true);
                 setFirstRequest(true);
+                setLoading(false);
             });
-    }, [anoAtual, mesAtual]);
-
-    var [loading, setLoading] = useState(Loading);
-
-    useEffect(() => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-        }, 1300);
-    }, [])
+    }, [anoAtual, mesAtual, reprografia_url]);
 
     return (
         <>

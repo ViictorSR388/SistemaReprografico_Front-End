@@ -43,7 +43,7 @@ function RequestList(props) {
           }
         }
       });
-  }, [id]);
+  }, [id, reprografia_url]);
 
   return (
     <>
