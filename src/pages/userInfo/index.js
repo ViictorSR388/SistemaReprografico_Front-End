@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from "react-router";
-import { AuthContext } from "./../../helpers/AuthContext";
+// import { AuthContext } from "./../../helpers/AuthContext";
 import ProfileContainer from "../../components/profileContainer";
 import Loading from '../../../src/components/loading';
 
@@ -37,7 +37,7 @@ function UserInfo(props) {
 
   const [message, setMessage] = useState();
 
-  const { setAuthState } = useContext(AuthContext);
+  // const { setAuthState } = useContext(AuthContext);
 
   const port = process.env.REACT_APP_PORT || 3002;
 
@@ -153,9 +153,6 @@ function UserInfo(props) {
         }
       });
     setAdm(props.admin);
-    return () => {
-      setAdm({});
-    };
   }, [props.admin, props.nif, id, reprografia_url]);
 
 
@@ -164,35 +161,35 @@ function UserInfo(props) {
   // corretas no header para cada tipo de usuário (Esta terefa seria feita na página de login)
   // mas como vocês estão redirecionando para página de perfil de usuário assim que faz login,
   // temos que verificar se o usuário é admin pq vamos renderizar o header logo em seguida.
-  const voltar = () => {
-    axios
-      .get(`${reprografia_url}/myUser`, {
-        headers: {
-          accessToken: localStorage.getItem("accessToken"),
-        },
-      })
-      .then((response) => {
-        if (response.data.roles) {
-          if (response.data.primeiro_acesso === 1) {
-            setAuthState({
-              firstAccess: true,
-            });
-            history.push("/firstAccess")
-          }
-          else if (response.data.roles[0].descricao === "admin") {
-            history.push("/management");
-            setAuthState({
-              admin: true
-            });
-          } else {
-            history.push("/requestForm");
-            setAuthState({
-              admin: false
-            });
-          }
-        }
-      });
-  };
+  // const voltar = () => {
+  //   axios
+  //     .get(`${reprografia_url}/myUser`, {
+  //       headers: {
+  //         accessToken: localStorage.getItem("accessToken"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (response.data.roles) {
+  //         if (response.data.primeiro_acesso === 1) {
+  //           setAuthState({
+  //             firstAccess: true,
+  //           });
+  //           history.push("/firstAccess")
+  //         }
+  //         else if (response.data.roles[0].descricao === "admin") {
+  //           history.push("/management");
+  //           setAuthState({
+  //             admin: true
+  //           });
+  //         } else {
+  //           history.push("/requestForm");
+  //           setAuthState({
+  //             admin: false
+  //           });
+  //         }
+  //       }
+  //     });
+  // };
 
   return (
     <>
@@ -410,7 +407,7 @@ function UserInfo(props) {
                         <button
                           className="btn-back-user"
                           id="btn"
-                          onClick={voltar}
+                          onClick={() => { history.push("/requestForm") }}
                         >
                           {" "}
                           Voltar

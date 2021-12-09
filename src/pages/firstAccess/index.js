@@ -20,7 +20,7 @@ function FirstAccess(props) {
     const { setAuthState } = useContext(AuthContext);
 
     const port = process.env.REACT_APP_PORT || 3002;
-  
+
     const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
     const atualizarSenha = () => {
@@ -33,20 +33,18 @@ function FirstAccess(props) {
             if (result.data.status === "ok") {
                 setTimeout(() => {
                     setAuthState({
-                        firstAccess: false
+                        firstAccess: false, admin: props.admin
                     })
                 }, 1000);
                 setTimeout(() => {
-
-                    history.push(`/user/${props.nif}`)
+                    history.push(`/user/${nif}`)
                 }, 1200)
             }
-            else if (result.data.message === "Esse não é o seu primeiro acesso!"){
-                
+            else if (result.data.message === "Esse não é o seu primeiro acesso!") {
                 setTimeout(() => {
                     logout();
                 }, 1000);
-            } 
+            }
         })
     };
 
@@ -71,8 +69,8 @@ function FirstAccess(props) {
                 if (props.nif) {
                     setNif(props.nif)
                 }
-    })
-}, [props.nif, reprografia_url])
+            })
+    }, [props.nif, reprografia_url])
 
     return (
         <>

@@ -30,7 +30,6 @@ export default function Login() {
         setAuthState({
           nif: result.data.nif,
           nome: result.data.nome,
-          roles: result.data.roles,
           imagem: `${reprografia_url}/` + result.data.imagem,
           redirect: false,
           naoAutorizado: false
