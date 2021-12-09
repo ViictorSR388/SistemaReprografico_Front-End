@@ -60,20 +60,19 @@ const UserRequest = (props) => {
         },
       })
       .then((result) => {
+        if (id === 1) {
+          setAvaliados(true);
+        } else {
+          setAvaliados(false);
+        }
         if (result.data.length > 0) {
           setPedidos({
             list: result.data,
             status: true,
           });
-          console.log(result.data);
-          if (id === 1) {
-            setAvaliados(true);
-          } else {
-            setAvaliados(false);
-          }
         } else {
           setPedidos({
-            message: "Sem registros...",
+            message: result.data.message,
             ativos: true,
           });
         }

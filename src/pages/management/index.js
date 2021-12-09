@@ -23,7 +23,7 @@ function Management(props) {
     message: "",
   });
 
-  var [ativos, setAtivos] = useState();
+  var [ativos, setAtivos] = useState(true);
 
   const port = process.env.REACT_APP_PORT || 3002;
   

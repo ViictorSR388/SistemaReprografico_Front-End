@@ -75,12 +75,11 @@
 }
 
 .btn-goBack {
-  width: 38rem;
-  height: 3.2rem;
+  width: 40rem;
+  height: 3.4rem;
   cursor: pointer;
   margin-top: 2rem;
   padding: 1rem;
-  background-color: $red;
   color: $white;
   border-radius: 2rem;
   font-size: 1.5rem;
@@ -88,8 +87,6 @@
   align-items: center;
   justify-content: center;
   transition: .5s;
-  color: $white;
-  width: 40rem;
   background-color: $red !important;
   border: none !important;
 

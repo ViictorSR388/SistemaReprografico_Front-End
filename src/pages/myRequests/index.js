@@ -68,7 +68,7 @@ const MyRequests = (props) => {
                 }
                 else {
                     setPedidos({
-                        message: "Sem registros...",
+                        message: result.data.message,
                         ativos: true
                     });
                 }
