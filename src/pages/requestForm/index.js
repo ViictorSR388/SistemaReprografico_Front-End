@@ -288,20 +288,6 @@ function RequestForm(props) {
                             </Form.Check.Label>
                           </div>
                         </div>
-                        {/* {course === "4" && (
-                          <Form.Control
-                            className="textInput"
-                            as="textarea"
-                            placeholder="Especifique a Graduação"
-                            name="posGraduacao"
-                            id="posGraduacao"
-                            onChange={(e) => {
-                              setPosGraduacao(e.target.value);
-                            }}
-                            required
-                          />
-                        )} */}
-
                         <Card.Title
                           className="cardTitle-CC"
                           id="centro_custos"
@@ -323,7 +309,7 @@ function RequestForm(props) {
                               value="0"
                               name="null"
                               id="null"
-                              selected={cc === "0"}
+                              defaultValue={cc === "0"}
                             >
                               Nenhuma Opção Selecionada
                             </option>
@@ -331,7 +317,7 @@ function RequestForm(props) {
                               value="1"
                               name="AIP"
                               id="AIP"
-                              selected={cc === "1"}
+                              defaultValue={cc === "1"}
                             >
                               Aprendizagem Industrial Presencial
                             </option>
@@ -339,7 +325,7 @@ function RequestForm(props) {
                               value="2"
                               name="TNMP"
                               id="TNMP"
-                              selected={cc === "2"}
+                              defaultValue={cc === "2"}
                             >
                               Técnico de Nível Médio Presencial
                             </option>
@@ -347,7 +333,7 @@ function RequestForm(props) {
                               value="3"
                               name="GTP"
                               id="GTP"
-                              selected={cc === "3"}
+                              defaultValue={cc === "3"}
                             >
                               Graduação Tecnológica Presencial
                             </option>
@@ -355,18 +341,18 @@ function RequestForm(props) {
                               value="4"
                               name="PGP"
                               id="PGP"
-                              selected={cc === "4"}
+                              defaultValue={cc === "4"}
                             >
                               Pós-Graduação Presencial
                             </option>
-                            <option value="5" name="EP" id="EP" selected={cc === "5"}>
+                            <option value="5" name="EP" id="EP" defaultValue={cc === "5"}>
                               Extensão Presencial
                             </option>
                             <option
                               value="6"
                               name="IPP"
                               id="IPP"
-                              selected={cc === "6"}
+                              defaultValue={cc === "6"}
                             >
                               Iniciação Profissional Presencial
                             </option>
@@ -374,7 +360,7 @@ function RequestForm(props) {
                               value="7"
                               name="QPP"
                               id="QPP"
-                              selected={cc === "7"}
+                              defaultValue={cc === "7"}
                             >
                               Qualificação Profissional Presencial
                             </option>
@@ -382,7 +368,7 @@ function RequestForm(props) {
                               value="8"
                               name="AEPP"
                               id="AEPP"
-                              selected={cc === "8"}
+                              defaultValue={cc === "8"}
                             >
                               Aperfeiç./Especializ. Profis. Presencial
                             </option>
