@@ -25,7 +25,31 @@ function ProfileContainer(props) {
             if (props.image) {
                 setImage(`${props.image}`)
             }
-        } else {
+
+        }
+        else if (props.editMyUser) {
+            axios
+                .get(`${reprografia_url}/myUser/`, {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken"),
+                    },
+                }).then((result) => {
+                    setName(result.data.nome)
+                    setNif(result.data.nif)
+                    setImage(`${reprografia_url}/${result.data.imagem}`)
+                    if (props.nif) {
+                        setNif(props.nif)
+                    }
+                    if (props.image) {
+                        setImage(`${props.image}`)
+                    }
+                    if (props.name) {
+                        setName(props.name)
+                    }
+                    setLoading(false)
+                })
+        }
+        else {
             setLoading(true)
             axios
                 .get(`${reprografia_url}/myUser/`, {
@@ -48,7 +72,7 @@ function ProfileContainer(props) {
                     setLoading(false)
                 })
         }
-    }, [props.nif, props.image, props.name, reprografia_url, props.newUser])
+    }, [props.nif, props.image, props.name, reprografia_url, props.newUser, props.editMyUser])
 
     var history = useHistory();
 

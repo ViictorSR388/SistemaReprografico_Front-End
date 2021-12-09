@@ -149,16 +149,18 @@ function EditUser() {
         },
       })
       .then((result) => {
-        setAdminUser({
-          list: result.data.roles
-        });
-        setNameUser(result.data.nome);
-        setEmailUser(result.data.email);
-        setCfpUser(result.data.cfp);
-        setTelefoneUser(result.data.telefone);
-        setDeptoUser(result.data.id_depto);
-        setImage({ preview: `${reprografia_url}/` + result.data.imagem });
-        setLoading(false);
+        if(!result.data.error && result.data.status !== "error"){
+          setAdminUser({
+            list: result.data.roles
+          });
+          setNameUser(result.data.nome);
+          setEmailUser(result.data.email);
+          setCfpUser(result.data.cfp);
+          setTelefoneUser(result.data.telefone);
+          setDeptoUser(result.data.id_depto);
+          setImage({ preview: `${reprografia_url}/` + result.data.imagem });
+          setLoading(false);
+        }
       });
   }, [nif, reprografia_url]);
 

@@ -60,10 +60,12 @@ export default function AddService() {
         },
       })
       .then((result) => {
-        setDescricao(result.data.descricao)
-        setQuantidade(result.data.quantidade)
-        setCusto(result.data.valor_unitario)
-        setLoading(false);
+        if(!result.data.error && result.data.status !== "error"){
+          setDescricao(result.data.descricao)
+          setQuantidade(result.data.quantidade)
+          setCusto(result.data.valor_unitario)
+          setLoading(false);
+        }
       });
   }, [id, type, reprografia_url]);
 
