@@ -200,13 +200,13 @@
     height: 10rem;
     border-radius: 50%;
     cursor: pointer;
-  }
+    border: 3px solid #FFF;
+    transition: .5s;
 
-  // .edit-user-managent{
-  //   border-radius: 20% !important;
-  //   background-color: $grey-button !important;
-  //   color: $white !important;
-  // }
+    &:hover {
+      border: 3px solid $blue;
+    }
+  }
 
   .btnD-newUser {
     margin-left: 54vw;
