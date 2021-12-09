@@ -18,7 +18,9 @@ function RequestForm(props) {
 
   //cursos
   const [course, setCourse] = useState(0);
-  const [posGraduacao, setPosGraduacao] = useState("");
+
+  // const [posGraduacao, setPosGraduacao] = useState("");
+  
   const [message, setMessage] = useState("");
 
   const port = process.env.REACT_APP_PORT || 3002;
