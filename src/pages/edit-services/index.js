@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
-import '../../styles/addService.scss';
+import '../../styles/edit-services.scss';
 import LoginContainer from '../../components/loginContainer';
 import Loading from '../../../src/components/loading';
 
@@ -78,9 +78,9 @@ export default function AddService() {
               <h2 id="h2" className="service-subTitle">
                 Editar Serviço
               </h2>
-              <h2 className="title">{descricao}</h2>
+              <h2 className="title-editService">{descricao}</h2>
               <input
-                className="input-service"
+                className="input-service-ED"
                 name="quantidade"
                 type="number"
                 placeholder={quantidade}
@@ -89,7 +89,7 @@ export default function AddService() {
                 }}
               />
               <input
-                className="input-service"
+                className="input-service-EDS"
                 name="custo"
                 type="number"
                 step="any"

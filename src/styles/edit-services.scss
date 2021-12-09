@@ -1,0 +1,29 @@
+@import "global";
+
+.input-service-ED {
+  border: 2px solid $red;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: auto;
+  height: 3.5rem;
+  width: 38rem;
+  padding-left: 0.5rem;
+}
+
+.input-service-EDS {
+  border: 2px solid $red;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: auto;
+  margin-top: 2rem;
+  height: 3.5rem;
+  width: 38rem;
+  padding-left: 0.5rem;
+}
+
+.title-editService {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}

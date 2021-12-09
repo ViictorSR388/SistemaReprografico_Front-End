@@ -123,7 +123,7 @@ function NewUser(props) {
           <h4>Onde houver "*" o preenchimento é obrigatório</h4>
           <label className="important">*
             <input
-              className="input-box"
+              className="input-boxNEW"
               name="nameUser"
               type="text"
               placeholder="Nome"
@@ -135,7 +135,7 @@ function NewUser(props) {
           </label>
           <label className="important">*
             <input
-              className="input-box"
+              className="input-boxNEW"
               name="emailUser"
               type="email"
               placeholder="E-mail"
@@ -147,7 +147,7 @@ function NewUser(props) {
           </label>
           <label className="important">*
             <input
-              className="input-box"
+              className="input-boxNEW"
               name="nifUser"
               type="text"
               placeholder="NIF"
@@ -159,7 +159,7 @@ function NewUser(props) {
           </label>
           <label className="important">*
             <input
-              className="input-box"
+              className="input-boxNEW"
               name="cfpUser"
               type="text"
               placeholder="CFP"
@@ -171,7 +171,7 @@ function NewUser(props) {
           </label>
           <label>
             <input
-              className="input-box"
+              className="input-boxNEW"
               name="telefoneUser"
               type="text"
               placeholder="Telefone"

@@ -290,7 +290,7 @@ function RequestForm(props) {
                             </Form.Check.Label>
                           </div>
                         </div>
-                        {course === "4" && (
+                        {/* {course === "4" && (
                           <Form.Control
                             className="textInput"
                             as="textarea"
@@ -302,7 +302,7 @@ function RequestForm(props) {
                             }}
                             required
                           />
-                        )}
+                        )} */}
 
                         <Card.Title
                           className="cardTitle-CC"

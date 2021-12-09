@@ -54,7 +54,7 @@ function Menu(props) {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            <img className="logo" src="assets/img/logo.jpg" alt="logo" />
+            <img className="logo" src="../../../assets/img/logo.jpg" alt="logo" />
             {admin ?
               <> {managerData.map((item, index) => {
                 return (

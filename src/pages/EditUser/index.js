@@ -175,7 +175,7 @@ function EditUser() {
             nif={nif}
           />
           <div className="container-editUser">
-            <h2 className="ui-subTitle">Informações pessoais</h2>
+            <h2 className="ui-subTitleEDIT">Informações pessoais</h2>
             <h3 className="input-title">NOME</h3>
             <form onSubmit={handleUpload}>
               <input
@@ -322,7 +322,7 @@ function EditUser() {
                   value="Enviar"
                 />
                 <button
-                  className="btn-back-user"
+                  className="btn-goBack"
                   onClick={() => history.push("/management")}
                 >
                   Voltar

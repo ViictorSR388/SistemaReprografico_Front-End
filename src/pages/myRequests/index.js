@@ -19,10 +19,12 @@ const MyRequests = (props) => {
     });
 
     var [avaliados, setAvaliados] = useState();
-    // var [loading, setLoading] = useState();
+    const port = process.env.REACT_APP_PORT || 3002;
+
+    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
     useEffect(() => {
-        axios.get("http://localhost:3002/myRequests/rated=0", {
+        axios.get(`${reprografia_url}/myRequests/rated=0`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -42,30 +44,9 @@ const MyRequests = (props) => {
             });
     }, []);
 
-    // const [pastPassword] = useState();
-    // const [newPassword] = useState();
-    // const [setMessage] = useState();
-
-    // const passwordPost = (e) => {
-    //     e.preventDefault();
-
-    //     axios.put("http://localhost:3002/mudarSenha", { senhaAntiga: pastPassword, senhaNova: newPassword }, {
-    //         headers: {
-    //             accessToken: localStorage.getItem("accessToken"),
-    //         },
-    //     }).then((result) => {
-    //         if (result.data.error) {
-    //             setMessage(result.data.error)
-    //         }
-    //         else {
-    //             setMessage(result.data.message)
-    //         }
-    //     })
-    // }
-
     const getAvaliados = (id) => {
         axios
-            .get("http://localhost:3002/myRequests/rated=" + id, {
+            .get(`${reprografia_url}/myRequests/rated=` + id, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -107,7 +88,7 @@ const MyRequests = (props) => {
             }
         })
 
-        await axios.get(`http://localhost:3002/requestAgain/${id}`, {
+        await axios.get(`${reprografia_url}/requestAgain/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -191,7 +172,7 @@ const MyRequests = (props) => {
                                                                         <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/review/" + data.id_pedido) }}>avaliar</Button>
                                                                         <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/requestList/" + data.id_pedido) }}>detalhes</Button>
                                                                         {data.realizado_qtdade < 2 ? <></> : <Button className="detailsForm" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>}
-                                                                    </>} 
+                                                                    </>}
                                                             </div>
 
                                                         </td>
