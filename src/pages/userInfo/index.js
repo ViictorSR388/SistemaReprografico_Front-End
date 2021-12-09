@@ -370,25 +370,24 @@ function UserInfo(props) {
                           Upload
                         </label>
                         <h4 className="mensagem-edit">{mensagem}</h4>
-                        <div className="btns">
-                          <input
-                            type="submit"
-                            className="nu-send-button"
-                            id="btn"
-                            value="Enviar"
-                          />
-                          <button
-                            className="btn-back-user"
-                            id="btn"
-                            onClick={() => {
-                              setEdit(false);
-                            }}
-                          >
-                            {" "}
-                            Voltar
-                          </button>
-                        </div>
+                        <input
+                          type="submit"
+                          className="nu-send-button"
+                          id="btn"
+                          value="Enviar"
+                        />
                       </form>
+                      <button
+                        className="btn-back-user"
+                        id="btn"
+                        onClick={() => {
+                          setEdit(false);
+                          setNameUser(props.name)
+                        }}
+                      >
+                        {" "}
+                        Voltar
+                      </button>
                     </>
                   ) : (
                     <>
