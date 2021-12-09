@@ -19,9 +19,9 @@ function UserInfo(props) {
 
   const [emailUser, setEmailUser] = useState("");
 
-  const [cfpUser, setCfpUser] = useState("");
-
   const [telefoneUser, setTelefoneUser] = useState("");
+
+  const [cfpUser, setCfpUser] = useState("");
 
   const [deptoUser, setDeptoUser] = useState("");
 
@@ -134,8 +134,8 @@ function UserInfo(props) {
           setNameUser(result.data.nome);
           setEmailUser(result.data.email);
           setTelefoneUser(result.data.telefone);
-          setCfpUser(result.data.cfp);
           setDeptoUser(result.data.depto);
+          setCfpUser(result.data.cfp)
           setImage({ preview: `${reprografia_url}/` + result.data.imagem });
           setLoading(false);
         }
@@ -198,46 +198,61 @@ function UserInfo(props) {
       ) : (
         <>
           <div className="content">
-            {adm && myNif !== nif ?
-              <>
-                <ProfileContainer
-                  image={image.preview}
-                  name={nameUser}
-                  nif={nif}
-                  change={false}
-                  admin={true}
-                  edit={() => {
-                    history.push(`edit/${nif}`)
-                  }}
-
-                />
-              </> :
-              <>
-                {myNif === nif ? (
+            {adm && myNif === nif ? <>
+              <ProfileContainer
+                image={image.preview}
+                name={nameUser}
+                nif={nif}
+                change={true}
+                edit={() => {
+                  history.push(`edit/${nif}`)
+                }}
+                changePassword={() => {
+                  setChangePass(true);
+                  setEdit(false)
+                }}
+              />
+            </> : <>
+              {adm && myNif !== nif ?
+                <>
                   <ProfileContainer
                     image={image.preview}
                     name={nameUser}
                     nif={nif}
-                    change={true}
+                    change={false}
+                    admin={true}
                     edit={() => {
-                      setEdit(true);
-                      setChangePass(false);
+                      history.push(`edit/${nif}`)
                     }}
-                    changePassword={() => {
-                      setChangePass(true);
-                      setEdit(false)
-                    }}
-                    editMyUser={true}
-                  />
-                ) : (
-                  <ProfileContainer
-                    image={image.preview}
-                    name={nameUser}
-                    nif={nif}
-                  />
-                )}
-              </>}
 
+                  />
+                </> :
+                <>
+                  {myNif === nif ? (
+                    <ProfileContainer
+                      image={image.preview}
+                      name={nameUser}
+                      nif={nif}
+                      change={true}
+                      edit={() => {
+                        setEdit(true);
+                        setChangePass(false);
+                      }}
+                      changePassword={() => {
+                        setChangePass(true);
+                        setEdit(false)
+                      }}
+                      editMyUser={true}
+                    />
+                  ) : (
+                    <ProfileContainer
+                      image={image.preview}
+                      name={nameUser}
+                      nif={nif}
+                    />
+                  )}
+                </>}
+            </>}
 
             <div className="container-userInfo">
               {changePass ? (
@@ -381,10 +396,10 @@ function UserInfo(props) {
                       <h2 className="userInformation">{nif}</h2>
                       <h3 className="input-title">EMAIL</h3>
                       <h2 className="userInformation">{emailUser}</h2>
-                      <h3 className="input-title">CFP</h3>
-                      <h2 className="userInformation">{cfpUser}</h2>
                       <h3 className="input-title">TELEFONE</h3>
                       <h2 className="userInformation">{telefoneUser}</h2>
+                      <h3 className="input-title">CFP</h3>
+                      <h2 className="userInformation">{cfpUser}</h2>
                       <h3 className="input-title">DEPARTAMENTO</h3>
                       <h2 className="userInformation">{deptoUser}</h2>
                       <div className="btns">

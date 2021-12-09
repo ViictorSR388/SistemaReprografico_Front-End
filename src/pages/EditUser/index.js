@@ -315,21 +315,19 @@ function EditUser() {
                 </React.Fragment>
               ))}
               <h4 className="mensagem-edit">{mensagem}</h4>
-              <div className="btns">
                 <input
                   type="submit"
                   className="nu-send-button"
                   id="btn"
                   value="Enviar"
                 />
-                <button
+            </form>
+            <button
                   className="btn-goBack"
-                  onClick={() => history.push("/management")}
+                  onClick={() => history.goBack() }
                 >
                   Voltar
                 </button>
-              </div>
-            </form>
           </div>
         </>
       }
