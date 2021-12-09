@@ -34,7 +34,7 @@ function RequestList(props) {
         },
       })
       .then((result) => {
-        if (!result.data.error) {
+        if (!result.data.error && result.data.status !== "error") {
           if (result.data.message) {
             setPedidos({
               message: result.data.message
@@ -45,8 +45,8 @@ function RequestList(props) {
               status: true,
             });
           }
+          setLoading(false)
         }
-        setLoading(false)
       });
   }, [id, reprografia_url]);
 

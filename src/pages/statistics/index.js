@@ -74,7 +74,6 @@ export default function Statistics(props) {
                 },
             })
             .then((result) => {
-                console.log(result)
                 setUnicoMes([result.data[0]]);
                 setFetchMesStatus(true);
                 setFirstRequest(true);
