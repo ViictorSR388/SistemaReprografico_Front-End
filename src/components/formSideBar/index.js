@@ -81,7 +81,7 @@ function SideBar(props) {
                         <img src={image} className="repo" alt="imagem do usuário" />
                     </div>
                     <h2 className="subTitle" onClick={() => { history.push(`/user/${nif}`) }}>{name}</h2>
-                    <h3>NIF: {nif}</h3>
+                    <h3 className="sidebar-nif">NIF: {nif}</h3>
                     <div className="buttonsG">
 
                         {props.requestForm ? <></> : <><button className="buttonG" onClick={routeForm}>Solicitar Impressão</button></>}

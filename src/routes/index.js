@@ -192,18 +192,6 @@ function Rotas() {
                     />
                   )}
                 />
-                <Route
-                  path="/feedbacks/:id"
-                  exact
-                  component={() => (
-                    <Feedbacks
-                      image={authState.imagem}
-                      name={authState.nome}
-                      nif={authState.nif}
-                      admin={authState.admin}
-                    />
-                  )}
-                />
                 {administrator === 1 || authState.admin === true ? (
                   <>
                     <Route

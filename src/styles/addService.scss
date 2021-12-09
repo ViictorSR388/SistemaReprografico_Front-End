@@ -20,18 +20,22 @@
     color: $white;
     height: 4rem;
     width: 38rem;
-    margin-bottom: 4.5rem;
-    font-size: 1.8rem;
+    font-size: 3rem;
+    margin: auto;
   }
 
   .input-service {
-    border: 1px solid #363232;
+    border: 2px solid $red;
     box-sizing: border-box;
     border-radius: 4px;
     margin-bottom: 1.8rem;
     height: 3.5rem;
     width: 38rem;
     padding-left: 0.5rem;
+  }
+
+  .import-addServices {
+    text-align: center;
   }
 
   input::-webkit-outer-spin-button,
