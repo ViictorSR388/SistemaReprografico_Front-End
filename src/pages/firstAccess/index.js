@@ -9,7 +9,7 @@ import { AuthContext } from "./../../helpers/AuthContext";
 function FirstAccess(props) {
     var history = useHistory();
 
-    const [nif, setNif] = useState();
+    // const [nif, setNif] = useState();
 
     const [senha, setSenha] = useState('');
     //email
@@ -37,7 +37,7 @@ function FirstAccess(props) {
                     })
                 }, 1000);
                 setTimeout(() => {
-                    history.push(`/user/${nif}`)
+                    history.push(`/requestForm`)
                 }, 1200)
             }
             else if (result.data.message === "Esse não é o seu primeiro acesso!") {
@@ -58,19 +58,19 @@ function FirstAccess(props) {
         history.push('/')
     };
 
-    useEffect(() => {
-        axios
-            .get(`${reprografia_url}/myUser/`, {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken"),
-                },
-            }).then((result) => {
-                setNif(result.data.nif)
-                if (props.nif) {
-                    setNif(props.nif)
-                }
-            })
-    }, [props.nif, reprografia_url])
+    // useEffect(() => {
+    //     axios
+    //         .get(`${reprografia_url}/myUser/`, {
+    //             headers: {
+    //                 accessToken: localStorage.getItem("accessToken"),
+    //             },
+    //         }).then((result) => {
+    //             setNif(result.data.nif)
+    //             if (props.nif) {
+    //                 setNif(props.nif)
+    //             }
+    //         })
+    // }, [props.nif, reprografia_url])
 
     return (
         <>

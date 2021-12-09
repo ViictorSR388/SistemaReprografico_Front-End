@@ -406,7 +406,7 @@ function UserInfo(props) {
                         <button
                           className="btn-back-user"
                           id="btn"
-                          onClick={() => { history.push("/requestForm") }}
+                          onClick={() => { history.goBack() }}
                         >
                           {" "}
                           Voltar

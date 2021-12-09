@@ -48,7 +48,7 @@ export default function Login() {
             setAuthState({
               admin: true, firstAccess: false,
             });
-            history.push("user/" + result.data.nif);
+            history.push("management");
           }
           else if (resposta === true && result.data.primeiro_acesso === 1) {
             setAuthState({
@@ -60,7 +60,7 @@ export default function Login() {
             setAuthState({
               admin: false, firstAccess: false
             });
-            history.push("user/" + result.data.nif);
+            history.push("requestForm");
           }
         }
       }
