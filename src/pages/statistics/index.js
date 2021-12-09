@@ -171,7 +171,21 @@ export default function Statistics(props) {
                                                         <React.Fragment key={null}>
                                                             <tr>
                                                                 <td>
-                                                                    <strong>Atendeu</strong>
+                                                                    <strong>Total de Pedidos Avaliados</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <Card.Text>
+                                                                        {
+                                                                            // data[0].qtdade_solicitada +
+                                                                            data[1].qtdade_solicitada +
+                                                                            data[2].qtdade_solicitada
+                                                                        }
+                                                                    </Card.Text>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <strong>Status: Atendeu</strong>
                                                                 </td>
                                                                 <td>
                                                                     <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
@@ -179,26 +193,13 @@ export default function Statistics(props) {
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <strong>Não Atendeu</strong>
+                                                                    <strong>Status: Não Atendeu</strong>
                                                                 </td>
                                                                 <td>
                                                                     <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <strong>Total de Pedidos Avaliados</strong>
-                                                                </td>
-                                                                <td>
-                                                                    <Card.Text>
-                                                                        {
-                                                                        // data[0].qtdade_solicitada +
-                                                                            data[1].qtdade_solicitada +
-                                                                            data[2].qtdade_solicitada
-                                                                        }
-                                                                    </Card.Text>
-                                                                </td>
-                                                            </tr>
+
                                                         </React.Fragment>
                                                     ))}
                                                 </tbody>
@@ -216,7 +217,7 @@ export default function Statistics(props) {
                                                                         <strong>Total de Pedidos</strong>
                                                                     </td>
                                                                     <td>
-                                                                        <Card.Text>{data.pedidos}</Card.Text>
+                                                                        <Card.Text>{data.pedidos || 0}</Card.Text>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -224,7 +225,7 @@ export default function Statistics(props) {
                                                                         <strong>Total de Folhas Impressas</strong>
                                                                     </td>
                                                                     <td>
-                                                                        <Card.Text>{data.folhas_impressas}</Card.Text>
+                                                                        <Card.Text>{data.folhas_impressas || 0}</Card.Text>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -232,7 +233,7 @@ export default function Statistics(props) {
                                                                         <strong>Total de Copias</strong>
                                                                     </td>
                                                                     <td>
-                                                                        <Card.Text>{data.num_copias}</Card.Text>
+                                                                        <Card.Text>{data.num_copias || 0}</Card.Text>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -240,7 +241,7 @@ export default function Statistics(props) {
                                                                         <strong>Total de Paginas</strong>
                                                                     </td>
                                                                     <td>
-                                                                        <Card.Text>{data.num_paginas}</Card.Text>
+                                                                        <Card.Text>{data.num_paginas || 0}</Card.Text>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -248,7 +249,7 @@ export default function Statistics(props) {
                                                                         <strong>Total de Custo</strong>
                                                                     </td>
                                                                     <td>
-                                                                    <Card.Text>{"R$ "}{(Math.round((data.custo_total * 1000) / 10) / 100).toFixed(2)}</Card.Text>
+                                                                        <Card.Text>{"R$ "}{(Math.round((data.custo_total * 1000) / 10) / 100).toFixed(2)}</Card.Text>
                                                                     </td>
                                                                 </tr>
                                                             </React.Fragment>
@@ -270,7 +271,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[1].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[1].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -278,7 +279,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[2].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[2].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -286,7 +287,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[3].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -294,7 +295,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[4].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[4].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[4].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                 </React.Fragment>
@@ -306,7 +307,7 @@ export default function Statistics(props) {
                                         </div>
                                     </div>
                                     <div className="second-line-div">
-                                    <div className="first-line-tables">
+                                        <div className="first-line-tables">
                                             {fetchMesStatus ? <h1 className="title-tables">Solicitações por Cursos</h1> : <></>}
                                             <Table className="" striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
@@ -319,7 +320,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[1].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[1].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -327,7 +328,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[2].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[2].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -335,7 +336,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[3].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -343,7 +344,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[3].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                 </React.Fragment>
@@ -366,7 +367,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[1].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[1].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -374,7 +375,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[2].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[2].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -382,7 +383,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[3].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -390,7 +391,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[4].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[4].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[4].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -398,7 +399,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[5].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[5].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[5].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -406,7 +407,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[6].status}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[6].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[6].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                 </React.Fragment>
@@ -429,7 +430,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[1].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[1].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -437,7 +438,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[2].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[2].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -445,7 +446,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[3].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -453,7 +454,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[4].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[4].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[4].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -461,7 +462,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[5].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[5].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[5].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -469,7 +470,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[6].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[6].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[6].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -477,7 +478,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[7].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[7].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[7].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
@@ -485,7 +486,7 @@ export default function Statistics(props) {
                                                                             <strong>{data[8].descricao}</strong>
                                                                         </td>
                                                                         <td>
-                                                                            <Card.Text>{data[8].qtdade_solicitada}</Card.Text>
+                                                                            <Card.Text>{data[8].qtdade_solicitada || 0}</Card.Text>
                                                                         </td>
                                                                     </tr>
                                                                 </React.Fragment>
