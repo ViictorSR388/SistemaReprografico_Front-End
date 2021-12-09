@@ -57,8 +57,8 @@ export default function AddService() {
           <h2 id="" className="service-subTitle">
             Adicionar Serviço
           </h2>
-          <h4>Onde houver "*" o preenchimento é obrigatório</h4>
-          <label>*
+          <h4 className="import-addServices">Onde houver "*" o preenchimento é obrigatório</h4>
+          <label className="important">*
             <input
               className="input-service"
               name="descricao"
@@ -70,7 +70,7 @@ export default function AddService() {
               }}
             />
           </label>
-          <label>*
+          <label className="important">*
             <input
               className="input-service"
               name="quantidade"
@@ -82,7 +82,7 @@ export default function AddService() {
               }}
             />
           </label>
-          <label>*
+          <label className="important">*
             <input
               className="input-service"
               name="custo"

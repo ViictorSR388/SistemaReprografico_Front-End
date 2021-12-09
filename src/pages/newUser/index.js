@@ -121,7 +121,7 @@ function NewUser(props) {
         </h2>
         <form onSubmit={onSubmit}>
           <h4>Onde houver "*" o preenchimento é obrigatório</h4>
-          <label>*
+          <label className="important">*
             <input
               className="input-box"
               name="nameUser"
@@ -133,7 +133,7 @@ function NewUser(props) {
               }}
             />
           </label>
-          <label>*
+          <label className="important">*
             <input
               className="input-box"
               name="emailUser"
@@ -145,7 +145,7 @@ function NewUser(props) {
               }}
             />
           </label>
-          <label>*
+          <label className="important">*
             <input
               className="input-box"
               name="nifUser"
@@ -157,7 +157,7 @@ function NewUser(props) {
               }}
             />
           </label>
-          <label>*
+          <label className="important">*
             <input
               className="input-box"
               name="cfpUser"
@@ -215,19 +215,19 @@ function NewUser(props) {
             </Form.Check.Label>
           </div>
 
-          <label className="customize">
+          <label className="customizeNew">
             <input
               type="file"
               name="image"
               onChange={handleChange}
               accept="image/*"
             />
-            <FaCloudUploadAlt className="uploud" />
+            <FaCloudUploadAlt className="uploudNew" />
             Upload
           </label>
           <h3 className="input-title">DEPARTAMENTO</h3>
           <select
-            className="select"
+            className="selectNew"
             id="deptoUser"
             name="deptoUser"
             required

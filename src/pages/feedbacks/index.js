@@ -11,7 +11,7 @@ import Swal from 'sweetalert2'
 import Button from "@restart/ui/esm/Button";
 import Loading from "../../components/loading";
 
-function RequestList(props) {
+function Feedback(props) {
 
     const { id } = useParams();
 
@@ -141,4 +141,4 @@ function RequestList(props) {
     );
 };
 
-export default RequestList;
+export default  Feedback;
