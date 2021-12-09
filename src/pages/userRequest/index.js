@@ -37,7 +37,6 @@ const UserRequest = (props) => {
         },
       })
       .then((result) => {
-        if (!result.data.error && result.data.status !== "error") {
           if (result.data.length > 0) {
             setPedidos({
               list: result.data,
@@ -49,7 +48,6 @@ const UserRequest = (props) => {
             });
           }
           setLoading(false)
-        }
       });
 
   }, [nif, reprografia_url]);
