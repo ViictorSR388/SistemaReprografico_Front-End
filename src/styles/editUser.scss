@@ -75,24 +75,27 @@
 }
 
 .btn-goBack {
-  margin-top: 1.5rem !important;
-  width: 100% !important;
-  height: 35% !important;
-  display: flex !important;
-  padding: 1rem !important;
-  font-size: 1.4rem !important;
-  flex-direction: column !important;
-  border-radius: 20px !important;
+  width: 40rem;
+  height: 3.5rem;
+  cursor: pointer;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: $red;
+  color: $white;
+  border-radius: 2rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: .5s;
+  background-color: $red !important;
+  border: none !important;
+
+  &:hover {
+    background-color: #ba181b;
+  }
 
   &:hover {
     background-color: rgb(139, 10, 10) !important;
   }
-}
-
-.btn-goBack {
-  color: $white;
-  width: 40rem;
-  background-color: $red !important;
-  border: none !important;
 }
