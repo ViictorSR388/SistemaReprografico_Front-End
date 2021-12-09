@@ -148,7 +148,7 @@ function Management(props) {
                     type="search"
                     name="search"
                     id="search"
-                    placeholder="Filtro"
+                    placeholder="Pesquisar usuário"
                     onChange={(e) => {
                       setSearchTerm(e.target.value);
                     }}

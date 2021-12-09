@@ -16,7 +16,6 @@ function ProfileContainer(props) {
     var [loading, setLoading] = useState(Loading);
 
     useEffect(() => {
-
         if (props.newUser) {
             setImage(`${reprografia_url}/src/uploads/user-img/default/usuario.png`)
             setLoading(false)

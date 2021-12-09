@@ -297,7 +297,7 @@ function UserInfo(props) {
                         </button>
                       </form>
                       <button
-                        className="nu-back-button"
+                        className="btn-back-user"
                         onClick={() => {
                           setChangePass(false);
                         }}
@@ -365,7 +365,7 @@ function UserInfo(props) {
                                 value="Enviar"
                               />
                               <button
-                                className="nu-back-button"
+                                className="btn-back-user"
                                 id="btn"
                                 onClick={() => {
                                   setEdit(false);
