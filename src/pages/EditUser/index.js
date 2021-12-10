@@ -8,9 +8,11 @@ import ProfileContainer from "../../components/profileContainer";
 import Loading from "../../components/loading";
 import "../../styles/editUser.scss";
 
-function EditUser() {
+function EditUser(props) {
 
   const { nif } = useParams();
+
+  const [myNif, setMyNif] = useState();
 
   const [image, setImage] = useState({ raw: "", preview: "" });
 
@@ -160,6 +162,15 @@ function EditUser() {
           setLoading(false);
         }
       });
+      axios
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((result) => {
+        setMyNif(result.data.nif)
+      })
   }, [nif]);
 
 
@@ -278,8 +289,8 @@ function EditUser() {
                   Aperfeiç./Especializ. Profis. Presencial
                 </option>
               </select>
-
-              {adminUser.list.map((data) => (
+                {`${nif}` !== `${myNif}` && `${nif}` !== "1" ? <>
+                  {adminUser.list.map((data) => (
                 <React.Fragment key={null}>
                   {data.descricao === "user" ?
                     <>
@@ -296,22 +307,25 @@ function EditUser() {
                       <h2 className="opcoes">Alterar para usuário administrador?</h2>
                     </>
                     :
-                    <>
-                      <Form.Check
+                    <>           
+                    <Form.Check
                         className="radioOpcoes"
                         type="radio"
                         name="admin"
                         id="admin2"
                         checked={admin === "0"}
                         onChange={() => {
-                          setAdmin("0")
+                          console.log("nif" + nif)
+                          console.log("mynif" + myNif)
                         }}
                       />
                       <h2 className="opcoes">Alterar para usuário comum?</h2>
                     </>
-                  }
+                    }
                 </React.Fragment>
               ))}
+                </>: <> </>}
+             
               <h4 className="mensagem-edit">{mensagem}</h4>
               <input
                 type="submit"

@@ -379,6 +379,7 @@ function UserInfo(props) {
                         onClick={() => {
                           setEdit(false);
                           setNameUser(props.name)
+                          setImage({preview: props.image})
                         }}
                       >
                         {" "}
