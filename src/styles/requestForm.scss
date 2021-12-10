@@ -53,7 +53,7 @@
 
     .upload-form {
       font-size: 1.5rem !important;
-      width: 25% !important;
+      width: 17rem !important;
       background-color: $blue !important;
       cursor: pointer !important;
       margin-bottom: 2rem !important;
@@ -124,6 +124,7 @@
         font-size: 2rem;
         height: 15vh;
         width: 18vw;
+        background-color: $white;
       }
 
       .step-btn {
@@ -235,6 +236,10 @@
     margin: auto;
     left: 0;
     right: 0;
+  }
+
+  .upload-form {
+    margin: 0 1rem;
   }
 }
 
