@@ -27,6 +27,10 @@ function NewUser(props) {
 
   const [mensagem, setMensagem] = useState("");
 
+  const port = process.env.REACT_APP_PORT || 3002;
+
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   var departamento;
 
   if (deptoUser === "1") {
@@ -50,7 +54,7 @@ function NewUser(props) {
   //imagem
   const [image, setImage] = useState({
     raw: "",
-    preview: `${process.env.BACKEND_HOST}/src/uploads/user-img/default/usuario.png`,
+    preview: `${process.env.REACT_APP_REPROGRAFIA_URL}/src/uploads/user-img/default/usuario.png`,
   });
 
   const handleChange = (e) => {
@@ -77,7 +81,7 @@ function NewUser(props) {
       setMensagem("Por favor selecione um departamento!");
     } else {
       axios
-        .post(`${process.env.BACKEND_HOST}/newUser`, formData, {
+        .post(`${process.env.REACT_APP_REPROGRAFIA_URL}/newUser`, formData, {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },

@@ -71,7 +71,7 @@ function SideBar(props) {
                 }
                 setLoading(false)
             })
-    }, [props.nif, props.image, props.name, props.admin, process.env.REACT_APP_REPROGRAFIA_URL])
+    }, [props.nif, props.image, props.name, props.admin])
 
     return (
         <>

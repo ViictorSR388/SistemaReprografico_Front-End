@@ -21,9 +21,13 @@ function Feedback(props) {
         message: "",
     });
 
+    const port = process.env.REACT_APP_PORT || 3002;
+
+    // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
     const Details = (feedbackId) => {
         axios
-            .get(`${process.env.BACKEND_HOST}/feedback/id/${feedbackId}`, {
+            .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/feedback/id/${feedbackId}`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -49,7 +53,7 @@ function Feedback(props) {
     useEffect(() => {
         setLoading(true)
         axios
-            .get(`${process.env.BACKEND_HOST}/feedbacks/${id}`, {
+            .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/feedbacks/${id}`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -67,7 +71,7 @@ function Feedback(props) {
                 }
                 setLoading(false)
             });
-    }, [id]);
+    }, [id, process.env.REACT_APP_REPROGRAFIA_URL]);
 
     return (
         <>

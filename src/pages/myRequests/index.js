@@ -21,11 +21,14 @@ const MyRequests = (props) => {
 
     var [avaliados, setAvaliados] = useState();
 
+    const port = process.env.REACT_APP_PORT || 3002;
+    // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
     var [loading, setLoading] = useState(Loading);
 
     useEffect(() => {
         setLoading(true)
-        axios.get(`${process.env.BACKEND_HOST}/myRequests/rated=0`, {
+        axios.get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myRequests/rated=0`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -48,7 +51,7 @@ const MyRequests = (props) => {
 
     const getAvaliados = (id) => {
         axios
-            .get(`${process.env.BACKEND_HOST}/myRequests/rated=` + id, {
+            .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myRequests/rated=` + id, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -88,7 +91,7 @@ const MyRequests = (props) => {
             }
         })
 
-        await axios.get(`${process.env.BACKEND_HOST}/requestAgain/${id}`, {
+        await axios.get(`${process.env.REACT_APP_REPROGRAFIA_URL}/requestAgain/${id}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },

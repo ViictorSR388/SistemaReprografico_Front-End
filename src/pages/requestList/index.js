@@ -19,12 +19,14 @@ function RequestList(props) {
     message: "",
   });
 
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   var [loading, setLoading] = useState(Loading);
 
   useEffect(() => {
     setLoading(true)
     axios
-      .get(`${process.env.BACKEND_HOST}/requestDetails/${id}`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/requestDetails/${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },

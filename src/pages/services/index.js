@@ -25,6 +25,10 @@ export default function Services(props) {
 
   var [semRegistros, setSemRegistros] = useState();
 
+  const port = process.env.REACT_APP_PORT || 3002;
+
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   useEffect(() => {
     onLoad();
     return () => {
@@ -34,7 +38,7 @@ export default function Services(props) {
 
   const servicosAtivos = (id) => {
     axios
-      .get(`${process.env.BACKEND_HOST}/services/enabled=` + id, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/services/enabled=` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -62,7 +66,7 @@ export default function Services(props) {
     setLoading(true);
     var config = {
       method: "get",
-      url: `${process.env.BACKEND_HOST}/services/enabled=1`,
+      url: `${process.env.REACT_APP_REPROGRAFIA_URL}/services/enabled=1`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -96,7 +100,7 @@ export default function Services(props) {
 
     var config = {
       method: "put",
-      url: `${process.env.BACKEND_HOST}/service/${id}/type=${type}/enable=${atvr}`,
+      url: `${process.env.REACT_APP_REPROGRAFIA_URL}/service/${id}/type=${type}/enable=${atvr}`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },

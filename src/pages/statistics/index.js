@@ -27,6 +27,10 @@ export default function Statistics(props) {
     const [ano, setAno] = useState();
     const [mes, setMes] = useState();
 
+    const port = process.env.REACT_APP_PORT || 3002;
+
+    // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
     const selectMesAno = (e) => {
         e.preventDefault();
 
@@ -49,7 +53,7 @@ export default function Statistics(props) {
         }
         else {
             axios
-                .get(`${process.env.BACKEND_HOST}/estatisticas/mensais/${ano}/${mes}`, {
+                .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/estatisticas/mensais/${ano}/${mes}`, {
                     headers: {
                         accessToken: localStorage.getItem("accessToken"),
                     },
@@ -69,7 +73,7 @@ export default function Statistics(props) {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`${process.env.BACKEND_HOST}/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
+            .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },

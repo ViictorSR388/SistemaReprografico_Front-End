@@ -23,6 +23,10 @@ function RequestForm(props) {
   
   const [message, setMessage] = useState("");
 
+  const port = process.env.REACT_APP_PORT || 3002;
+
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   var history = useHistory();
 
   var curso;
@@ -121,7 +125,7 @@ function RequestForm(props) {
     }
     else {
       axios
-        .post(`${process.env.BACKEND_HOST}/request`, formData, {
+        .post(`${process.env.REACT_APP_REPROGRAFIA_URL}/request`, formData, {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },
@@ -170,7 +174,7 @@ function RequestForm(props) {
     setLoading(true)
     var config = {
       method: "get",
-      url: `${process.env.BACKEND_HOST}/services/enabled=1`,
+      url: `${process.env.REACT_APP_REPROGRAFIA_URL}/services/enabled=1`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },

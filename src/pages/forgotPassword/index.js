@@ -18,7 +18,10 @@ export default function ForgotPassword() {
   //Instanciando o useHistory para utilização na navegação do site
   const history = useHistory();
 
+  const port = process.env.REACT_APP_PORT || 3002;
   
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   const ForgotPasswordPost = () => {
     //Se o input do email estiver vázio ele seta um valor para a mensagem.
     if (email === '') {
@@ -29,7 +32,7 @@ export default function ForgotPassword() {
     // o valor abaixo.
     else {
       const data = { mail: email };
-      axios.post(`${process.env.BACKEND_HOST}/forgotPassword`, data).then((response) => {
+      axios.post(`${process.env.REACT_APP_REPROGRAFIA_URL}/forgotPassword`, data).then((response) => {
 
         //Retorna o valor de "enviado" como TRUE => Serve para usarmos na parte do operador ternário (trocar o botão por mensagem
         // se for true, por exemplo...)

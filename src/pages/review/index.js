@@ -19,10 +19,14 @@ function Review(props) {
 
   var [mensagem, setMensagem] = useState();
 
+  const port = process.env.REACT_APP_PORT || 3002;
+
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   const avaliaPost = (e) => {
     e.preventDefault();
 
-    axios.put(`${process.env.BACKEND_HOST}/rating/` + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
+    axios.put(`${process.env.REACT_APP_REPROGRAFIA_URL}/rating/` + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },

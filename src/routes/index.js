@@ -40,9 +40,12 @@ function Rotas() {
   const [naoAutorizado, setNaoAutorizado] = useState(0);
 
 
+  
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   useEffect(() => {
     axios
-      .get(`${process.env.BACKEND_HOST}/myUser`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -61,12 +64,13 @@ function Rotas() {
         }
         else {
           setAuthState({
+
             redirect: false,
             status: true,
             nif: response.data.nif,
             email: response.data.email,
             nome: response.data.nome,
-            imagem: `${process.env.BACKEND_HOST}` + response.data.imagem,
+            imagem: `${process.env.REACT_APP_REPROGRAFIA_URL}` + response.data.imagem,
             firstAccess: false,
             naoAutorizado: true
           });

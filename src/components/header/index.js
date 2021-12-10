@@ -27,7 +27,7 @@ function Header(props) {
       }).then((result) => {
         setNif(result.data.nif)
       })
-  }, [nif, process.env.REACT_APP_REPROGRAFIA_URL])
+  }, [nif])
 
   const logout = () => {
     localStorage.removeItem("accessToken");

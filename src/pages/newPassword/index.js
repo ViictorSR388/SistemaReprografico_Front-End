@@ -22,7 +22,10 @@ export default function NewPassword() {
     email: ""
   })
 
+  const port = process.env.REACT_APP_PORT || 3002;
   
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   //UseState() => Usado para setar o status de envio e realizar alguma alteração em função disso 
   // (mudei o botão de enviar para a mensagem abaixo!)
   const [enviado, setEnviado] = useState();
@@ -42,7 +45,7 @@ export default function NewPassword() {
     }
     else {
       const data = { senha: senhaInput, senha2: senhaInput2, token: values.token, email: values.email };
-      axios.post(`${process.env.BACKEND_HOST}/resetPassword`, data).then((result) => {
+      axios.post(`${process.env.REACT_APP_REPROGRAFIA_URL}/resetPassword`, data).then((result) => {
         setEnviado(true)
         setMensagem(result.data.message)
       })

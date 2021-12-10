@@ -24,10 +24,14 @@ const UserRequest = (props) => {
 
   var [loading, setLoading] = useState(Loading);
 
+  const port = process.env.REACT_APP_PORT || 3002;
+
+  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+
   useEffect(() => {
     setLoading(true)
     axios
-      .get(`${process.env.BACKEND_HOST}/request/nif/${nif}/rated=0`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/request/nif/${nif}/rated=0`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -50,7 +54,7 @@ const UserRequest = (props) => {
 
   const getAvaliados = (id) => {
     axios
-      .get(`http://localhost:3002/request/nif/${nif}/rated=${id}`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/request/nif/${nif}/rated=${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },

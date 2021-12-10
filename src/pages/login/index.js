@@ -17,13 +17,13 @@ export default function Login() {
 
   const port = process.env.REACT_APP_PORT || 3002;
 
-  const reprografia_url = `${process.env.BACKEND_HOST}:${port}`;
+  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   let history = useHistory();
 
   const LoginPost = () => {
     const data = { emailOrNif: emailOrNif, senha: senha };
-    axios.post(`${process.env.BACKEND_HOST}/login`, data).then((result) => {
+    axios.post(`${process.env.REACT_APP_REPROGRAFIA_URL}/login`, data).then((result) => {
       if (result.data.status === "error") {
         setMensagem(result.data.message);
       } else {
@@ -72,7 +72,7 @@ export default function Login() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.BACKEND_HOST}/myUser`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
