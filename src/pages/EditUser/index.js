@@ -120,7 +120,7 @@ function EditUser() {
     }
 
     axios
-      .put(`${process.env.BACKEND_HOST}/user/` + nif, formData, {
+      .put(`${process.env.REACT_APP_REPROGRAFIA_URL}/user/` + nif, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -141,7 +141,7 @@ function EditUser() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${process.env.BACKEND_HOST}/user/` + nif, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/user/` + nif, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -156,7 +156,7 @@ function EditUser() {
           setCfpUser(result.data.cfp);
           setTelefoneUser(result.data.telefone);
           setDeptoUser(result.data.id_depto);
-          setImage({ preview: `${process.env.BACKEND_HOST}/` + result.data.imagem });
+          setImage({ preview: `${process.env.REACT_APP_REPROGRAFIA_URL}/` + result.data.imagem });
           setLoading(false);
         }
       });

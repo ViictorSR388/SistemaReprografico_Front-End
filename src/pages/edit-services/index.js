@@ -11,10 +11,6 @@ export default function AddService() {
 
   var { type, id } = useParams();
 
-  const port = process.env.REACT_APP_PORT || 3002;
-  
-  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   const [descricao, setDescricao] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [custo, setCusto] = useState("");

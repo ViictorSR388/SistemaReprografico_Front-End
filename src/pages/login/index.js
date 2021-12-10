@@ -15,10 +15,6 @@ export default function Login() {
 
   const [mensagem, setMensagem] = useState("");
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   let history = useHistory();
 
   const LoginPost = () => {
@@ -30,7 +26,7 @@ export default function Login() {
         setAuthState({
           nif: result.data.nif,
           nome: result.data.nome,
-          imagem: `${reprografia_url}/` + result.data.imagem,
+          imagem: `${process.env.REACT_APP_REPROGRAFIA_URL}/` + result.data.imagem,
           redirect: false,
           naoAutorizado: false
         });

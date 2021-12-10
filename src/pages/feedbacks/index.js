@@ -21,10 +21,6 @@ function Feedback(props) {
         message: "",
     });
 
-    const port = process.env.REACT_APP_PORT || 3002;
-
-    // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
     const Details = (feedbackId) => {
         axios
             .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/feedback/id/${feedbackId}`, {
@@ -71,7 +67,7 @@ function Feedback(props) {
                 }
                 setLoading(false)
             });
-    }, [id, process.env.REACT_APP_REPROGRAFIA_URL]);
+    }, [id]);
 
     return (
         <>

@@ -39,10 +39,6 @@ function Rotas() {
   const [firstAccess, setFirstAccess] = useState(0);
   const [naoAutorizado, setNaoAutorizado] = useState(0);
 
-
-  
-  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {

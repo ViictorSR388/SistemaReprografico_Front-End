@@ -25,11 +25,6 @@ function Management(props) {
 
   var [ativos, setAtivos] = useState(true);
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
-
   const usuariosAtivos = (id) => {
     axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/users/enabled=` + id, {

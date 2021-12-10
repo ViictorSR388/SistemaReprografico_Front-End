@@ -21,11 +21,7 @@ export default function NewPassword() {
     token: "",
     email: ""
   })
-
-  const port = process.env.REACT_APP_PORT || 3002;
   
-  // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   //UseState() => Usado para setar o status de envio e realizar alguma alteração em função disso 
   // (mudei o botão de enviar para a mensagem abaixo!)
   const [enviado, setEnviado] = useState();

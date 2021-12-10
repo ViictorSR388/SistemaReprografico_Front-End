@@ -21,9 +21,6 @@ const MyRequests = (props) => {
 
     var [avaliados, setAvaliados] = useState();
 
-    const port = process.env.REACT_APP_PORT || 3002;
-    // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
     var [loading, setLoading] = useState(Loading);
 
     useEffect(() => {

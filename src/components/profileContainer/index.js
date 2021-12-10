@@ -10,8 +10,6 @@ function ProfileContainer(props) {
     const [name, setName] = useState("");
     const [nif, setNif] = useState("");
     const [image, setImage] = useState("");
-    const port = process.env.REACT_APP_PORT || 3002;
-    // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
     var [loading, setLoading] = useState(Loading);
 
@@ -72,7 +70,7 @@ function ProfileContainer(props) {
                     setLoading(false)
                 })
         }
-    }, [props.nif, props.image, props.name, process.env.REACT_APP_REPROGRAFIA_URL, props.newUser, props.editMyUser])
+    }, [props.nif, props.image, props.name, props.newUser, props.editMyUser])
 
     var history = useHistory();
 
