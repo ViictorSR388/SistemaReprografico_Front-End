@@ -25,14 +25,9 @@ function Management(props) {
 
   var [ativos, setAtivos] = useState(true);
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
-
   const usuariosAtivos = (id) => {
     axios
-      .get(`${reprografia_url}/users/enabled=` + id, {
+      .get(`${process.env.BACKEND_HOST}/users/enabled=` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -70,7 +65,7 @@ function Management(props) {
 
     var config = {
       method: 'put',
-      url: `${reprografia_url}/user/${nif}/enable=${id}`,
+      url: `${process.env.BACKEND_HOST}/user/${nif}/enable=${id}`,
       headers: {
         'accessToken': localStorage.getItem("accessToken"),
       },
@@ -92,7 +87,7 @@ function Management(props) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${reprografia_url}/users/enabled=1`, {
+      .get(`${process.env.BACKEND_HOST}/users/enabled=1`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -113,7 +108,7 @@ function Management(props) {
       });
 
     axios
-      .get(`${reprografia_url}/auth`, {
+      .get(`${process.env.BACKEND_HOST}/auth`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -125,7 +120,7 @@ function Management(props) {
         }
         setLoading(false);
       });
-  }, [props.nif, reprografia_url]);
+  }, [props.nif]);
 
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -192,7 +187,7 @@ function Management(props) {
                         {data.nif === myNif ? null : <>
                           <tbody>
                             <tr>
-                              <td onClick={() => { history.push(`/user/${data.nif}`) }}><img className="img-user-upload" src={`${reprografia_url}/${data.imagem}`} alt="imagem do usuário" /></td>
+                              <td onClick={() => { history.push(`/user/${data.nif}`) }}><img className="img-user-upload" src={`${process.env.BACKEND_HOST}/${data.imagem}`} alt="imagem do usuário" /></td>
                               <td>{data.nome}</td>
                               <td>{data.email}</td>
                               <td>{data.cfp}</td>

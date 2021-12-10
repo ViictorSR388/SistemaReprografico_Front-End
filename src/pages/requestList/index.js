@@ -19,16 +19,12 @@ function RequestList(props) {
     message: "",
   });
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   var [loading, setLoading] = useState(Loading);
 
   useEffect(() => {
     setLoading(true)
     axios
-      .get(`${reprografia_url}/requestDetails/${id}`, {
+      .get(`${process.env.BACKEND_HOST}/requestDetails/${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -48,7 +44,7 @@ function RequestList(props) {
           setLoading(false)
         }
       });
-  }, [id, reprografia_url]);
+  }, [id]);
 
   return (
     <>

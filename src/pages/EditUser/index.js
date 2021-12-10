@@ -36,10 +36,6 @@ function EditUser() {
 
   var id_depto = deptoUser;
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   //estrutura de decisão para exibir corretamente o departamento
 
   if (deptoUser === "1") {
@@ -124,7 +120,7 @@ function EditUser() {
     }
 
     axios
-      .put(`${reprografia_url}/user/` + nif, formData, {
+      .put(`${process.env.BACKEND_HOST}/user/` + nif, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -145,7 +141,7 @@ function EditUser() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${reprografia_url}/user/` + nif, {
+      .get(`${process.env.BACKEND_HOST}/user/` + nif, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -160,11 +156,11 @@ function EditUser() {
           setCfpUser(result.data.cfp);
           setTelefoneUser(result.data.telefone);
           setDeptoUser(result.data.id_depto);
-          setImage({ preview: `${reprografia_url}/` + result.data.imagem });
+          setImage({ preview: `${process.env.BACKEND_HOST}/` + result.data.imagem });
           setLoading(false);
         }
       });
-  }, [nif, reprografia_url]);
+  }, [nif]);
 
 
 

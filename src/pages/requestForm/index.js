@@ -23,10 +23,6 @@ function RequestForm(props) {
   
   const [message, setMessage] = useState("");
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   var history = useHistory();
 
   var curso;
@@ -125,7 +121,7 @@ function RequestForm(props) {
     }
     else {
       axios
-        .post(`${reprografia_url}/request`, formData, {
+        .post(`${process.env.BACKEND_HOST}/request`, formData, {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
           },
@@ -174,7 +170,7 @@ function RequestForm(props) {
     setLoading(true)
     var config = {
       method: "get",
-      url: `${reprografia_url}/services/enabled=1`,
+      url: `${process.env.BACKEND_HOST}/services/enabled=1`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },

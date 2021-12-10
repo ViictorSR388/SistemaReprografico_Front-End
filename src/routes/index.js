@@ -39,13 +39,10 @@ function Rotas() {
   const [firstAccess, setFirstAccess] = useState(0);
   const [naoAutorizado, setNaoAutorizado] = useState(0);
 
-  const port = process.env.REACT_APP_PORT || 3002;
-  
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   useEffect(() => {
     axios
-      .get(`${reprografia_url}/myUser`, {
+      .get(`${process.env.BACKEND_HOST}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -64,13 +61,12 @@ function Rotas() {
         }
         else {
           setAuthState({
-
             redirect: false,
             status: true,
             nif: response.data.nif,
             email: response.data.email,
             nome: response.data.nome,
-            imagem: `${reprografia_url}` + response.data.imagem,
+            imagem: `${process.env.BACKEND_HOST}` + response.data.imagem,
             firstAccess: false,
             naoAutorizado: true
           });
@@ -90,7 +86,7 @@ function Rotas() {
           }
         }
       });
-  }, [reprografia_url]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>

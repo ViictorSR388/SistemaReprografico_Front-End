@@ -39,10 +39,6 @@ function UserInfo(props) {
 
   // const { setAuthState } = useContext(AuthContext);
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   const [mensagem, setMensagem] = useState("");
 
   const handleChange = (e) => {
@@ -72,7 +68,7 @@ function UserInfo(props) {
     }
 
     axios
-      .put(`${reprografia_url}/myUser`, formData, {
+      .put(`${process.env.BACKEND_HOST}/myUser`, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -94,7 +90,7 @@ function UserInfo(props) {
 
     axios
       .put(
-        `${reprografia_url}/myUser/changePassword`,
+        `${process.env.BACKEND_HOST}/myUser/changePassword`,
         { senhaAntiga: pastPassword, senhaNova: newPassword, confirmSenhaNova: newPasswordConfirm },
         {
           headers: {
@@ -122,7 +118,7 @@ function UserInfo(props) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${reprografia_url}/user/` + id, {
+      .get(`${process.env.BACKEND_HOST}/user/` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -136,12 +132,12 @@ function UserInfo(props) {
           setTelefoneUser(result.data.telefone);
           setDeptoUser(result.data.depto);
           setCfpUser(result.data.cfp)
-          setImage({ preview: `${reprografia_url}/` + result.data.imagem });
+          setImage({ preview: `${process.env.BACKEND_HOST}/` + result.data.imagem });
           setLoading(false);
         }
       });
     axios
-      .get(`${reprografia_url}/auth`, {
+      .get(`${process.env.BACKEND_HOST}/auth`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -153,7 +149,7 @@ function UserInfo(props) {
         }
       });
     setAdm(props.admin);
-  }, [props.admin, props.nif, id, reprografia_url]);
+  }, [props.admin, props.nif, id]);
 
 
   //Importante para mandar pelo useContext se o usuário é administrador ou não
@@ -163,7 +159,7 @@ function UserInfo(props) {
   // temos que verificar se o usuário é admin pq vamos renderizar o header logo em seguida.
   // const voltar = () => {
   //   axios
-  //     .get(`${reprografia_url}/myUser`, {
+  //     .get(`${process.env.BACKEND_HOST}/myUser`, {
   //       headers: {
   //         accessToken: localStorage.getItem("accessToken"),
   //       },

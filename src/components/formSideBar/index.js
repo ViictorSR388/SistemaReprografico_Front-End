@@ -12,7 +12,7 @@ function SideBar(props) {
     const [image, setImage] = useState("");
     const [admin, setAdmin] = useState(false);
     const port = process.env.REACT_APP_PORT || 3002;
-    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+    // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
     const history = useHistory();
 
     const routeForm = () => {
@@ -40,7 +40,7 @@ function SideBar(props) {
     useEffect(() => {
         setLoading(true)
         axios
-            .get(`${reprografia_url}/myUser/`, {
+            .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser/`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -48,7 +48,7 @@ function SideBar(props) {
                 if (result.data.roles) {
                     setName(result.data.nome)
                     setNif(result.data.nif)
-                    setImage(`${reprografia_url}/${result.data.imagem}`)
+                    setImage(`${process.env.REACT_APP_REPROGRAFIA_URL}/${result.data.imagem}`)
                     if (result.data.roles[0].descricao === "admin") {
                         setAdmin(true)
                     }
@@ -71,7 +71,7 @@ function SideBar(props) {
                 }
                 setLoading(false)
             })
-    }, [props.nif, props.image, props.name, props.admin, reprografia_url])
+    }, [props.nif, props.image, props.name, props.admin, process.env.REACT_APP_REPROGRAFIA_URL])
 
     return (
         <>

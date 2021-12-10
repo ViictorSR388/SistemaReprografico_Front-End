@@ -11,10 +11,6 @@ export default function AddService() {
 
   var { type, id } = useParams();
 
-  const port = process.env.REACT_APP_PORT || 3002;
-  
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   const [descricao, setDescricao] = useState("");
   const [quantidade, setQuantidade] = useState("");
   const [custo, setCusto] = useState("");
@@ -26,7 +22,7 @@ export default function AddService() {
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.put(`${reprografia_url}/service/${id}/type=${type}`, data, {
+    axios.put(`${process.env.BACKEND_HOST}/service/${id}/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
@@ -53,7 +49,7 @@ export default function AddService() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${reprografia_url}/service/${id}/type=${type}`, {
+      .get(`${process.env.BACKEND_HOST}/service/${id}/type=${type}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -66,7 +62,7 @@ export default function AddService() {
           setLoading(false);
         }
       });
-  }, [id, type, reprografia_url]);
+  }, [id, type]);
 
 
   return (

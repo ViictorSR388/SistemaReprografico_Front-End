@@ -15,17 +15,13 @@ export default function AddService() {
   const [custo, setCusto] = useState("");
   const [message, setMessage] = useState();
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   const AddService = () => {
     const data = {
       descricao: descricao,
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.post(`${reprografia_url}/service/type=${type}`, data, {
+    axios.post(`${process.env.BACKEND_HOST}/service/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }

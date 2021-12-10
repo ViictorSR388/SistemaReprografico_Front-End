@@ -27,10 +27,6 @@ export default function Statistics(props) {
     const [ano, setAno] = useState();
     const [mes, setMes] = useState();
 
-    const port = process.env.REACT_APP_PORT || 3002;
-
-    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
     const selectMesAno = (e) => {
         e.preventDefault();
 
@@ -53,7 +49,7 @@ export default function Statistics(props) {
         }
         else {
             axios
-                .get(`${reprografia_url}/estatisticas/mensais/${ano}/${mes}`, {
+                .get(`${process.env.BACKEND_HOST}/estatisticas/mensais/${ano}/${mes}`, {
                     headers: {
                         accessToken: localStorage.getItem("accessToken"),
                     },
@@ -73,7 +69,7 @@ export default function Statistics(props) {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`${reprografia_url}/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
+            .get(`${process.env.BACKEND_HOST}/estatisticas/mensais/${anoAtual}/${mesAtual}`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -84,7 +80,7 @@ export default function Statistics(props) {
                 setFirstRequest(true);
                 setLoading(false);
             });
-    }, [anoAtual, mesAtual, reprografia_url]);
+    }, [anoAtual, mesAtual]);
 
     return (
         <>
@@ -269,9 +265,11 @@ export default function Statistics(props) {
                                             <Table className="" striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
                                                     <React.Fragment key={null}>
+                                                                                             {console.log(data.servico_capaAcabamento)}
                                                         <tbody>
                                                             {data.servico_capaAcabamento.map((data) => (
                                                                 <React.Fragment key={null}>
+                               
                                                                     <tr>
                                                                         <td>
                                                                             <strong>{data[1].status}</strong>
