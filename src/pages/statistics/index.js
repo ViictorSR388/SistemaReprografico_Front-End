@@ -27,9 +27,8 @@ export default function Statistics(props) {
     const [ano, setAno] = useState();
     const [mes, setMes] = useState();
 
-    const port = process.env.REACT_APP_PORT || 3002;
-
-    // const process.env.REACT_APP_REPROGRAFIA_URL = `${process.env.REACT_APP_process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
+    const [servicoCA, setServicoCA] = useState();
+    const [servicoCT, setServicoCT] = useState({ list: [] });
 
     const selectMesAno = (e) => {
         e.preventDefault();
@@ -48,7 +47,7 @@ export default function Statistics(props) {
         }
         //Ano de desenvolvimento da aplicação, 
         // o admin não teria como consultar anos anteriores a este.
-        else if (ano < 2021){
+        else if (ano < 2021) {
             setMessage("Insira um ano válido!")
         }
         else {
@@ -59,8 +58,9 @@ export default function Statistics(props) {
                     },
                 })
                 .then((result) => {
-                    console.log(result)
-                    setUnicoMes([result.data[0]]);
+                    setUnicoMes([result.data]);
+                    setServicoCA(result.data.servicoCAArray);
+                    setServicoCT(result.data.servicoCTArray);
                     setFirstRequest(false)
                     setFetchMesStatus(true);
                     setMessage(null)
@@ -79,7 +79,9 @@ export default function Statistics(props) {
                 },
             })
             .then((result) => {
-                setUnicoMes([result.data[0]]);
+                setUnicoMes([result.data]);
+                setServicoCA(result.data.servicoCAArray);
+                setServicoCT(result.data.servicoCTArray);
                 setFetchMesStatus(true);
                 setFirstRequest(true);
                 setLoading(false);
@@ -267,50 +269,21 @@ export default function Statistics(props) {
                                         <div className="second-line-tables">
                                             {fetchMesStatus ? <h1 className="title-tables">Solicitações por Capa & Acabamento</h1> : <></>}
                                             <Table className="" striped bordered hover size="sm">
-                                                {unicoMes.map((data) => (
-                                                    <React.Fragment key={null}>
-                                                                                             {console.log(data.servico_capaAcabamento)}
-                                                        <tbody>
-                                                            {data.servico_capaAcabamento.map((data) => (
-                                                                <React.Fragment key={null}>
-                               
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[1].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[2].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[4].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[4].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                </React.Fragment>
-                                                            ))}
-                                                        </tbody>
-                                                    </React.Fragment>
-                                                ))}
+                                                <tbody>
+                                                    {servicoCA.map((data) => (
+                                                        <React.Fragment key={null}>
+                                                            {data === null ? <> </> : <>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>{data.descricao}</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        <Card.Text>{data.qtdade_solicitada || 0}</Card.Text>
+                                                                    </td>
+                                                                </tr></>}
+                                                        </React.Fragment>
+                                                    ))}
+                                                </tbody>
                                             </Table>
                                         </div>
                                     </div>
@@ -321,40 +294,17 @@ export default function Statistics(props) {
                                                 {unicoMes.map((data) => (
                                                     <React.Fragment key={null}>
                                                         <tbody>
-                                                            {data.curso.map((data) => (
+                                                            {data.cursoArray.map((data) => (
                                                                 <React.Fragment key={null}>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[1].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[2].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
+                                                                   {data === null ? <> </> : <>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>{data.descricao}</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        <Card.Text>{data.qtdade_solicitada || 0}</Card.Text>
+                                                                    </td>
+                                                                </tr></>}
                                                                 </React.Fragment>
                                                             ))}
                                                         </tbody>
@@ -365,64 +315,21 @@ export default function Statistics(props) {
                                         <div className="second-line-tables">
                                             {fetchMesStatus ? <h1 className="title-tables">Solicitações por Copia & Tamanho</h1> : <></>}
                                             <Table className="" striped bordered hover size="sm">
-                                                {unicoMes.map((data) => (
-                                                    <React.Fragment key={null}>
-                                                        <tbody>
-                                                            {data.servico_copiaTamanho.map((data) => (
-                                                                <React.Fragment key={null}>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[1].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[2].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[4].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[4].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[5].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[5].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[6].status}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[6].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                </React.Fragment>
-                                                            ))}
-                                                        </tbody>
-                                                    </React.Fragment>
-                                                ))}
+                                                <tbody>
+                                                    {servicoCT.map((data) => (
+                                                        <React.Fragment key={null}>
+                                                            {data === null ? <> </> : <>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>{data.descricao}</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        <Card.Text>{data.qtdade_solicitada || 0}</Card.Text>
+                                                                    </td>
+                                                                </tr></>}
+                                                        </React.Fragment>
+                                                    ))}
+                                                </tbody>
                                             </Table>
                                         </div>
                                         <div className="second-line-tables">
@@ -431,72 +338,17 @@ export default function Statistics(props) {
                                                 {unicoMes.map((data) => (
                                                     <React.Fragment key={null}>
                                                         <tbody>
-                                                            {data.centro_custos.map((data) => (
+                                                            {data.centro_custosArray.map((data) => (
                                                                 <React.Fragment key={null}>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[1].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[1].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[2].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[2].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[3].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[3].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[4].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[4].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[5].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[5].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[6].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[6].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[7].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[7].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <strong>{data[8].descricao}</strong>
-                                                                        </td>
-                                                                        <td>
-                                                                            <Card.Text>{data[8].qtdade_solicitada || 0}</Card.Text>
-                                                                        </td>
-                                                                    </tr>
+                                                                    {data === null ? <> </> : <>
+                                                                <tr>
+                                                                    <td>
+                                                                        <strong>{data.descricao}</strong>
+                                                                    </td>
+                                                                    <td>
+                                                                        <Card.Text>{data.qtdade_solicitada || 0}</Card.Text>
+                                                                    </td>
+                                                                </tr></>}
                                                                 </React.Fragment>
                                                             ))}
                                                         </tbody>
