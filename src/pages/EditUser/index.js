@@ -315,8 +315,7 @@ function EditUser(props) {
                         id="admin2"
                         checked={admin === "0"}
                         onChange={() => {
-                          console.log("nif" + nif)
-                          console.log("mynif" + myNif)
+                          setAdmin("0")
                         }}
                       />
                       <h2 className="opcoes">Alterar para usuário comum?</h2>
