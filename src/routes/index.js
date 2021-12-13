@@ -23,6 +23,8 @@ import FirstAccess from "../pages/firstAccess";
 import { AuthContext } from "../helpers/AuthContext";
 import Services from "../pages/services";
 import DeptoCurso from "../pages/depto-cc-cursos";
+import AddOthers from "../pages/addOthers";
+import AddCurso from "../pages/addCurso";
 
 function Rotas() {
   const [authState, setAuthState] = useState({
@@ -61,7 +63,6 @@ function Rotas() {
         }
         else {
           setAuthState({
-
             redirect: false,
             status: true,
             nif: response.data.nif,
@@ -264,10 +265,34 @@ function Rotas() {
                       )}
                     />
                     <Route
+                      path="/addOthers/:type"
+                      exact
+                      component={() => (
+                        <AddOthers
+                          image={authState.imagem}
+                          name={authState.nome}
+                          nif={authState.nif}
+                          admin={authState.admin}
+                        />
+                      )}
+                    />
+                    <Route
                       path="/addService/:type"
                       exact
                       component={() => (
                         <AddService
+                          image={authState.imagem}
+                          name={authState.nome}
+                          nif={authState.nif}
+                          admin={authState.admin}
+                        />
+                      )}
+                    />
+                    <Route
+                      path="/addCurso"
+                      exact
+                      component={() => (
+                        <AddCurso
                           image={authState.imagem}
                           name={authState.nome}
                           nif={authState.nif}

@@ -103,6 +103,8 @@ function NewUser(props) {
   };
 
   const [deptoSelect, setDeptoSelect] = useState();
+  const [message, setMessage] = useState("");
+  const [messageStatus, setMessageStatus] = useState(false)
   var [loading, setLoading] = useState(Loading);
 
   useEffect(() => {
@@ -113,8 +115,13 @@ function NewUser(props) {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        console.log(result);
-        setDeptoSelect(result.data);
+        if (result.data.status !== "error") {
+          setDeptoSelect(result.data);
+        }
+        else {
+          setMessage(result.data.message)
+          setMessageStatus(true)
+        }
         setLoading(false);
       })
   }, [])
@@ -243,6 +250,7 @@ function NewUser(props) {
                   Upload
                 </label>
                 <h3 className="input-title">DEPARTAMENTO</h3>
+                {messageStatus ? <><h1>{message}</h1></> : <>
                 <Form.Select
                   className="selectNew"
                   id="deptoUser"
@@ -273,43 +281,7 @@ function NewUser(props) {
                     </>
                   ))}
                 </Form.Select>
-                {/* <select
-            className="selectNew"
-            id="deptoUser"
-            name="deptoUser"
-            required
-            onChange={(e) => {
-              setDeptoUser(e.target.value);
-            }}
-          >
-            <option value="0" name="null" id="null">
-              Nenhuma Opção Selecionada*
-            </option>
-            <option value="1" name="AIP" id="AIP">
-              Aprendizagem Industrial Presencial
-            </option>
-            <option value="2" name="TNMP" id="TNMP">
-              Técnico de Nível Médio Presencial
-            </option>
-            <option value="3" name="GTP" id="GTP">
-              Graduação Tecnológica Presencial
-            </option>
-            <option value="4" name="PGP" id="PGP">
-              Pós-Graduação Presencial
-            </option>
-            <option value="5" name="EP" id="EP">
-              Extensão Presencial
-            </option>
-            <option value="6" name="IPP" id="IPP">
-              Iniciação Profissional Presencial
-            </option>
-            <option value="7" name="QPP" id="QPP">
-              Qualificação Profissional Presencial
-            </option>
-            <option value="8" name="AEPP" id="AEPP">
-              Aperfeiç./Especializ. Profis. Presencial
-            </option>
-          </select> */}
+                </>}
                 <h4>{mensagem}</h4>
                 <div className="btns">
                   <input

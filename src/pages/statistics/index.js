@@ -333,7 +333,7 @@ export default function Statistics(props) {
                                             </Table>
                                         </div>
                                         <div className="second-line-tables">
-                                            {fetchMesStatus ? <h1 className="title-tables">Solicitações por Departamento</h1> : <></>}
+                                            {fetchMesStatus ? <h1 className="title-tables">Solicitações por Centro de Custos</h1> : <></>}
                                             <Table striped bordered hover size="sm">
                                                 {unicoMes.map((data) => (
                                                     <React.Fragment key={null}>

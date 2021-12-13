@@ -171,13 +171,14 @@ function RequestForm(props) {
     servicosCT: [],
   });
 
-  const [form, setForm] = useState({
-    centroCustos: [],
-    cursos: []
+  const [centroCustos, setCentroCustos] = useState({
+    list: [],
+    status: false
   });
-
-  const [centroCustos, setCentroCustos] = useState();
-  const [cursos, setCursos] = useState();
+  const [cursos, setCursos] = useState({
+    list: [],
+    status: false
+  });
 
   var [servicoCA, setServicoCA] = useState();
   var [servicoCT, setServicoCT] = useState();
@@ -197,8 +198,12 @@ function RequestForm(props) {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        console.log(result)
-        setCentroCustos(result.data)
+        if(result.data.status !== "error"){
+          setCentroCustos({
+            list: result.data,
+            status: true
+          })
+        }
       })
     axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/cursos/enabled=1`, {
@@ -206,14 +211,17 @@ function RequestForm(props) {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        console.log(result)
-        setCursos(result.data)
+        if(result.data.status !== "error"){
+          setCursos({
+            list: result.data,
+            status: true
+          })
+        }
       })
   }
 
   const onLoad = async () => {
     setLoading(true)
-    await formulario();
     var config = {
       method: "get",
       url: `${process.env.REACT_APP_REPROGRAFIA_URL}/services/enabled=1`,
@@ -222,6 +230,7 @@ function RequestForm(props) {
       },
     };
     try {
+      await formulario();
       const response = await axios(config);
       if (response) {
         if (
@@ -266,25 +275,28 @@ function RequestForm(props) {
                         <Card.Title className="cardTitle">Curso</Card.Title>
                         <div className="radio-container">
                           <div className="radioName">
-                            {cursos.map((data) => (
-                              <>
-                                <Form.Check
-                                  className="classRadio"
-                                  type="radio"
-                                  name="course"
-                                  id="curso"
-                                  value={data.id_curso}
-                                  checked={course === `${data.id_curso}`}
-                                  onChange={(e) => {
-                                    setCourse(e.target.value);
-                                  }}
-                                  required
-                                />
-                                <Form.Check.Label htmlFor="courses" className="radio-label">
-                                  {data.descricao}
-                                </Form.Check.Label>
-                              </>
-                            ))}
+                            {cursos.status ? <>
+                              {cursos.list.map((data) => (
+                                <>
+                                  <Form.Check
+                                    className="classRadio"
+                                    type="radio"
+                                    name="course"
+                                    id="curso"
+                                    value={data.id_curso}
+                                    checked={course === `${data.id_curso}`}
+                                    onChange={(e) => {
+                                      setCourse(e.target.value);
+                                    }}
+                                    required
+                                  />
+                                  <Form.Check.Label htmlFor="courses" className="radio-label">
+                                    {data.descricao}
+                                  </Form.Check.Label>
+                                </>
+                              ))}
+                            </> : <></>}
+
                           </div>
                         </div>
                         <Card.Title
@@ -312,18 +324,21 @@ function RequestForm(props) {
                             >
                               Nenhuma Opção Selecionada
                             </option>
-                            {centroCustos.map((data) => (
-                              <>
-                                <option
-                                  value={data.id_centro_custos}
-                                  name="AIP"
-                                  id="AIP"
-                                  selected={cc === `${data.id_centro_custos}`}
-                                >
-                                  {data.descricao}
-                                </option>
-                              </>
-                            ))}
+                            {centroCustos.status ? <>
+                              {centroCustos.list.map((data) => (
+                                <>
+                                  <option
+                                    value={data.id_centro_custos}
+                                    name="AIP"
+                                    id="AIP"
+                                    selected={cc === `${data.id_centro_custos}`}
+                                  >
+                                    {data.descricao}
+                                  </option>
+                                </>
+                              ))}
+                            </> : <></>}
+
                           </Form.Select>
                         </div>
                         <Button
