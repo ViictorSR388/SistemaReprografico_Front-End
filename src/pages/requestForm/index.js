@@ -11,6 +11,7 @@ import { FaPrint } from "react-icons/fa";
 import { Button, Card, Form } from "react-bootstrap";
 import Loading from "../../components/loading";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 function RequestForm(props) {
 
@@ -20,7 +21,7 @@ function RequestForm(props) {
   const [course, setCourse] = useState(0);
 
   // const [posGraduacao, setPosGraduacao] = useState("");
-  
+
   const [message, setMessage] = useState("");
 
   var history = useHistory();
@@ -91,10 +92,25 @@ function RequestForm(props) {
   const [pdfFileError, setPdfFileError] = useState("");
 
   const handleChange = (e) => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
     if (e.target.files.length) {
       setPdfFile({
         raw: e.target.files[0],
       });
+      Toast.fire({
+        icon: 'success',
+        title: `Anexado com sucesso!`
+      })
     }
   };
 
@@ -155,6 +171,14 @@ function RequestForm(props) {
     servicosCT: [],
   });
 
+  const [form, setForm] = useState({
+    centroCustos: [],
+    cursos: []
+  });
+
+  const [centroCustos, setCentroCustos] = useState();
+  const [cursos, setCursos] = useState();
+
   var [servicoCA, setServicoCA] = useState();
   var [servicoCT, setServicoCT] = useState();
   var [messageServ, setMessageServ] = useState("");
@@ -166,8 +190,30 @@ function RequestForm(props) {
     };
   }, []);
 
+  const formulario = () => {
+    axios
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/centroCustos/enabled=1`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      }).then((result) => {
+        console.log(result)
+        setCentroCustos(result.data)
+      })
+    axios
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/cursos/enabled=1`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      }).then((result) => {
+        console.log(result)
+        setCursos(result.data)
+      })
+  }
+
   const onLoad = async () => {
     setLoading(true)
+    await formulario();
     var config = {
       method: "get",
       url: `${process.env.REACT_APP_REPROGRAFIA_URL}/services/enabled=1`,
@@ -212,78 +258,33 @@ function RequestForm(props) {
                   <h1>Solicitação de reprografia</h1>
                 </div>
                 <div className="containerWrapper">
+
+                  {/* <button onClick={() => console.log(servicos.servicosCA)}>DSAKLDLKAS</button> */}
                   <section className="card-wrapper">
                     {step === 1 && (
                       <Card className="card">
                         <Card.Title className="cardTitle">Curso</Card.Title>
                         <div className="radio-container">
                           <div className="radioName">
-                            <Form.Check
-                              className="classRadio"
-                              type="radio"
-                              name="course"
-                              id="curso"
-                              checked={course === "1"}
-                              value="1"
-                              onChange={(e) => {
-                                const newValue = e.target.value;
-                                setCourse(newValue);
-                              }}
-                              required
-                            />
-                            <Form.Check.Label htmlFor="cai" className="radio-label">
-                              CT-DS
-                            </Form.Check.Label>
-                          </div>
-                          <div className="radioName">
-                            <Form.Check
-                              className="classRadio"
-                              type="radio"
-                              name="course"
-                              id="curso"
-                              checked={course === "2"}
-                              value="2"
-                              onChange={(e) => {
-                                const newValue = e.target.value;
-                                setCourse(newValue);
-                              }}
-                              required
-                            />
-                            <Form.Check.Label htmlFor="ct">CT-MP</Form.Check.Label>
-                          </div>
-                          <div className="radioName">
-                            <Form.Check
-                              className="classRadio"
-                              type="radio"
-                              name="course"
-                              id="curso"
-                              checked={course === "3"}
-                              value="3"
-                              onChange={(e) => {
-                                const newValue = e.target.value;
-                                setCourse(newValue);
-                              }}
-                              required
-                            />
-                            <Form.Check.Label htmlFor="fc">CST-MP</Form.Check.Label>
-                          </div>
-                          <div className="radioName">
-                            <Form.Check
-                              className="classRadio"
-                              type="radio"
-                              name="course"
-                              id="graduacao"
-                              checked={course === "4"}
-                              value="4"
-                              onChange={(e) => {
-                                const newValue = e.target.value;
-                                setCourse(newValue);
-                              }}
-                              required
-                            />
-                            <Form.Check.Label className="input-pos" htmlFor="pos">
-                              Pós Graduação
-                            </Form.Check.Label>
+                            {cursos.map((data) => (
+                              <>
+                                <Form.Check
+                                  className="classRadio"
+                                  type="radio"
+                                  name="course"
+                                  id="curso"
+                                  value={data.id_curso}
+                                  checked={course === `${data.id_curso}`}
+                                  onChange={(e) => {
+                                    setCourse(e.target.value);
+                                  }}
+                                  required
+                                />
+                                <Form.Check.Label htmlFor="courses" className="radio-label">
+                                  {data.descricao}
+                                </Form.Check.Label>
+                              </>
+                            ))}
                           </div>
                         </div>
                         <Card.Title
@@ -311,65 +312,18 @@ function RequestForm(props) {
                             >
                               Nenhuma Opção Selecionada
                             </option>
-                            <option
-                              value="1"
-                              name="AIP"
-                              id="AIP"
-                              defaultValue={cc === "1"}
-                            >
-                              Aprendizagem Industrial Presencial
-                            </option>
-                            <option
-                              value="2"
-                              name="TNMP"
-                              id="TNMP"
-                              defaultValue={cc === "2"}
-                            >
-                              Técnico de Nível Médio Presencial
-                            </option>
-                            <option
-                              value="3"
-                              name="GTP"
-                              id="GTP"
-                              defaultValue={cc === "3"}
-                            >
-                              Graduação Tecnológica Presencial
-                            </option>
-                            <option
-                              value="4"
-                              name="PGP"
-                              id="PGP"
-                              defaultValue={cc === "4"}
-                            >
-                              Pós-Graduação Presencial
-                            </option>
-                            <option value="5" name="EP" id="EP" defaultValue={cc === "5"}>
-                              Extensão Presencial
-                            </option>
-                            <option
-                              value="6"
-                              name="IPP"
-                              id="IPP"
-                              defaultValue={cc === "6"}
-                            >
-                              Iniciação Profissional Presencial
-                            </option>
-                            <option
-                              value="7"
-                              name="QPP"
-                              id="QPP"
-                              defaultValue={cc === "7"}
-                            >
-                              Qualificação Profissional Presencial
-                            </option>
-                            <option
-                              value="8"
-                              name="AEPP"
-                              id="AEPP"
-                              defaultValue={cc === "8"}
-                            >
-                              Aperfeiç./Especializ. Profis. Presencial
-                            </option>
+                            {centroCustos.map((data) => (
+                              <>
+                                <option
+                                  value={data.id_centro_custos}
+                                  name="AIP"
+                                  id="AIP"
+                                  selected={cc === `${data.id_centro_custos}`}
+                                >
+                                  {data.descricao}
+                                </option>
+                              </>
+                            ))}
                           </Form.Select>
                         </div>
                         <Button

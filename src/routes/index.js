@@ -22,6 +22,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import FirstAccess from "../pages/firstAccess";
 import { AuthContext } from "../helpers/AuthContext";
 import Services from "../pages/services";
+import DeptoCurso from "../pages/depto-cc-cursos";
 
 function Rotas() {
   const [authState, setAuthState] = useState({
@@ -243,6 +244,18 @@ function Rotas() {
                       exact
                       component={() => (
                         <Services
+                          image={authState.imagem}
+                          name={authState.nome}
+                          nif={authState.nif}
+                          admin={authState.admin}
+                        />
+                      )}
+                    />
+                    <Route
+                      path="/deptoCursos"
+                      exact
+                      component={() => (
+                        <DeptoCurso
                           image={authState.imagem}
                           name={authState.nome}
                           nif={authState.nif}

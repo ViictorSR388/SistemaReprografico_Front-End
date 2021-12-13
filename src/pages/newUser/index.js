@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "../../styles/newUser.scss";
 import { Form } from 'react-bootstrap';
 import ProfileContainer from "../../components/profileContainer";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import Loading from "../../components/loading";
 
 function NewUser(props) {
 
@@ -101,128 +102,178 @@ function NewUser(props) {
     handleUpload();
   };
 
+  const [deptoSelect, setDeptoSelect] = useState();
+  var [loading, setLoading] = useState(Loading);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/deptos/enabled=1`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      }).then((result) => {
+        console.log(result);
+        setDeptoSelect(result.data);
+        setLoading(false);
+      })
+  }, [])
+
   return (
-    <div className="content">
-      <ProfileContainer
-        newUser={true}
-        title="Exemplo do perfil do usuário"
-        image={image.preview}
-        name={nameUser}
-        requestsNoInfo={true}
-        nif={props.nif}
-      />
-      <div className="container-newUser">
-        <h2 id="h2" className="nu-subTitle">
-          Criar novo usuário
-        </h2>
-        <form onSubmit={onSubmit}>
-          <h4>Onde houver "*" o preenchimento é obrigatório</h4>
-          <label className="important">*
-            <input
-              className="input-boxNEW"
-              name="nameUser"
-              type="text"
-              placeholder="Nome"
-              required
-              onChange={(e) => {
-                setNameUser(e.target.value);
-              }}
+    <>
+      {loading ? <> <Loading /> </> :
+        <>
+          <div className="content">
+            <ProfileContainer
+              newUser={true}
+              title="Exemplo do perfil do usuário"
+              image={image.preview}
+              name={nameUser}
+              requestsNoInfo={true}
+              nif={props.nif}
             />
-          </label>
-          <label className="important">*
-            <input
-              className="input-boxNEW"
-              name="emailUser"
-              type="email"
-              placeholder="E-mail"
-              required
-              onChange={(e) => {
-                setEmailUser(e.target.value);
-              }}
-            />
-          </label>
-          <label className="important">*
-            <input
-              className="input-boxNEW"
-              name="nifUser"
-              type="text"
-              placeholder="NIF"
-              required
-              onChange={(e) => {
-                setNifUser(e.target.value);
-              }}
-            />
-          </label>
-          <label className="important">*
-            <input
-              className="input-boxNEW"
-              name="cfpUser"
-              type="text"
-              placeholder="CFP"
-              required
-              onChange={(e) => {
-                setCfpUser(e.target.value);
-              }}
-            />
-          </label>
-          <label>
-            <input
-              className="input-boxNEW"
-              name="telefoneUser"
-              type="text"
-              placeholder="Telefone"
-              re
-              onChange={(e) => {
-                setTelefoneUser(e.target.value);
-              }}
-            />
-          </label>
-          <div className="radio-typeUser">
-            <Form.Check
-              className="classRadio"
-              type="radio"
-              name="admin"
-              id="admin"
-              checked={admin === 1}
-              value="1"
-              onChange={() => {
-                setAdmin(1);
-              }}
-            ></Form.Check>
-            <Form.Check.Label>
-              Criar como administrador?
-            </Form.Check.Label>
-          </div>
+            <div className="container-newUser">
+              <h2 id="h2" className="nu-subTitle">
+                Criar novo usuário
+              </h2>
+              <form onSubmit={onSubmit}>
+                <h4>Onde houver "*" o preenchimento é obrigatório</h4>
+                <label className="important">*
+                  <input
+                    className="input-boxNEW"
+                    name="nameUser"
+                    type="text"
+                    placeholder="Nome"
+                    required
+                    onChange={(e) => {
+                      setNameUser(e.target.value);
+                    }}
+                  />
+                </label>
+                <label className="important">*
+                  <input
+                    className="input-boxNEW"
+                    name="emailUser"
+                    type="email"
+                    placeholder="E-mail"
+                    required
+                    onChange={(e) => {
+                      setEmailUser(e.target.value);
+                    }}
+                  />
+                </label>
+                <label className="important">*
+                  <input
+                    className="input-boxNEW"
+                    name="nifUser"
+                    type="text"
+                    placeholder="NIF"
+                    required
+                    onChange={(e) => {
+                      setNifUser(e.target.value);
+                    }}
+                  />
+                </label>
+                <label className="important">*
+                  <input
+                    className="input-boxNEW"
+                    name="cfpUser"
+                    type="text"
+                    placeholder="CFP"
+                    required
+                    onChange={(e) => {
+                      setCfpUser(e.target.value);
+                    }}
+                  />
+                </label>
+                <label>
+                  <input
+                    className="input-boxNEW"
+                    name="telefoneUser"
+                    type="text"
+                    placeholder="Telefone"
+                    re
+                    onChange={(e) => {
+                      setTelefoneUser(e.target.value);
+                    }}
+                  />
+                </label>
+                <div className="radio-typeUser">
+                  <Form.Check
+                    className="classRadio"
+                    type="radio"
+                    name="admin"
+                    id="admin"
+                    checked={admin === 1}
+                    value="1"
+                    onChange={() => {
+                      setAdmin(1);
+                    }}
+                  ></Form.Check>
+                  <Form.Check.Label>
+                    Criar como administrador?
+                  </Form.Check.Label>
+                </div>
 
-          <div className="radio-typeUser">
-            <Form.Check
-              className="classRadio"
-              type="radio"
-              name="user"
-              id="user"
-              checked={admin === 0}
-              value="0"
-              onChange={() => {
-                setAdmin(0);
-              }}
-            ></Form.Check>
-            <Form.Check.Label>
-              Criar como usuário comum?
-            </Form.Check.Label>
-          </div>
+                <div className="radio-typeUser">
+                  <Form.Check
+                    className="classRadio"
+                    type="radio"
+                    name="user"
+                    id="user"
+                    checked={admin === 0}
+                    value="0"
+                    onChange={() => {
+                      setAdmin(0);
+                    }}
+                  ></Form.Check>
+                  <Form.Check.Label>
+                    Criar como usuário comum?
+                  </Form.Check.Label>
+                </div>
 
-          <label className="customizeNew">
-            <input
-              type="file"
-              name="image"
-              onChange={handleChange}
-              accept="image/*"
-            />
-            <FaCloudUploadAlt className="uploudNew" />
-            Upload
-          </label>
-          <h3 className="input-title">DEPARTAMENTO</h3>
-          <select
+                <label className="customizeNew">
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={handleChange}
+                    accept="image/*"
+                  />
+                  <FaCloudUploadAlt className="uploudNew" />
+                  Upload
+                </label>
+                <h3 className="input-title">DEPARTAMENTO</h3>
+                <Form.Select
+                  className="selectNew"
+                  id="deptoUser"
+                  name="deptoUser"
+                  required
+                  onChange={(e) => {
+                    setDeptoUser(e.target.value);
+                  }}
+                >
+                  <option
+                    value="0"
+                    name="null"
+                    id="null"
+                    defaultValue={departamento === "0"}
+                  >
+                    Nenhuma Opção Selecionada
+                  </option>
+                  {deptoSelect.map((data) => (
+                    <>
+                      <option
+                        value={data.id_depto}
+                        name="AIP"
+                        id="AIP"
+                        selected={deptoUser === `${data.id_depto}`}
+                      >
+                        {data.descricao}
+                      </option>
+                    </>
+                  ))}
+                </Form.Select>
+                {/* <select
             className="selectNew"
             id="deptoUser"
             name="deptoUser"
@@ -258,22 +309,24 @@ function NewUser(props) {
             <option value="8" name="AEPP" id="AEPP">
               Aperfeiç./Especializ. Profis. Presencial
             </option>
-          </select>
-          <h4>{mensagem}</h4>
-          <div className="btns">
-            <input
-              type="submit"
-              className="nu-send-button"
-              id="btn"
-              value="Enviar"
-            />
-            <button className="btn-back-user" id="btn" onClick={() => history.push("/management")}>
-              Voltar
-            </button>
+          </select> */}
+                <h4>{mensagem}</h4>
+                <div className="btns">
+                  <input
+                    type="submit"
+                    className="nu-send-button"
+                    id="btn"
+                    value="Enviar"
+                  />
+                  <button className="btn-back-user" id="btn" onClick={() => history.push("/management")}>
+                    Voltar
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </form>
-      </div>
-    </div>
+        </>}
+    </>
   );
 }
 
