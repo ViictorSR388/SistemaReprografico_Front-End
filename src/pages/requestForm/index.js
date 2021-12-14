@@ -11,7 +11,7 @@ import { FaPrint } from "react-icons/fa";
 import { Button, Card, Form } from "react-bootstrap";
 import Loading from "../../components/loading";
 import axios from "axios";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 function RequestForm(props) {
 
@@ -124,10 +124,21 @@ function RequestForm(props) {
     if (centro_custos === undefined) {
       setMessage("Por favor selecione um centro de custos!")
     }
-    else if (curso === undefined){
+    else if (curso === undefined) {
       setMessage("Por favor selecione um curso!")
     }
     else {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
       axios
         .post(`${process.env.REACT_APP_REPROGRAFIA_URL}/request`, formData, {
           headers: {
@@ -137,9 +148,11 @@ function RequestForm(props) {
         .then((result) => {
           setMessage(result.data.message);
           if (result.data.status !== "error") {
-            setTimeout(() => {
-              history.push("/myRequests");
-            }, 1500);
+            Toast.fire({
+              icon: 'success',
+              title: result.data.message
+            })
+            history.push("/myRequests");
           }
         })
         .catch((error) => {

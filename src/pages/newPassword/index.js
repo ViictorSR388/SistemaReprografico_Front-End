@@ -5,6 +5,7 @@ import axios from "axios";
 import queryString from 'query-string'
 
 import LoginContainer from '../../components/loginContainer';
+import Swal from 'sweetalert2';
 
 export default function NewPassword() {
 
@@ -31,8 +32,26 @@ export default function NewPassword() {
     else {
       const data = { senha: senhaInput, senha2: senhaInput2, token: values.token, email: values.email };
       axios.post(`${process.env.REACT_APP_REPROGRAFIA_URL}/resetPassword`, data).then((result) => {
-        setEnviado(true)
         setMensagem(result.data.message)
+        if(result.data.status !== "error"){
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: result.data.message
+          })
+          history.push("/");
+        }
+        setEnviado(true)
       })
     }
   }

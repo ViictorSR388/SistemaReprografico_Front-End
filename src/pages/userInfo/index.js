@@ -6,6 +6,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from "react-router";
 import ProfileContainer from "../../components/profileContainer";
 import Loading from '../../../src/components/loading';
+import Swal from 'sweetalert2';
 
 function UserInfo(props) {
   var { id } = useParams();
@@ -74,10 +75,22 @@ function UserInfo(props) {
           setMensagem(result.data.message);
         }
         else {
-          setMensagem(result.data.message);
-          setTimeout(() => {
-            setEdit(false)
-          }, 1500);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: result.data.message
+          })
+          setEdit(false)
         }
       });
   };
@@ -99,10 +112,22 @@ function UserInfo(props) {
         if (result.data.status === "error") {
           setMessage(result.data.message);
         } else {
-          setMessage(result.data.message);
-          setTimeout(() => {
-            setChangePass(false);
-          }, 1500);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: result.data.message
+          })
+          setChangePass(false);
         }
       });
   };
@@ -167,6 +192,7 @@ function UserInfo(props) {
                 changePassword={() => {
                   setChangePass(true);
                   setEdit(false)
+                  setMessage("")
                 }}
               />
             </> : <>
@@ -194,10 +220,12 @@ function UserInfo(props) {
                       edit={() => {
                         setEdit(true);
                         setChangePass(false);
+                        setMessage("")
                       }}
                       changePassword={() => {
                         setChangePass(true);
                         setEdit(false)
+                        setMessage("")
                       }}
                       editMyUser={true}
                     />

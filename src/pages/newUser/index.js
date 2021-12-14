@@ -6,6 +6,7 @@ import { Form } from 'react-bootstrap';
 import ProfileContainer from "../../components/profileContainer";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Loading from "../../components/loading";
+import Swal from 'sweetalert2'
 
 function NewUser(props) {
 
@@ -87,10 +88,22 @@ function NewUser(props) {
             setMensagem(result.data.message);
           }
           else {
-            setMensagem(result.data.message);
-            setTimeout(() => {
-              history.push("/management");
-            }, 1500);
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'success',
+              title: result.data.message
+            })
+            history.push("/management");
           }
         });
     }

@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../../styles/addOthers.scss';
 import LoginContainer from '../../components/loginContainer';
 import Loading from "../../components/loading";
+import Swal from 'sweetalert2';
 
 export default function AddCurso() {
 
@@ -63,10 +64,22 @@ export default function AddCurso() {
           setMessage(result.data.message)
         }
         else {
-          setMessage(result.data.message)
-          setTimeout(() => {
-            history.push("/deptoCursos")
-          }, 1500);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: result.data.message
+          })
+          history.push("/deptoCursos")
         }
       })
     }
