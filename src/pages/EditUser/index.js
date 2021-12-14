@@ -36,6 +36,10 @@ function EditUser(props) {
 
   const [mensagem, setMensagem] = useState("");
 
+  const [deptoSelect, setDeptoSelect] = useState();
+  const [messageStatus, setMessageStatus] = useState();
+  const [message, setMessage] = useState();
+
   var id_depto = deptoUser;
 
   //estrutura de decisão para exibir corretamente o departamento
@@ -159,10 +163,10 @@ function EditUser(props) {
           setTelefoneUser(result.data.telefone);
           setDeptoUser(result.data.id_depto);
           setImage({ preview: `${process.env.REACT_APP_REPROGRAFIA_URL}/` + result.data.imagem });
-          setLoading(false);
+
         }
       });
-      axios
+    axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
@@ -170,6 +174,21 @@ function EditUser(props) {
       })
       .then((result) => {
         setMyNif(result.data.nif)
+      })
+    axios
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/deptos/enabled=1`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      }).then((result) => {
+        if (result.data.status !== "error") {
+          setDeptoSelect(result.data);
+        }
+        else {
+          setMessage(result.data.message)
+          setMessageStatus(true)
+        }
+        setLoading(false);
       })
   }, [nif]);
 
@@ -252,79 +271,74 @@ function EditUser(props) {
                 Upload
               </label>
               <h3 className="input-title">DEPARTAMENTO</h3>
-              <select
-                className="select"
-                id="deptoUser"
-                name="deptoUser"
-                defaultValue="0"
-                onChange={(e) => {
-                  setDeptoUser(e.target.value);
-                }}
-              >
-                <option value="0" name="null" id="null">
-                  Nenhuma Opção Selecionada
-                </option>
-                <option value="1" name="AIP" id="AIP">
-                  Aprendizagem Industrial Presencial
-                </option>
-                <option value="2" name="TNMP" id="TNMP">
-                  Técnico de Nível Médio Presencial
-                </option>
-                <option value="3" name="GTP" id="GTP">
-                  Graduação Tecnológica Presencial
-                </option>
-                <option value="4" name="PGP" id="PGP">
-                  Pós-Graduação Presencial
-                </option>
-                <option value="5" name="EP" id="EP">
-                  Extensão Presencial
-                </option>
-                <option value="6" name="IPP" id="IPP">
-                  Iniciação Profissional Presencial
-                </option>
-                <option value="7" name="QPP" id="QPP">
-                  Qualificação Profissional Presencial
-                </option>
-                <option value="8" name="AEPP" id="AEPP">
-                  Aperfeiç./Especializ. Profis. Presencial
-                </option>
-              </select>
-                {`${nif}` !== `${myNif}` && `${nif}` !== "1" ? <>
-                  {adminUser.list.map((data) => (
-                <React.Fragment key={null}>
-                  {data.descricao === "user" ?
+              {messageStatus ? <><h1>{message}</h1></> : <>
+                <Form.Select
+                  className="selectNew"
+                  id="deptoUser"
+                  name="deptoUser"
+                  required
+                  onChange={(e) => {
+                    setDeptoUser(e.target.value);
+                  }}
+                >
+                  <option
+                    value="0"
+                    name="null"
+                    id="null"
+                    defaultValue={deptoUser === "0"}
+                  >
+                    Nenhuma Opção Selecionada
+                  </option>
+                  {deptoSelect.map((data) => (
                     <>
-                      <Form.Check
-                        className="radioOpcoes"
-                        type="radio"
-                        name="admin"
-                        id="admin"
-                        checked={admin === "1"}
-                        onChange={() => {
-                          setAdmin("1")
-                        }}
-                      />
-                      <h2 className="opcoes">Alterar para usuário administrador?</h2>
+                      <option
+                        value={data.id_depto}
+                        name="AIP"
+                        id="AIP"
+                        selected={deptoUser === `${data.id_depto}`}
+                      >
+                        {data.descricao}
+                      </option>
                     </>
-                    :
-                    <>           
-                    <Form.Check
-                        className="radioOpcoes"
-                        type="radio"
-                        name="admin"
-                        id="admin2"
-                        checked={admin === "0"}
-                        onChange={() => {
-                          setAdmin("0")
-                        }}
-                      />
-                      <h2 className="opcoes">Alterar para usuário comum?</h2>
-                    </>
+                  ))}
+                </Form.Select>
+              </>}
+              {`${nif}` !== `${myNif}` && `${nif}` !== "1" ? <>
+                {adminUser.list.map((data) => (
+                  <React.Fragment key={null}>
+                    {data.descricao === "user" ?
+                      <>
+                        <Form.Check
+                          className="radioOpcoes"
+                          type="radio"
+                          name="admin"
+                          id="admin"
+                          checked={admin === "1"}
+                          onChange={() => {
+                            setAdmin("1")
+                          }}
+                        />
+                        <h2 className="opcoes">Alterar para usuário administrador?</h2>
+                      </>
+                      :
+                      <>
+                        <Form.Check
+                          className="radioOpcoes"
+                          type="radio"
+                          name="admin"
+                          id="admin2"
+                          checked={admin === "0"}
+                          onChange={() => {
+                            setAdmin("0")
+                          }}
+                        />
+                        <h2 className="opcoes">Alterar para usuário comum?</h2>
+                      </>
                     }
-                </React.Fragment>
-              ))}
-                </>: <> </>}
-             
+                  </React.Fragment>
+                ))}
+              </> : <> </>}
+
               <h4 className="mensagem-edit">{mensagem}</h4>
               <input
                 type="submit"
