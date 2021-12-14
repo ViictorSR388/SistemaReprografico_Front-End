@@ -36,6 +36,10 @@ function EditUser() {
 
   const [mensagem, setMensagem] = useState("");
 
+  const [deptoSelect, setDeptoSelect] = useState();
+  const [messageStatus, setMessageStatus] = useState();
+  const [message, setMessage] = useState();
+
   var id_depto = deptoUser;
 
   if (deptoUser === "1") {
@@ -157,7 +161,7 @@ function EditUser() {
           setTelefoneUser(result.data.telefone);
           setDeptoUser(result.data.id_depto);
           setImage({ preview: `${process.env.REACT_APP_REPROGRAFIA_URL}/` + result.data.imagem });
-          setLoading(false);
+
         }
       });
     axios
@@ -168,6 +172,21 @@ function EditUser() {
       })
       .then((result) => {
         setMyNif(result.data.nif)
+      })
+    axios
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/deptos/enabled=1`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      }).then((result) => {
+        if (result.data.status !== "error") {
+          setDeptoSelect(result.data);
+        }
+        else {
+          setMessage(result.data.message)
+          setMessageStatus(true)
+        }
+        setLoading(false);
       })
   }, [nif]);
 
@@ -250,43 +269,38 @@ function EditUser() {
                 Upload
               </label>
               <h3 className="input-title">DEPARTAMENTO</h3>
-              <select
-                className="select"
-                id="deptoUser"
-                name="deptoUser"
-                defaultValue="0"
-                onChange={(e) => {
-                  setDeptoUser(e.target.value);
-                }}
-              >
-                <option value="0" name="null" id="null">
-                  Nenhuma Opção Selecionada
-                </option>
-                <option value="1" name="AIP" id="AIP">
-                  Aprendizagem Industrial Presencial
-                </option>
-                <option value="2" name="TNMP" id="TNMP">
-                  Técnico de Nível Médio Presencial
-                </option>
-                <option value="3" name="GTP" id="GTP">
-                  Graduação Tecnológica Presencial
-                </option>
-                <option value="4" name="PGP" id="PGP">
-                  Pós-Graduação Presencial
-                </option>
-                <option value="5" name="EP" id="EP">
-                  Extensão Presencial
-                </option>
-                <option value="6" name="IPP" id="IPP">
-                  Iniciação Profissional Presencial
-                </option>
-                <option value="7" name="QPP" id="QPP">
-                  Qualificação Profissional Presencial
-                </option>
-                <option value="8" name="AEPP" id="AEPP">
-                  Aperfeiç./Especializ. Profis. Presencial
-                </option>
-              </select>
+              {messageStatus ? <><h1>{message}</h1></> : <>
+                <Form.Select
+                  className="selectNew"
+                  id="deptoUser"
+                  name="deptoUser"
+                  required
+                  onChange={(e) => {
+                    setDeptoUser(e.target.value);
+                  }}
+                >
+                  <option
+                    value="0"
+                    name="null"
+                    id="null"
+                    defaultValue={deptoUser === "0"}
+                  >
+                    Nenhuma Opção Selecionada
+                  </option>
+                  {deptoSelect.map((data) => (
+                    <>
+                      <option
+                        value={data.id_depto}
+                        name="AIP"
+                        id="AIP"
+                        selected={deptoUser === `${data.id_depto}`}
+                      >
+                        {data.descricao}
+                      </option>
+                    </>
+                  ))}
+                </Form.Select>
+              </>}
               {`${nif}` !== `${myNif}` && `${nif}` !== "1" ? <>
                 {adminUser.list.map((data) => (
                   <React.Fragment key={null}>

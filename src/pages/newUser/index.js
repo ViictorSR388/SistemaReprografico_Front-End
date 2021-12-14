@@ -103,7 +103,7 @@ function NewUser(props) {
 
   const [deptoSelect, setDeptoSelect] = useState();
   const [message, setMessage] = useState("");
-  const [messageStatus, setMessageStatus] = useState(false)
+  const [messageStatus, setMessageStatus] = useState(false);
   var [loading, setLoading] = useState(Loading);
 
   useEffect(() => {

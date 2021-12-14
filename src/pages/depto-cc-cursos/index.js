@@ -98,17 +98,17 @@ function DeptoCursos(props) {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
+        if (id === "1") {
+          setStatus({
+            depto: true
+          })
+        }
+        else {
+          setStatus({
+            depto: false
+          })
+        }
         if (result.data.status !== "error") {
-          if (id === "1") {
-            setStatus({
-              depto: true
-            })
-          }
-          else {
-            setStatus({
-              depto: false
-            })
-          }
           if (type === "1") {
             setDepartamento({
               list: result.data,
@@ -242,7 +242,7 @@ function DeptoCursos(props) {
           </div>
           <div className="deptoCurso-card">
             <div className="btn-tables">
-              <Button className="btn-boot" onClick={() => deptoFetch({ type: "1", id: "1" })}>Departamento</Button>
+              <Button className="btn-boot" onClick={() => deptoFetch({ id: "1", type: "1" })}>Departamento</Button>
               <Button className="btn-boot" onClick={() => cursosFetch("1")}>Cursos</Button>
               <Button className="btn-boot" onClick={() => centroCustoFetch("1")}>Centro de Custos</Button>
             </div>
