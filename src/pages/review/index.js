@@ -6,6 +6,7 @@ import Menu from '../../components/hamburgerButton';
 import SideBar from '../../components/formSideBar';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Review(props) {
 
@@ -27,11 +28,26 @@ function Review(props) {
         accessToken: localStorage.getItem("accessToken"),
       },
     }).then((result) => {
-      setMensagem(result.data.message)
       if (result.data.status !== "error") {
-        setTimeout(() => {
-          history.push("/myRequests")
-        }, 1500);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: result.data.message
+        })
+        history.push("/myRequests")
+      }
+      else{
+        setMensagem(result.data.message)
       }
     })
   }

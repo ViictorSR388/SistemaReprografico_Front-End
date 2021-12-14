@@ -5,6 +5,7 @@ import LoginContainer from "../../components/loginContainer";
 import { FaSignOutAlt } from 'react-icons/fa';
 import '../../styles/firstAccess.scss';
 import { AuthContext } from "./../../helpers/AuthContext";
+import Swal from 'sweetalert2';
 
 function FirstAccess(props) {
     var history = useHistory();
@@ -23,8 +24,22 @@ function FirstAccess(props) {
                 accessToken: localStorage.getItem("accessToken")
             }
         }).then((result) => {
-            setMessage(result.data.message)
             if (result.data.status === "ok") {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  Toast.fire({
+                    icon: 'success',
+                    title: result.data.message
+                  })
                 setTimeout(() => {
                     setAuthState({
                         firstAccess: false, admin: props.admin
@@ -35,6 +50,7 @@ function FirstAccess(props) {
                 }, 1200)
             }
             else if (result.data.message === "Esse não é o seu primeiro acesso!") {
+                setMessage(result.data.message)
                 setTimeout(() => {
                     logout();
                 }, 1000);
