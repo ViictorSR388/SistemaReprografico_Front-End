@@ -12,14 +12,12 @@ import Logo from '../img/logo';
 function Header(props) {
 
   const [nif, setNif] = useState("");
-  const port = process.env.REACT_APP_PORT || 3002;
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   const history = useHistory();
 
   useEffect(() => {
     axios
-      .get(`${reprografia_url}/myUser/`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser/`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -27,7 +25,7 @@ function Header(props) {
       }).then((result) => {
         setNif(result.data.nif)
       })
-  }, [nif, reprografia_url])
+  }, [nif])
 
   const logout = () => {
     localStorage.removeItem("accessToken");

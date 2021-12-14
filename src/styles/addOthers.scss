@@ -48,3 +48,48 @@
     -moz-appearance: textfield;
   }
 }
+
+.input-titleCurso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #212529;
+  color: #ffffff;
+  height: 2.5rem;
+  width: 40rem;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  margin-top: 2rem;
+}
+
+.input-service-Curso {
+  border: 2px solid #000;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 0.8rem;
+  height: 3.5rem;
+  width: 38rem;
+  padding-left: 0.5rem;
+  margin: auto;
+  margin-top: 2rem;
+  margin-left: 1rem;
+}
+
+.input-service {
+  border: 2px solid #000;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 0.8rem;
+  height: 3.5rem;
+  width: 38rem;
+  padding-left: 0.5rem;
+  margin: auto;
+  margin-top: 3rem;
+  margin-left: 1rem;
+}
+
+.mensagem {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}

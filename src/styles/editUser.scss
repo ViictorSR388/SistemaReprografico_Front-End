@@ -11,6 +11,10 @@
   margin-bottom: 2rem;
 }
 
+.text-editUser {
+  text-align: center;
+}
+
 #propsTitle {
   margin-bottom: 50px;
   color: white;
@@ -67,7 +71,6 @@
   margin: 1rem 0;
 }
 
-
 .btn-Edit {
   width: 100% !important;
   height: 40% !important;
@@ -91,7 +94,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: .5s;
+  transition: 0.5s;
   background-color: $red !important;
   border: none !important;
 

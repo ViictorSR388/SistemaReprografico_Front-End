@@ -10,14 +10,12 @@ function ProfileContainer(props) {
     const [name, setName] = useState("");
     const [nif, setNif] = useState("");
     const [image, setImage] = useState("");
-    const port = process.env.REACT_APP_PORT || 3002;
-    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
     var [loading, setLoading] = useState(Loading);
 
     useEffect(() => {
         if (props.newUser) {
-            setImage(`${reprografia_url}/src/uploads/user-img/default/usuario.png`)
+            setImage(`${process.env.REACT_APP_REPROGRAFIA_URL}/src/uploads/user-img/default/usuario.png`)
             setLoading(false)
             if (props.name) {
                 setName(props.name)
@@ -29,14 +27,14 @@ function ProfileContainer(props) {
         }
         else if (props.editMyUser) {
             axios
-                .get(`${reprografia_url}/myUser/`, {
+                .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser/`, {
                     headers: {
                         accessToken: localStorage.getItem("accessToken"),
                     },
                 }).then((result) => {
                     setName(result.data.nome)
                     setNif(result.data.nif)
-                    setImage(`${reprografia_url}/${result.data.imagem}`)
+                    setImage(`${process.env.REACT_APP_REPROGRAFIA_URL}/${result.data.imagem}`)
                     if (props.nif) {
                         setNif(props.nif)
                     }
@@ -52,14 +50,14 @@ function ProfileContainer(props) {
         else {
             setLoading(true)
             axios
-                .get(`${reprografia_url}/myUser/`, {
+                .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser/`, {
                     headers: {
                         accessToken: localStorage.getItem("accessToken"),
                     },
                 }).then((result) => {
                     setName(result.data.nome)
                     setNif(result.data.nif)
-                    setImage(`${reprografia_url}/${result.data.imagem}`)
+                    setImage(`${process.env.REACT_APP_REPROGRAFIA_URL}/${result.data.imagem}`)
                     if (props.nif) {
                         setNif(props.nif)
                     }
@@ -72,7 +70,7 @@ function ProfileContainer(props) {
                     setLoading(false)
                 })
         }
-    }, [props.nif, props.image, props.name, reprografia_url, props.newUser, props.editMyUser])
+    }, [props.nif, props.image, props.name, props.newUser, props.editMyUser])
 
     var history = useHistory();
 

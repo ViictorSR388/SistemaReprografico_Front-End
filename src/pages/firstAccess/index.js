@@ -1,36 +1,45 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import axios from 'axios';
 import LoginContainer from "../../components/loginContainer";
 import { FaSignOutAlt } from 'react-icons/fa';
 import '../../styles/firstAccess.scss';
 import { AuthContext } from "./../../helpers/AuthContext";
+import Swal from 'sweetalert2';
 
 function FirstAccess(props) {
     var history = useHistory();
 
-    // const [nif, setNif] = useState();
-
     const [senha, setSenha] = useState('');
-    //email
+
     const [confirmSenha, setConfirmSenha] = useState('');
 
     const [message, setMessage] = useState();
 
     const { setAuthState } = useContext(AuthContext);
 
-    const port = process.env.REACT_APP_PORT || 3002;
-
-    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
     const atualizarSenha = () => {
-        axios.put(`${reprografia_url}/myUser/firstAccess`, { senha: senha, confirmSenha: confirmSenha }, {
+        axios.put(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser/firstAccess`, { senha: senha, confirmSenha: confirmSenha }, {
             headers: {
                 accessToken: localStorage.getItem("accessToken")
             }
         }).then((result) => {
-            setMessage(result.data.message)
             if (result.data.status === "ok") {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('mouseenter', Swal.stopTimer)
+                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                  })
+                  Toast.fire({
+                    icon: 'success',
+                    title: result.data.message
+                  })
                 setTimeout(() => {
                     setAuthState({
                         firstAccess: false, admin: props.admin
@@ -41,6 +50,7 @@ function FirstAccess(props) {
                 }, 1200)
             }
             else if (result.data.message === "Esse não é o seu primeiro acesso!") {
+                setMessage(result.data.message)
                 setTimeout(() => {
                     logout();
                 }, 1000);
@@ -57,20 +67,6 @@ function FirstAccess(props) {
         localStorage.removeItem("accessToken");
         history.push('/')
     };
-
-    // useEffect(() => {
-    //     axios
-    //         .get(`${reprografia_url}/myUser/`, {
-    //             headers: {
-    //                 accessToken: localStorage.getItem("accessToken"),
-    //             },
-    //         }).then((result) => {
-    //             setNif(result.data.nif)
-    //             if (props.nif) {
-    //                 setNif(props.nif)
-    //             }
-    //         })
-    // }, [props.nif, reprografia_url])
 
     return (
         <>

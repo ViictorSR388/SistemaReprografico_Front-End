@@ -11,8 +11,6 @@ function SideBar(props) {
     const [nif, setNif] = useState("");
     const [image, setImage] = useState("");
     const [admin, setAdmin] = useState(false);
-    const port = process.env.REACT_APP_PORT || 3002;
-    const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
     const history = useHistory();
 
     const routeForm = () => {
@@ -35,12 +33,16 @@ function SideBar(props) {
         history.push("/services");
     }
 
+    const routeDeptoCursos = () => {
+        history.push("/deptoCursos");
+    }
+
     var [loading, setLoading] = useState(Loading);
 
     useEffect(() => {
         setLoading(true)
         axios
-            .get(`${reprografia_url}/myUser/`, {
+            .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser/`, {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 },
@@ -48,7 +50,7 @@ function SideBar(props) {
                 if (result.data.roles) {
                     setName(result.data.nome)
                     setNif(result.data.nif)
-                    setImage(`${reprografia_url}/${result.data.imagem}`)
+                    setImage(`${process.env.REACT_APP_REPROGRAFIA_URL}/${result.data.imagem}`)
                     if (result.data.roles[0].descricao === "admin") {
                         setAdmin(true)
                     }
@@ -71,7 +73,7 @@ function SideBar(props) {
                 }
                 setLoading(false)
             })
-    }, [props.nif, props.image, props.name, props.admin, reprografia_url])
+    }, [props.nif, props.image, props.name, props.admin])
 
     return (
         <>
@@ -92,8 +94,8 @@ function SideBar(props) {
                         }
                         {admin ?
                             <>
-
-                                {props.management ? <></> : <button className="buttonG" onClick={routeManagement}>Gerencia de usuários</button>}
+                                {props.deptoCursos ? <></> : <button className="buttonG" onClick={routeDeptoCursos}>Cursos e Departamentos</button>}
+                                {props.management ? <></> : <button className="buttonG" onClick={routeManagement}>Gerência de usuários</button>}
                                 {props.estatisticas ? <></> : <button className="buttonG" onClick={routeStatistics}>Estatísticas</button>}
                                 {props.services ? <></> : <button className="buttonG" onClick={routeServices}>Serviços</button>}
                             </> :

@@ -29,14 +29,19 @@ form {
   }
 }
 
+.radioOpcoes {
+  text-align: center !important;
+  margin-top: 1.5rem;
+}
+
 .selectNew {
-  display: flex;
-  justify-content: center;
-  font-size: 1.5rem;
-  border: solid 2px $red;
-  padding: 0.5rem;
-  width: 38rem;
-  margin: auto;
+  display: flex !important;
+  justify-content: center !important;
+  font-size: 1.5rem !important;
+  border: solid 2px $red !important;
+  padding: 0.5rem !important;
+  width: 38rem !important;
+  margin: auto !important;
 }
 
 .important {
@@ -66,7 +71,6 @@ form {
   padding-left: 0.5rem;
   font-size: 1.8rem;
 }
-
 
 .nu-subTitle {
   display: flex;

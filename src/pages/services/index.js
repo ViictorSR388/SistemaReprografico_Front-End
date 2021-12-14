@@ -25,9 +25,6 @@ export default function Services(props) {
 
   var [semRegistros, setSemRegistros] = useState();
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   useEffect(() => {
     onLoad();
@@ -38,7 +35,7 @@ export default function Services(props) {
 
   const servicosAtivos = (id) => {
     axios
-      .get(`${reprografia_url}/services/enabled=` + id, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/services/enabled=` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -66,7 +63,7 @@ export default function Services(props) {
     setLoading(true);
     var config = {
       method: "get",
-      url: `${reprografia_url}/services/enabled=1`,
+      url: `${process.env.REACT_APP_REPROGRAFIA_URL}/services/enabled=1`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -100,7 +97,7 @@ export default function Services(props) {
 
     var config = {
       method: "put",
-      url: `${reprografia_url}/service/${id}/type=${type}/enable=${atvr}`,
+      url: `${process.env.REACT_APP_REPROGRAFIA_URL}/service/${id}/type=${type}/enable=${atvr}`,
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
@@ -167,11 +164,8 @@ export default function Services(props) {
                       {servicos.servicosCA.map((data) => (
                         <React.Fragment key={data.id_servico}>
                           <tr>
-                            {/* DESCRIÇÃO */}
                             <td>{data.descricao}</td>
-                            {/* QUANTIDADE */}
                             <td>{data.quantidade}</td>
-                            {/* CUSTO */}
                             <td>{"R$ " + data.valor_unitario}</td>
                             {data.ativado ? (
                               <>
@@ -254,11 +248,8 @@ export default function Services(props) {
                       {servicos.servicosCT.map((data) => (
                         <React.Fragment key={data.id_servico}>
                           <tr>
-                            {/* DESCRIÇÃO */}
                             <td>{data.descricao}</td>
-                            {/* QUANTIDADE */}
                             <td>{data.quantidade}</td>
-                            {/* CUSTO */}
                             <td>{"R$ " + data.valor_unitario}</td>
                             {data.ativado ? (
                               <>

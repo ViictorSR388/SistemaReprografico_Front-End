@@ -1,4 +1,4 @@
-@import 'global';
+@import "global";
 
 div#main-container {
   display: flex;
@@ -38,7 +38,6 @@ div#main-container {
     margin: 0;
   }
 }
-
 
 #review-content {
   background-color: #c4c4c4;
@@ -114,7 +113,7 @@ button#review-button {
   font-size: 1.8rem;
   font-family: sans-serif;
   border-radius: 0.4rem;
-  transition: .5s;
+  transition: 0.5s;
 
   &:hover {
     background-color: $grey !important;

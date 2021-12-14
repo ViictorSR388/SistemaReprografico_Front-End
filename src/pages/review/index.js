@@ -6,6 +6,7 @@ import Menu from '../../components/hamburgerButton';
 import SideBar from '../../components/formSideBar';
 import { Form } from 'react-bootstrap';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Review(props) {
 
@@ -19,28 +20,37 @@ function Review(props) {
 
   var [mensagem, setMensagem] = useState();
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   const avaliaPost = (e) => {
     e.preventDefault();
 
-    axios.put(`${reprografia_url}/rating/` + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
+    axios.put(`${process.env.REACT_APP_REPROGRAFIA_URL}/rating/` + id, { avaliacao_obs: feedBack, id_avaliacao_pedido: atendInput }, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       },
     }).then((result) => {
-      setMensagem(result.data.message)
       if (result.data.status !== "error") {
-        //Redireciona para página de meusPedidos em 1,5seg
-        setTimeout(() => {
-          history.push("/myRequests")
-        }, 1500);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: result.data.message
+        })
+        history.push("/myRequests")
+      }
+      else{
+        setMensagem(result.data.message)
       }
     })
   }
-
 
   return (
     <>

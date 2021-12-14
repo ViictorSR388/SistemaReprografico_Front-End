@@ -14,10 +14,10 @@ function NotFound() {
           <span>0</span>
           <span><span>1</span></span>
         </section>
-        
+
         <a id="backLogin" href="/">Volte para a página de login</a>
       </div>
-      </>
+    </>
   );
 }
 
