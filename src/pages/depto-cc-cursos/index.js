@@ -216,8 +216,12 @@ function DeptoCursos(props) {
   const onLoad = async () => {
     setLoading(true)
     try {
+      //Utilizado para carregar os departamentos na pagina de cursos
       await deptoFetch({ id: "1" });
-      await cursosFetch("1");
+
+      //Utilizado para listar todos os departamentos
+      await deptoFetch({ id: "1", type: "1"});
+      
       setLoading(false);
     } catch (error) {
       console.log(error)
