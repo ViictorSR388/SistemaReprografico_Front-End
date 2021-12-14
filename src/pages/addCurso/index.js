@@ -37,7 +37,7 @@ export default function AddCurso() {
             status: true
           });
         }
-        else{
+        else {
           setMessage(result.data.message)
         }
         setLoading(false);
@@ -46,10 +46,10 @@ export default function AddCurso() {
 
   const addCurso = () => {
 
-    if(deptoUser === undefined || deptoUser === null || deptoUser === 0){
+    if (deptoUser === undefined || deptoUser === null || deptoUser === 0) {
       setMessage("Selecione um departamento!")
     }
-    else{
+    else {
       let data = {
         descricao: descricao,
         id_depto: deptoUser
@@ -68,7 +68,7 @@ export default function AddCurso() {
             history.push("/deptoCursos")
           }, 1500);
         }
-      }) 
+      })
     }
   }
 

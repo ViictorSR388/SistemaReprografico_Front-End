@@ -60,23 +60,33 @@
       color: $white !important;
       padding: 0.5rem !important;
       border-radius: 0.8rem !important;
-      transition: .5s !important;
+      transition: 0.5s !important;
 
       &:hover {
         background-color: #04345c !important;
       }
     }
 
-    .card {
+    .container-curso {
       display: flex;
-      background-color: $grey;
-      flex-direction: column;
-      justify-content: start;
-      align-items: center;
-      text-align: center;
-      width: 50vw;
-      margin: 0 1rem;
-      border-radius: 5px;
+      justify-content: space-around;
+      margin: 0 3rem;
+
+      .inputCurso {
+        display: flex;
+      }
+    }
+
+    .card {
+      display: flex !important;
+      background-color: $grey !important;
+      flex-direction: column !important;
+      justify-content: start !important;
+      align-items: center !important;
+      text-align: center !important;
+      width: 50vw !important;
+      margin: 0 1rem !important;
+      border-radius: 5px !important;
 
       .radio-container {
         display: flex;
@@ -86,6 +96,10 @@
       .radioName {
         margin: 0.8rem 0;
         display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: auto;
       }
 
       .select-container {
@@ -106,7 +120,7 @@
         -webkit-appearance: none;
         margin: 0;
       }
-    
+
       /* Firefox */
       input[type="number"] {
         -moz-appearance: textfield;
@@ -134,7 +148,7 @@
         font-size: 1.5rem !important;
         margin-top: 2vh !important;
         margin-bottom: 1rem !important;
-        transition: .5s !important;
+        transition: 0.5s !important;
 
         &:hover {
           background-color: #04345c !important;
@@ -148,10 +162,10 @@
         font-size: 1.5rem !important;
         margin-top: 2vh !important;
         margin-bottom: 2rem !important;
-        transition: .5s !important;
+        transition: 0.5s !important;
 
         &:hover {
-          background-color: #04345c !important; 
+          background-color: #04345c !important;
         }
       }
 
@@ -196,16 +210,10 @@
 }
 
 .labelName-CT {
-  // display: flex;
-  // justify-content: flex-start;
-  // margin-left: 1rem;
   width: 30rem;
 }
 
 .labelName-CA {
-  // display: flex;
-  // justify-content: flex-start;
-  // margin-left: 1rem;
   width: 40rem;
 }
 
@@ -222,7 +230,6 @@
   margin-left: 2rem;
   width: 20rem;
 }
-
 
 @media (max-width: 1919px) {
   .containerForm {

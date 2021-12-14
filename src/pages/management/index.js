@@ -16,7 +16,6 @@ function Management(props) {
 
   var [myNif, setMyNif] = useState();
 
-  //lista
   var [users, setUsers] = useState({
     status: false,
     list: [],
@@ -82,8 +81,7 @@ function Management(props) {
   }
 
   var [loading, setLoading] = useState(Loading);
-  
-  //map
+
   useEffect(() => {
     setLoading(true);
     axios

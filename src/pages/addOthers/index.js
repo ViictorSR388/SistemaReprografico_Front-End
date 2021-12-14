@@ -56,8 +56,7 @@ export default function AddOthers() {
           <h2 id="" className="service-subTitle">
             {type === "depto" ? "Departamento" : "Centro de custos"}
           </h2>
-          <h4 className="import-addServices">Onde houver "*" o preenchimento é obrigatório</h4>
-          <label className="important">*
+          <label className="important">
             <input
               className="input-service"
               name="descricao"

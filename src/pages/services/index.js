@@ -164,11 +164,8 @@ export default function Services(props) {
                       {servicos.servicosCA.map((data) => (
                         <React.Fragment key={data.id_servico}>
                           <tr>
-                            {/* DESCRIÇÃO */}
                             <td>{data.descricao}</td>
-                            {/* QUANTIDADE */}
                             <td>{data.quantidade}</td>
-                            {/* CUSTO */}
                             <td>{"R$ " + data.valor_unitario}</td>
                             {data.ativado ? (
                               <>
@@ -251,11 +248,8 @@ export default function Services(props) {
                       {servicos.servicosCT.map((data) => (
                         <React.Fragment key={data.id_servico}>
                           <tr>
-                            {/* DESCRIÇÃO */}
                             <td>{data.descricao}</td>
-                            {/* QUANTIDADE */}
                             <td>{data.quantidade}</td>
-                            {/* CUSTO */}
                             <td>{"R$ " + data.valor_unitario}</td>
                             {data.ativado ? (
                               <>

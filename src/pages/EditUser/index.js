@@ -8,7 +8,7 @@ import ProfileContainer from "../../components/profileContainer";
 import Loading from "../../components/loading";
 import "../../styles/editUser.scss";
 
-function EditUser(props) {
+function EditUser() {
 
   const { nif } = useParams();
 
@@ -37,8 +37,6 @@ function EditUser(props) {
   const [mensagem, setMensagem] = useState("");
 
   var id_depto = deptoUser;
-
-  //estrutura de decisão para exibir corretamente o departamento
 
   if (deptoUser === "1") {
     id_depto = "Aprendizagem Industrial Presencial";
@@ -162,7 +160,7 @@ function EditUser(props) {
           setLoading(false);
         }
       });
-      axios
+    axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
@@ -289,42 +287,42 @@ function EditUser(props) {
                   Aperfeiç./Especializ. Profis. Presencial
                 </option>
               </select>
-                {`${nif}` !== `${myNif}` && `${nif}` !== "1" ? <>
-                  {adminUser.list.map((data) => (
-                <React.Fragment key={null}>
-                  {data.descricao === "user" ?
-                    <>
-                      <Form.Check
-                        className="radioOpcoes"
-                        type="radio"
-                        name="admin"
-                        id="admin"
-                        checked={admin === "1"}
-                        onChange={() => {
-                          setAdmin("1")
-                        }}
-                      />
-                      <h2 className="opcoes">Alterar para usuário administrador?</h2>
-                    </>
-                    :
-                    <>           
-                    <Form.Check
-                        className="radioOpcoes"
-                        type="radio"
-                        name="admin"
-                        id="admin2"
-                        checked={admin === "0"}
-                        onChange={() => {
-                          setAdmin("0")
-                        }}
-                      />
-                      <h2 className="opcoes">Alterar para usuário comum?</h2>
-                    </>
+              {`${nif}` !== `${myNif}` && `${nif}` !== "1" ? <>
+                {adminUser.list.map((data) => (
+                  <React.Fragment key={null}>
+                    {data.descricao === "user" ?
+                      <>
+                        <Form.Check
+                          className="radioOpcoes"
+                          type="radio"
+                          name="admin"
+                          id="admin"
+                          checked={admin === "1"}
+                          onChange={() => {
+                            setAdmin("1")
+                          }}
+                        />
+                        <h2 className="opcoes">Alterar para usuário administrador?</h2>
+                      </>
+                      :
+                      <>
+                        <Form.Check
+                          className="radioOpcoes"
+                          type="radio"
+                          name="admin"
+                          id="admin2"
+                          checked={admin === "0"}
+                          onChange={() => {
+                            setAdmin("0")
+                          }}
+                        />
+                        <h2 className="opcoes">Alterar para usuário comum?</h2>
+                      </>
                     }
-                </React.Fragment>
-              ))}
-                </>: <> </>}
-             
+                  </React.Fragment>
+                ))}
+              </> : <> </>}
+
               <h4 className="mensagem-edit">{mensagem}</h4>
               <input
                 type="submit"

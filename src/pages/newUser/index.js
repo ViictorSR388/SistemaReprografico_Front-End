@@ -11,17 +11,17 @@ function NewUser(props) {
 
   var history = useHistory();
 
-  //nome
+
   const [nameUser, setNameUser] = useState("Nome do usuário");
-  //email
+
   const [emailUser, setEmailUser] = useState("");
-  //nif
+
   const [nifUser, setNifUser] = useState("");
-  //cfp
+
   const [cfpUser, setCfpUser] = useState("");
-  //telefone
+
   const [telefoneUser, setTelefoneUser] = useState("");
-  //departamento
+
   const [deptoUser, setDeptoUser] = useState("");
 
   const [admin, setAdmin] = useState(0);
@@ -48,7 +48,6 @@ function NewUser(props) {
     departamento = 8;
   }
 
-  //imagem
   const [image, setImage] = useState({
     raw: "",
     preview: `${process.env.REACT_APP_REPROGRAFIA_URL}/src/uploads/user-img/default/usuario.png`,
@@ -251,36 +250,36 @@ function NewUser(props) {
                 </label>
                 <h3 className="input-title">DEPARTAMENTO</h3>
                 {messageStatus ? <><h1>{message}</h1></> : <>
-                <Form.Select
-                  className="selectNew"
-                  id="deptoUser"
-                  name="deptoUser"
-                  required
-                  onChange={(e) => {
-                    setDeptoUser(e.target.value);
-                  }}
-                >
-                  <option
-                    value="0"
-                    name="null"
-                    id="null"
-                    defaultValue={departamento === "0"}
+                  <Form.Select
+                    className="selectNew"
+                    id="deptoUser"
+                    name="deptoUser"
+                    required
+                    onChange={(e) => {
+                      setDeptoUser(e.target.value);
+                    }}
                   >
-                    Nenhuma Opção Selecionada
-                  </option>
-                  {deptoSelect.map((data) => (
-                    <>
-                      <option
-                        value={data.id_depto}
-                        name="AIP"
-                        id="AIP"
-                        selected={deptoUser === `${data.id_depto}`}
-                      >
-                        {data.descricao}
-                      </option>
-                    </>
-                  ))}
-                </Form.Select>
+                    <option
+                      value="0"
+                      name="null"
+                      id="null"
+                      defaultValue={departamento === "0"}
+                    >
+                      Nenhuma Opção Selecionada
+                    </option>
+                    {deptoSelect.map((data) => (
+                      <>
+                        <option
+                          value={data.id_depto}
+                          name="AIP"
+                          id="AIP"
+                          selected={deptoUser === `${data.id_depto}`}
+                        >
+                          {data.descricao}
+                        </option>
+                      </>
+                    ))}
+                  </Form.Select>
                 </>}
                 <h4>{mensagem}</h4>
                 <div className="btns">

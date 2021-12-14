@@ -14,8 +14,6 @@ function DeptoCursos(props) {
 
   var history = useHistory();
 
-  const [mudarTabela, setMudarTabela] = useState(true);
-
   const [cursos, setCursos] = useState({
     list: [],
     status: false,
@@ -239,6 +237,9 @@ function DeptoCursos(props) {
             deptoCursos={true}
             nif={props.nif}
           />
+          <div className="deptoAcoes">
+            <div className="title-deptoCurso">{message}</div>
+          </div>
           <div className="deptoCurso-card">
             <div className="btn-tables">
               <Button className="btn-boot" onClick={() => deptoFetch({ type: "1", id: "1" })}>Departamento</Button>
@@ -246,37 +247,39 @@ function DeptoCursos(props) {
               <Button className="btn-boot" onClick={() => centroCustoFetch("1")}>Centro de Custos</Button>
             </div>
             {message !== "" ? <>
-            <div className="title-deptoCurso">{message}</div>
-
-              {type === "cs" ? <><Button className="btn-services" onClick={() => history.push("/addCurso")}>Adicionar Curso</Button></> : <></>}
-              {type === "dp" ? <><Button className="btn-services" onClick={() => history.push("/addOthers/depto")}>Adicionar Departamento</Button></> : <></>}
-              {type === "ct" ? <><Button className="btn-services" onClick={() => history.push("/addOthers/centroCustos")}>Adicionar Centro de custos</Button></> : <></>}
+              <div className="btns-deptoCurso">
+                {type === "cs" ? <><Button className="btn-deptoCurso" onClick={() => history.push("/addCurso")}>Adicionar Curso</Button></> : <></>}
+                {type === "dp" ? <><Button className="btn-deptoCurso" onClick={() => history.push("/addOthers/depto")}>Adicionar Departamento</Button></> : <></>}
+                {type === "ct" ? <><Button className="btn-deptoCurso" onClick={() => history.push("/addOthers/centroCustos")}>Adicionar Centro de custos</Button></> : <></>}
+              </div>
 
               {ativos.curso ? <>
-                <div className="ca-table-div">
-                  <Button onClick={() => cursosFetch("1")}>Habilitados</Button>
-                  <Button onClick={() => cursosFetch("0")}>Desabilitados</Button>
+                <div className="table-deptoCurso">
+                  <Button className="btn-deptoCurso" onClick={() => cursosFetch("1")}>Habilitados</Button>
+                  <Button className="btn-deptoCurso" onClick={() => cursosFetch("0")}>Desabilitados</Button>
                 </div>
               </> : <></>}
 
               {ativos.depto ? <>
-                <div className="ca-table-div">
-                  <Button onClick={() => deptoFetch({ type: "1", id: "1" })}>Habilitados</Button>
-                  <Button onClick={() => deptoFetch({ type: "1", id: "0" })}>Desabilitados</Button>
+                <div className="table-deptoCurso">
+                  <Button className="btn-deptoCurso" onClick={() => deptoFetch({ type: "1", id: "1" })}>Habilitados</Button>
+                  <Button className="btn-deptoCurso" onClick={() => deptoFetch({ type: "1", id: "0" })}>Desabilitados</Button>
                 </div>
               </> : <></>}
               {ativos.centroCustos ? <>
-                <div className="ca-table-div">
-                  <Button onClick={() => centroCustoFetch("1")}>Habilitados</Button>
-                  <Button onClick={() => centroCustoFetch("0")}>Desabilitados</Button>
+                <div className="table-depto-curso">
+                  <Button className="btn-deptoCurso" onClick={() => centroCustoFetch("1")}>Habilitados</Button>
+                  <Button className="btn-deptoCurso" onClick={() => centroCustoFetch("0")}>Desabilitados</Button>
                 </div>
               </> : <></>}
             </>
               : <>
-                <div className="ca-table-div">
+                <div className="table-div">
                   {cursos.status ? <>
-                    <Button onClick={() => cursosFetch("1")}>Habilitados</Button>
-                    <Button onClick={() => cursosFetch("0")}>Desabilitados</Button>
+                    <div className="table-depto-curso">
+                      <Button className="btn-deptoCurso" onClick={() => cursosFetch("1")}>Habilitados</Button>
+                      <Button className="btn-deptoCurso" onClick={() => cursosFetch("0")}>Desabilitados</Button>
+                    </div>
                     <div className="title-deptoCurso">
                       {status.curso ?
                         <>
@@ -308,14 +311,15 @@ function DeptoCursos(props) {
                                   ))}
                                 </> : <></>}
                               </td>
-                              {status.curso ? <><Button
-                                className="btn-disable"
-                                onClick={() =>
-                                  enableOrDisable({ id: data.id_curso, enable: "0", type: "curso" })
-                                }
-                              >
-                                Desabilitar
-                              </Button></> : <>
+                              {status.curso ? <>
+                                <Button
+                                  className="btn-disable"
+                                  onClick={() =>
+                                    enableOrDisable({ id: data.id_curso, enable: "0", type: "curso" })
+                                  }
+                                >
+                                  Desabilitar
+                                </Button></> : <>
                                 <Button
                                   className="btn-enable"
                                   onClick={() =>
@@ -330,11 +334,13 @@ function DeptoCursos(props) {
                         </>
                       ))}
                     </Table>
-                    <Button className="btn-services" onClick={() => history.push("/addCurso")}>Adicionar Curso</Button>
+                    <Button className="btn-depto" onClick={() => history.push("/addCurso")}>Adicionar Curso</Button>
                   </> : <></>}
                   {departamento.status ? <>
-                    <Button onClick={() => deptoFetch({ type: "1", id: "1" })}>Habilitados</Button>
-                    <Button onClick={() => deptoFetch({ type: "1", id: "0" })}>Desabilitados</Button>
+                    <div className="table-depto-curso">
+                      <Button className="btn-deptoCurso" onClick={() => deptoFetch({ type: "1", id: "1" })}>Habilitados</Button>
+                      <Button className="btn-deptoCurso" onClick={() => deptoFetch({ type: "1", id: "0" })}>Desabilitados</Button>
+                    </div>
                     {status.depto ? <>
                     </> : <></>}
                     <div className="title-deptoCurso">
@@ -381,18 +387,20 @@ function DeptoCursos(props) {
                           </tbody>
                         </>
                       ))}
-                      <h2 className="mensagem">OBS: AO DESABILITAR UM DEPARTAMENTO, ESTARÁ DESABILITANDO OS CURSOS RELACIONADOS A ELE</h2>
                     </Table>
-                    <Button className="btn-services" onClick={() => history.push("/addOthers/depto")}>Adicionar Departamento</Button>
+                    <h2 className="mensagem-deptoCurso">OBS: AO DESABILITAR UM DEPARTAMENTO, ESTARÁ DESABILITANDO OS CURSOS RELACIONADOS A ELE</h2>
+                    <Button className="btn-depto" onClick={() => history.push("/addOthers/depto")}>Adicionar Departamento</Button>
                   </> : <></>}
                   {centroCusto.status ? <>
-                    <Button onClick={() => centroCustoFetch("1")}>Habilitados</Button>
-                    <Button onClick={() => centroCustoFetch("0")}>Desabilitados</Button>
+                    <div className="table-depto-curso">
+                      <Button className="btn-deptoCurso" onClick={() => centroCustoFetch("1")}>Habilitados</Button>
+                      <Button className="btn-deptoCurso" onClick={() => centroCustoFetch("0")}>Desabilitados</Button>
+                    </div>
                     <div className="title-deptoCurso">{status.centroCustos ?
-                        <>
-                          Centro de custos habilitados
-                        </> :
-                        <>Centro de custos desabilitados</>}</div>
+                      <>
+                        Centro de custos habilitados
+                      </> :
+                      <>Centro de custos desabilitados</>}</div>
                     <Table striped bordered hover size="sm">
                       <thead>
                         <tr>
@@ -409,29 +417,29 @@ function DeptoCursos(props) {
                               </td>
                               {status.centroCustos ? <>
                                 <Button
-                                className="btn-disable"
-                                onClick={() =>
-                                  enableOrDisable({ id: data.id_centro_custos, enable: "0" })
-                                }
-                              >
-                                Desabilitar
-                              </Button>
-                               </>: <>
-                               <Button
-                                className="btn-enable"
-                                onClick={() =>
-                                  enableOrDisable({ id: data.id_centro_custos, enable: "1" })
-                                }
-                              >
-                                Habilitar
-                              </Button>
-                               </>}
+                                  className="btn-disable"
+                                  onClick={() =>
+                                    enableOrDisable({ id: data.id_centro_custos, enable: "0" })
+                                  }
+                                >
+                                  Desabilitar
+                                </Button>
+                              </> : <>
+                                <Button
+                                  className="btn-enable"
+                                  onClick={() =>
+                                    enableOrDisable({ id: data.id_centro_custos, enable: "1" })
+                                  }
+                                >
+                                  Habilitar
+                                </Button>
+                              </>}
                             </tr>
                           </tbody>
                         </>
                       ))}
                     </Table>
-                    <Button className="btn-services" onClick={() => history.push("/addOthers/centroCustos")}>Adicionar Centro de custos</Button>
+                    <Button className="btn-depto" onClick={() => history.push("/addOthers/centroCustos")}>Adicionar Centro de custos</Button>
                   </> : <></>
                   }
                 </div>

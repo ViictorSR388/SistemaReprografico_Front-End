@@ -45,8 +45,6 @@ export default function Statistics(props) {
         else if (!ano) {
             setMessage("Insira um ano para consulta!")
         }
-        //Ano de desenvolvimento da aplicação, 
-        // o admin não teria como consultar anos anteriores a este.
         else if (ano < 2021) {
             setMessage("Insira um ano válido!")
         }
@@ -184,7 +182,6 @@ export default function Statistics(props) {
                                                                 <td>
                                                                     <Card.Text>
                                                                         {
-                                                                            // data[0].qtdade_solicitada +
                                                                             data[1].qtdade_solicitada +
                                                                             data[2].qtdade_solicitada
                                                                         }
@@ -296,15 +293,15 @@ export default function Statistics(props) {
                                                         <tbody>
                                                             {data.cursoArray.map((data) => (
                                                                 <React.Fragment key={null}>
-                                                                   {data === null ? <> </> : <>
-                                                                <tr>
-                                                                    <td>
-                                                                        <strong>{data.descricao}</strong>
-                                                                    </td>
-                                                                    <td>
-                                                                        <Card.Text>{data.qtdade_solicitada || 0}</Card.Text>
-                                                                    </td>
-                                                                </tr></>}
+                                                                    {data === null ? <> </> : <>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <strong>{data.descricao}</strong>
+                                                                            </td>
+                                                                            <td>
+                                                                                <Card.Text>{data.qtdade_solicitada || 0}</Card.Text>
+                                                                            </td>
+                                                                        </tr></>}
                                                                 </React.Fragment>
                                                             ))}
                                                         </tbody>
@@ -341,14 +338,14 @@ export default function Statistics(props) {
                                                             {data.centro_custosArray.map((data) => (
                                                                 <React.Fragment key={null}>
                                                                     {data === null ? <> </> : <>
-                                                                <tr>
-                                                                    <td>
-                                                                        <strong>{data.descricao}</strong>
-                                                                    </td>
-                                                                    <td>
-                                                                        <Card.Text>{data.qtdade_solicitada || 0}</Card.Text>
-                                                                    </td>
-                                                                </tr></>}
+                                                                        <tr>
+                                                                            <td>
+                                                                                <strong>{data.descricao}</strong>
+                                                                            </td>
+                                                                            <td>
+                                                                                <Card.Text>{data.qtdade_solicitada || 0}</Card.Text>
+                                                                            </td>
+                                                                        </tr></>}
                                                                 </React.Fragment>
                                                             ))}
                                                         </tbody>

@@ -6,7 +6,7 @@ import SideBar from '../../components/formSideBar';
 import "../../styles/requestForm.scss";
 
 import { useHistory } from "react-router";
-import { FaCloudUploadAlt, FaFileImport } from "react-icons/fa";
+import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaPrint } from "react-icons/fa";
 import { Button, Card, Form } from "react-bootstrap";
 import Loading from "../../components/loading";
@@ -17,33 +17,24 @@ function RequestForm(props) {
 
   var [loading, setLoading] = useState(Loading);
 
-  //cursos
   const [course, setCourse] = useState(0);
-
-  // const [posGraduacao, setPosGraduacao] = useState("");
 
   const [message, setMessage] = useState("");
 
   var history = useHistory();
 
   var curso;
-  // var detalheGraduacao;
 
   if (course === "1") {
     curso = 1;
-    // detalheGraduacao = '';
   } else if (course === "2") {
     curso = 2;
-    // detalheGraduacao = '';
   } else if (course === "3") {
     curso = 3;
-    // detalheGraduacao = '';
   } else if (course === "4") {
     curso = 4;
-    // detalheGraduacao = posGraduacao;
   }
 
-  // centro de custos
   const [cc, setCc] = useState("");
 
   var centro_custos;
@@ -66,12 +57,10 @@ function RequestForm(props) {
     centro_custos = 8;
   }
 
-  //card item
   const [title, setTitle] = useState("");
   const [pages, setPages] = useState("");
   const [copy, setCopy] = useState("");
 
-  // modo de envio
   const [typeSend, setTypeSend] = useState(0);
   const [observacao, setObservacao] = useState("");
 
@@ -89,7 +78,7 @@ function RequestForm(props) {
   const [pdfFile, setPdfFile] = useState({
     raw: "",
   });
-  const [pdfFileError, setPdfFileError] = useState("");
+  const [pdfFileError] = useState("");
 
   const handleChange = (e) => {
     const Toast = Swal.mixin({
@@ -198,7 +187,7 @@ function RequestForm(props) {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        if(result.data.status !== "error"){
+        if (result.data.status !== "error") {
           setCentroCustos({
             list: result.data,
             status: true
@@ -211,7 +200,7 @@ function RequestForm(props) {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        if(result.data.status !== "error"){
+        if (result.data.status !== "error") {
           setCursos({
             list: result.data,
             status: true
@@ -267,8 +256,6 @@ function RequestForm(props) {
                   <h1>Solicitação de reprografia</h1>
                 </div>
                 <div className="containerWrapper">
-
-                  {/* <button onClick={() => console.log(servicos.servicosCA)}>DSAKLDLKAS</button> */}
                   <section className="card-wrapper">
                     {step === 1 && (
                       <Card className="card">
@@ -278,25 +265,28 @@ function RequestForm(props) {
                             {cursos.status ? <>
                               {cursos.list.map((data) => (
                                 <>
-                                  <Form.Check
-                                    className="classRadio"
-                                    type="radio"
-                                    name="course"
-                                    id="curso"
-                                    value={data.id_curso}
-                                    checked={course === `${data.id_curso}`}
-                                    onChange={(e) => {
-                                      setCourse(e.target.value);
-                                    }}
-                                    required
-                                  />
-                                  <Form.Check.Label htmlFor="courses" className="radio-label">
-                                    {data.descricao}
-                                  </Form.Check.Label>
+                                  <div className="container-curso">
+                                    <div className="inputCurso">
+                                      <Form.Check
+                                        className="classRadio"
+                                        type="radio"
+                                        name="course"
+                                        id="curso"
+                                        value={data.id_curso}
+                                        checked={course === `${data.id_curso}`}
+                                        onChange={(e) => {
+                                          setCourse(e.target.value);
+                                        }}
+                                        required
+                                      />
+                                      <Form.Check.Label htmlFor="courses" className="radio-label">
+                                        {data.descricao}
+                                      </Form.Check.Label>
+                                    </div>
+                                  </div>
                                 </>
                               ))}
                             </> : <></>}
-
                           </div>
                         </div>
                         <Card.Title

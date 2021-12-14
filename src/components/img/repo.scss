@@ -19,6 +19,7 @@
   cursor: pointer;
   border: 5px solid #FFF;
   transition: .5s;
+  object-fit: cover;
 
   &:hover {
     border: 5px solid $blue;

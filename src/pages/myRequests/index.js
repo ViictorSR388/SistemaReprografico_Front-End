@@ -120,7 +120,6 @@ const MyRequests = (props) => {
             {loading ? <Loading /> : <>
                 <Menu />
                 <div className="content">
-                    {/* {loading ? <> loading... </> :  */}
                     <>
                         <Header nif={props.nif} />
                         <SideBar image={props.image} name={props.name} requestsNoInfo={true} nif={props.nif} admin={props.admin} />
@@ -189,10 +188,8 @@ const MyRequests = (props) => {
                                     </>
                                 }
                             </>
-                            {/**<Button className="back-request" onClick={() => history.push('/requestForm')}> Voltar </Button>**/}
                         </div>
                     </>
-                    {/* } */}
                 </div>
             </>}
         </>

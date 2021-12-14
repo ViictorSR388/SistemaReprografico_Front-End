@@ -95,7 +95,7 @@ function SideBar(props) {
                         {admin ?
                             <>
                                 {props.deptoCursos ? <></> : <button className="buttonG" onClick={routeDeptoCursos}>Cursos e Departamentos</button>}
-                                {props.management ? <></> : <button className="buttonG" onClick={routeManagement}>Gerencia de usuários</button>}
+                                {props.management ? <></> : <button className="buttonG" onClick={routeManagement}>Gerência de usuários</button>}
                                 {props.estatisticas ? <></> : <button className="buttonG" onClick={routeStatistics}>Estatísticas</button>}
                                 {props.services ? <></> : <button className="buttonG" onClick={routeServices}>Serviços</button>}
                             </> :

@@ -55,7 +55,7 @@ export default function AddService() {
         },
       })
       .then((result) => {
-        if(!result.data.error && result.data.status !== "error"){
+        if (!result.data.error && result.data.status !== "error") {
           setDescricao(result.data.descricao)
           setQuantidade(result.data.quantidade)
           setCusto(result.data.valor_unitario)

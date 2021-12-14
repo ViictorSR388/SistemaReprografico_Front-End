@@ -29,14 +29,12 @@ function Review(props) {
     }).then((result) => {
       setMensagem(result.data.message)
       if (result.data.status !== "error") {
-        //Redireciona para página de meusPedidos em 1,5seg
         setTimeout(() => {
           history.push("/myRequests")
         }, 1500);
       }
     })
   }
-
 
   return (
     <>

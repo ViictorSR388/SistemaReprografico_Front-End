@@ -4,7 +4,6 @@ import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from "react-router";
-// import { AuthContext } from "./../../helpers/AuthContext";
 import ProfileContainer from "../../components/profileContainer";
 import Loading from '../../../src/components/loading';
 
@@ -36,8 +35,6 @@ function UserInfo(props) {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState();
 
   const [message, setMessage] = useState();
-
-  // const { setAuthState } = useContext(AuthContext);
 
   const [mensagem, setMensagem] = useState("");
 
@@ -150,42 +147,6 @@ function UserInfo(props) {
       });
     setAdm(props.admin);
   }, [props.admin, props.nif, id]);
-
-
-  //Importante para mandar pelo useContext se o usuário é administrador ou não
-  // e assim enviar para o header o valor para o props.admin trazendo as informações
-  // corretas no header para cada tipo de usuário (Esta terefa seria feita na página de login)
-  // mas como vocês estão redirecionando para página de perfil de usuário assim que faz login,
-  // temos que verificar se o usuário é admin pq vamos renderizar o header logo em seguida.
-  // const voltar = () => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
-  //       headers: {
-  //         accessToken: localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       if (response.data.roles) {
-  //         if (response.data.primeiro_acesso === 1) {
-  //           setAuthState({
-  //             firstAccess: true,
-  //           });
-  //           history.push("/firstAccess")
-  //         }
-  //         else if (response.data.roles[0].descricao === "admin") {
-  //           history.push("/management");
-  //           setAuthState({
-  //             admin: true
-  //           });
-  //         } else {
-  //           history.push("/requestForm");
-  //           setAuthState({
-  //             admin: false
-  //           });
-  //         }
-  //       }
-  //     });
-  // };
 
   return (
     <>
@@ -379,7 +340,7 @@ function UserInfo(props) {
                         onClick={() => {
                           setEdit(false);
                           setNameUser(props.name)
-                          setImage({preview: props.image})
+                          setImage({ preview: props.image })
                         }}
                       >
                         {" "}
