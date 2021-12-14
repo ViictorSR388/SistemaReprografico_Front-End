@@ -247,21 +247,6 @@ function DeptoCursos(props) {
               <Button className="btn-boot" onClick={() => centroCustoFetch("1")}>Centro de Custos</Button>
             </div>
             {message !== "" ? <>
-
-            <div className="title-deptoCurso">
-              {ativos.curso ? <>
-                {status.curso ? <> Cursos habilitados</> : <>Cursos desabilitados</>}
-              </> : <>
-                {ativos.centroCustos ? <>
-                  {status.centroCustos ? <>Centro de custos habilitados</> : <>Centro de custos  desabilitados</>}
-                </> : <>
-                {ativos.depto ? <>
-                  {status.depto ? <> Departamentos habilitados</> : <>Departamentos desabilitados</>}
-                </>: <></>}
-                </>}
-              </>}
-              </div>
-
               <div className="btns-deptoCurso">
                 {type === "cs" ? <><Button className="btn-deptoCurso" onClick={() => history.push("/addCurso")}>Adicionar Curso</Button></> : <></>}
                 {type === "dp" ? <><Button className="btn-deptoCurso" onClick={() => history.push("/addOthers/depto")}>Adicionar Departamento</Button></> : <></>}
@@ -287,6 +272,20 @@ function DeptoCursos(props) {
                   <Button className="btn-deptoCurso" onClick={() => centroCustoFetch("0")}>Desabilitados</Button>
                 </div>
               </> : <></>}
+
+              <div className="title-deptoCurso">
+              {ativos.curso ? <>
+                {status.curso ? <> Cursos habilitados</> : <>Cursos desabilitados</>}
+              </> : <>
+                {ativos.centroCustos ? <>
+                  {status.centroCustos ? <>Centro de custos habilitados</> : <>Centro de custos  desabilitados</>}
+                </> : <>
+                {ativos.depto ? <>
+                  {status.depto ? <> Departamentos habilitados</> : <>Departamentos desabilitados</>}
+                </>: <></>}
+                </>}
+              </>}
+              </div>
             </>
               : <>
                 <div className="table-div">
