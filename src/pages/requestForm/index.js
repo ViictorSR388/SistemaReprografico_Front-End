@@ -124,6 +124,9 @@ function RequestForm(props) {
     if (centro_custos === undefined) {
       setMessage("Por favor selecione um centro de custos!")
     }
+    else if (curso === undefined){
+      setMessage("Por favor selecione um curso!")
+    }
     else {
       axios
         .post(`${process.env.REACT_APP_REPROGRAFIA_URL}/request`, formData, {
