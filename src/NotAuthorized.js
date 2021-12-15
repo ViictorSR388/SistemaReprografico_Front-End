@@ -1,7 +1,10 @@
 import React from 'react';
+import { useHistory } from "react-router";
 import './styles/notFound.scss';
 
 function NotFound() {
+  var history = useHistory();
+  
   return (
     <>
       <div id="not">
@@ -15,7 +18,10 @@ function NotFound() {
           <span><span>1</span></span>
         </section>
 
-        <a id="backLogin" href="/">Volte para a página de login</a>
+        <button id="backLogin" onClick={() =>{
+          localStorage.removeItem("accessToken");
+          history.push('/')
+          }}>Volte para a página de login</button>
       </div>
     </>
   );
