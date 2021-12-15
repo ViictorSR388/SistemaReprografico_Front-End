@@ -65,7 +65,7 @@ function FirstAccess(props) {
 
     const firstAccessFalse = async () => {
         setAuthState({
-            firstAccess: false, admin: props.admin
+            firstAccess: false, loginFirst: false, admin: props.admin
         })
         return true;
     }
