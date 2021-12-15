@@ -223,6 +223,7 @@ function EditUser() {
               <input
                 className="input-box"
                 name="nameUser"
+                maxlength="50"
                 type="text"
                 placeholder={nameUser}
                 onChange={(e) => {
@@ -233,6 +234,7 @@ function EditUser() {
               <input
                 className="input-box"
                 name="emailUser"
+                maxlength="50"
                 type="email"
                 placeholder={emailUser}
                 onChange={(e) => {
@@ -243,6 +245,7 @@ function EditUser() {
               <input
                 className="input-box"
                 name="senhaUser"
+                maxlength="25"
                 type="password"
                 placeholder="Insira a Nova Senha"
                 onChange={(e) => {
@@ -252,6 +255,7 @@ function EditUser() {
               <h3 className="input-title">CFP</h3>
               <input
                 className="input-box"
+                maxlength="7"
                 name="cfpUser"
                 type="text"
                 placeholder={cfpUser}
@@ -263,6 +267,7 @@ function EditUser() {
               <input
                 className="input-box"
                 name="telefoneUser"
+                maxlength="11"
                 type="text"
                 placeholder={telefoneUser}
                 onChange={(e) => {
@@ -282,7 +287,11 @@ function EditUser() {
                 Upload
               </label>
               <h3 className="input-title">DEPARTAMENTO</h3>
+<<<<<<< HEAD
               {messageStatus ? <><h1>{message}</h1></> : <>
+=======
+              {messageStatus ? <><h1 className="text-editUser">{message}</h1></> : <>
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
                 <Form.Select
                   className="selectNew"
                   id="deptoUser"

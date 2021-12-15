@@ -365,6 +365,7 @@ function RequestForm(props) {
                         </label>
                         <input
                           className="input-minor"
+                          maxlength="50"
                           type="text"
                           name="title"
                           id=""
@@ -567,6 +568,7 @@ function RequestForm(props) {
                             as="textarea"
                             id="observacoes"
                             name="observacoes"
+                            maxlength="255"
                             placeholder="observações"
                             value={observacao}
                             onChange={(e) => {

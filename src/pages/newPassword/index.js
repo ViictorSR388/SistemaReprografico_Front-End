@@ -83,6 +83,7 @@ export default function NewPassword() {
             className="password-input-box"
             type="password"
             name="password1"
+            maxlength="25"
             onChange={(e) => {
               setSenhaInput(e.target.value);
             }}
@@ -94,6 +95,7 @@ export default function NewPassword() {
             className="password-input-box"
             type="password"
             name="password2"
+            maxlength="25"
             onChange={(e) => {
               setSenhaInput2(e.target.value);
             }}

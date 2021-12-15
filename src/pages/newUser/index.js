@@ -161,6 +161,10 @@ function NewUser(props) {
                   <input
                     className="input-boxNEW"
                     name="nameUser"
+<<<<<<< HEAD
+=======
+                    maxlength="50"
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
                     type="text"
                     placeholder="Nome"
                     required
@@ -173,6 +177,10 @@ function NewUser(props) {
                   <input
                     className="input-boxNEW"
                     name="emailUser"
+<<<<<<< HEAD
+=======
+                    maxlength="100"
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
                     type="email"
                     placeholder="E-mail"
                     required
@@ -185,6 +193,10 @@ function NewUser(props) {
                   <input
                     className="input-boxNEW"
                     name="nifUser"
+<<<<<<< HEAD
+=======
+                    maxlength="15"
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
                     type="text"
                     placeholder="NIF"
                     required
@@ -197,6 +209,10 @@ function NewUser(props) {
                   <input
                     className="input-boxNEW"
                     name="cfpUser"
+<<<<<<< HEAD
+=======
+                    maxlength="7"
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
                     type="text"
                     placeholder="CFP"
                     required
@@ -209,9 +225,17 @@ function NewUser(props) {
                   <input
                     className="input-boxNEW"
                     name="telefoneUser"
+<<<<<<< HEAD
                     type="text"
                     placeholder="Telefone"
                     re
+=======
+                    maxlength="11"
+                    id="telefone"
+                    type="tel"
+                    placeholder="Telefone"
+                    required
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
                     onChange={(e) => {
                       setTelefoneUser(e.target.value);
                     }}

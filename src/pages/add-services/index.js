@@ -70,6 +70,7 @@ export default function AddService() {
             <input
               className="input-service"
               name="descricao"
+              maxlength="45"
               type="text"
               placeholder="descrição de capa e acabamento"
               required

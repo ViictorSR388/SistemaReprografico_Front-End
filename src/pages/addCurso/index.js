@@ -101,12 +101,20 @@ export default function AddCurso() {
               <h2 id="" className="service-subTitle">
                 CURSO
               </h2>
+<<<<<<< HEAD
               <h4 className="import-addServices">Onde houver "*" o preenchimento é obrigatório</h4>
               <label className="important">*
                 <input
                   className="input-service"
                   name="descricao"
                   type="text"
+=======
+              <label className="important">
+                <input
+                  type="text" maxlength="50"
+                  className="input-service-Curso"
+                  name="descricao"
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
                   placeholder=""
                   required
                   onChange={(e) => {
@@ -114,9 +122,15 @@ export default function AddCurso() {
                   }}
                 />
               </label>
+<<<<<<< HEAD
               <h3 className="input-title">DEPARTAMENTO</h3>
               <select
                 className="selectNew"
+=======
+              <h3 className="input-titleCurso">DEPARTAMENTO</h3>
+              <select
+                className="select"
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
                 id="deptoUser"
                 name="deptoUser"
                 required

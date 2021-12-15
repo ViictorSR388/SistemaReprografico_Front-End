@@ -6,7 +6,11 @@
   align-items: flex-start;
   position: absolute;
   width: 45%;
+<<<<<<< HEAD
   top: 18vh;
+=======
+  top: 13vh;
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
   left: 33vw;
   font-size: 2rem;
   font-weight: 500;
@@ -131,7 +135,11 @@
   width: 80rem;
   height: 5rem;
   flex-direction: column;
+<<<<<<< HEAD
   margin-top: 4rem;
+=======
+  margin-top: 2rem;
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
 
   .btn-boot {
     justify-content: space-between !important;
@@ -199,6 +207,10 @@
   align-items: center;
   width: 80rem;
   height: 5rem;
+<<<<<<< HEAD
+=======
+  margin-top: 4rem;
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
 
   .btn-deptoCurso {
     justify-content: space-between !important;
@@ -227,6 +239,19 @@
   }
 }
 
+<<<<<<< HEAD
+=======
+.deptoCurso-card .title-depto-cc-curso{
+  margin-bottom: 3rem;
+  font-size: 2.7rem;
+  width: 50rem;
+  background-color: #212529;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
 .deptoAcoes {
   display: flex;
   position: absolute;

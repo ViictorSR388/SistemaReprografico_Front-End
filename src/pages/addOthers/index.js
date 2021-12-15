@@ -71,6 +71,7 @@ export default function AddOthers() {
           </h2>
           <label className="important">
             <input
+<<<<<<< HEAD
               className="input-service"
               name="descricao"
               type="text"
@@ -79,6 +80,16 @@ export default function AddOthers() {
               onChange={(e) => {
                 setDescricao(e.target.value);
               }}
+=======
+              type="text" maxlength="50"
+              className="input-service-Curso"
+              name="descricao"
+              placeholder=""
+              onChange={(e) => {
+                setDescricao(e.target.value);
+              }}
+              required
+>>>>>>> d6b244126b09cc9e48985bf68af3d56e06fee882
             />
           </label>
           <h3 className='mensagem'>{message}</h3>
