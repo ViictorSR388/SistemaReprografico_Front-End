@@ -33,10 +33,9 @@ export default function Login() {
         localStorage.setItem("accessToken", result.data.accessToken);
         if (result.data.roles) {
           var resposta = result.data.roles.includes("2_ROLE_ADMIN");
-
           if (resposta === false && result.data.primeiro_acesso === 1) {
             setAuthState({
-              admin: false, loginFirst: true, nif: result.data.nif,
+              loginFirst: true, nif: result.data.nif,
             });
             history.push("/firstAccess")
           }
@@ -48,7 +47,7 @@ export default function Login() {
           }
           else if (resposta === true && result.data.primeiro_acesso === 1) {
             setAuthState({
-              admin: true, loginFirst: true, nif: result.data.nif,
+              loginFirst: true, nif: result.data.nif,
             });
             history.push("/firstAccess")
           }
