@@ -1,6 +1,5 @@
 import React from 'react';
 import './styles.scss';
-import Profile from '../img/profile.js';
 
 function NewUserContainer () {
     return(

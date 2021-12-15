@@ -15,22 +15,18 @@ export default function Login() {
 
   const [mensagem, setMensagem] = useState("");
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   let history = useHistory();
 
   const LoginPost = () => {
     const data = { emailOrNif: emailOrNif, senha: senha };
-    axios.post(`${reprografia_url}/login`, data).then((result) => {
+    axios.post(`${process.env.REACT_APP_REPROGRAFIA_URL}/login`, data).then((result) => {
       if (result.data.status === "error") {
         setMensagem(result.data.message);
       } else {
         setAuthState({
           nif: result.data.nif,
           nome: result.data.nome,
-          imagem: `${reprografia_url}/` + result.data.imagem,
+          imagem: `${process.env.REACT_APP_REPROGRAFIA_URL}/` + result.data.imagem,
           redirect: false,
           naoAutorizado: false
         });
@@ -72,7 +68,7 @@ export default function Login() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${reprografia_url}/myUser`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -100,7 +96,7 @@ export default function Login() {
         }
         setLoading(false);
       });
-  }, [reprografia_url, history, setAuthState]);
+  }, [history, setAuthState]);
 
   const onSubmit = (e) => {
     e.preventDefault();

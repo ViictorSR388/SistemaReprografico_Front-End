@@ -22,6 +22,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import FirstAccess from "../pages/firstAccess";
 import { AuthContext } from "../helpers/AuthContext";
 import Services from "../pages/services";
+import DeptoCurso from "../pages/depto-cc-cursos";
+import AddOthers from "../pages/addOthers";
+import AddCurso from "../pages/addCurso";
 
 function Rotas() {
   const [authState, setAuthState] = useState({
@@ -37,15 +40,10 @@ function Rotas() {
 
   const [administrator, setAdministrator] = useState(0);
   const [firstAccess, setFirstAccess] = useState(0);
-  const [naoAutorizado, setNaoAutorizado] = useState(0);
-
-  const port = process.env.REACT_APP_PORT || 3002;
-  
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   useEffect(() => {
     axios
-      .get(`${reprografia_url}/myUser`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -58,24 +56,22 @@ function Rotas() {
           response.data.error
         ) {
           setAuthState({ redirect: true });
-        } else if(response.data.primeiro_acesso === 1) {
+        } else if (response.data.primeiro_acesso === 1) {
           setAuthState({ firstAccess: true, nif: response.data.nif })
           setFirstAccess(1);
         }
         else {
           setAuthState({
-
             redirect: false,
             status: true,
             nif: response.data.nif,
             email: response.data.email,
             nome: response.data.nome,
-            imagem: `${reprografia_url}` + response.data.imagem,
+            imagem: `${process.env.REACT_APP_REPROGRAFIA_URL}` + response.data.imagem,
             firstAccess: false,
             naoAutorizado: true
           });
 
-          setNaoAutorizado(1)
           setFirstAccess(0);
           if (response.data.roles && response.data.roles[0].descricao === "admin") {
             setAuthState({
@@ -90,7 +86,7 @@ function Rotas() {
           }
         }
       });
-  }, [reprografia_url]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ authState, setAuthState }}>
@@ -106,194 +102,228 @@ function Rotas() {
               </>
             ) : (
               <>
-              {authState.firstAccess || firstAccess === 1 ? <>
-              {/* {authState.naoAutorizado || naoAutorizado === 1 ? <><Route path="*" exact component={notAuthorized} /></> : <> */}
-              <Route
-                  path="/firstAccess"
-                  exact
-                  component={() => (
-                    <FirstAccess
-                      image={authState.imagem}
-                      name={authState.nome}
-                      nif={authState.nif}
-                      admin={authState.admin}
-                    />
+                {authState.firstAccess || firstAccess === 1 ? <>
+                  <Route
+                    path="/firstAccess"
+                    exact
+                    component={() => (
+                      <FirstAccess
+                        image={authState.imagem}
+                        name={authState.nome}
+                        nif={authState.nif}
+                        admin={authState.admin}
+                      />
+                    )}
+                  />
+                </> : <>
+                  <Route
+                    path="/user/:id"
+                    exact
+                    component={() => (
+                      <UserInfo
+                        image={authState.imagem}
+                        name={authState.nome}
+                        nif={authState.nif}
+                        admin={authState.admin}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/requestForm"
+                    exact
+                    component={() => (
+                      <RequestForm
+                        image={authState.imagem}
+                        name={authState.nome}
+                        nif={authState.nif}
+                        admin={authState.admin}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/review/:id"
+                    component={() => (
+                      <Review
+                        image={authState.imagem}
+                        admin={authState.admin}
+                        nif={authState.nif}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/myRequests"
+                    exact
+                    component={() => (
+                      <MyRequests
+                        image={authState.imagem}
+                        name={authState.nome}
+                        nif={authState.nif}
+                        admin={authState.admin}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/requestList/:id"
+                    exact
+                    component={() => (
+                      <RequestList
+                        image={authState.imagem}
+                        name={authState.nome}
+                        nif={authState.nif}
+                        admin={authState.admin}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/feedbacks/:id"
+                    exact
+                    component={() => (
+                      <Feedbacks
+                        image={authState.imagem}
+                        name={authState.nome}
+                        nif={authState.nif}
+                        admin={authState.admin}
+                      />
+                    )}
+                  />
+                  {administrator === 1 || authState.admin === true ? (
+                    <>
+                      <Route
+                        path="/newUser"
+                        exact
+                        component={() => (
+                          <NewUser
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/management"
+                        exact
+                        component={() => (
+                          <Management
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/user/edit/:nif"
+                        exact
+                        component={() => (
+                          <EditUser
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/users-requests/:nif"
+                        exact
+                        component={() => (
+                          <Request
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/services"
+                        exact
+                        component={() => (
+                          <Services
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/deptoCursos"
+                        exact
+                        component={() => (
+                          <DeptoCurso
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/addOthers/:type"
+                        exact
+                        component={() => (
+                          <AddOthers
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/addService/:type"
+                        exact
+                        component={() => (
+                          <AddService
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/addCurso"
+                        exact
+                        component={() => (
+                          <AddCurso
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/edit-services/:id/:type"
+                        exact
+                        component={() => (
+                          <EditServices
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/statistics"
+                        exact
+                        component={() => (
+                          <Statistics
+                            image={authState.imagem}
+                            name={authState.nome}
+                            nif={authState.nif}
+                            admin={authState.admin}
+                          />
+                        )}
+                      />
+                    </>
+                  ) : (
+                    <></>
                   )}
-                /> 
-              {/* </> } */}
-              </> : <>
-                <Route
-                  path="/user/:id"
-                  exact
-                  component={() => (
-                    <UserInfo
-                      image={authState.imagem}
-                      name={authState.nome}
-                      nif={authState.nif}
-                      admin={authState.admin}
-                    />
-                  )}
-                />
-                <Route
-                  path="/requestForm"
-                  exact
-                  component={() => (
-                    <RequestForm
-                      image={authState.imagem}
-                      name={authState.nome}
-                      nif={authState.nif}
-                      admin={authState.admin}
-                    />
-                  )}
-                />
-                <Route
-                  path="/review/:id"
-                  component={() => (
-                    <Review
-                      image={authState.imagem}
-                      admin={authState.admin}
-                      nif={authState.nif}
-                    />
-                  )}
-                />
-                <Route
-                  path="/myRequests"
-                  exact
-                  component={() => (
-                    <MyRequests
-                      image={authState.imagem}
-                      name={authState.nome}
-                      nif={authState.nif}
-                      admin={authState.admin}
-                    />
-                  )}
-                />
-                <Route
-                  path="/requestList/:id"
-                  exact
-                  component={() => (
-                    <RequestList
-                      image={authState.imagem}
-                      name={authState.nome}
-                      nif={authState.nif}
-                      admin={authState.admin}
-                    />
-                  )}
-                />
-                <Route
-                  path="/feedbacks/:id"
-                  exact
-                  component={() => (
-                    <Feedbacks
-                      image={authState.imagem}
-                      name={authState.nome}
-                      nif={authState.nif}
-                      admin={authState.admin}
-                    />
-                  )}
-                />
-                {administrator === 1 || authState.admin === true ? (
-                  <>
-                    <Route
-                      path="/newUser"
-                      exact
-                      component={() => (
-                        <NewUser
-                          image={authState.imagem}
-                          name={authState.nome}
-                          nif={authState.nif}
-                          admin={authState.admin}
-                        />
-                      )}
-                    />
-                    <Route
-                      path="/management"
-                      exact
-                      component={() => (
-                        <Management
-                          image={authState.imagem}
-                          name={authState.nome}
-                          nif={authState.nif}
-                          admin={authState.admin}
-                        />
-                      )}
-                    />
-                    <Route
-                      path="/user/edit/:nif"
-                      exact
-                      component={() => (
-                        <EditUser
-                          image={authState.imagem}
-                          name={authState.nome}
-                          nif={authState.nif}
-                          admin={authState.admin}
-                        />
-                      )}
-                    />
-                    <Route
-                      path="/users-requests/:nif"
-                      exact
-                      component={() => (
-                        <Request
-                          image={authState.imagem}
-                          name={authState.nome}
-                          nif={authState.nif}
-                          admin={authState.admin}
-                        />
-                      )}
-                    />
-                    <Route
-                      path="/services"
-                      exact
-                      component={() => (
-                        <Services
-                          image={authState.imagem}
-                          name={authState.nome}
-                          nif={authState.nif}
-                          admin={authState.admin}
-                        />
-                      )}
-                    />
-                    <Route
-                      path="/addService/:type"
-                      exact
-                      component={() => (
-                        <AddService
-                          image={authState.imagem}
-                          name={authState.nome}
-                          nif={authState.nif}
-                          admin={authState.admin}
-                        />
-                      )}
-                    />
-                    <Route
-                      path="/edit-services/:id/:type"
-                      exact
-                      component={() => (
-                        <EditServices
-                          image={authState.imagem}
-                          name={authState.nome}
-                          nif={authState.nif}
-                          admin={authState.admin}
-                        />
-                      )}
-                    />
-                    <Route
-                      path="/statistics"
-                      exact
-                      component={() => (
-                        <Statistics
-                          image={authState.imagem}
-                          name={authState.nome}
-                          nif={authState.nif}
-                          admin={authState.admin}
-                        />
-                      )}
-                    />
-                  </>
-                ) : (
-                  <></>
-                )}                
                 </>}
               </>
             )}

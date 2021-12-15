@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom'
 import axios from 'axios';
-import '../../styles/addService.scss';
+import '../../styles/addOthers.scss';
 import LoginContainer from '../../components/loginContainer';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
-export default function AddService() {
+export default function AddOthers() {
 
   var history = useHistory();
 
   var { type } = useParams();
 
-  const [descricao, setDescricao] = useState("");
-  const [quantidade, setQuantidade] = useState("");
-  const [custo, setCusto] = useState("");
   const [message, setMessage] = useState();
 
-  const AddService = () => {
-    const data = {
+  const [descricao, setDescricao] = useState("");
+
+  const addOthers = () => {
+    let data = {
       descricao: descricao,
-      quantidade: quantidade,
-      valor_unitario: custo,
     }
-    axios.post(`${process.env.REACT_APP_REPROGRAFIA_URL}/service/type=${type}`, data, {
+    if (type === "depto") {
+      var link = "/depto"
+    }
+    else {
+      link = "/centroCustos"
+    }
+    axios.post(`${process.env.REACT_APP_REPROGRAFIA_URL}${link}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
@@ -46,14 +49,15 @@ export default function AddService() {
           icon: 'success',
           title: result.data.message
         })
-        history.push("/services")
+        history.push("/deptoCursos")
       }
     })
+
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    AddService();
+    addOthers();
   }
 
 
@@ -63,47 +67,21 @@ export default function AddService() {
       <div className="finishing">
         <form onSubmit={onSubmit}>
           <h2 id="" className="service-subTitle">
-            Adicionar Serviço
+            {type === "depto" ? "Departamento" : "Centro de custos"}
           </h2>
-          <h4 className="import-addServices">Onde houver "*" o preenchimento é obrigatório</h4>
-          <label className="important">*
+          <label className="important">
             <input
               className="input-service"
               name="descricao"
               type="text"
-              placeholder="descrição de capa e acabamento"
+              placeholder=""
               required
               onChange={(e) => {
                 setDescricao(e.target.value);
               }}
             />
           </label>
-          <label className="important">*
-            <input
-              className="input-service"
-              name="quantidade"
-              type="number"
-              placeholder="quantidade do serviço"
-              required
-              onChange={(e) => {
-                setQuantidade(e.target.value);
-              }}
-            />
-          </label>
-          <label className="important">*
-            <input
-              className="input-service"
-              name="custo"
-              type="number"
-              step="any"
-              placeholder="custo unitário do serviço"
-              required
-              onChange={(e) => {
-                setCusto(e.target.value);
-              }}
-            />
-          </label>
-          <h3>{message}</h3>
+          <h3 className='mensagem'>{message}</h3>
           <input
             type="submit"
             className="nu-send-button"
@@ -114,7 +92,7 @@ export default function AddService() {
         <button
           className="btn-back-user"
           id="btn"
-          onClick={() => { history.push("/services") }}>Voltar</button>
+          onClick={() => { history.push("/deptoCursos") }}>Voltar</button>
       </div>
     </>
   );

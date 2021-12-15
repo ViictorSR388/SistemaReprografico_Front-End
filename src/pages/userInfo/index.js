@@ -4,9 +4,9 @@ import "../../styles/userInfo.scss";
 import axios from "axios";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useHistory } from "react-router";
-// import { AuthContext } from "./../../helpers/AuthContext";
 import ProfileContainer from "../../components/profileContainer";
 import Loading from '../../../src/components/loading';
+import Swal from 'sweetalert2';
 
 function UserInfo(props) {
   var { id } = useParams();
@@ -37,12 +37,6 @@ function UserInfo(props) {
 
   const [message, setMessage] = useState();
 
-  // const { setAuthState } = useContext(AuthContext);
-
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   const [mensagem, setMensagem] = useState("");
 
   const handleChange = (e) => {
@@ -72,7 +66,7 @@ function UserInfo(props) {
     }
 
     axios
-      .put(`${reprografia_url}/myUser`, formData, {
+      .put(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, formData, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -81,10 +75,22 @@ function UserInfo(props) {
           setMensagem(result.data.message);
         }
         else {
-          setMensagem(result.data.message);
-          setTimeout(() => {
-            setEdit(false)
-          }, 1500);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: result.data.message
+          })
+          setEdit(false)
         }
       });
   };
@@ -94,7 +100,7 @@ function UserInfo(props) {
 
     axios
       .put(
-        `${reprografia_url}/myUser/changePassword`,
+        `${process.env.REACT_APP_REPROGRAFIA_URL}/myUser/changePassword`,
         { senhaAntiga: pastPassword, senhaNova: newPassword, confirmSenhaNova: newPasswordConfirm },
         {
           headers: {
@@ -106,10 +112,22 @@ function UserInfo(props) {
         if (result.data.status === "error") {
           setMessage(result.data.message);
         } else {
-          setMessage(result.data.message);
-          setTimeout(() => {
-            setChangePass(false);
-          }, 1500);
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          Toast.fire({
+            icon: 'success',
+            title: result.data.message
+          })
+          setChangePass(false);
         }
       });
   };
@@ -122,7 +140,7 @@ function UserInfo(props) {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${reprografia_url}/user/` + id, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/user/` + id, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -136,12 +154,12 @@ function UserInfo(props) {
           setTelefoneUser(result.data.telefone);
           setDeptoUser(result.data.depto);
           setCfpUser(result.data.cfp)
-          setImage({ preview: `${reprografia_url}/` + result.data.imagem });
+          setImage({ preview: `${process.env.REACT_APP_REPROGRAFIA_URL}/` + result.data.imagem });
           setLoading(false);
         }
       });
     axios
-      .get(`${reprografia_url}/auth`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/auth`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -153,43 +171,7 @@ function UserInfo(props) {
         }
       });
     setAdm(props.admin);
-  }, [props.admin, props.nif, id, reprografia_url]);
-
-
-  //Importante para mandar pelo useContext se o usuário é administrador ou não
-  // e assim enviar para o header o valor para o props.admin trazendo as informações
-  // corretas no header para cada tipo de usuário (Esta terefa seria feita na página de login)
-  // mas como vocês estão redirecionando para página de perfil de usuário assim que faz login,
-  // temos que verificar se o usuário é admin pq vamos renderizar o header logo em seguida.
-  // const voltar = () => {
-  //   axios
-  //     .get(`${reprografia_url}/myUser`, {
-  //       headers: {
-  //         accessToken: localStorage.getItem("accessToken"),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       if (response.data.roles) {
-  //         if (response.data.primeiro_acesso === 1) {
-  //           setAuthState({
-  //             firstAccess: true,
-  //           });
-  //           history.push("/firstAccess")
-  //         }
-  //         else if (response.data.roles[0].descricao === "admin") {
-  //           history.push("/management");
-  //           setAuthState({
-  //             admin: true
-  //           });
-  //         } else {
-  //           history.push("/requestForm");
-  //           setAuthState({
-  //             admin: false
-  //           });
-  //         }
-  //       }
-  //     });
-  // };
+  }, [props.admin, props.nif, id]);
 
   return (
     <>
@@ -210,6 +192,7 @@ function UserInfo(props) {
                 changePassword={() => {
                   setChangePass(true);
                   setEdit(false)
+                  setMessage("")
                 }}
               />
             </> : <>
@@ -237,10 +220,12 @@ function UserInfo(props) {
                       edit={() => {
                         setEdit(true);
                         setChangePass(false);
+                        setMessage("")
                       }}
                       changePassword={() => {
                         setChangePass(true);
                         setEdit(false)
+                        setMessage("")
                       }}
                       editMyUser={true}
                     />
@@ -383,6 +368,7 @@ function UserInfo(props) {
                         onClick={() => {
                           setEdit(false);
                           setNameUser(props.name)
+                          setImage({ preview: props.image })
                         }}
                       >
                         {" "}

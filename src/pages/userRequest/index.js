@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import { Button, Card, Table } from "react-bootstrap";
-
 import "../../styles/usersRequest.scss";
-
 import Header from "../../../src/components/header";
 import Menu from "../../../src/components/hamburgerButton";
 import SideBar from "../../../src/components/formSideBar";
@@ -24,37 +22,33 @@ const UserRequest = (props) => {
 
   var [loading, setLoading] = useState(Loading);
 
-  const port = process.env.REACT_APP_PORT || 3002;
-
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
-
   useEffect(() => {
     setLoading(true)
     axios
-      .get(`${reprografia_url}/request/nif/${nif}/rated=0`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/request/nif/${nif}/rated=0`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       })
       .then((result) => {
-          if (result.data.length > 0) {
-            setPedidos({
-              list: result.data,
-              status: true,
-            });
-          } else {
-            setPedidos({
-              message: result.data.message,
-            });
-          }
-          setLoading(false)
+        if (result.data.length > 0) {
+          setPedidos({
+            list: result.data,
+            status: true,
+          });
+        } else {
+          setPedidos({
+            message: result.data.message,
+          });
+        }
+        setLoading(false)
       });
 
-  }, [nif, reprografia_url]);
+  }, [nif]);
 
   const getAvaliados = (id) => {
     axios
-      .get(`http://localhost:3002/request/nif/${nif}/rated=${id}`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/request/nif/${nif}/rated=${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -166,19 +160,6 @@ const UserRequest = (props) => {
                                     detalhes
                                   </Button>
                                   {data.realizado_qtdade < 2 ? <></> : <Button className="usersR-avaliation" variant="secondary" onClick={() => { history.push("/feedbacks/" + data.id_pedido) }}>avaliações</Button>}</>}
-                                {/* {avaliados ? (
-                                <></>
-                              ) : (
-                                <Button
-                                  className="usersR-avaliation"
-                                  variant="secondary"
-                                  onClick={() => {
-                                    history.push("/review/" + data.id_pedido);
-                                  }}
-                                >
-                                  Avaliar
-                                </Button>
-                              )} */}
                               </div>
                             </td>
                           </tr>

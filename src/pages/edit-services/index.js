@@ -4,16 +4,13 @@ import axios from 'axios';
 import '../../styles/edit-services.scss';
 import LoginContainer from '../../components/loginContainer';
 import Loading from '../../../src/components/loading';
+import Swal from 'sweetalert2';
 
 export default function AddService() {
 
   var history = useHistory();
 
   var { type, id } = useParams();
-
-  const port = process.env.REACT_APP_PORT || 3002;
-  
-  const reprografia_url = `${process.env.REACT_APP_REPROGRAFIA_URL}:${port}`;
 
   const [descricao, setDescricao] = useState("");
   const [quantidade, setQuantidade] = useState("");
@@ -26,7 +23,7 @@ export default function AddService() {
       quantidade: quantidade,
       valor_unitario: custo,
     }
-    axios.put(`${reprografia_url}/service/${id}/type=${type}`, data, {
+    axios.put(`${process.env.REACT_APP_REPROGRAFIA_URL}/service/${id}/type=${type}`, data, {
       headers: {
         accessToken: localStorage.getItem("accessToken"),
       }
@@ -35,10 +32,22 @@ export default function AddService() {
         setMessage(result.data.message)
       }
       else {
-        setMessage(result.data.message)
-        setTimeout(() => {
-          history.push("/services")
-        }, 150);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        })
+        Toast.fire({
+          icon: 'success',
+          title: result.data.message
+        })
+        history.push("/services")
       }
     })
   }
@@ -53,20 +62,20 @@ export default function AddService() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${reprografia_url}/service/${id}/type=${type}`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/service/${id}/type=${type}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       })
       .then((result) => {
-        if(!result.data.error && result.data.status !== "error"){
+        if (!result.data.error && result.data.status !== "error") {
           setDescricao(result.data.descricao)
           setQuantidade(result.data.quantidade)
           setCusto(result.data.valor_unitario)
           setLoading(false);
         }
       });
-  }, [id, type, reprografia_url]);
+  }, [id, type]);
 
 
   return (

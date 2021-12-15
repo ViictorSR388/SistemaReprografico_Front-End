@@ -6,6 +6,7 @@ import { FaUserCog } from 'react-icons/fa';
 import { FaPaste } from 'react-icons/fa';
 import { FaWrench } from 'react-icons/fa';
 import { FaChartLine } from 'react-icons/fa';
+import { FaFileInvoice } from 'react-icons/fa';
 
 const managerData = [
   {
@@ -30,6 +31,12 @@ const managerData = [
     title: 'Minhas Requisições',
     path: '/myRequests',
     icon: <FaPaste />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Cursos e Departamentos',
+    path: '/deptoCursos',
+    icon: <FaFileInvoice />,
     cName: 'nav-text'
   },
   {

@@ -149,7 +149,7 @@
         color: $white !important;
         margin-right: 1rem !important;
         background-color: none !important;
-        transition: .5s !important;
+        transition: 0.5s !important;
 
         &:hover {
           background-color: $grey !important;
@@ -169,7 +169,7 @@
       background-color: $grey-button !important;
       font-size: 1.6rem !important;
       margin-bottom: 1rem !important;
-      transition: .5s !important;
+      transition: 0.5s !important;
 
       &:hover {
         background-color: $grey !important;
@@ -187,7 +187,7 @@
     font-size: 1.6rem !important;
     border: transparent !important;
     margin-bottom: 1rem !important;
-    transition: .5s !important;
+    transition: 0.5s !important;
 
     &:hover {
       background-color: $grey !important;
@@ -200,8 +200,9 @@
     height: 10rem;
     border-radius: 50%;
     cursor: pointer;
-    border: 3px solid #FFF;
-    transition: .5s;
+    border: 3px solid #fff;
+    transition: 0.5s;
+    object-fit: cover;
 
     &:hover {
       border: 3px solid $blue;
@@ -242,7 +243,7 @@
   color: $white !important;
   margin-right: 1rem !important;
   background-color: none !important;
-  transition: .5s !important;
+  transition: 0.5s !important;
 
   &:hover {
     background-color: #04345c !important;
@@ -258,7 +259,7 @@
   color: $white !important;
   margin-right: 1rem !important;
   background-color: none !important;
-  transition: .5s !important;
+  transition: 0.5s !important;
 
   &:hover {
     background-color: #ba181b !important;
