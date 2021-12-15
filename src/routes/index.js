@@ -35,7 +35,8 @@ function Rotas() {
     admin: false,
     redirect: false,
     firstAccess: false,
-    naoAutorizado: false
+    naoAutorizado: false,
+    loginFirst: false,
   });
 
   const [administrator, setAdministrator] = useState(0);
@@ -102,9 +103,9 @@ function Rotas() {
               </>
             ) : (
               <>
-                {authState.firstAccess || firstAccess === 1 ? <>
+                {(authState.firstAccess === true && firstAccess === 1) || authState.loginFirst ?  <>
                   <Route
-                    path="/firstAccess"
+                    path="*"
                     exact
                     component={() => (
                       <FirstAccess

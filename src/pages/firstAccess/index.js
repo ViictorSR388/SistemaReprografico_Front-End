@@ -40,14 +40,9 @@ function FirstAccess(props) {
                     icon: 'success',
                     title: result.data.message
                   })
-                setTimeout(() => {
-                    setAuthState({
-                        firstAccess: false, admin: props.admin
-                    })
-                }, 1000);
-                setTimeout(() => {
-                    history.push(`/requestForm`)
-                }, 1200)
+                  firstAccessFalse().then(() =>{
+                      history.push(`/requestForm`)
+                });
             }
             else if (result.data.message === "Esse não é o seu primeiro acesso!") {
                 setMessage(result.data.message)
@@ -67,6 +62,13 @@ function FirstAccess(props) {
         localStorage.removeItem("accessToken");
         history.push('/')
     };
+
+    const firstAccessFalse = async () => {
+        setAuthState({
+            firstAccess: false, admin: props.admin
+        })
+        return true;
+    }
 
     return (
         <>

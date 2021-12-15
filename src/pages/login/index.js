@@ -36,25 +36,25 @@ export default function Login() {
 
           if (resposta === false && result.data.primeiro_acesso === 1) {
             setAuthState({
-              admin: false, firstAccess: true, nif: result.data.nif,
+              admin: false, loginFirst: true, nif: result.data.nif,
             });
             history.push("/firstAccess")
           }
           else if (resposta === true && result.data.primeiro_acesso === 0) {
             setAuthState({
-              admin: true, firstAccess: false,
+              admin: true, loginFirst: false,
             });
             history.push("management");
           }
           else if (resposta === true && result.data.primeiro_acesso === 1) {
             setAuthState({
-              admin: true, firstAccess: true, nif: result.data.nif,
+              admin: true, loginFirst: true, nif: result.data.nif,
             });
             history.push("/firstAccess")
           }
           else {
             setAuthState({
-              admin: false, firstAccess: false
+              admin: false, loginFirst: false
             });
             history.push("requestForm");
           }

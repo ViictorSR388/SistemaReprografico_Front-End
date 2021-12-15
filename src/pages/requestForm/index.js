@@ -5,7 +5,9 @@ import Header from '../../components/header';
 import SideBar from '../../components/formSideBar';
 import "../../styles/requestForm.scss";
 
+// import { AuthContext } from "./../../helpers/AuthContext";
 import { useHistory } from "react-router";
+
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaPrint } from "react-icons/fa";
 import { Button, Card, Form } from "react-bootstrap";
@@ -225,6 +227,24 @@ function RequestForm(props) {
       })
   }
 
+  // const { setAuthState } = useContext(AuthContext);
+
+  // const verificacaoFirstAcess = () => {
+  //   axios
+  //   .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
+  //     headers: {
+  //       accessToken: localStorage.getItem("accessToken"),
+  //     },
+  //     validateStatus: () => true,
+  //   })
+  //   .then((response) => {
+  //     if (response.data && response.data.primeiro_acesso === 1) {
+  //       setAuthState({ firstAccess: true, nif: response.data.nif })
+  //       history.push("/firstAccess")
+  //     }
+  //   })
+  // }
+
   const onLoad = async () => {
     setLoading(true)
     var config = {
@@ -236,6 +256,7 @@ function RequestForm(props) {
     };
     try {
       await formulario();
+      // await verificacaoFirstAcess();
       const response = await axios(config);
       if (response) {
         if (
