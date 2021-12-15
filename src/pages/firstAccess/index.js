@@ -32,16 +32,16 @@ function FirstAccess(props) {
                     timer: 3000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
-                  })
-                  Toast.fire({
+                })
+                Toast.fire({
                     icon: 'success',
                     title: result.data.message
-                  })
-                  firstAccessFalse().then(() =>{
-                      history.push(`/requestForm`)
+                })
+                firstAccessFalse().then(() => {
+                    history.push(`/requestForm`)
                 });
             }
             else if (result.data.message === "Esse não é o seu primeiro acesso!") {
@@ -64,9 +64,27 @@ function FirstAccess(props) {
     };
 
     const firstAccessFalse = async () => {
-        setAuthState({
-            firstAccess: false, loginFirst: false, admin: props.admin
-        })
+        axios
+            .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+                validateStatus: () => true,
+            })
+            .then((response) => {
+                setAuthState({
+                    firstAccess: false, loginFirst: false,
+                })
+                if (response.data.roles && response.data.roles[0].descricao === "admin") {
+                    setAuthState({
+                        admin: true,
+                    });
+                } else {
+                    setAuthState({
+                        admin: false,
+                    });
+                }
+            })
         return true;
     }
 

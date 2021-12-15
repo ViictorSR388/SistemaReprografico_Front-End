@@ -135,6 +135,7 @@ function DeptoCursos(props) {
   }
 
   const cursosFetch = async (id) => {
+    await deptoFetch({ id: "1" });
     await axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/cursos/enabled=${id}`, {
         headers: {
@@ -216,12 +217,8 @@ function DeptoCursos(props) {
   const onLoad = async () => {
     setLoading(true)
     try {
-      //Utilizado para carregar os departamentos na pagina de cursos
-      await deptoFetch({ id: "1" });
-
       //Utilizado para listar todos os departamentos
       await deptoFetch({ id: "1", type: "1"});
-      
       setLoading(false);
     } catch (error) {
       console.log(error)
