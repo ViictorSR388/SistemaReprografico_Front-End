@@ -31,7 +31,7 @@ function EditUser(props) {
 
   const [telefoneUser, setTelefoneUser] = useState("");
 
-  const [deptoUser, setDeptoUser] = useState("0");
+  var [deptoUser, setDeptoUser] = useState("0");
 
   const [admin, setAdmin] = useState("");
 
@@ -40,26 +40,6 @@ function EditUser(props) {
   const [deptoSelect, setDeptoSelect] = useState();
   const [messageStatus, setMessageStatus] = useState();
   const [message, setMessage] = useState();
-
-  var id_depto = deptoUser;
-
-  if (deptoUser === "1") {
-    id_depto = "Aprendizagem Industrial Presencial";
-  } else if (deptoUser === "2") {
-    id_depto = "Técnico de Nível Médio Presencial";
-  } else if (deptoUser === "3") {
-    id_depto = "Graduação Tecnológica Presencial";
-  } else if (deptoUser === "4") {
-    id_depto = "Pós-Graduação Presencial";
-  } else if (deptoUser === "5") {
-    id_depto = "Extensão Presencial";
-  } else if (deptoUser === "6") {
-    id_depto = "Iniciação Profissional Presencial";
-  } else if (deptoUser === "7") {
-    id_depto = "Qualificação Profissional Presencial";
-  } else if (deptoUser === "8") {
-    id_depto = "Aperfeiç./Especializ. Profis. Presencial";
-  }
 
   const handleChange = (e) => {
     if (e.target.files.length) {
@@ -74,30 +54,9 @@ function EditUser(props) {
 
   const handleUpload = (e) => {
     e.preventDefault();
-    var departamento;
 
-    if (deptoUser === "0") {
-      departamento = "0";
-    } else if (deptoUser === "1") {
-      departamento = 1;
-    } else if (deptoUser === "2") {
-      departamento = 2;
-    } else if (deptoUser === "3") {
-      departamento = 3;
-    } else if (deptoUser === "4") {
-      departamento = 4;
-    } else if (deptoUser === "5") {
-      departamento = 5;
-    } else if (deptoUser === "6") {
-      departamento = 6;
-    } else if (deptoUser === "7") {
-      departamento = 7;
-    } else if (deptoUser === "8") {
-      departamento = 8;
-    }
-
-    if (departamento === undefined) {
-      departamento = "0"
+    if (deptoUser === undefined) {
+      deptoUser = "0"
     }
 
     const formData = new FormData();
@@ -118,7 +77,7 @@ function EditUser(props) {
       formData.append("telefone", telefoneUser);
     }
     if (deptoUser !== "") {
-      formData.append("depto", departamento);
+      formData.append("depto", deptoUser);
     }
     if (admin !== "") {
       formData.append("admin", admin);
