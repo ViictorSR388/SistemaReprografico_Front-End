@@ -54,7 +54,6 @@ function NewUser(props) {
     formData.append("depto", deptoUser);
     formData.append("admin", admin);
 
-    console.log(deptoUser)
     if (deptoUser === undefined || deptoUser === "") {
       setMensagem("Por favor selecione um departamento!");
     } else {
