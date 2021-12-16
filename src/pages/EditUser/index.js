@@ -9,7 +9,7 @@ import Loading from "../../components/loading";
 import "../../styles/editUser.scss";
 import Swal from 'sweetalert2';
 
-function EditUser() {
+function EditUser(props) {
 
   const { nif } = useParams();
 
@@ -149,7 +149,12 @@ function EditUser() {
             icon: 'success',
             title: result.data.message
           })
-          history.push("/management");
+          if(props.editAdmin === true){
+            history.goBack();
+          }
+          else{
+            history.push("/management");
+          }
         }
       });
   };
