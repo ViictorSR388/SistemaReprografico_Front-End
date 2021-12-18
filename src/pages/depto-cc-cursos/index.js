@@ -58,114 +58,115 @@ function DeptoCursos(props) {
   }, [])
 
   const centroCustoFetch = async (id) => {
+    if (id === "1") {
+      setStatus({
+        centroCustos: true
+      })
+    }
+    else {
+      setStatus({
+        centroCustos: false
+      })
+    }
     await axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/centroCustos/enabled=${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        if (id === "1") {
-          setStatus({
-            centroCustos: true
-          })
-        }
-        else {
-          setStatus({
-            centroCustos: false
-          })
-        }
         if (result.data.status !== "error") {
           setCentroCusto({
             list: result.data,
             status: true
           })
-          setCursos({ status: false })
-          setDepartamento({ status: false })
           setMessage("")
         }
         else {
-          setMessage(result.data.message)
-          setType("ct")
+          setMessage(result.data.message);
+          setType("ct");
         }
-        setAtivos({ curso: false, depto: false, centroCustos: true })
+        setAtivos({ curso: false, depto: false, centroCustos: true });
+        setCursos({ status: false });
+        setDepartamento({ status: false });
       })
   }
 
   const deptoFetch = async ({ id, type }) => {
+    if (type === "1" && id === "1") {
+      setStatus({
+        depto: true
+      })
+    }
+    else if(type === "1" && id === "0"){
+      setStatus({
+        depto: false
+      })
+    }
     await axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/deptos/enabled=${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       }).then((result) => {
-        if (id === "1") {
-          setStatus({
-            depto: true
-          })
-        }
-        else {
-          setStatus({
-            depto: false
-          })
-        }
         if (result.data.status !== "error") {
           if (type === "1") {
             setDepartamento({
               list: result.data,
               status: true
             })
-            setCentroCusto({ status: false })
-            setCursos({ status: false })
-            setMessage("")
+
+            setMessage("");
           }
           else {
             setCursoDepto({
               list: result.data,
               status: true
             })
-            setMessage("")
+            setMessage("");
           }
         }
         else {
           setMessage(result.data.message);
           setType("dp")
         }
-        setAtivos({ curso: false, depto: true, centroCustos: false })
+        setAtivos({ curso: false, depto: true, centroCustos: false });
+        setCentroCusto({ status: false });
+        setCursos({ status: false });
       })
   }
 
   const cursosFetch = async (id) => {
-    await deptoFetch({ id: "1" });
-    await axios
+    if (id === "1") {
+      setStatus({
+        curso: true
+      })
+    }
+    else {
+      setStatus({
+        curso: false
+      })
+    }
+    axios
       .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/cursos/enabled=${id}`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
-      }).then((result) => {
-        if (id === "1") {
-          setStatus({
-            curso: true
-          })
-        }
-        else {
-          setStatus({
-            curso: false
-          })
-        }
+      }).then(async (result) => {
         if (result.data.status !== "error") {
+          await deptoFetch({ id: "1" });
           setCursos({
             list: result.data,
             status: true
           })
-          setMessage("")
-          setDepartamento({ status: false })
-          setCentroCusto({ status: false })
+          setMessage("");
         }
         else {
           setMessage(result.data.message);
-          setType("cs")
+          setType("cs");
         }
-        setAtivos({ curso: true, depto: false, centroCustos: false })
+        setAtivos({ curso: true, depto: false, centroCustos: false });
+        setDepartamento({ status: false });
+        setCentroCusto({ status: false });
       })
   }
 
@@ -203,10 +204,10 @@ function DeptoCursos(props) {
           deptoFetch({ type: "1", id: "0" })
         }
         else if (enable === "0") {
-          centroCustoFetch("1")
+          centroCustoFetch("1");
         }
         else {
-          centroCustoFetch("0")
+          centroCustoFetch("0");
         }
       })
       .catch(function (error) {
@@ -218,10 +219,10 @@ function DeptoCursos(props) {
     setLoading(true)
     try {
       //Utilizado para listar todos os departamentos
-      await deptoFetch({ id: "1", type: "1"});
+      await deptoFetch({ id: "1", type: "1" });
       setLoading(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -275,17 +276,17 @@ function DeptoCursos(props) {
               </> : <></>}
 
               <div className="title-deptoCurso">
-              {ativos.curso ? <>
-                {status.curso ? <> Cursos habilitados</> : <>Cursos desabilitados</>}
-              </> : <>
-                {ativos.centroCustos ? <>
-                  {status.centroCustos ? <>Centro de custos habilitados</> : <>Centro de custos  desabilitados</>}
+                {ativos.curso ? <>
+                  {status.curso ? <> Cursos habilitados</> : <>Cursos desabilitados</>}
                 </> : <>
-                {ativos.depto ? <>
-                  {status.depto ? <> Departamentos habilitados</> : <>Departamentos desabilitados</>}
-                </>: <></>}
+                  {ativos.centroCustos ? <>
+                    {status.centroCustos ? <>Centro de custos habilitados</> : <>Centro de custos  desabilitados</>}
+                  </> : <>
+                    {ativos.depto ? <>
+                      {status.depto ? <> Departamentos habilitados</> : <>Departamentos desabilitados</>}
+                    </> : <></>}
+                  </>}
                 </>}
-              </>}
               </div>
             </>
               : <>
