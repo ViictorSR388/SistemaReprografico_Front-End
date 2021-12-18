@@ -50,6 +50,9 @@ function FirstAccess(props) {
                     logout();
                 }, 1000);
             }
+            else{
+                setMessage(result.data.message);
+            }
         })
     };
 
