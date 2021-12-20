@@ -5,7 +5,9 @@ import Header from '../../components/header';
 import SideBar from '../../components/formSideBar';
 import "../../styles/requestForm.scss";
 
+// import { AuthContext } from "./../../helpers/AuthContext";
 import { useHistory } from "react-router";
+
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaPrint } from "react-icons/fa";
 import { Button, Card, Form } from "react-bootstrap";
@@ -23,39 +25,7 @@ function RequestForm(props) {
 
   var history = useHistory();
 
-  var curso;
-
-  if (course === "1") {
-    curso = 1;
-  } else if (course === "2") {
-    curso = 2;
-  } else if (course === "3") {
-    curso = 3;
-  } else if (course === "4") {
-    curso = 4;
-  }
-
   const [cc, setCc] = useState("");
-
-  var centro_custos;
-
-  if (cc === "1") {
-    centro_custos = 1;
-  } else if (cc === "2") {
-    centro_custos = 2;
-  } else if (cc === "3") {
-    centro_custos = 3;
-  } else if (cc === "4") {
-    centro_custos = 4;
-  } else if (cc === "5") {
-    centro_custos = 5;
-  } else if (cc === "6") {
-    centro_custos = 6;
-  } else if (cc === "7") {
-    centro_custos = 7;
-  } else if (cc === "8") {
-    centro_custos = 8;
-  }
 
   const [title, setTitle] = useState("");
   const [pages, setPages] = useState("");
@@ -107,8 +77,8 @@ function RequestForm(props) {
     const formData = new FormData();
 
     formData.append("file", pdfFile.raw);
-    formData.append("curso", curso);
-    formData.append("centro_custos", centro_custos);
+    formData.append("curso", course);
+    formData.append("centro_custos", cc);
 
     formData.append("servicoCT", servicoCT);
     formData.append("servicoCA", servicoCA);
@@ -120,11 +90,10 @@ function RequestForm(props) {
     formData.append("modo_envio", modo_envio);
     formData.append("observacoes", observacao_envio);
 
-
-    if (centro_custos === undefined) {
+    if (cc === "" || cc === 0) {
       setMessage("Por favor selecione um centro de custos!")
     }
-    else if (curso === undefined) {
+    else if (course === "" || course === 0) {
       setMessage("Por favor selecione um curso!")
     }
     else {
@@ -225,6 +194,24 @@ function RequestForm(props) {
       })
   }
 
+  // const { setAuthState } = useContext(AuthContext);
+
+  // const verificacaoFirstAcess = () => {
+  //   axios
+  //   .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
+  //     headers: {
+  //       accessToken: localStorage.getItem("accessToken"),
+  //     },
+  //     validateStatus: () => true,
+  //   })
+  //   .then((response) => {
+  //     if (response.data && response.data.primeiro_acesso === 1) {
+  //       setAuthState({ firstAccess: true, nif: response.data.nif })
+  //       history.push("/firstAccess")
+  //     }
+  //   })
+  // }
+
   const onLoad = async () => {
     setLoading(true)
     var config = {
@@ -236,6 +223,7 @@ function RequestForm(props) {
     };
     try {
       await formulario();
+      // await verificacaoFirstAcess();
       const response = await axios(config);
       if (response) {
         if (

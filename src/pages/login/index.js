@@ -33,28 +33,27 @@ export default function Login() {
         localStorage.setItem("accessToken", result.data.accessToken);
         if (result.data.roles) {
           var resposta = result.data.roles.includes("2_ROLE_ADMIN");
-
           if (resposta === false && result.data.primeiro_acesso === 1) {
             setAuthState({
-              admin: false, firstAccess: true, nif: result.data.nif,
+              loginFirst: true, nif: result.data.nif,
             });
             history.push("/firstAccess")
           }
           else if (resposta === true && result.data.primeiro_acesso === 0) {
             setAuthState({
-              admin: true, firstAccess: false,
+              admin: true, loginFirst: false,
             });
             history.push("management");
           }
           else if (resposta === true && result.data.primeiro_acesso === 1) {
             setAuthState({
-              admin: true, firstAccess: true, nif: result.data.nif,
+              loginFirst: true, nif: result.data.nif,
             });
             history.push("/firstAccess")
           }
           else {
             setAuthState({
-              admin: false, firstAccess: false
+              admin: false, loginFirst: false
             });
             history.push("requestForm");
           }

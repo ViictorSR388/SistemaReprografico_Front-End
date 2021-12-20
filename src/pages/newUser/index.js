@@ -23,31 +23,11 @@ function NewUser(props) {
 
   const [telefoneUser, setTelefoneUser] = useState("");
 
-  const [deptoUser, setDeptoUser] = useState("");
+  var [deptoUser, setDeptoUser] = useState("");
 
   const [admin, setAdmin] = useState(0);
 
   const [mensagem, setMensagem] = useState("");
-
-  var departamento;
-
-  if (deptoUser === "1") {
-    departamento = 1;
-  } else if (deptoUser === "2") {
-    departamento = 2;
-  } else if (deptoUser === "3") {
-    departamento = 3;
-  } else if (deptoUser === "4") {
-    departamento = 4;
-  } else if (deptoUser === "5") {
-    departamento = 5;
-  } else if (deptoUser === "6") {
-    departamento = 6;
-  } else if (deptoUser === "7") {
-    departamento = 7;
-  } else if (deptoUser === "8") {
-    departamento = 8;
-  }
 
   const [image, setImage] = useState({
     raw: "",
@@ -71,10 +51,10 @@ function NewUser(props) {
     formData.append("nif", nifUser);
     formData.append("cfp", cfpUser);
     formData.append("telefone", telefoneUser);
-    formData.append("depto", departamento);
+    formData.append("depto", deptoUser);
     formData.append("admin", admin);
 
-    if (departamento === undefined || departamento === 0) {
+    if (deptoUser === undefined || deptoUser === "") {
       setMensagem("Por favor selecione um departamento!");
     } else {
       axios
@@ -300,7 +280,7 @@ function NewUser(props) {
                       value="0"
                       name="null"
                       id="null"
-                      defaultValue={departamento === "0"}
+                      defaultValue={deptoUser === "0"}
                     >
                       Nenhuma Opção Selecionada
                     </option>

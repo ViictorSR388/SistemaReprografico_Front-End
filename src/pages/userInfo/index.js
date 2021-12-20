@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import "../../styles/userInfo.scss";
 import axios from "axios";
@@ -7,8 +7,12 @@ import { useHistory } from "react-router";
 import ProfileContainer from "../../components/profileContainer";
 import Loading from '../../../src/components/loading';
 import Swal from 'sweetalert2';
+import { AuthContext } from "./../../helpers/AuthContext";
 
 function UserInfo(props) {
+
+  const { setAuthState } = useContext(AuthContext);
+
   var { id } = useParams();
 
   const [image, setImage] = useState({ raw: "", preview: "" });
@@ -159,18 +163,25 @@ function UserInfo(props) {
         }
       });
     axios
-      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/auth`, {
+      .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
       })
-      .then((result) => {
-        setMyNif(result.data.nif);
+      .then((response) => {
+        if (response.data.roles && response.data.roles[0].descricao === "admin") {
+          setAdm(true)
+        } else {
+          setAdm(false)
+        }
+        setMyNif(response.data.nif);
         if (props.nif) {
           setMyNif(props.nif);
         }
+        if (props.nif) {
+          setAdm(props.admin);
+        }
       });
-    setAdm(props.admin);
   }, [props.admin, props.nif, id]);
 
   return (
@@ -187,6 +198,7 @@ function UserInfo(props) {
                 nif={nif}
                 change={true}
                 edit={() => {
+                  setAuthState({ editAdmin: true })
                   history.push(`edit/${nif}`)
                 }}
                 changePassword={() => {
@@ -211,7 +223,7 @@ function UserInfo(props) {
                   />
                 </> :
                 <>
-                  {myNif === nif ? (
+                  {myNif === nif && adm === false ? (
                     <ProfileContainer
                       image={image.preview}
                       name={nameUser}

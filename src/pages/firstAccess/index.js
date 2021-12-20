@@ -32,28 +32,26 @@ function FirstAccess(props) {
                     timer: 3000,
                     timerProgressBar: true,
                     didOpen: (toast) => {
-                      toast.addEventListener('mouseenter', Swal.stopTimer)
-                      toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
                     }
-                  })
-                  Toast.fire({
+                })
+                Toast.fire({
                     icon: 'success',
                     title: result.data.message
-                  })
-                setTimeout(() => {
-                    setAuthState({
-                        firstAccess: false, admin: props.admin
-                    })
-                }, 1000);
-                setTimeout(() => {
+                })
+                firstAccessFalse().then(() => {
                     history.push(`/requestForm`)
-                }, 1200)
+                });
             }
             else if (result.data.message === "Esse não é o seu primeiro acesso!") {
                 setMessage(result.data.message)
                 setTimeout(() => {
                     logout();
                 }, 1000);
+            }
+            else{
+                setMessage(result.data.message);
             }
         })
     };
@@ -67,6 +65,31 @@ function FirstAccess(props) {
         localStorage.removeItem("accessToken");
         history.push('/')
     };
+
+    const firstAccessFalse = async () => {
+        axios
+            .get(`${process.env.REACT_APP_REPROGRAFIA_URL}/myUser`, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+                validateStatus: () => true,
+            })
+            .then((response) => {
+                setAuthState({
+                    firstAccess: false, loginFirst: false,
+                })
+                if (response.data.roles && response.data.roles[0].descricao === "admin") {
+                    setAuthState({
+                        admin: true,
+                    });
+                } else {
+                    setAuthState({
+                        admin: false,
+                    });
+                }
+            })
+        return true;
+    }
 
     return (
         <>
